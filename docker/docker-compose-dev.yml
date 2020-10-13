@@ -1,0 +1,10 @@
+version: "2.1"
+services:
+  nginx:
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx-dev/:/etc/nginx/
+    restart: "no"
+  node:
+    restart: "no"

@@ -1,0 +1,14 @@
+FROM nginx:latest
+MAINTAINER Open State Foundation <developers@openstate.eu>
+
+#Set Timezone
+RUN echo "Europe/Amsterdam" > /etc/timezone \
+    && dpkg-reconfigure -f noninteractive tzdata
+
+WORKDIR /usr/share/nginx/html
+RUN mkdir /opt/nginx
+
+CMD nginx -g 'daemon off;'
+
+# Debug: use the nginx binary which was compiled with '--with-debug'
+# CMD ["nginx-debug", "-g", "daemon off;"]

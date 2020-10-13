@@ -1,0 +1,29 @@
+version: "2.1"
+services:
+  nginx:
+    build:
+      context: .
+      dockerfile: Dockerfile-nginx
+    volumes:
+      - ./nginx-start/:/opt/nginx/
+      - ./nginx/:/etc/nginx/
+      - ../public/:/usr/share/nginx/html/
+    restart: always
+    networks:
+      - nginx-load-balancer
+      - jodal
+  node:
+    image: node:12.9.1
+    working_dir: /opt/app/static
+    networks:
+      - jodal
+    volumes:
+      - ../:/opt/app
+    restart: always
+    # Use this to keep the container running
+    tty: true
+networks:
+  jodal:
+  nginx-load-balancer:
+    external:
+      name: docker_nginx-load-balancer
