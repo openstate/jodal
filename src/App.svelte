@@ -2,6 +2,7 @@
   <title>Drawers - SMUI</title>
 </svelte:head>
 
+<Menu/>
 <section>
 
   <div>
@@ -65,6 +66,7 @@
 </section>
 
 <script>
+	import Menu from './Menu.svelte';
   import Drawer, {AppContent, Content, Header, Title, Subtitle, Scrim} from '@smui/drawer';
   import Button, {Label} from '@smui/button';
   import List, {Item, Text, Graphic, Separator, Subheader} from '@smui/list';
