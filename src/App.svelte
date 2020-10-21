@@ -1,11 +1,25 @@
+<div class="container">
+  <Button on:click={() => clicked++}>
+    <Icon class="material-icons">thumb_up</Icon>
+    <Label>Click Me</Label>
+  </Button>
+  <p class="mdc-typography--body1">
+    {#if clicked}
+      You've clicked the button {clicked} time{clicked === 1 ? '' : 's'}.
+    {:else}
+      <span class="grayed">You haven't clicked the button.</span>
+    {/if}
+  </p>
+</div>
+
 <script>
-	export let name;
+  import Button, {Label, Icon} from '@smui/button';
+
+  let clicked = 0;
 </script>
 
-<main>
-	<h1>Hello {name}!</h1>
-	<p>Visit the <a href="https://svelte.dev/tutorial">Svelte tutorial</a> to learn how to build Svelte apps.</p>
-</main>
-
 <style>
+  .grayed {
+    opacity: .6;
+  }
 </style>
