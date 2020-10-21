@@ -6,7 +6,7 @@
       <TopAppBar variant="static" {prominent} {dense} color={secondaryColor ? 'secondary' : 'primary'}>
         <Row>
           <Section>
-            <IconButton class="material-icons">menu</IconButton>
+            <IconButton class="material-icons"  on:click={() => drawerOpen.update(n => !n)}>menu</IconButton>
             <Title>Static</Title>
           </Section>
           <Section align="end" toolbar>
@@ -19,6 +19,7 @@
 </section>
 
 <script>
+  import { drawerOpen } from './stores.js';
   import TopAppBar, {Row, Section, Title} from '@smui/top-app-bar';
   import IconButton from '@smui/icon-button';
   import Checkbox from '@smui/checkbox';

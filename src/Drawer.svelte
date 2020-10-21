@@ -1,6 +1,6 @@
 <section>
     <div class="drawer-container">
-      <Drawer variant="modal" bind:this={myDrawer2} bind:open={myDrawer2Open}>
+      <Drawer variant="modal" bind:this={myDrawer2} bind:open={myDrawer2Open} on:MDCDrawer:closed={() => drawerOpen.update(n => false)}>
         <Header>
           <Title>Super Mail</Title>
           <Subtitle>It's the best fake mail app drawer.</Subtitle>
@@ -43,15 +43,6 @@
       </Drawer>
 
       <Scrim />
-      <AppContent class="app-content">
-        <main class="main-content">
-          <Button on:click={() => myDrawer2Open = !myDrawer2Open}><Label>Toggle Drawer</Label></Button>
-          <br />
-          <pre class="status">Active: {active2}</pre>
-          <div style="height: 700px;">&nbsp;</div>
-          And some stuff at the bottom.
-        </main>
-      </AppContent>
     </div>
 </section>
 
@@ -60,14 +51,20 @@
   import Button, {Label} from '@smui/button';
   import List, {Item, Text, Graphic, Separator, Subheader} from '@smui/list';
   import H6 from '@smui/common/H6.svelte';
+  import { drawerOpen } from './stores.js';
 
   let clicked = 'nothing yet';
   let myDrawer;
   let myDrawerOpen = false;
   let active = 'Gray Kittens';
   let myDrawer2;
-  let myDrawer2Open = false;
+  let myDrawer2Open; // = false;
+
   let active2 = 'Inbox';
+
+  const unsubscribe = drawerOpen.subscribe(value => {
+  		myDrawer2Open = value;
+  	});
 
   function setActive(value) {
     active = value;
@@ -76,9 +73,11 @@
 
   function setActive2(value) {
     active2 = value;
-    myDrawer2Open = false;
+    drawerOpen.update(n => false);
   }
+
 </script>
+
 
 <style>
   .drawer-container {
