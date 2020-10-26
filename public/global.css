@@ -106,6 +106,7 @@ h6 {
 	right: 0;
 	min-width: 320px;
 	overflow: hidden;
+	z-index: -1;
 }
 
 .workspace {
@@ -123,6 +124,14 @@ h6 {
 	top: 64px;
 	left: 0;
 	bottom: 0;
+}
+
+.column-contents {
+	border-top: 1px solid #333;
+		border-bottom: 1px solid #333;
+		min-height: 200px;
+		height: calc(100vh - 15em);
+		overflow-y: scroll;
 }
 
 .column-section {
