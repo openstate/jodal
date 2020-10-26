@@ -94,3 +94,8 @@ h6 {
 		line-height: 36px;
 	}
 }
+
+.workspace {
+  width: 100%;
+  overflow: scroll;
+}
