@@ -2,9 +2,11 @@
   <title>Drawers - SMUI</title>
 </svelte:head>
 
+<div class="app-container">
 <Menu/>
 <Drawer/>
 <Workspace/>
+</div>
 
 <script>
 	import Menu from './Menu.svelte';
