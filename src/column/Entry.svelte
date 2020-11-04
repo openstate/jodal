@@ -1,6 +1,8 @@
 <script>
 export let title;
 export let key;
+export let date;
+export let type;
 let empty = false;
 </script>
 
@@ -11,7 +13,12 @@ let empty = false;
   <div class="entry-contents">
   Lorem ipsum Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit
   </div>
+  <div class="entry-byline">
+  { date }
+  { type }
+  </div>
   <div class="entry-actions">
+
   </div>
 </div>
 

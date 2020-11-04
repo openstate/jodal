@@ -166,3 +166,8 @@ h6 {
 	width: 100%;
 	background: white;
 }
+
+.entry-byline {
+	font-size: 13px;
+	line-height: 15px;
+}

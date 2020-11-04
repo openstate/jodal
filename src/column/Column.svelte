@@ -9,16 +9,28 @@ let end=5;
 
 let items = [
   {
-    'key': "_1",
-    'title': 'Vergadering 26-10-2020'
+    'key': "_3",
+    'title': 'Raadscommissie Kunst Diversiteit en Democratisering',
+    'type': 'Vergadering',
+    'source': 'https://openbesluitvorming.nl/',
+    'date': '11-11-2020',
+    'time': '13:30'
   },
   {
     'key': "_2",
-    'title': 'Vergadering 26-09-2020'
+    'title': 'Deze vergadering vindt digitaal plaats. Insprekers kunnen digitaal inspreken',
+    'type': 'Agendapunt',
+    'source': 'https://openbesluitvorming.nl/',
+    'date': '11-11-2020',
+    'time': '12:45'
   },
   {
     'key': "_3",
-    'title': 'Vergadering 26-08-2020'
+    'title': 'Commissie Agenda (Definitieve)',
+    'type': 'Document',
+    'source': 'https://openbesluitvorming.nl/',
+    'date': '11-11-2020',
+    'time': '12:45'
   },
   {
     'key': "_4",
