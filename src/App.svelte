@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Drawers - SMUI</title>
+  <title>Jodal</title>
 </svelte:head>
 
 <div class="app-container">

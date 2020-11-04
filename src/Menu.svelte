@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Top App Bar - SMUI</title>
+  <title>Jodal</title>
 </svelte:head>
 
 <section>
@@ -7,7 +7,7 @@
         <Row>
           <Section>
             <IconButton class="material-icons"  on:click={() => drawerOpen.update(n => !n)}>menu</IconButton>
-            <Title>Static</Title>
+            <Title>Jodal</Title>
           </Section>
           <Section align="end" toolbar>
             <IconButton class="material-icons" aria-label="Download">file_download</IconButton>

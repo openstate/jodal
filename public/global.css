@@ -129,14 +129,24 @@ h6 {
 .column-title {
 	text-align: center;
 	margin: 2px;
-	border-bottom: 1px solid #f1f1f1;
+}
+
+.column-title h2 {
+	float: left;
+	margin: 0;
+}
+
+.column-title button {
+	float: right;
 }
 
 .column-contents {
+	border-top: 1px solid #f1f1f1;
 	min-height: 200px;
 	height: calc(100vh - 9em);
 	overflow-y: scroll;
 	margin: 2px;
+	clear: both;
 }
 
 .column-section {

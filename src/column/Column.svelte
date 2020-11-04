@@ -1,6 +1,7 @@
 <script>
 import Entry from './Entry.svelte';
 import VirtualList from '@sveltejs/svelte-virtual-list';
+import IconButton from '@smui/icon-button';
 
 export let name;
 let start=0;
@@ -45,6 +46,7 @@ console.dir(items);
 <div class="column">
   <div class="column-title">
     <h2>{ name }</h2>
+    <IconButton align="end" class="material-icons" aria-label="Bookmark this page">filter_alt</IconButton>
   </div>
   <div class="column-contents">
   <VirtualList {items} bind:start bind:end let:item>
