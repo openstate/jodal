@@ -44,7 +44,7 @@ console.dir(items);
 <section class="column-section">
 <div class="column">
   <div class="column-title">
-    <h1>{ name }</h1>
+    <h2>{ name }</h2>
   </div>
   <div class="column-contents">
   <VirtualList {items} bind:start bind:end let:item>

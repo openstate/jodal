@@ -6,7 +6,7 @@ let empty = false;
 
 <div class="entry" id="entry{key}">
   <div class="entry-title">
-    <h2>{ title }</h2>
+    <h4>{ title }</h4>
   </div>
   <div class="entry-contents">
   Lorem ipsum Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit

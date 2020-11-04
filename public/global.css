@@ -126,12 +126,18 @@ h6 {
 	bottom: 0;
 }
 
+.column-title {
+	text-align: center;
+	margin: 2px;
+}
+
 .column-contents {
 	border-top: 1px solid #333;
-		border-bottom: 1px solid #333;
-		min-height: 200px;
-		height: calc(100vh - 15em);
-		overflow-y: scroll;
+	border-bottom: 1px solid #333;
+	min-height: 200px;
+	height: calc(100vh - 9em);
+	overflow-y: scroll;
+	margin: 2px;
 }
 
 .column-section {
@@ -140,11 +146,14 @@ h6 {
 	width: 320px;
 	height: 100%;
 	display: inline-block;
+	margin: 0 4px;
 }
+
 .column {
 	position: absolute;
 	top: 0;
 	left: 0;
 	bottom: 0;
 	width: 100%;
+	background: white;
 }
