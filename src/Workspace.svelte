@@ -7,7 +7,7 @@
 </div>
 
 <script>
-import {inquiries } from './stores.js';
+import { inquiries } from './stores.js';
 import Column from './column/Column.svelte';
 let empty = false;
 </script>
