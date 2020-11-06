@@ -12,14 +12,19 @@ onMount(function () {
    var all_inquiries = get(inquiries);
    var inquiry_index = Math.floor(Math.random() * all_inquiries.length);
    console.log('Should update inquiry ' + inquiry_index + ' now!');
+   var idx = all_inquiries[inquiry_index].entries.length + 10;
    var default_new_entry = [{
-     'key': "_3",
+     'key': "_" + idx,
      'title': 'Raadscommissie Kunst Diversiteit en Democratisering',
      'type': 'Vergadering',
      'source': 'https://openbesluitvorming.nl/',
      'date': '11-11-2020',
      'time': '13:30'
    }];
+   console.dir(default_new_entry);
+   all_inquiries[inquiry_index].entries.unshift(default_new_entry);
+   //all_inquiries[inquiry_index].entries = [default_new_entry] + all_inquiries[inquiry_index].entries;
+   inquiries.set(all_inquiries);
  };
   interval = setInterval(fetchData, 5000);
   fetchData();
