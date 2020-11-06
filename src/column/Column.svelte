@@ -29,7 +29,7 @@ function doSomething() {
 <section class="column-section">
 <div class="column">
   <div class="column-title">
-    <h2>{ inquiry.name }</h2>
+    <h2>{ $inquiry.name }</h2>
     <IconButton align="end" class="material-icons" aria-label="Bookmark this page" on:click={doSomething}>filter_alt</IconButton>
   </div>
   {#if show_settings}
@@ -44,7 +44,7 @@ function doSomething() {
   </div>
   {/if}
   <div class="column-contents">
-  <VirtualList items={inquiry.entries} bind:start bind:end let:item>
+  <VirtualList items={$inquiry.entries} bind:start bind:end let:item>
   	<Entry {...item}/>
   </VirtualList>
   <p>showing items {start}-{end}</p>

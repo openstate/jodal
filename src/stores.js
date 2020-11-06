@@ -74,12 +74,12 @@ function shuffle(array) {
   return array.map(function (i) {return i;});
 }
 
-export const inquiries = writable([
-  {name: 'Amsterdam', entries: shuffle(default_entries)},
-  {name: 'Groningen', entries: shuffle(default_entries)},
-  {name: 'Enschede', entries: shuffle(default_entries)},
-  {name: 'Leeuwarden', entries: shuffle(default_entries)},
-  {name: 'Roermond', entries: shuffle(default_entries)},
-  {name: 'Dordrecht', entries: shuffle(default_entries)},
-  {name: 'Middelburg', entries: shuffle(default_entries)}
-]);
+export const inquiries = [
+  writable({name: 'Amsterdam', entries: shuffle(default_entries)}),
+  writable({name: 'Groningen', entries: shuffle(default_entries)}),
+  writable({name: 'Enschede', entries: shuffle(default_entries)}),
+  writable({name: 'Leeuwarden', entries: shuffle(default_entries)}),
+  writable({name: 'Roermond', entries: shuffle(default_entries)}),
+  writable({name: 'Dordrecht', entries: shuffle(default_entries)}),
+  writable({name: 'Middelburg', entries: shuffle(default_entries)})
+];
