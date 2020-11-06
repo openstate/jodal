@@ -1,7 +1,7 @@
 <div class="workspace" id="workspace">
   <div class="columns">
-    {#each $inquiries as col}
-    	<Column name={col.name}/>
+    {#each $inquiries as inq}
+    	<Column inquiry={inq} />
     {/each}
   </div>
 </div>
