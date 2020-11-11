@@ -75,11 +75,11 @@ function shuffle(array) {
 }
 
 export const inquiries = [
-  writable({name: 'Amsterdam', entries: shuffle(default_entries)}),
-  writable({name: 'Groningen', entries: shuffle(default_entries)}),
-  writable({name: 'Enschede', entries: shuffle(default_entries)}),
-  writable({name: 'Leeuwarden', entries: shuffle(default_entries)}),
-  writable({name: 'Roermond', entries: shuffle(default_entries)}),
-  writable({name: 'Dordrecht', entries: shuffle(default_entries)}),
-  writable({name: 'Middelburg', entries: shuffle(default_entries)})
+  writable({name: 'Amsterdam', order: 0, entries: shuffle(default_entries)}),
+  writable({name: 'Groningen', order: 1, entries: shuffle(default_entries)}),
+  writable({name: 'Enschede', order: 2, entries: shuffle(default_entries)}),
+  writable({name: 'Leeuwarden', order: 3, entries: shuffle(default_entries)}),
+  writable({name: 'Roermond', order: 4, entries: shuffle(default_entries)}),
+  writable({name: 'Dordrecht', order: 5, entries: shuffle(default_entries)}),
+  writable({name: 'Middelburg', order: 6, entries: shuffle(default_entries)})
 ];

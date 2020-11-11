@@ -149,6 +149,11 @@ h6 {
 	clear: both;
 }
 
+.column-contents button {
+	position: absolute;
+	z-index: 5;
+}
+
 .column-settings {
 	clear: both;
 	display: none;

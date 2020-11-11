@@ -7,12 +7,12 @@ var interval;
 
 onMount(function () {
   async function fetchData() {
-   console.log('should fetch data now!!');
+   //console.log('should fetch data now!!');
 
    var idx = Math.floor(Math.random() * inquiries.length);
    var inquiry;
    const inquiry_unsubscribe = inquiries[idx].subscribe(v => inquiry = v);
-   console.log('Should update inquiry ' + idx + ' now!');
+   //console.log('Should update inquiry ' + idx + ' now!');
    var entry_idx = inquiry.entries.length + 10;
    var default_new_entry = {
      'key': "_" + entry_idx,
@@ -22,7 +22,6 @@ onMount(function () {
      'date': '11-11-2020',
      'time': '13:30'
    };
-   console.dir(default_new_entry);
    inquiry.entries.unshift(default_new_entry);
    inquiries[idx].update(x => inquiry);
    inquiry_unsubscribe();
