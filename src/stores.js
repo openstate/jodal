@@ -1,4 +1,4 @@
-import { readable, writable } from 'svelte/store';
+import { readable, writable, get } from 'svelte/store';
 
 export const drawerOpen = writable(false);
 export const sources = readable([
@@ -76,10 +76,23 @@ function shuffle(array) {
 
 export const inquiries = [
   writable({name: 'Amsterdam', order: 0, entries: shuffle(default_entries)}),
-  writable({name: 'Groningen', order: 1, entries: shuffle(default_entries)}),
-  writable({name: 'Enschede', order: 2, entries: shuffle(default_entries)}),
-  writable({name: 'Leeuwarden', order: 3, entries: shuffle(default_entries)}),
-  writable({name: 'Roermond', order: 4, entries: shuffle(default_entries)}),
-  writable({name: 'Dordrecht', order: 5, entries: shuffle(default_entries)}),
-  writable({name: 'Middelburg', order: 6, entries: shuffle(default_entries)})
+//  writable({name: 'Groningen', order: 1, entries: shuffle(default_entries)})
+//  writable({name: 'Enschede', order: 2, entries: shuffle(default_entries)}),
+//  writable({name: 'Leeuwarden', order: 3, entries: shuffle(default_entries)}),
+//  writable({name: 'Roermond', order: 4, entries: shuffle(default_entries)}),
+//  writable({name: 'Dordrecht', order: 5, entries: shuffle(default_entries)}),
+//  writable({name: 'Middelburg', order: 6, entries: shuffle(default_entries)})
 ];
+
+export function addInquiry(settings) {
+  var max_order = Math.max.apply(Math, inquiries.map(function(i) { return get(i).order; }));
+  var column_def = {
+    ...settings,
+    order: (max_order + 1),
+    entries: shuffle(default_entries)
+  };
+  console.log('Pushing column:');
+  console.dir(column_def);
+  inquiries.push(writable(column_def));
+  console.dir(inquiries);
+}
