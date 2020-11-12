@@ -1,7 +1,9 @@
 <script>
+import { onMount, onDestroy } from 'svelte';
 import Entry from './Entry.svelte';
 import IconButton from '@smui/icon-button';
 import Textfield from '@smui/textfield'
+import { writable, get } from 'svelte/store';
 import { sources, default_entries } from '../stores.js';
 import Switch from '@smui/switch';
 import FormField from '@smui/form-field';
@@ -14,7 +16,7 @@ let start=0;
 let end=5;
 let selected = false;
 
-let items = shuffle(default_entries);
+let items = writable(shuffle(default_entries));
 let empty = false;
 let query = "de";
 let show_settings = false;
@@ -64,18 +66,18 @@ function doGoToEntry() {
 }
 
 function getFocus() {
-  var count = items.length;
-  console.log('got focus! resulted in  ' + (count - last_length) + ' new items');
+  var count = $items.length;
+  console.log('got focus! resulted in  ' + (count - last_length) + ' new $items');
   last_length = 0;
   show_marker =  ((count-last_length) > 0); //(end - start);
   last_length = count;
 }
 
 function loseFocus() {
-  var count = items.length;
-  //scroll_marker = virtual_list.items[start];
-  console.log('Lost focus in column ' + inquiry.order + '!: ' + items[start].key);
-  scroll_marker = items[start].key;
+  var count = $items.length;
+  //scroll_marker = virtual_list.$items[start];
+  console.log('Lost focus in column ' + inquiry.order + '!: ' + $items[start].key);
+  scroll_marker = $items[start].key;
   last_length = count;
   show_marker = false;
 }
@@ -83,6 +85,39 @@ function loseFocus() {
 function handleClosedLeading() {
   console('leadgsackar closed');
 }
+
+var interval;
+
+onMount(function () {
+  async function fetchData() {
+   console.log('should fetch data for colum ' + inquiry.name + ' now!!');
+
+   var entry_idx = $items.length + 10;
+   var default_new_entry = {
+     'key': "_" + entry_idx,
+     'title': 'Raadscommissie Kunst Diversiteit ' + entry_idx,
+     'type': 'Vergadering',
+     'source': 'https://openbesluitvorming.nl/',
+     'date': '11-11-2020',
+     'time': '13:30'
+   };
+   var real_items = get(items);
+   real_items.unshift(default_new_entry);
+   items.set(real_items);
+   // inquiries[idx].update(x => inquiry);
+   // inquiry_unsubscribe();
+   //all_inquiries[inquiry_index].entries.unshift(default_new_entry);
+   //all_inquiries[inquiry_index].entries = [default_new_entry] + all_inquiries[inquiry_index].entries;
+   //inquiries.set(all_inquiries);
+ };
+  interval = setInterval(fetchData, 5000 + (Math.random() * 2000));
+  fetchData();
+});
+
+onDestroy(function () {
+  clearInterval(interval);
+});
+
 </script>
 
 <svelte:window on:focus={getFocus} on:blur={loseFocus} />
@@ -108,7 +143,7 @@ function handleClosedLeading() {
   {#if show_marker}
     <Fab on:click={doGoToEntry} extended><Label>Nieuwe entries!</Label></Fab>
   {/if}
-  {#each items as entry}
+  {#each $items as entry}
   	<Entry {...entry} column={inquiry.order} />
   {/each}
   </div>
