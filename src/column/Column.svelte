@@ -2,7 +2,7 @@
 import Entry from './Entry.svelte';
 import IconButton from '@smui/icon-button';
 import Textfield from '@smui/textfield'
-import { sources } from '../stores.js';
+import { sources, default_entries } from '../stores.js';
 import Switch from '@smui/switch';
 import FormField from '@smui/form-field';
 import { slide } from 'svelte/transition';
@@ -14,7 +14,7 @@ let start=0;
 let end=5;
 let selected = false;
 
-let items = [];
+let items = shuffle(default_entries);
 let empty = false;
 let query = "de";
 let show_settings = false;
@@ -22,30 +22,49 @@ let show_marker = false;
 let scroll_marker;
 let virtual_list;
 
+function shuffle(array) {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array.map(function (i) {return i;});
+}
+
 function doSomething() {
    show_settings = !show_settings;
  }
 
 function coumn_id() {
-    return "column-" + $inquiry.order;
+    return "column-" + inquiry.order;
 };
 
 function doGoToEntry() {
   show_marker = false;
   if (scroll_marker) {
-    var column_id = "column-contents-" + $inquiry.order;
-    var entry_name = 'entry_' + $inquiry.order + scroll_marker;
+    var column_id = "column-contents-" + inquiry.order;
+    var entry_name = 'entry_' + inquiry.order + scroll_marker;
     //console.log(entry_name);
     var myElement = document.getElementById(entry_name);
     var topPos = myElement.offsetTop;
     console.log('entry ' + entry_name + ' is at ' + topPos);
-    // console.log('Should move column ' + $inquiry.order + 'to position ' + topPos + 'now!');
+    // console.log('Should move column ' + inquiry.order + 'to position ' + topPos + 'now!');
     document.getElementById(column_id).scrollTop = topPos;
   }
 }
 
 function getFocus() {
-  var count = $inquiry.entries.length;
+  var count = items.length;
   console.log('got focus! resulted in  ' + (count - last_length) + ' new items');
   last_length = 0;
   show_marker =  ((count-last_length) > 0); //(end - start);
@@ -53,10 +72,10 @@ function getFocus() {
 }
 
 function loseFocus() {
-  var count = $inquiry.entries.length;
+  var count = items.length;
   //scroll_marker = virtual_list.items[start];
-  console.log('Lost focus in column ' + $inquiry.order + '!: ' + $inquiry.entries[start].key);
-  scroll_marker = $inquiry.entries[start].key;
+  console.log('Lost focus in column ' + inquiry.order + '!: ' + items[start].key);
+  scroll_marker = items[start].key;
   last_length = count;
   show_marker = false;
 }
@@ -69,9 +88,9 @@ function handleClosedLeading() {
 <svelte:window on:focus={getFocus} on:blur={loseFocus} />
 
 <section class="column-section">
-<div id="column-{$inquiry.order}" class="column">
+<div id="column-{inquiry.order}" class="column">
   <div class="column-title">
-    <h2>{ $inquiry.name }</h2>
+    <h2>{ inquiry.name }</h2>
     <IconButton align="end" class="material-icons" aria-label="Bookmark this page" on:click={doSomething}>filter_alt</IconButton>
   </div>
   {#if show_settings}
@@ -85,12 +104,12 @@ function handleClosedLeading() {
     {/each}
   </div>
   {/if}
-  <div id="column-contents-{$inquiry.order}" class="column-contents">
+  <div id="column-contents-{inquiry.order}" class="column-contents">
   {#if show_marker}
     <Fab on:click={doGoToEntry} extended><Label>Nieuwe entries!</Label></Fab>
   {/if}
-  {#each $inquiry.entries as entry}
-  	<Entry {...entry} column={$inquiry.order} />
+  {#each items as entry}
+  	<Entry {...entry} column={inquiry.order} />
   {/each}
   </div>
 </div>
