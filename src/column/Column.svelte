@@ -1,6 +1,5 @@
 <script>
 import Entry from './Entry.svelte';
-import VirtualList from '@sveltejs/svelte-virtual-list';
 import IconButton from '@smui/icon-button';
 import Textfield from '@smui/textfield'
 import { sources } from '../stores.js';
@@ -27,15 +26,21 @@ function doSomething() {
    show_settings = !show_settings;
  }
 
+function coumn_id() {
+    return "column-" + $inquiry.order;
+};
+
 function doGoToEntry() {
   show_marker = false;
   if (scroll_marker) {
+    var column_id = "column-contents-" + $inquiry.order;
     var entry_name = 'entry_' + $inquiry.order + scroll_marker;
-    console.log(entry_name);
+    //console.log(entry_name);
     var myElement = document.getElementById(entry_name);
-    // var topPos = myElement.offsetTop;
+    var topPos = myElement.offsetTop;
+    console.log('entry ' + entry_name + ' is at ' + topPos);
     // console.log('Should move column ' + $inquiry.order + 'to position ' + topPos + 'now!');
-    console.dir(virtual_list);
+    document.getElementById(column_id).scrollTop = topPos;
   }
 }
 
@@ -80,14 +85,13 @@ function handleClosedLeading() {
     {/each}
   </div>
   {/if}
-  <div class="column-contents">
+  <div id="column-contents-{$inquiry.order}" class="column-contents">
   {#if show_marker}
     <Fab on:click={doGoToEntry} extended><Label>Nieuwe entries!</Label></Fab>
   {/if}
-  <VirtualList items={$inquiry.entries} bind:this={virtual_list} bind:start bind:end let:item>
-  	<Entry {...item} column={$inquiry.order} />
-  </VirtualList>
-  <p>showing items {start}-{end}</p>
+  {#each $inquiry.entries as entry}
+  	<Entry {...entry} column={$inquiry.order} />
+  {/each}
   </div>
 </div>
 </section>
