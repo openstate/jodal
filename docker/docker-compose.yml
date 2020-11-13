@@ -22,6 +22,39 @@ services:
     restart: always
     # Use this to keep the container running
     tty: true
+  backend:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    volumes:
+      - ../backend:/opt/jodal
+    networks:
+      - jodal
+    restart: always
+  elasticsearch:
+    image: "docker.elastic.co/elasticsearch/elasticsearch:${ES_VERSION}"
+    environment:
+      - http.host=0.0.0.0
+      - transport.host=127.0.0.1
+      - cluster.name=ras-cluster
+      - xpack.security.enabled=false
+      - bootstrap.memory_lock=true
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - xpack.monitoring.enabled=false
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    cap_add:
+      - IPC_LOCK
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
+    restart: always
+    networks:
+      - jodal
+volumes:
+  esdata:
+    driver: local
 networks:
   jodal:
   nginx-load-balancer:
