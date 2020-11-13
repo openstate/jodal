@@ -1,0 +1,5 @@
+jodal:
+  elasticsearch:
+    host: elastic
+    port: 9200
+    timeout: 20

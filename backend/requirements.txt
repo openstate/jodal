@@ -3,3 +3,4 @@ requests==2.21.0
 lxml
 elasticsearch>=7.0.0,<8.0.0
 click==7.1.2
+PyYAML==5.3.1

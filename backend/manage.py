@@ -18,6 +18,8 @@ from click.core import Command
 from click.decorators import _make_command
 from elasticsearch.exceptions import NotFoundError
 
+from jodal.utils import load_config
+from jodal.es import setup_elasticsearch
 
 logging.basicConfig(
     format='%(asctime)s.%(msecs)s:%(name)s:%(thread)d:%(levelname)s:%(process)d:%(message)s',
@@ -68,8 +70,8 @@ def es_put_template(template_file):
     :param template_file: Path to JSON file containing the template. Defaults to ``mappings/template.json``.
     """
 
-    #config = load_config()
-    #es = setup_elasticsearch(config)
+    config = load_config()
+    es = setup_elasticsearch(config)
 
     click.echo('Putting ES template: %s' % template_file.name)
 
