@@ -20,6 +20,7 @@ from elasticsearch.exceptions import NotFoundError
 
 from jodal.utils import load_config
 from jodal.es import setup_elasticsearch
+from jodal.locations import LocationsScraperRunner
 
 logging.basicConfig(
     format='%(asctime)s.%(msecs)s:%(name)s:%(thread)d:%(levelname)s:%(process)d:%(message)s',
@@ -59,6 +60,15 @@ def elasticsearch():
     """Manage Elasticsearch"""
 
 
+@cli.group()
+def scrapers():
+    """Manage scrapers"""
+
+
+@command('locations')
+def scrapers_locations():
+    LocationsScraperRunner().run()
+
 @command('put_template')
 @click.option('--template_file', default='mappings/template.json',
               type=click.File('rb'), help='Path to JSON file containing the template.')
@@ -85,6 +95,7 @@ def es_put_template(template_file):
 # Register commands explicitly with groups, so we can easily use the docstring
 # wrapper
 elasticsearch.add_command(es_put_template)
+scrapers.add_command(scrapers_locations)
 
 if __name__ == '__main__':
     cli()
