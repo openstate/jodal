@@ -30,6 +30,7 @@ class BaseScraper(object):
     def run(self):
         self.setup()
         result = self.fetch()
+        logging.info("Fetched %s items ..." % (len(result),))
         for i in result:
             self.load(self.transform(i))
         self.teardown()
@@ -38,14 +39,15 @@ class BaseScraper(object):
 class BaseLocationScraper(BaseScraper):
     url = None
     payload = None
+    headers = None
 
     def fetch(self):
         if self.url is not None:
             logging.info('Fetching data for : %s' % (self.url,))
             if self.payload is not None:
-                return requests.post(self.url, data=json.dumps(self.payload)).json()
+                return requests.post(self.url, headers=self.headers, data=json.dumps(self.payload)).json()
             else:
-                return requests.get(self.url).json()
+                return requests.get(self.url, headers=self.headers).json()
 
 
 class PoliFlwLocationScraper(BaseLocationScraper, ElasticsearchMixin):
@@ -66,12 +68,36 @@ class OpenspendingLocationScraper(BaseLocationScraper, ElasticsearchMixin):
         return response['objects']
 
 class OpenBesluitvormingLocationScraper(BaseLocationScraper, ElasticsearchMixin):
-    pass
+    url = 'https://api.openraadsinformatie.nl/v1/elastic/ori_*/_search'
+    payload = {
+      "size": 500,
+      "query": {
+          "bool": {
+              "must": {
+                  "match_all": {}
+              },
+              "filter": {
+                  "terms": {
+                      "classification": ["municipality", "province"]
+                  }
+              }
+          }
+      }
+    }
+    headers = {
+        'Content-type': 'application/json'
+    }
+
+    def fetch(self):
+        response = super(OpenBesluitvormingLocationScraper, self).fetch()
+        #logging.info(response)
+        return response['hits']['hits']
 
 class LocationsScraperRunner(object):
     scrapers = [
         PoliFlwLocationScraper,
         OpenspendingLocationScraper,
+        OpenBesluitvormingLocationScraper
     ]
 
     def run(self):
