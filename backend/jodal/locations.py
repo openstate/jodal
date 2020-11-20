@@ -77,16 +77,19 @@ class PoliFlwLocationScraper(MemoryMixin, BaseLocationScraper):
     payload = {"facets":{"location":{"size":1000}},"size":0}
 
     def _sanatize_name(self, name):
-        return re.sub('^\s*\-?\s*', '', name)
+        output = re.sub('^\s*\-?\s*', '', name)
+        return output[0].capitalize() + output[1:]
 
     def fetch(self):
         response = super(PoliFlwLocationScraper, self).fetch()
         #logging.info(response)
+        logging.info(self.renames)
         return response['facets']['location']['buckets']
 
     def transform(self, item):
+        name = self._sanatize_name(item['key'])
         return {
-            'name': self._sanatize_name(item['key']),
+            'name': self.renames.get(name, name),
             'id': item['key'],
             'source': self.name
         }
