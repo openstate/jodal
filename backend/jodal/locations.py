@@ -2,6 +2,7 @@ import json
 import logging
 import csv
 import os.path
+import re
 from pprint import pformat
 
 import requests
@@ -75,6 +76,9 @@ class PoliFlwLocationScraper(MemoryMixin, BaseLocationScraper):
     url = 'https://api.poliflw.nl/v0/search'
     payload = {"facets":{"location":{"size":1000}},"size":0}
 
+    def _sanatize_name(self, name):
+        return re.sub('^\s*\-?\s*', '', name)
+
     def fetch(self):
         response = super(PoliFlwLocationScraper, self).fetch()
         #logging.info(response)
@@ -82,7 +86,7 @@ class PoliFlwLocationScraper(MemoryMixin, BaseLocationScraper):
 
     def transform(self, item):
         return {
-            'name': item['key'],
+            'name': self._sanatize_name(item['key']),
             'id': item['key'],
             'source': self.name
         }
