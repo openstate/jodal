@@ -1,5 +1,7 @@
 import json
 import logging
+import csv
+import os.path
 
 import requests
 
@@ -7,7 +9,7 @@ class MemoryMixin(object):
     items = []
 
     def load(self, item):
-        logging.info('Should load item %s now' % (item,))
+        # logging.info('Should load item %s now' % (item,))
         self.items.append(item)
         pass
 
@@ -128,7 +130,7 @@ class OpenBesluitvormingLocationScraper(MemoryMixin, BaseLocationScraper):
 
     def transform(self, item):
         return {
-            'name': item['_source'].get('name', '').replace('Gemeente ', ''),
+            'name': item['_source'].get('name', '').replace('Gemeente ', '').replace('(L)','(L.)'),
             'id': '%s%s' % (item['_source']['@context']['@base'], item['_source']['@id'],),
             'kind': item['_source']['classification'],
             'source': self.name
@@ -142,21 +144,35 @@ class LocationsScraperRunner(object):
         OpenBesluitvormingLocationScraper
     ]
 
+    def read_municipalities(self):
+        municipalities = []
+        filepath = os.path.abspath(os.path.join(
+            os.path.dirname(__file__), '../mappings/gemeenten-2020.csv'))
+        with open(filepath, newline='') as f:
+            reader = csv.reader(f)
+            header = reader.__next__()
+            for row in reader:
+                municipalities.append(dict(zip(header, row)))
+        return municipalities
+
     def aggregate(self, items):
         result = {}
+        municipalities = self.read_municipalities()
+        logging.info(municipalities)
         for i in items:
             name = i['name']  # .replace('Gemeente ', '')
             if name not in result:
                 result[name] = {
                     'sources': [], 'ids': []
                 }
-            result[name]['name'] = name
-            result[name]['sources'].append(i['source'])
-            result[name]['ids'].append(i['id'])
+            if i['source'] not in result[name]['sources']:
+                result[name]['name'] = name
+                result[name]['sources'].append(i['source'])
+                result[name]['ids'].append(i['id'])
         logging.info('Aggregation resulted in %s items ' % (len(result.values())))
-        for k,r in result.items():
-            if len(r['sources']) == 1:
-                logging.info(r)
+        # for k,r in result.items():
+        #     if len(r['sources']) == 1:
+        #         logging.info(r)
         # logging.info(result.keys())
 
     def run(self):
