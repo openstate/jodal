@@ -88,8 +88,13 @@ class PoliFlwLocationScraper(MemoryMixin, BaseLocationScraper):
 
     def transform(self, item):
         name = self._sanatize_name(item['key'])
+        other_names = []
+        if name in self.renames:
+            other_names = [name]
+            name = self.renames[name]
         return {
-            'name': self.renames.get(name, name),
+            'name': name,
+            'other_names': other_names,
             'id': item['key'],
             'source': self.name
         }
@@ -104,8 +109,14 @@ class OpenspendingCountyLocationScraper(MemoryMixin, BaseLocationScraper):
         return response['objects']
 
     def transform(self, item):
+        name = item['name']
+        other_names = []
+        if name in self.renames:
+            other_names = [name]
+            name = self.renames[name]
         return {
-            'name': item.get('name', None),
+            'name': name,
+            'other_names': other_names,
             'id': 'https://www.openspending.nl%s' % (item['resource_uri'],),
             'kind': item['kind'],
             'parent_kind': item['state'],
@@ -145,8 +156,14 @@ class OpenBesluitvormingLocationScraper(MemoryMixin, BaseLocationScraper):
         return response['hits']['hits']
 
     def transform(self, item):
+        name = item['_source'].get('name', '').replace('Gemeente ', '').replace('(L)','(L.)')
+        other_names = []
+        if name in self.renames:
+            other_names = [name]
+            name = self.renames[name]
         return {
-            'name': item['_source'].get('name', '').replace('Gemeente ', '').replace('(L)','(L.)'),
+            'name': name,
+            'other_names': other_names,
             'id': '%s%s' % (item['_source']['@context']['@base'], item['_source']['@id'],),
             'kind': item['_source']['classification'],
             'source': self.name
@@ -220,9 +237,12 @@ class LocationsScraperRunner(object):
         unmatched = {}
         for i in items:
             name = i['name']  # .replace('Gemeente ', '')
+            if name not in location_names:
+                continue
+
             if name not in result:
                 result[name] = {
-                    'sources': [], 'ids': []
+                    'sources': [], 'ids': [], 'other_names': []
                 }
             try:
                 total_counts[i['source']] += 1
@@ -238,10 +258,11 @@ class LocationsScraperRunner(object):
                     unmatched[i['source']].append(name)
                 except LookupError as e:
                     unmatched[i['source']] = [name]
-            # if i['source'] not in result[name]['sources']:
-            #     result[name]['name'] = name
-            #     result[name]['sources'].append(i['source'])
-            #     result[name]['ids'].append(i['id'])
+            if i['source'] not in result[name]['sources']:
+                result[name]['name'] = name
+                result[name]['sources'].append(i['source'])
+                result[name]['ids'].append(i['id'])
+                result[name]['other_names'] += i['other_names']
         logging.info('Aggregation resulted in %s items ' % (len(result.values())))
         logging.info(pformat(unmatched))
         logging.info('Total counts: %s' % (total_counts,))
@@ -249,7 +270,8 @@ class LocationsScraperRunner(object):
         # for k,r in result.items():
         #     if len(r['sources']) == 1:
         #         logging.info(r)
-        # logging.info(result.keys())
+        logging.info(pformat(result))
+        logging.info('Final result has %s items' % (len(result),))
 
     def run(self):
         items = []
