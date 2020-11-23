@@ -4,6 +4,7 @@ import csv
 import os.path
 import re
 from pprint import pformat
+import hashlib
 
 import requests
 
@@ -224,6 +225,9 @@ class LocationsScraperRunner(object):
                 'source': 'cbs'}
         return list(provinces.values())
 
+    def get_hash(self, source, identifier):
+        return '%s:%s' % (source, identifier,)
+
     def aggregate(self, items):
         result = {}
         municipalities = self.read_municipalities()
@@ -242,7 +246,7 @@ class LocationsScraperRunner(object):
 
             if name not in result:
                 result[name] = {
-                    'sources': [], 'ids': [], 'other_names': []
+                    'sources': [], 'other_names': []
                 }
             try:
                 total_counts[i['source']] += 1
@@ -260,9 +264,15 @@ class LocationsScraperRunner(object):
                     unmatched[i['source']] = [name]
             if i['source'] not in result[name]['sources']:
                 result[name]['name'] = name
-                result[name]['sources'].append(i['source'])
-                result[name]['ids'].append(i['id'])
-                result[name]['other_names'] += i['other_names']
+                if self.get_hash(i['source'], i['id']) not in [self.get_hash(s['source'], s['id']) for s in result[name]['sources']]:
+                    result[name]['sources'].append({
+                        'source': i['source'],
+                        'id': i['id']})
+                for o in i['other_names']:
+                    if self.get_hash(i['source'], o) not in [self.get_hash(s['source'], s['name']) for s in result[name]['other_names']]:
+                        result[name]['other_names'] += [{
+                            'source': i['source'],
+                            'name': n} for n in i['other_names']]
         logging.info('Aggregation resulted in %s items ' % (len(result.values())))
         logging.info(pformat(unmatched))
         logging.info('Total counts: %s' % (total_counts,))
