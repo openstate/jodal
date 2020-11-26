@@ -56,12 +56,9 @@ class BaseLocationScraper(BaseScraper):
     url = None
     payload = None
     headers = None
-    renames = {}
 
     def __init__(self, *args, **kwargs):
         super(BaseLocationScraper, self).__init__(*args, **kwargs)
-        if self.name is not None and 'renames' in kwargs:
-            self.renames = {r['Naam']: r['Uniform'] for r in kwargs['renames'] if r['Bron'] == self.name}
 
     def fetch(self):
         if self.url is not None:
@@ -83,19 +80,12 @@ class PoliFlwLocationScraper(MemoryMixin, BaseLocationScraper):
 
     def fetch(self):
         response = super(PoliFlwLocationScraper, self).fetch()
-        #logging.info(response)
-        logging.info(self.renames)
         return response['facets']['location']['buckets']
 
     def transform(self, item):
         name = self._sanatize_name(item['key'])
-        other_names = []
-        if name in self.renames:
-            other_names = [name]
-            name = self.renames[name]
         return {
             'name': name,
-            'other_names': other_names,
             'id': item['key'],
             'source': self.name
         }
@@ -111,13 +101,8 @@ class OpenspendingCountyLocationScraper(MemoryMixin, BaseLocationScraper):
 
     def transform(self, item):
         name = item['name']
-        other_names = []
-        if name in self.renames:
-            other_names = [name]
-            name = self.renames[name]
         return {
             'name': name,
-            'other_names': other_names,
             'id': 'https://www.openspending.nl%s' % (item['resource_uri'],),
             'kind': item['kind'],
             'parent_kind': item['state'],
@@ -158,13 +143,8 @@ class OpenBesluitvormingLocationScraper(MemoryMixin, BaseLocationScraper):
 
     def transform(self, item):
         name = item['_source'].get('name', '').replace('Gemeente ', '').replace('(L)','(L.)')
-        other_names = []
-        if name in self.renames:
-            other_names = [name]
-            name = self.renames[name]
         return {
             'name': name,
-            'other_names': other_names,
             'id': '%s%s' % (item['_source']['@context']['@base'], item['_source']['@id'],),
             'kind': item['_source']['classification'],
             'source': self.name
@@ -174,8 +154,8 @@ class OpenBesluitvormingLocationScraper(MemoryMixin, BaseLocationScraper):
 class LocationsScraperRunner(object):
     scrapers = [
         PoliFlwLocationScraper,
-        OpenspendingCountyLocationScraper,
-        OpenspendingProvinceLocationScraper,
+        # OpenspendingCountyLocationScraper,
+        # OpenspendingProvinceLocationScraper,
         OpenBesluitvormingLocationScraper
     ]
 
@@ -188,7 +168,13 @@ class LocationsScraperRunner(object):
             header = reader.__next__()
             for row in reader:
                 renames.append(dict(zip(header, row)))
-        return renames
+        result = {}
+        for r in renames:
+            if r['Bron'] not in result:
+                result[r['Bron']] = {r['Naam']: r}
+            else:
+                result[r['Bron']][r['Naam']] = r
+        return result
 
     def read_municipalities(self):
         municipalities = []
@@ -230,6 +216,7 @@ class LocationsScraperRunner(object):
 
     def aggregate(self, items):
         result = {}
+        renames = self.read_renames()
         municipalities = self.read_municipalities()
         # logging.info(municipalities)
         provinces = self.extract_provinces(municipalities)
@@ -241,12 +228,16 @@ class LocationsScraperRunner(object):
         unmatched = {}
         for i in items:
             name = i['name']  # .replace('Gemeente ', '')
+            if name in renames[i['source']]:
+                logging.info('Renamig %s => %s for %s' % (name, renames[i['source']][name]['Uniform'],i['source'],))
+                name = renames[i['source']][name]['Uniform']
+
             if name not in location_names:
                 continue
 
             if name not in result:
                 result[name] = {
-                    'sources': [], 'other_names': []
+                    'sources': []
                 }
             try:
                 total_counts[i['source']] += 1
@@ -266,15 +257,11 @@ class LocationsScraperRunner(object):
                 result[name]['name'] = name
                 if self.get_hash(i['source'], i['id']) not in [self.get_hash(s['source'], s['id']) for s in result[name]['sources']]:
                     result[name]['sources'].append({
+                        'name': i['name'],
                         'source': i['source'],
                         'id': i['id']})
-                for o in i['other_names']:
-                    if self.get_hash(i['source'], o) not in [self.get_hash(s['source'], s['name']) for s in result[name]['other_names']]:
-                        result[name]['other_names'] += [{
-                            'source': i['source'],
-                            'name': n} for n in i['other_names']]
         logging.info('Aggregation resulted in %s items ' % (len(result.values())))
-        logging.info(pformat(unmatched))
+        #logging.info(pformat(unmatched))
         logging.info('Total counts: %s' % (total_counts,))
         logging.info('Matched counts: %s' % (matched_counts,))
         # for k,r in result.items():
@@ -285,9 +272,8 @@ class LocationsScraperRunner(object):
 
     def run(self):
         items = []
-        renames = self.read_renames()
         for scraper in self.scrapers:
-            k = scraper(renames=renames)
+            k = scraper()
             try:
                 k.items = []
                 k.run()
