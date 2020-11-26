@@ -10,6 +10,7 @@ import sys
 import time
 import logging
 from time import sleep
+import glob
 
 import requests
 
@@ -69,10 +70,9 @@ def scrapers():
 def scrapers_locations():
     LocationsScraperRunner().run()
 
-@command('put_template')
-@click.option('--template_file', default='mappings/template.json',
-              type=click.File('rb'), help='Path to JSON file containing the template.')
-def es_put_template(template_file):
+@command('put_templates')
+@click.option('--template_dir', default='./mappings/', help='Path to JSON file containing the template.')
+def es_put_template(template_dir):
     """
     Put a template into Elasticsearch. A template contains settings and mappings
     that should be applied to multiple indices. Check ``mappings/template.json``
@@ -83,13 +83,19 @@ def es_put_template(template_file):
     config = load_config()
     es = setup_elasticsearch(config)
 
-    click.echo('Putting ES template: %s' % template_file.name)
+    click.echo('Putting ES template from dir: %s' % template_dir)
 
-    template = json.load(template_file)
-    template_file.close()
-
-    #es.indices.put_template('jodal_template', template)
-
+    for template_path in glob.glob(os.path.join(template_dir, 'es-*.json')):
+        click.echo(template_path)
+        template = {}
+        with open(template_path, 'rb') as template_file:
+            template = json.load(template_file)
+        template_name = os.path.basename(template_file.name.replace('es-','').replace('.json', ''))
+        es.indices.put_template(template_name, template)
+        index_name = 'jodal_%s' % (template_name)
+        if not es.indices.exists(index=index_name):
+            click.echo("Should make index %s" % (index_name,))
+            es.indices.create(index=index_name)
 
 
 # Register commands explicitly with groups, so we can easily use the docstring

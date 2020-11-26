@@ -1,0 +1,85 @@
+{
+    "index_patterns": "jodal_locations*",
+    "template": {
+      "settings": {
+          "index": {
+              "number_of_shards": 1,
+              "number_of_replicas": 0,
+              "query": {
+                  "default_field": "name"
+              },
+              "analysis": {
+                  "analyzer": {
+                      "default": {
+                        "type": "dutch"
+                      },
+                      "text_nl": {
+                          "type": "custom",
+                          "filter": [
+                              "asciifolding",
+                              "lowercase",
+                              "custom_word_delimiter"
+                          ],
+                          "tokenizer": "standard"
+                      }
+                  },
+                  "filter": {
+                      "custom_word_delimiter": {
+                          "type": "word_delimiter",
+                          "split_on_numerics": false,
+                          "generate_number_parts": true,
+                          "preserve_original": true,
+                          "stem_english_possesive": false,
+                          "catenate_words": false,
+                          "catenate_numbers": true,
+                          "split_on_case_change": false,
+                          "generate_word_parts": true
+                      }
+                  }
+              }
+          }
+      },
+      "mappings": {
+        "properties": {
+            "id": {
+              "type": "keyword"
+            },
+            "kind": {
+              "type": "keyword"
+            },
+            "source": {
+              "type": "keyword"
+            },
+            "name": {
+              "type": "text",
+              "analyzer": "text_nl",
+              "fields": {
+                "raw": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "sources": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "keyword"
+                },
+                "source": {
+                  "type": "keyword"
+                },
+                "name": {
+                  "type": "text",
+                  "analyzer": "text_nl",
+                  "fields": {
+                    "raw": {
+                      "type": "keyword"
+                    }
+                  }
+                }
+              }
+            }
+          }
+      }
+    }
+}
