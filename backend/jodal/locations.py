@@ -154,8 +154,8 @@ class OpenBesluitvormingLocationScraper(MemoryMixin, BaseLocationScraper):
 class LocationsScraperRunner(object):
     scrapers = [
         PoliFlwLocationScraper,
-        # OpenspendingCountyLocationScraper,
-        # OpenspendingProvinceLocationScraper,
+        OpenspendingCountyLocationScraper,
+        OpenspendingProvinceLocationScraper,
         OpenBesluitvormingLocationScraper
     ]
 
@@ -228,7 +228,7 @@ class LocationsScraperRunner(object):
         unmatched = {}
         for i in items:
             name = i['name']  # .replace('Gemeente ', '')
-            if name in renames[i['source']]:
+            if name in renames.get(i['source'], {}):
                 logging.info('Renamig %s => %s for %s' % (name, renames[i['source']][name]['Uniform'],i['source'],))
                 name = renames[i['source']][name]['Uniform']
 
@@ -236,9 +236,10 @@ class LocationsScraperRunner(object):
                 continue
 
             if name not in result:
-                result[name] = {
+                result[name] = [l for l in locations if l['name'] == name][0]
+                result[name].update({
                     'sources': []
-                }
+                })
             try:
                 total_counts[i['source']] += 1
             except KeyError as e:
@@ -255,6 +256,7 @@ class LocationsScraperRunner(object):
                     unmatched[i['source']] = [name]
             if i['source'] not in result[name]['sources']:
                 result[name]['name'] = name
+
                 if self.get_hash(i['source'], i['id']) not in [self.get_hash(s['source'], s['id']) for s in result[name]['sources']]:
                     result[name]['sources'].append({
                         'name': i['name'],
