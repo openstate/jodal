@@ -1,3 +1,52 @@
+<script>
+  import Textfield, {Input, Textarea} from '@smui/textfield';
+  import HelperText from '@smui/textfield/helper-text/index';
+  import Dialog, {Title, Content, Actions, InitialFocus} from '@smui/dialog';
+  import Button, {Label} from '@smui/button';
+  import FloatingLabel from '@smui/floating-label';
+  import LineRipple from '@smui/line-ripple';
+  import { addInquiry, locations } from './stores.js';
+  import { onMount, onDestroy } from 'svelte';
+  import Select, {Option} from '@smui/select';
+
+  let clicked = false;
+  let name;
+  let location;
+  let selectLocation;
+  let query;
+  let items = ['One', 'Two', 'Three'];
+
+  function doAddInquiry() {
+    var selected = $locations.filter((l) => l.id == location)[0];
+    if (name == '') {
+      name = selected.name;
+    }
+    addInquiry({
+      name: name,
+      location: selected.name,
+      query: query
+    });
+  }
+
+  onMount(async () => {
+      await fetch('http://api.jodal.nl/locations/search?limit=500&sort=name.keyword:asc')
+        .then(r => r.json())
+        .then(data => {
+          console.log('got locations data:')
+          console.log(data);
+          items = data.hits.hits.map(function (l) {
+            return l._source;
+          })
+          console.log('location items:')
+          console.dir(items)
+          locations.set(items)
+        });
+    });
+
+  onDestroy(function () {
+  });
+</script>
+
 <Dialog bind:this={simpleDialog} aria-labelledby="simple-title" aria-describedby="simple-content">
   <!-- Title cannot contain leading whitespace due to mdc-typography-baseline-top() -->
   <Title id="add-column-title">Toevoegen</Title>
@@ -11,10 +60,10 @@
       <HelperText id="helper-text-column-name">Een beschrijvende naam voor de zoekopdracht</HelperText>
     </div>
     <div>
-    <Select bind:value={location} label="Lokatie">
+       <Select bind:this={selectLocation} bind:value={location} label="Lokatie" on:change={() => console.log('somethign changed in slect')}>
          <Option value=""></Option>
          {#each $locations as loc}
-           <Option value={loc.value} selected={location == loc.value}>{loc.label}</Option>
+           <Option value={loc.id} selected={location == loc.id}>{loc.name}</Option>
          {/each}
        </Select>
        <HelperText>Lokatie</HelperText>
@@ -44,51 +93,4 @@
 	export function startAddColumn() {
     simpleDialog.open();
 	}
-</script>
-
-<script>
-  import Textfield, {Input, Textarea} from '@smui/textfield';
-  import HelperText from '@smui/textfield/helper-text/index';
-  import Dialog, {Title, Content, Actions, InitialFocus} from '@smui/dialog';
-  import Button, {Label} from '@smui/button';
-  import FloatingLabel from '@smui/floating-label';
-  import LineRipple from '@smui/line-ripple';
-  import { addInquiry, locations } from './stores.js';
-  import { onMount, onDestroy } from 'svelte';
-  import Select, {Option} from '@smui/select';
-
-  let clicked = false;
-  let name;
-  let location;
-  let query;
-  let items = ['One', 'Two', 'Three'];
-
-  function doAddInquiry() {
-    addInquiry({
-      name: name,
-      location: location,
-      query: query
-    });
-  }
-
-  onMount(async () => {
-      await fetch('http://api.jodal.nl/locations/search?limit=500&sort=name.keyword:asc')
-        .then(r => r.json())
-        .then(data => {
-          console.log('got locations data:')
-          console.log(data);
-          items = data.hits.hits.map(function (l) {
-            return {
-              value: l._id,
-              label: l._source.name
-            };
-          })
-          // console.log('location items:')
-          // console.dir(locationitems)
-          locations.set(items)
-        });
-    });
-
-  onDestroy(function () {
-  });
 </script>
