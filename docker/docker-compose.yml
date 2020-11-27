@@ -12,6 +12,18 @@ services:
     networks:
       - nginx-load-balancer
       - jodal
+  api-jodal:
+    build:
+      context: ../backend/app
+      dockerfile: Dockerfile
+    depends_on:
+      - elasticsearch
+    volumes:
+      - ../backend:/opt/jodal
+    networks:
+      - jodal
+    restart: always
+    command: flask run --host=0.0.0.0
   node:
     image: node:12.9.1
     working_dir: /opt/app/static
