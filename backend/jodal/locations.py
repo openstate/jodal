@@ -8,6 +8,9 @@ import hashlib
 
 import requests
 
+from jodal.es import setup_elasticsearch
+
+
 class MemoryMixin(object):
     items = []
 
@@ -266,11 +269,8 @@ class LocationsScraperRunner(object):
         #logging.info(pformat(unmatched))
         logging.info('Total counts: %s' % (total_counts,))
         logging.info('Matched counts: %s' % (matched_counts,))
-        # for k,r in result.items():
-        #     if len(r['sources']) == 1:
-        #         logging.info(r)
-        logging.info(pformat(result))
         logging.info('Final result has %s items' % (len(result),))
+        return result.values()
 
     def run(self):
         items = []
@@ -284,4 +284,8 @@ class LocationsScraperRunner(object):
                 logging.error(e)
                 raise e
         logging.info('Fetching resulted in %s items ...' % (len(items)))
-        self.aggregate(items)
+        locations = self.aggregate(items)
+        es = setup_elasticsearch()
+        for l in locations:
+            if not es.exists(id=l['id'], index='jodal_locations'):
+                es.create(id=l['id'], index='jodal_locations', body=l)

@@ -68,6 +68,9 @@ def scrapers():
 
 @command('locations')
 def scrapers_locations():
+    config = load_config()
+    es = setup_elasticsearch(config)
+
     LocationsScraperRunner().run()
 
 @command('put_templates')
