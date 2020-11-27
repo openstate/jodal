@@ -11,12 +11,13 @@
       <HelperText id="helper-text-column-name">Een beschrijvende naam voor de zoekopdracht</HelperText>
     </div>
     <div>
-      <Textfield>
-        <Input bind:value={location} id="column-location" aria-controls="helper-text-column-location" aria-describedby="helper-text-column-location" />
-        <FloatingLabel for="input-column-location">Lokatie</FloatingLabel>
-        <LineRipple />
-      </Textfield>
-      <HelperText id="helper-text-column-location">De lokatie(s) voor de zoekopdracht</HelperText>
+    <Select bind:value={location} label="Lokatie">
+         <Option value=""></Option>
+         {#each $locations as loc}
+           <Option value={loc.value} selected={location == loc.value}>{loc.label}</Option>
+         {/each}
+       </Select>
+       <HelperText>Lokatie</HelperText>
     </div>
     <div>
       <Textfield>
@@ -52,12 +53,15 @@
   import Button, {Label} from '@smui/button';
   import FloatingLabel from '@smui/floating-label';
   import LineRipple from '@smui/line-ripple';
-  import { addInquiry } from './stores.js';
+  import { addInquiry, locations } from './stores.js';
+  import { onMount, onDestroy } from 'svelte';
+  import Select, {Option} from '@smui/select';
 
   let clicked = false;
   let name;
   let location;
   let query;
+  let items = ['One', 'Two', 'Three'];
 
   function doAddInquiry() {
     addInquiry({
@@ -66,4 +70,25 @@
       query: query
     });
   }
+
+  onMount(async () => {
+      await fetch('http://api.jodal.nl/locations/search?limit=500&sort=name.keyword:asc')
+        .then(r => r.json())
+        .then(data => {
+          console.log('got locations data:')
+          console.log(data);
+          items = data.hits.hits.map(function (l) {
+            return {
+              value: l._id,
+              label: l._source.name
+            };
+          })
+          // console.log('location items:')
+          // console.dir(locationitems)
+          locations.set(items)
+        });
+    });
+
+  onDestroy(function () {
+  });
 </script>

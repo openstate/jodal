@@ -1,6 +1,10 @@
 import { readable, writable, get } from 'svelte/store';
+import { onMount } from "svelte";
 
 export const drawerOpen = writable(false);
+
+export const locations = writable([]);
+
 export const sources = readable([
   {
     short: 'obv',
