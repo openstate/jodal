@@ -36,17 +36,8 @@ def decode_json_post_data(fn):
     return wrapped_function
 
 
-
-@app.route("/")
-def index():
-    term = "*"
-    results = perform_query(term, "", 0)
-    return jsonify(results)
-
-
-@app.route('/search')
-def search():
-    term = request.args.get('term', '')
+def perform_search(index_name=None):
+    term = request.args.get('query', '')
     filters = request.args.get('filter', '')
     page = request.args.get('page', '')
     page_size = request.args.get('limit', '10')
@@ -54,10 +45,26 @@ def search():
     if not term or term == "null":
         term = "*"
 
-    results = perform_query(term, filters, page, int(page_size), sort)
+    results = perform_query(
+        term, filters, page, int(page_size), sort, index_name)
+    return results
 
+
+@app.route("/")
+def index():
+    term = "*"
+    results = perform_query(term, "", 0)
     return jsonify(results)
 
+@app.route('/search')
+def search():
+    results = perform_search()
+    return jsonify(results)
+
+@app.route('/<index_name>/search')
+def search_index(index_name):
+    results = perform_search('jodal_%s' % (index_name,))
+    return jsonify(results)
 
 if __name__ == "__main__":
     app.run(threaded=True)

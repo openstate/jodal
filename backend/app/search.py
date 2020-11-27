@@ -7,17 +7,16 @@ from app import app, AppError, load_object
 app_name = app.config['NAME_OF_APP']
 setup_es = load_object('%s.es.setup_elasticsearch' % (app_name,))
 es = setup_es(app.config[app_name])
-indexName = 'jodal_locations'
 aggregation_fields = app.config[app_name]['elasticsearch']['aggregations']
 query_fields = app.config[app_name]['elasticsearch'].get('query', {}).get('fields', [])
 
-def perform_query(term, filter_string, page, page_size, sort):
+def perform_query(term, filter_string, page, page_size, sort, index_name=None):
 
     filters = parse_filters(filter_string)
 
     query = get_basic_query(filters, term, page, page_size, sort)
     logging.info(query)
-    result = es.search(index=indexName, body=query)
+    result = es.search(index=index_name, body=query)
 
     return result
 
