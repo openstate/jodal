@@ -1,19 +1,20 @@
-export function fetchSource(source, location_ids, callback) {
+export function fetchSource(query, source, location_ids, callback) {
   var source2func = {
     'poliflw': fetchPoliflw
   }
 
   var fnc = source2func[source];
   if (typeof(fnc) !== 'undefined') {
-    return fnc(location_ids, callback);
+    return fnc(query, location_ids, callback);
   }
 }
 
-function fetchPoliflw(location_ids, callback) {
+function fetchPoliflw(query, location_ids, callback) {
   console.log('Should fetch locations ' + location_ids + ' using poliflw now!');
   // curl -s 'https://api.poliflw.nl/v0/search' -d '{"filters":{"location":{"terms":["Amsterdam"]}},"size":0}'
   var url = 'https://api.poliflw.nl/v0/search';
   var payload = {
+    "query": query,
     "filters":{
       "location":{
         "terms": location_ids
@@ -41,7 +42,7 @@ function fetchPoliflw(location_ids, callback) {
               key: i.date,
               date: i.date,
               title: i.title,
-              description: i.description,
+              description: i.meta.highlight.description,
               location: i.location,
               type: i.source,
               source: 'poliflw'

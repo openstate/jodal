@@ -20,7 +20,7 @@ let selected = false;
 
 let items = writable([]); //writable(shuffle(default_entries));
 let empty = false;
-let query = "de";
+let query = inquiry.query;
 let show_settings = false;
 let show_marker = false;
 let scroll_marker;
@@ -124,7 +124,7 @@ onMount(function () {
       });
       console.log(locations2sources);
       $sources.forEach(function (s) {
-          fetchSource(s.short, locations2sources[s.short], function (fetched_items) {
+          fetchSource(inquiry.query, s.short, locations2sources[s.short], function (fetched_items) {
             console.log('should set items now!');
             var real_items = get(items);
             //real_items.unshift(default_new_entry);

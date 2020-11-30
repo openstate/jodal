@@ -19,7 +19,7 @@ import { slide } from 'svelte/transition';
   </div>
   {/if}
   <div class="entry-contents">
-  { description }
+  { @html description }
   </div>
   <div class="entry-byline">
   { date }
