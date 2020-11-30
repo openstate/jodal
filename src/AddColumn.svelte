@@ -5,7 +5,7 @@
   import Button, {Label} from '@smui/button';
   import FloatingLabel from '@smui/floating-label';
   import LineRipple from '@smui/line-ripple';
-  import { addInquiry, locations } from './stores.js';
+  import { addInquiry, locations, fetchingEnabled } from './stores.js';
   import { onMount, onDestroy } from 'svelte';
   import Select, {Option} from '@smui/select';
 
@@ -42,6 +42,8 @@
           console.log('location items:')
           console.dir(items)
           locations.set(items)
+          console.log('setting fetching to enabled!')
+          fetchingEnabled.set(true)
         });
     });
 

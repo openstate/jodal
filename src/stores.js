@@ -1,6 +1,8 @@
 import { readable, writable, get } from 'svelte/store';
 import { onMount } from "svelte";
 
+export const fetchingEnabled = writable(false);
+
 export const drawerOpen = writable(false);
 
 export const locations = writable([]);

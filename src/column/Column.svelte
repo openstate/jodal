@@ -4,7 +4,7 @@ import Entry from './Entry.svelte';
 import IconButton from '@smui/icon-button';
 import Textfield from '@smui/textfield'
 import { writable, get } from 'svelte/store';
-import { sources, locations, default_entries } from '../stores.js';
+import { sources, locations, default_entries, fetchingEnabled } from '../stores.js';
 import Switch from '@smui/switch';
 import FormField from '@smui/form-field';
 import { slide } from 'svelte/transition';
@@ -98,28 +98,36 @@ var interval;
 onMount(function () {
   console.log('Setting up fetch for colum:');
   console.dir(inquiry);
-  getLocations();
   async function fetchData() {
-   console.log('should fetch data for colum ' + inquiry.name + ' now!!');
+    if (get(fetchingEnabled)) {
 
-   var entry_idx = $items.length + 10;
-   var default_new_entry = {
-     'key': "_" + entry_idx,
-     'title': 'Raadscommissie Kunst Diversiteit ' + entry_idx,
-     'type': 'Vergadering',
-     'source': 'https://openbesluitvorming.nl/',
-     'date': '11-11-2020',
-     'time': '13:30'
-   };
-   var real_items = get(items);
-   real_items.unshift(default_new_entry);
-   items.set(real_items);
-   // inquiries[idx].update(x => inquiry);
-   // inquiry_unsubscribe();
-   //all_inquiries[inquiry_index].entries.unshift(default_new_entry);
-   //all_inquiries[inquiry_index].entries = [default_new_entry] + all_inquiries[inquiry_index].entries;
-   //inquiries.set(all_inquiries);
- };
+      if (locations.length <= 0) {
+        getLocations();
+      }
+
+      console.log('should fetch data for colum ' + inquiry.name + ' now!!');
+
+      var entry_idx = $items.length + 10;
+      var default_new_entry = {
+        'key': "_" + entry_idx,
+        'title': 'Raadscommissie Kunst Diversiteit ' + entry_idx,
+        'type': 'Vergadering',
+        'source': 'https://openbesluitvorming.nl/',
+        'date': '11-11-2020',
+        'time': '13:30'
+      };
+      var real_items = get(items);
+      real_items.unshift(default_new_entry);
+      items.set(real_items);
+      // inquiries[idx].update(x => inquiry);
+      // inquiry_unsubscribe();
+      //all_inquiries[inquiry_index].entries.unshift(default_new_entry);
+      //all_inquiries[inquiry_index].entries = [default_new_entry] + all_inquiries[inquiry_index].entries;
+      //inquiries.set(all_inquiries);
+    } else {
+      console.log('Fetching not yet enabled for column ' + inquiry.name);
+    }
+  };
   interval = setInterval(fetchData, 5000 + (Math.random() * 2000));
   fetchData();
 });
