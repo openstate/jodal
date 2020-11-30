@@ -4,13 +4,14 @@ import Entry from './Entry.svelte';
 import IconButton from '@smui/icon-button';
 import Textfield from '@smui/textfield'
 import { writable, get } from 'svelte/store';
-import { sources, default_entries } from '../stores.js';
+import { sources, locations, default_entries } from '../stores.js';
 import Switch from '@smui/switch';
 import FormField from '@smui/form-field';
 import { slide } from 'svelte/transition';
 import Fab, {Label, Icon} from '@smui/fab';
 export let inquiry;
 
+let column_locations = [];
 let last_length=0;
 let start=0;
 let end=5;
@@ -23,6 +24,12 @@ let show_settings = false;
 let show_marker = false;
 let scroll_marker;
 let virtual_list;
+
+function getLocations() {
+  column_locations = $locations.filter((l) => inquiry.ids.includes(l.id));
+  console.log('Get the following locations:');
+  console.dir(column_locations);
+}
 
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
@@ -91,6 +98,7 @@ var interval;
 onMount(function () {
   console.log('Setting up fetch for colum:');
   console.dir(inquiry);
+  getLocations();
   async function fetchData() {
    console.log('should fetch data for colum ' + inquiry.name + ' now!!');
 
