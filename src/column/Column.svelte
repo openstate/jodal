@@ -127,7 +127,14 @@ onMount(function () {
           fetchSource(inquiry.query, s.short, locations2sources[s.short], function (fetched_items) {
             console.log('should set items now!');
             var real_items = get(items);
-            //real_items.unshift(default_new_entry);
+            var real_item_ids = real_items.map(function (i) { return i.key; });
+            console.log(real_item_ids);
+            //fetched_items.reverse();
+            fetched_items.forEach(function (i) {
+              if (!(i.key in real_item_ids)) {
+                real_items.unshift(i);
+              }
+            });
             items.set(fetched_items);
           });
       });
