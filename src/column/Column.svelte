@@ -117,19 +117,21 @@ onMount(function () {
         })
       });
       console.log(locations2sources);
+      // FIXME: sources are fetched in parralel so updating the items does not work correctly like this.
+      // so we wait until the full batch is complete then compare and update items
       $sources.forEach(function (s) {
           fetchSource(inquiry.query, s.short, locations2sources[s.short], function (fetched_items) {
             console.log('should set items now!');
             var real_items = get(items);
             var real_item_ids = real_items.map(function (i) { return i.key; });
             console.log(real_item_ids);
-            //fetched_items.reverse();
+            fetched_items.reverse();
             fetched_items.forEach(function (i) {
               if (!(i.key in real_item_ids)) {
                 real_items.unshift(i);
               }
             });
-            items.set(fetched_items);
+            items.set(real_items);
           });
       });
       // var entry_idx = $items.length + 10;
