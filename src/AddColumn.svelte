@@ -17,6 +17,7 @@
   let items = ['One', 'Two', 'Three'];
 
   function doAddInquiry() {
+    // TODO: Supprt adding multiple locations in a single column
     var selected = $locations.filter((l) => l.id == location)[0];
     if (name == '') {
       name = selected.name;
@@ -24,6 +25,7 @@
     addInquiry({
       name: name,
       location: selected.name,
+      ids: [selected.id],
       query: query
     });
   }

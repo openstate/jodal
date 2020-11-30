@@ -89,6 +89,8 @@ function handleClosedLeading() {
 var interval;
 
 onMount(function () {
+  console.log('Setting up fetch for colum:');
+  console.dir(inquiry);
   async function fetchData() {
    console.log('should fetch data for colum ' + inquiry.name + ' now!!');
 
