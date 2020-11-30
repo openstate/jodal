@@ -1,12 +1,22 @@
 export function fetchSource(query, source, location_ids, callback) {
   var source2func = {
-    'poliflw': fetchPoliflw
+    'poliflw': fetchPoliflw,
+    'openspending': fetchOpenspending
+  }
+
+  if (location_ids.length <= 0) {
+    console.log('not enough locations to warrant a fetch');
+    return;
   }
 
   var fnc = source2func[source];
   if (typeof(fnc) !== 'undefined') {
     return fnc(query, location_ids, callback);
   }
+}
+
+function fetchOpenspending(query, location_ids, callback) {
+  console.log('Should fetch locations ' + location_ids + ' using openspending now!');
 }
 
 function fetchPoliflw(query, location_ids, callback) {
@@ -32,11 +42,9 @@ function fetchPoliflw(query, location_ids, callback) {
       response => response.json()
     ).then(
       function (data) {
-        console.log('got data from periodic fetch! :')
-        console.dir(data);
-        // FIXME: convert data
         var items = [];
         if (typeof(data.item) !== 'undefined') {
+          // FIXME: i.meta.highlight.description is an array!
           items = data.item.map(function (i) {
             return {
               key: i.date,

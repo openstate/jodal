@@ -28,8 +28,6 @@ let virtual_list;
 
 function getLocations() {
   column_locations = $locations.filter((l) => inquiry.ids.includes(l.id));
-  console.log('Get the following locations:');
-  console.dir(column_locations);
 }
 
 function shuffle(array) {
@@ -99,15 +97,11 @@ function handleClosedLeading() {
 var interval;
 
 onMount(function () {
-  console.log('Setting up fetch for colum:');
-  console.dir(inquiry);
   async function fetchData() {
     if (get(fetchingEnabled)) {
 
       if (column_locations.length <= 0) {
-        console.log('getting column locations');
         getLocations();
-        console.log(column_locations);
       }
 
       console.log('should fetch data for colum ' + inquiry.name + ' now!!');
