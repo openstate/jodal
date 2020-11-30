@@ -5,6 +5,7 @@ import IconButton from '@smui/icon-button';
 import Textfield from '@smui/textfield'
 import { writable, get } from 'svelte/store';
 import { sources, locations, default_entries, fetchingEnabled } from '../stores.js';
+import { fetchSource } from '../sources.js';
 import Switch from '@smui/switch';
 import FormField from '@smui/form-field';
 import { slide } from 'svelte/transition';
@@ -122,6 +123,11 @@ onMount(function () {
         })
       });
       console.log(locations2sources);
+      $sources.forEach(function (s) {
+          fetchSource(s.short, locations2sources[s.short], function (items) {
+            console.log('should set items now!');
+          });
+      });
       // var entry_idx = $items.length + 10;
       // var default_new_entry = {
       //   'key': "_" + entry_idx,
@@ -135,11 +141,13 @@ onMount(function () {
       // var real_items = get(items);
       // real_items.unshift(default_new_entry);
       // items.set(real_items);
+      console.log('FIXME: disabling fetching for now!!!!!');
+      fetchingEnabled.set(false);
     } else {
-      console.log('Fetching not yet enabled for column ' + inquiry.name);
+      //console.log('Fetching not yet enabled for column ' + inquiry.name);
     }
   };
-  interval = setInterval(fetchData, 5000 + (Math.random() * 2000));
+  interval = setInterval(fetchData, 1000 + (Math.random() * 2000));
   fetchData();
 });
 
