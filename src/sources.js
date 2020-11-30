@@ -45,7 +45,8 @@ function fetchPoliflw(query, location_ids, callback) {
               description: i.meta.highlight.description,
               location: i.location,
               type: i.source,
-              source: 'poliflw'
+              source: 'poliflw',
+              url: 'https://poliflw.nl/l/' + i.location + '/' + i.parties[0] + '/' + i.id
             };
           });
         }
