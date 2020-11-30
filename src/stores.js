@@ -9,12 +9,16 @@ export const locations = writable([]);
 
 export const sources = readable([
   {
-    short: 'obv',
+    short: 'openbesluitvorming',
     name: 'Open Besluitvorming'
   },
   {
     short: 'poliflw',
     name: 'Poliflw'
+  },
+  {
+    short: 'openspending',
+    name: 'Openspending'
   }
 ]);
 

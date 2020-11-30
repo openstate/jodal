@@ -17,7 +17,7 @@ let start=0;
 let end=5;
 let selected = false;
 
-let items = writable(shuffle(default_entries));
+let items = writable([]); //writable(shuffle(default_entries));
 let empty = false;
 let query = "de";
 let show_settings = false;
@@ -83,10 +83,12 @@ function getFocus() {
 function loseFocus() {
   var count = $items.length;
   //scroll_marker = virtual_list.$items[start];
-  console.log('Lost focus in column ' + inquiry.order + '!: ' + $items[start].key);
-  scroll_marker = $items[start].key;
-  last_length = count;
-  show_marker = false;
+  if (count > 0) {
+    console.log('Lost focus in column ' + inquiry.order + '!: ' + $items[start].key);
+    scroll_marker = $items[start].key;
+    last_length = count;
+    show_marker = false;
+  }
 }
 
 function handleClosedLeading() {
@@ -101,29 +103,38 @@ onMount(function () {
   async function fetchData() {
     if (get(fetchingEnabled)) {
 
-      if (locations.length <= 0) {
+      if (column_locations.length <= 0) {
+        console.log('getting column locations');
         getLocations();
+        console.log(column_locations);
       }
 
       console.log('should fetch data for colum ' + inquiry.name + ' now!!');
+      var locations2sources = {};
+      $sources.forEach(function (s) {
+        locations2sources[s.short] = [];
+      });
+      column_locations.forEach(function (c) {
+        c.sources.forEach(function (s) {
+          //console.log('s:');
+          //console.dir(s.source);
+          locations2sources[s.source].push(s.id);
+        })
+      });
+      console.log(locations2sources);
+      // var entry_idx = $items.length + 10;
+      // var default_new_entry = {
+      //   'key': "_" + entry_idx,
+      //   'title': 'Raadscommissie Kunst Diversiteit ' + entry_idx,
+      //   'type': 'Vergadering',
+      //   'source': 'https://openbesluitvorming.nl/',
+      //   'date': '11-11-2020',
+      //   'time': '13:30'
+      // };
 
-      var entry_idx = $items.length + 10;
-      var default_new_entry = {
-        'key': "_" + entry_idx,
-        'title': 'Raadscommissie Kunst Diversiteit ' + entry_idx,
-        'type': 'Vergadering',
-        'source': 'https://openbesluitvorming.nl/',
-        'date': '11-11-2020',
-        'time': '13:30'
-      };
-      var real_items = get(items);
-      real_items.unshift(default_new_entry);
-      items.set(real_items);
-      // inquiries[idx].update(x => inquiry);
-      // inquiry_unsubscribe();
-      //all_inquiries[inquiry_index].entries.unshift(default_new_entry);
-      //all_inquiries[inquiry_index].entries = [default_new_entry] + all_inquiries[inquiry_index].entries;
-      //inquiries.set(all_inquiries);
+      // var real_items = get(items);
+      // real_items.unshift(default_new_entry);
+      // items.set(real_items);
     } else {
       console.log('Fetching not yet enabled for column ' + inquiry.name);
     }
