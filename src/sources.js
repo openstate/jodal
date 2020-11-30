@@ -17,6 +17,36 @@ export function fetchSource(query, source, location_ids, callback) {
 
 function fetchOpenspending(query, location_ids, callback) {
   console.log('Should fetch locations ' + location_ids + ' using openspending now!');
+  // FIXME: should fix openspending to allow one call for multiple codes
+  // government__code__in
+  var url = 'https://openspending.nl/api/v1/documents/?government__code__in=' + location_ids.join(",") + '&order_by=-updated_at';
+  console.log(url);
+
+  return fetch(
+    url).then(
+      response => response.json()
+    ).then(
+      function (data) {
+        var items = [];
+        if (typeof(data.objects) !== 'undefined') {
+          // FIXME: i.meta.highlight.description is an array!
+          items = data.objects.map(function (i) {
+            var w = (i.plan == 'budget') ? 'begroting' : 'realisatie';
+            return {
+              key: i.parsed_at,
+              date: i.parsed_at,
+              title: i.plan + ' ' + i.period + ' ' + i.year,
+              description: '',
+              location: i.government.name,
+              type: i.plan,
+              source: 'openspending',
+              url: 'https://openspending.nl/' + i.government.slug + '/' + w + '/' + i.year + '/lasten/hoofdfuncties/'
+            };
+          });
+        }
+        callback(items);
+      }
+    );
 }
 
 function fetchPoliflw(query, location_ids, callback) {

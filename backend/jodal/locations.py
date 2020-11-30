@@ -106,7 +106,7 @@ class OpenspendingCountyLocationScraper(MemoryMixin, BaseLocationScraper):
         name = item['name']
         return {
             'name': name,
-            'id': 'https://www.openspending.nl%s' % (item['resource_uri'],),
+            'id': item['code'],  # 'https://www.openspending.nl%s' % (item['resource_uri'],),
             'kind': item['kind'],
             'parent_kind': item['state'],
             'source': self.name
