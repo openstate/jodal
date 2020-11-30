@@ -10,6 +10,7 @@
             <Title>Jodal</Title>
           </Section>
           <Section align="end" toolbar>
+            <IconButton class="material-icons" aria-label="Pause fetching" on:click={() => doPause()}>{ iconName }</IconButton>
             <IconButton class="material-icons" aria-label="Add a column" on:click={() => startAddColumn()}>add</IconButton>
           </Section>
         </Row>
@@ -18,7 +19,7 @@
 
 <AddColumn/>
 <script>
-  import { drawerOpen } from './stores.js';
+  import { drawerOpen,fetchingEnabled } from './stores.js';
   import AddColumn, { startAddColumn } from './AddColumn.svelte';
   import TopAppBar, {Row, Section, Title} from '@smui/top-app-bar';
   import IconButton from '@smui/icon-button';
@@ -28,6 +29,17 @@
   let prominent = false;
   let dense = false;
   let secondaryColor = false;
+  var iconName = "pause";
+
+  function doPause() {
+    console.log('FIXME: disabling fetching for now!!!!!');
+    fetchingEnabled.set(!$fetchingEnabled);
+    if ($fetchingEnabled) {
+      iconName = "pause";
+    } else {
+      iconName = "play_arrow";
+    }
+  }
 </script>
 
 <style>

@@ -124,8 +124,11 @@ onMount(function () {
       });
       console.log(locations2sources);
       $sources.forEach(function (s) {
-          fetchSource(s.short, locations2sources[s.short], function (items) {
+          fetchSource(s.short, locations2sources[s.short], function (fetched_items) {
             console.log('should set items now!');
+            var real_items = get(items);
+            //real_items.unshift(default_new_entry);
+            items.set(fetched_items);
           });
       });
       // var entry_idx = $items.length + 10;
@@ -137,12 +140,6 @@ onMount(function () {
       //   'date': '11-11-2020',
       //   'time': '13:30'
       // };
-
-      // var real_items = get(items);
-      // real_items.unshift(default_new_entry);
-      // items.set(real_items);
-      console.log('FIXME: disabling fetching for now!!!!!');
-      fetchingEnabled.set(false);
     } else {
       //console.log('Fetching not yet enabled for column ' + inquiry.name);
     }

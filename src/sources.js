@@ -9,7 +9,7 @@ export function fetchSource(source, location_ids, callback) {
   }
 }
 
-async function fetchPoliflw(location_ids, callback) {
+function fetchPoliflw(location_ids, callback) {
   console.log('Should fetch locations ' + location_ids + ' using poliflw now!');
   // curl -s 'https://api.poliflw.nl/v0/search' -d '{"filters":{"location":{"terms":["Amsterdam"]}},"size":0}'
   var url = 'https://api.poliflw.nl/v0/search';
@@ -19,6 +19,8 @@ async function fetchPoliflw(location_ids, callback) {
         "terms": location_ids
       }
     },
+    "sort": "date",
+    "order": "desc",
     "size": 10
   };
   return fetch(
@@ -32,7 +34,21 @@ async function fetchPoliflw(location_ids, callback) {
         console.log('got data from periodic fetch! :')
         console.dir(data);
         // FIXME: convert data
-        callback(data);
+        var items = [];
+        if (typeof(data.item) !== 'undefined') {
+          items = data.item.map(function (i) {
+            return {
+              key: i.date,
+              date: i.date,
+              title: i.title,
+              description: i.description,
+              location: i.location,
+              type: i.source,
+              source: 'poliflw'
+            };
+          });
+        }
+        callback(items);
       }
     );
 }
