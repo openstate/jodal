@@ -19,7 +19,7 @@ function fetchOpenspending(query, location_ids, callback) {
   console.log('Should fetch locations ' + location_ids + ' using openspending now!');
   // FIXME: should fix openspending to allow one call for multiple codes
   // government__code__in
-  var url = 'https://openspending.nl/api/v1/documents/?government__code__in=' + location_ids.join(",") + '&order_by=-updated_at';
+  var url = 'https://openspending.nl/api/v1/documents/?government__code__in=' + location_ids.join(",") + '&order_by=-created_at';
   console.log(url);
 
   return fetch(
@@ -32,15 +32,20 @@ function fetchOpenspending(query, location_ids, callback) {
           // FIXME: i.meta.highlight.description is an array!
           items = data.objects.map(function (i) {
             var w = (i.plan == 'budget') ? 'begroting' : 'realisatie';
+            var title = w[0].toLocaleUpperCase() + w.slice(1);
+            if ((i.period > 0) && (i.period < 5)) {
+              title += ' ' + i.period + 'e kwartaal';
+            }
+            title += ' ' + i.year;
             return {
-              key: i.parsed_at,
-              date: i.parsed_at,
-              title: i.plan + ' ' + i.period + ' ' + i.year,
+              key: i.created_at,
+              date: i.created_at,
+              title: title,
               description: '',
               location: i.government.name,
               type: i.plan,
               source: 'openspending',
-              url: 'https://openspending.nl/' + i.government.slug + '/' + w + '/' + i.year + '/lasten/hoofdfuncties/'
+              url: 'https://openspending.nl/' + i.government.slug + '/' + w + '/' + i.year + '-' + i.period + '/lasten/hoofdfuncties/'
             };
           });
         }

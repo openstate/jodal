@@ -3,13 +3,15 @@ import { onMount, onDestroy } from 'svelte';
 import Entry from './Entry.svelte';
 import IconButton from '@smui/icon-button';
 import Textfield from '@smui/textfield'
-import { writable, get } from 'svelte/store';
+import { writable, get, derived } from 'svelte/store';
 import { sources, locations, default_entries, fetchingEnabled } from '../stores.js';
 import { fetchSource } from '../sources.js';
 import Switch from '@smui/switch';
 import FormField from '@smui/form-field';
 import { slide } from 'svelte/transition';
 import Fab, {Label, Icon} from '@smui/fab';
+import orderBy from 'lodash/orderBy';
+
 export let inquiry;
 
 let column_locations = [];
@@ -18,7 +20,8 @@ let start=0;
 let end=5;
 let selected = false;
 
-let items = writable([]); //writable(shuffle(default_entries));
+let items_ = writable([]); //writable(shuffle(default_entries));
+let items = derived(items_, (items_) => orderBy(items_, ['date'], ['desc']))
 let item_ids = {};
 let empty = false;
 let query = inquiry.query;
@@ -123,7 +126,7 @@ onMount(function () {
       $sources.forEach(function (s) {
           fetchSource(inquiry.query, s.short, locations2sources[s.short], function (fetched_items) {
             console.log('should set items now!');
-            var real_items = get(items);
+            var real_items = get(items_);
             fetched_items.reverse();
             fetched_items.forEach(function (i) {
               if (typeof(item_ids[i.key]) === 'undefined') {
@@ -131,7 +134,7 @@ onMount(function () {
                 item_ids[i.key] = 1;
               }
             });
-            items.set(real_items);
+            items_.set(real_items);
           });
       });
       // var entry_idx = $items.length + 10;
