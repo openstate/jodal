@@ -1,7 +1,8 @@
 export function fetchSource(query, source, location_ids, callback) {
   var source2func = {
     'poliflw': fetchPoliflw,
-    'openspending': fetchOpenspending
+    'openspending': fetchOpenspending,
+    'openbesluitvorming': fetchOpenBesluitVorming
   }
 
   if (location_ids.length <= 0) {
@@ -13,6 +14,78 @@ export function fetchSource(query, source, location_ids, callback) {
   if (typeof(fnc) !== 'undefined') {
     return fnc(query, location_ids, callback);
   }
+}
+
+function fetchOpenBesluitVorming(query, location_ids, callback) {
+  console.log('Should fetch locations ' + location_ids + ' using openbesluitvorming now!');
+  var url = 'https://api.openraadsinformatie.nl/v1/elastic/_search';
+  var ids_only = location_ids.map(function (l) { return l.replace('https://id.openraadsinformatie.nl/', '');});
+  var payload = {
+    "aggs": {
+      "types": {
+        "terms": {
+          "field": "@type.keyword"
+        }
+      }
+    },
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "simple_query_string": {
+                "query": query,
+                "fields": ["name", "description", "text"]
+            }
+          }
+        ],
+        "filter": [
+          {"terms": {"has_organization_name": ids_only}},
+          {"terms": {"@type.keyword": ["MediaObject", "AgendaItem", "Meeting"]}}
+        ]
+      }
+    },
+    "highlight": {
+      "fields": {
+        "name": {},
+        "description": {},
+        "text": {}
+      }
+    },
+    "sort": [
+      {"start_date": {"order": "desc"}}
+    ],
+    "size":10
+  };
+  return fetch(
+    url, {
+      method: 'POST',
+      headers: new Headers({'content-type': 'application/json'}),
+      body: JSON.stringify(payload)
+    }).then(
+      response => response.json()
+    ).then(
+      function (data) {
+        var items = [];
+        console.log('got obv data:');
+        //console.dir(data);
+        if (typeof(data.hits.hits) !== 'undefined') {
+          // FIXME: i.meta.highlight.description is an array!
+          items = data.hits.hits.map(function (i) {
+            return {
+              key: i._source.start_date,
+              date: i._source.start_date,
+              title: i._source.title,
+              description: i.highlight.description,
+              location: i._source.has_organization_name,
+              type: i._source["@type"],
+              source: 'openbesluitvorming',
+              url: 'https://openbesluitvorming.nl/?zoekterm=' + encodeURIComponent(query) + '&organisaties=%5B%22' + i._index + '%22%5D&showResource=' + encodeURIComponent(encodeURIComponent('https://id.openraadsinformatie.nl/' + i._id))
+            };
+          });
+        }
+        callback(items);
+      }
+    );
 }
 
 function fetchOpenspending(query, location_ids, callback) {
