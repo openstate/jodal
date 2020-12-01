@@ -19,6 +19,7 @@ let end=5;
 let selected = false;
 
 let items = writable([]); //writable(shuffle(default_entries));
+let item_ids = {};
 let empty = false;
 let query = inquiry.query;
 let show_settings = false;
@@ -123,12 +124,11 @@ onMount(function () {
           fetchSource(inquiry.query, s.short, locations2sources[s.short], function (fetched_items) {
             console.log('should set items now!');
             var real_items = get(items);
-            var real_item_ids = real_items.map(function (i) { return i.key; });
-            console.log(real_item_ids);
             fetched_items.reverse();
             fetched_items.forEach(function (i) {
-              if (!(i.key in real_item_ids)) {
+              if (typeof(item_ids[i.key]) === 'undefined') {
                 real_items.unshift(i);
+                item_ids[i.key] = 1;
               }
             });
             items.set(real_items);
