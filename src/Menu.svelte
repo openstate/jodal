@@ -10,7 +10,6 @@
             <Title>Jodal</Title>
           </Section>
           <Section align="end" toolbar>
-            <IconButton class="material-icons" aria-label="Pause fetching" on:click={() => doPause()}>{ iconName }</IconButton>
             <IconButton class="material-icons" aria-label="Add a column" on:click={() => startAddColumn()}>add</IconButton>
           </Section>
         </Row>
