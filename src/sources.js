@@ -40,7 +40,8 @@ function fetchOpenBesluitVorming(query, location_ids, callback) {
         ],
         "filter": [
           {"terms": {"has_organization_name": ids_only}},
-          {"terms": {"@type.keyword": ["MediaObject", "AgendaItem", "Meeting"]}}
+          {"terms": {"@type.keyword": ["MediaObject", "AgendaItem", "Meeting"]}},
+          {"range": {"start_date": {"lte": "now"}}}
         ]
       }
     },

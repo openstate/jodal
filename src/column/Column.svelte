@@ -78,7 +78,6 @@ function doGoToEntry() {
 function getFocus() {
   var count = $items.length;
   console.log('got focus! resulted in  ' + (count - last_length) + ' new $items');
-  last_length = 0;
   show_marker =  ((count-last_length) > 0); //(end - start);
   last_length = count;
 }
