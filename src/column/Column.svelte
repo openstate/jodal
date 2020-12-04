@@ -146,6 +146,8 @@ onMount(function () {
       //   'date': '11-11-2020',
       //   'time': '13:30'
       // };
+      clearInterval(interval);
+      interval = setInterval(fetchData, 60000 + (inquiry.order * 1000) + (Math.random() * 2000));
     } else {
       //console.log('Fetching not yet enabled for column ' + inquiry.name);
     }

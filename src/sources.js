@@ -71,11 +71,17 @@ function fetchOpenBesluitVorming(query, location_ids, callback) {
         if (typeof(data.hits.hits) !== 'undefined') {
           // FIXME: i.meta.highlight.description is an array!
           items = data.hits.hits.map(function (i) {
+            var desc;
+            if (typeof(i.highlight) === 'undefined') {
+              desc = '';
+            } else {
+              desc = i.highlight.description;
+            }
             return {
               key: i._source.start_date,
               date: i._source.start_date,
-              title: i._source.title,
-              description: i.highlight.description,
+              title: i._source.name,
+              description: desc,
               location: i._source.has_organization_name,
               type: i._source["@type"],
               source: 'openbesluitvorming',
@@ -154,11 +160,17 @@ function fetchPoliflw(query, location_ids, callback) {
         if (typeof(data.item) !== 'undefined') {
           // FIXME: i.meta.highlight.description is an array!
           items = data.item.map(function (i) {
+            var desc;
+            if (typeof(i.meta.highlight) === 'undefined') {
+              desc = i.description.substring(0,140);
+            } else {
+              desc = i.meta.hhlght.description;
+            }
             return {
               key: i.date,
               date: i.date,
               title: i.title,
-              description: i.meta.highlight.description,
+              description: desc,
               location: i.location,
               type: i.source,
               source: 'poliflw',
