@@ -12,6 +12,27 @@ let empty = false;
 
 import { slide } from 'svelte/transition';
 
+function timeSince(timeStamp) {
+  var now = new Date();
+  var secondsPast = (now.getTime() - timeStamp) / 1000;
+  if (secondsPast < 60) {
+    return parseInt(secondsPast) + 's';
+  }
+  if (secondsPast < 3600) {
+    return parseInt(secondsPast / 60) + 'm';
+  }
+  if (secondsPast <= 86400) {
+    return parseInt(secondsPast / 3600) + 'h';
+  }
+  if (secondsPast > 86400) {
+    var tsDate = new Date(timeStamp);
+    var day = tsDate.getDate();
+    var month = tsDate.toDateString().match(/ [a-zA-Z]*/)[0].replace(" ", "");
+    var year = tsDate.getFullYear() == now.getFullYear() ? "" : " " + tsDate.getFullYear();
+    return day + " " + month + year  + " " + tsDate.toLocaleTimeString('nl-NL').slice(0,5);
+  }
+}
+
 </script>
 
 <div class="entry" id="entry_{column}{key}" transition:slide="{{ duration: 150 }}">
@@ -28,11 +49,11 @@ import { slide } from 'svelte/transition';
   { @html description }
   </div>
   <div class="entry-byline">
-  { date }
-  { type }
-  <a href="{ url }" target="_blank">
-  { source }
+  <a href="{ url }" target="_blank" title="{ source }">
+    <img src="/images/sources/{ source }.svg" alt="{ source }" class="source-logo">
   </a>
+  <date title="{ date }">{ timeSince(Date.parse(date)) }</date>
+  { type }
   </div>
   <div class="entry-actions">
 

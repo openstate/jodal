@@ -31,7 +31,7 @@
   }
 
   onMount(async () => {
-      await fetch('//api.jodal.nl/locations/search?limit=500&sort=name.keyword:asc')
+      await fetch('https://api.jodal.nl/locations/search?limit=500&sort=name.keyword:asc')
         .then(r => r.json())
         .then(data => {
           console.log('got locations data:')
