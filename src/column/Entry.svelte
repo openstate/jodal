@@ -49,11 +49,19 @@ function timeSince(timeStamp) {
   { @html description }
   </div>
   <div class="entry-byline">
-  <a href="{ url }" target="_blank" title="{ source }">
-    <img src="/images/sources/{ source }.svg" alt="{ source }" class="source-logo">
-  </a>
-  <date title="{ date }">{ timeSince(Date.parse(date)) }</date>
-  { type }
+    <ul>
+      <li class="first">
+        <a href="{ url }" target="_blank" title="{ source }" class="source-link">
+          <img src="/images/sources/{ source }.svg" alt="{ source }" class="source-logo">
+        </a>
+      </li>
+      <li>
+        <date title="{ date }">{ timeSince(Date.parse(date)) }</date>
+      </li>
+      <li class="last">
+        { type }
+      </li>
+    </ul>
   </div>
   <div class="entry-actions">
 

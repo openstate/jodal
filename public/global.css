@@ -185,7 +185,43 @@ h6 {
 	background: white;
 }
 
+.entry {
+	border-bottom: 1px solid #c0c0c0;
+}
+
+.entry-title h4 {
+	margin-top: 4px;
+	margin-bottom: 12px;
+}
+
 .entry-byline {
 	font-size: 13px;
 	line-height: 15px;
+}
+
+.entry-byline ul {
+	padding: 0;
+}
+
+.entry-byline li {
+	display: inline;
+	list-style-type: none;
+	padding-right: 10px;
+	text-align: left;
+}
+
+.entry-byline li.last {
+	float: right;
+	padding-right: 0;
+}
+
+.source-link {
+	float: left;
+	display: block;
+	width: 60px;
+}
+
+.source-logo {
+	margin-top: -2px;
+	height: 20px;
 }
