@@ -7,6 +7,7 @@ export let column;
 export let description;
 export let source;
 export let url;
+export let location;
 
 let empty = false;
 
@@ -57,6 +58,9 @@ function timeSince(timeStamp) {
       </li>
       <li>
         <date title="{ date }">{ timeSince(Date.parse(date)) }</date>
+      </li>
+      <li>
+      { location }
       </li>
       <li class="last">
         { type }
