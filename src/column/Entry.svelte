@@ -51,16 +51,18 @@ function timeSince(timeStamp) {
   </div>
   <div class="entry-byline">
     <ul>
+    <li>
+      <date title="{ date }">{ timeSince(Date.parse(date)) }</date>
+    </li>
+    <li class="last">
+    { location }
+    </li>
+    </ul>
+    <ul>
       <li class="first">
         <a href="{ url }" target="_blank" title="{ source }" class="source-link">
           <img src="/images/sources/{ source }.svg" alt="{ source }" class="source-logo">
         </a>
-      </li>
-      <li>
-        <date title="{ date }">{ timeSince(Date.parse(date)) }</date>
-      </li>
-      <li>
-      { location }
       </li>
       <li class="last">
         { type }
