@@ -1,3 +1,6 @@
+import { get } from 'svelte/store';
+import { id2locations } from './stores.js';
+
 export function fetchSource(query, source, location_ids, callback) {
   var source2func = {
     'poliflw': fetchPoliflw,
@@ -67,6 +70,7 @@ function fetchOpenBesluitVorming(query, location_ids, callback) {
     ).then(
       function (data) {
         var items = [];
+        var _id2locations = get(id2locations);
         console.log('got obv data:');
         //console.dir(data);
         if (typeof(data.hits.hits) !== 'undefined') {
@@ -78,12 +82,13 @@ function fetchOpenBesluitVorming(query, location_ids, callback) {
             } else {
               desc = i.highlight.description;
             }
+            var location = 'https://id.openraadsinformatie.nl/' + i._source.has_organization_name;
             return {
               key: i._source.start_date,
               date: i._source.start_date,
               title: i._source.name,
               description: desc,
-              location: i._source.has_organization_name,
+              location: _id2locations[location],
               type: i._source["@type"],
               source: 'openbesluitvorming',
               url: 'https://openbesluitvorming.nl/?zoekterm=' + encodeURIComponent(query) + '&organisaties=%5B%22' + i._index + '%22%5D&showResource=' + encodeURIComponent(encodeURIComponent('https://id.openraadsinformatie.nl/' + i._id))

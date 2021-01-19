@@ -5,7 +5,7 @@
   import Button, {Label} from '@smui/button';
   import FloatingLabel from '@smui/floating-label';
   import LineRipple from '@smui/line-ripple';
-  import { addInquiry, locations, fetchingEnabled } from './stores.js';
+  import { addInquiry, locations, id2locations, fetchingEnabled } from './stores.js';
   import { onMount, onDestroy } from 'svelte';
   import Select, {Option} from '@smui/select';
 
@@ -15,6 +15,7 @@
   let selectLocation;
   let query;
   let items = ['One', 'Two', 'Three'];
+  let _id2locations = {};
 
   function doAddInquiry() {
     // TODO: Supprt adding multiple locations in a single column
@@ -40,6 +41,15 @@
           items = data.hits.hits.map(function (l) {
             return l._source;
           })
+          _id2locations = {}
+          items.forEach(function (i) {
+            i['sources'].forEach(function (s) {
+              _id2locations[s['id']] = i['name']
+            })
+          })
+          console.dir('id2locations:')
+          console.log(_id2locations);
+          id2locations.set(_id2locations);
           console.log('location items:')
           console.dir(items)
           locations.set(items)

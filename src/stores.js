@@ -6,6 +6,7 @@ export const fetchingEnabled = writable(false);
 export const drawerOpen = writable(false);
 
 export const locations = writable([]);
+export const id2locations = writable({});
 
 export const sources = readable([
   {
