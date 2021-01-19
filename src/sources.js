@@ -21,6 +21,16 @@ export function fetchSource(query, source, location_ids, callback) {
 
 function fetchOpenBesluitVorming(query, location_ids, callback) {
   console.log('Should fetch locations ' + location_ids + ' using openbesluitvorming now!');
+  var types = {
+    'MediaObject': 'Bestand',
+    'AgendaItem': 'Agendapunt',
+    'Report': 'Rapport',
+    'Meeting': 'Vergadering',
+    'Person': 'Persoon',
+    'Membership': 'Lidmaatschap',
+    'Organization': 'Organisatie',
+    'ImageObject': 'Beeld'
+  };
   var url = 'https://api.openraadsinformatie.nl/v1/elastic/_search';
   var ids_only = location_ids.map(function (l) { return l.replace('https://id.openraadsinformatie.nl/', '');});
   var payload = {
@@ -89,7 +99,7 @@ function fetchOpenBesluitVorming(query, location_ids, callback) {
               title: i._source.name,
               description: desc,
               location: _id2locations[location],
-              type: i._source["@type"],
+              type: types[i._source["@type"]],
               source: 'openbesluitvorming',
               url: 'https://openbesluitvorming.nl/?zoekterm=' + encodeURIComponent(query) + '&organisaties=%5B%22' + i._index + '%22%5D&showResource=' + encodeURIComponent(encodeURIComponent('https://id.openraadsinformatie.nl/' + i._id))
             };
@@ -128,7 +138,7 @@ function fetchOpenspending(query, location_ids, callback) {
               title: title,
               description: '',
               location: i.government.name,
-              type: i.plan,
+              type: i.plan == 'budget' ? 'Begroting' : 'Realisatie',
               source: 'openspending',
               url: 'https://openspending.nl/' + i.government.slug + '/' + w + '/' + i.year + '-' + i.period + '/lasten/hoofdfuncties/'
             };
