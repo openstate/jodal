@@ -77,7 +77,7 @@
       </Textfield>
       <HelperText id="helper-text-column-name">Een beschrijvende naam voor de zoekopdracht</HelperText>
     </div>
-    <div>
+    <div class="multi-select-input">
        <Select items={$selectable_locations} isMulti={true}></Select>
        <HelperText>Lokatie</HelperText>
     </div>
@@ -107,3 +107,9 @@
     simpleDialog.open();
 	}
 </script>
+
+<style>
+Dialog {
+  width: 500px;
+}
+</style>

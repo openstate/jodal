@@ -225,3 +225,7 @@ h6 {
 	margin-top: -2px;
 	height: 20px;
 }
+
+#add-column-content input {
+	width: 500px;
+}
