@@ -5,9 +5,10 @@
   import Button, {Label} from '@smui/button';
   import FloatingLabel from '@smui/floating-label';
   import LineRipple from '@smui/line-ripple';
-  import { addInquiry, locations, id2locations, fetchingEnabled } from './stores.js';
+  import { addInquiry, locations, selectable_locations, id2locations, fetchingEnabled } from './stores.js';
   import { onMount, onDestroy } from 'svelte';
-  import Select, {Option} from '@smui/select';
+  //import Select, {Option} from '@smui/select';
+  import Select from 'svelte-select';
 
   let clicked = false;
   let name;
@@ -53,6 +54,8 @@
           console.log('location items:')
           console.dir(items)
           locations.set(items)
+          console.log('selectable locations:')
+          console.dir($selectable_locations)
           console.log('setting fetching to enabled!')
           fetchingEnabled.set(true)
         });
@@ -75,12 +78,7 @@
       <HelperText id="helper-text-column-name">Een beschrijvende naam voor de zoekopdracht</HelperText>
     </div>
     <div>
-       <Select bind:this={selectLocation} bind:value={location} label="Lokatie" on:change={() => console.log('somethign changed in slect')}>
-         <Option value=""></Option>
-         {#each $locations as loc}
-           <Option value={loc.id} selected={location == loc.id}>{loc.name}</Option>
-         {/each}
-       </Select>
+       <Select items={$selectable_locations} isMulti={true}></Select>
        <HelperText>Lokatie</HelperText>
     </div>
     <div>

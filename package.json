@@ -23,6 +23,6 @@
   },
   "dependencies": {
     "sirv-cli": "^1.0.0",
-    "svelte-select": "^3.14.1"
+    "svelte-select": "^3.16.1"
   }
 }

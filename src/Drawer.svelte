@@ -85,7 +85,7 @@
     display: flex;
     height: 350px;
     max-width: 600px;
-    border: 1px solid rgba(0,0,0,.1);
+  /*  border: 1px solid rgba(0,0,0,.1);*/
     overflow: hidden;
     z-index: 0;
   }

@@ -1,4 +1,4 @@
-import { readable, writable, get } from 'svelte/store';
+import { readable, writable, get, derived } from 'svelte/store';
 import { onMount } from "svelte";
 
 export const fetchingEnabled = writable(false);
@@ -7,7 +7,7 @@ export const drawerOpen = writable(false);
 
 export const locations = writable([]);
 export const id2locations = writable({});
-
+export const selectable_locations = derived(locations, $locations => Object.values($locations).map(function (l) { return {value: l.id, label: l.name}}))
 export const sources = readable([
   {
     short: 'openbesluitvorming',

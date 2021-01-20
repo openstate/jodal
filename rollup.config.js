@@ -42,9 +42,15 @@ export default {
 			dev: !production,
 			// we'll extract any component CSS out into
 			// a separate file - better for performance
-			css: css => {
-				css.write('bundle.css');
-			}
+			emitCss: false,
+			// Extract CSS into a single bundled file (recommended).
+      // See note below
+      css: function (css) {
+        // creates `main.css` and `main.css.map`
+        // using a falsy name will default to the bundle name
+        // — pass `false` as the second argument if you don't want the sourcemap
+        css.write('bundle.css');
+      },
 		}),
 
 		// If you have external dependencies installed from
@@ -58,7 +64,8 @@ export default {
 		}),
 		commonjs(),
 		postcss({
-		      extract: true,
+					extensions: ['.scss', '.sass'],
+		      extract: false,
 		      minimize: true,
 		      use: [
 		        ['sass', {
