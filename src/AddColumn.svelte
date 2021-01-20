@@ -17,17 +17,27 @@
   let query;
   let items = ['One', 'Two', 'Three'];
   let _id2locations = {};
+  let selectedLocations;
 
   function doAddInquiry() {
+    console.dir('selected locations:');
+    console.log(selectedLocations);
+    var selected_ids = selectedLocations.map(function (l) { return l.value; });
+    var selected_names = selectedLocations.map(function (l) { return l.label; })
     // TODO: Supprt adding multiple locations in a single column
-    var selected = $locations.filter((l) => l.id == location)[0];
+    var selected = $locations.filter(l => selected_ids.indexOf(l.id) >= 0);
     if (name == '') {
-      name = selected.name;
+      name = selected_names.join(", ");
     }
+    if (query == '') {
+      query = "*"
+    }
+    console.log('adding name:' + name);
+    console.log('adding selected : ');
+    console.dir(selected);
     addInquiry({
       name: name,
-      location: selected.name,
-      ids: [selected.id],
+      ids: selected_ids,
       query: query
     });
   }
@@ -78,7 +88,7 @@
       <HelperText id="helper-text-column-name">Een beschrijvende naam voor de zoekopdracht</HelperText>
     </div>
     <div class="multi-select-input">
-       <Select items={$selectable_locations} isMulti={true}></Select>
+       <Select items={$selectable_locations} isMulti={true} bind:selectedValue={selectedLocations}></Select>
        <HelperText>Lokatie</HelperText>
     </div>
     <div>
@@ -109,7 +119,4 @@
 </script>
 
 <style>
-Dialog {
-  width: 500px;
-}
 </style>
