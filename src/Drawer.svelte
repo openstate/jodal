@@ -1,3 +1,4 @@
+{#if $drawerOpen}
 <section>
     <div class="drawer-container">
       <Drawer variant="modal" bind:this={myDrawer2} bind:open={myDrawer2Open} on:MDCDrawer:closed={() => drawerOpen.update(n => false)}>
@@ -45,6 +46,7 @@
       <Scrim />
     </div>
 </section>
+{/if}
 
 <script>
   import Drawer, {AppContent, Content, Header, Title, Subtitle, Scrim} from '@smui/drawer';
@@ -87,7 +89,6 @@
     max-width: 600px;
   /*  border: 1px solid rgba(0,0,0,.1);*/
     overflow: hidden;
-    z-index: 0;
   }
 
   * :global(.mdc-drawer--modal, .mdc-drawer-scrim) {

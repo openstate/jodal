@@ -54,6 +54,7 @@ function shuffle(array) {
 }
 
 function doSomething() {
+  console.log('toggling settings!');
    show_settings = !show_settings;
  }
 
@@ -167,7 +168,7 @@ onDestroy(function () {
 <div id="column-{inquiry.order}" class="column">
   <div class="column-title">
     <h2>{ inquiry.name }</h2>
-    <IconButton align="end" class="material-icons" aria-label="Bookmark this page" on:click={doSomething}>filter_alt</IconButton>
+    <IconButton align="end" class="material-icons" aria-label="Bookmark this page" on:click={() => doSomething()}>filter_alt</IconButton>
   </div>
   {#if show_settings}
   <div class="column-settings" class:active={show_settings} transition:slide="{{ duration: 500 }}">

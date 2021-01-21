@@ -35,6 +35,7 @@
     console.log('adding name:' + name);
     console.log('adding selected : ');
     console.dir(selected);
+    // TODO: maybe we should do this async?
     addInquiry({
       name: name,
       ids: selected_ids,
