@@ -55,7 +55,7 @@ function timeSince(timeStamp) {
       <date title="{ date }">{ timeSince(Date.parse(date)) }</date>
     </li>
     <li class="last">
-    { location }
+    <strong>{ location }</strong>
     </li>
     </ul>
     <ul>
