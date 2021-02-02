@@ -81,6 +81,8 @@ services:
 volumes:
   esdata:
     driver: local
+  jodal-mysql-volume:
+    driver: local
 networks:
   jodal:
   nginx-load-balancer:
