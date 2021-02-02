@@ -43,6 +43,20 @@ services:
     networks:
       - jodal
     restart: always
+  mysql:
+    image: mysql:5.7.21
+    # This root password will be overwritten with the password used in
+    # the backup that will be restored from a .sql file in the
+    # docker-entrypoint-initdb.d directory.
+    environment:
+      - MYSQL_DATABASE=jodal
+      - MYSQL_ROOT_PASSWORD=jodal
+    networks:
+      - jodal
+    volumes:
+      - jodal-mysql-volume:/var/lib/mysql
+      - "./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
+    restart: always
   elasticsearch:
     image: "docker.elastic.co/elasticsearch/elasticsearch:${ES_VERSION}"
     environment:
