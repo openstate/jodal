@@ -57,6 +57,25 @@ services:
       - jodal-mysql-volume:/var/lib/mysql
       - "./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
     restart: always
+    command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
+  fusionauth:
+    image: fusionauth/fusionauth-app:latest
+    depends_on:
+      - mysql
+    environment:
+      DATABASE_URL: jdbc:mysql://mysql:3306/fusionauth
+      DATABASE_ROOT_USERNAME: root
+      DATABASE_ROOT_PASSWORD: jodal
+      DATABASE_USERNAME: root
+      DATABASE_PASSWORD: jodal
+      FUSIONAUTH_APP_MEMORY: 512M
+      SEARCH_TYPE: database
+      FUSIONAUTH_APP_URL: http://fusionauth:9011
+    networks:
+     - jodal
+    restart: always
+    volumes:
+      - fa_config:/usr/local/fusionauth/config
   elasticsearch:
     image: "docker.elastic.co/elasticsearch/elasticsearch:${ES_VERSION}"
     environment:
@@ -82,6 +101,8 @@ volumes:
   esdata:
     driver: local
   jodal-mysql-volume:
+    driver: local
+  fa_config:
     driver: local
 networks:
   jodal:
