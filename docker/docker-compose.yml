@@ -4,6 +4,9 @@ services:
     build:
       context: .
       dockerfile: Dockerfile-nginx
+    depends_on:
+      - api-jodal
+      - fusionauth
     volumes:
       - ./nginx-start/:/opt/nginx/
       - ./nginx/:/etc/nginx/
