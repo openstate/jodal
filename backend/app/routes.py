@@ -137,7 +137,7 @@ def callback():
     session['oauth_token'] = result['access_token']
     session['user'] = fusionauth.get(app.config['USERINFO_URL']).json()
     # return redirect('/users/simple/me')
-    return redirect(config['JODAL_URL'])
+    return redirect(app.config['JODAL_URL'])
 
 
 @app.route('/search')
