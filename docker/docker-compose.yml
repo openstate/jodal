@@ -73,7 +73,7 @@ services:
       DATABASE_PASSWORD: jodal
       FUSIONAUTH_APP_MEMORY: 512M
       SEARCH_TYPE: database
-      FUSIONAUTH_APP_URL: http://fusionauth:9011
+      FUSIONAUTH_APP_URL: https://users.jodal.nl
     networks:
      - jodal
     restart: always

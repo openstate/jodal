@@ -12,5 +12,7 @@ services:
   fusionauth:
     # ports:
     #   - 9011:9011
+    environment:
+      FUSIONAUTH_APP_URL: http://users.jodal.nl
   node:
     restart: "no"
