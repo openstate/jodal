@@ -12,6 +12,8 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 class Config(object):
     SECRET_KEY = 'DitIsJodal'
     NAME_OF_APP = 'jodal'
+    # where the jodal instance lives
+    JODAL_URL = 'http://localhost/'
 #    SERVER_NAME = 'waarismijnstemlokaal.nl'
 #    PREFERRED_URL_SCHEME = 'https'
 #    FORCE_HOST_FOR_REDIRECTS = 'waarismijnstemlokaal.nl'
