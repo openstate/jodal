@@ -19,8 +19,8 @@ class Config(object):
     # authfusion config stuff
     CLIENT_ID="47067915-8bfd-4e57-957c-a232e2025524"
     CLIENT_SECRET="QyT2uwYGHx5jp4FKY9EmYcsBWhP7s0lXupncdoo3SP8"
-    FA_URL='http://localhost:9011'
-    AUTHORIZATION_BASE_URL='http://localhost:9011/oauth2/authorize'
+    FA_URL='http://users.jodal.nl'
+    AUTHORIZATION_BASE_URL='http://users.jodal.nl/oauth2/authorize'
     TOKEN_URL='http://fusionauth:9011/oauth2/token'
     USERINFO_URL='http://fusionauth:9011/oauth2/userinfo'
     REDIRECT_URI='http://api.jodal.nl/users/simple/callback'

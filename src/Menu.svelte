@@ -10,6 +10,7 @@
             <Title>Jodal</Title>
           </Section>
           <Section align="end" toolbar>
+            <IconButton class="material-icons" aria-label="Login" href="http://api.jodal.nl/users/simple/login">login</IconButton>
             <IconButton class="material-icons" aria-label="Add a column" on:click={() => startAddColumn()}>add</IconButton>
           </Section>
         </Row>
