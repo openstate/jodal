@@ -8,7 +8,10 @@ Create Date: 2021-02-17 16:44:54.295290
 from alembic import op
 import sqlalchemy as sa
 
-from jodal.db import BinaryUUID
+try:
+    from jodal.db import BinaryUUID
+except Exception as e:
+    pass 
 
 
 # revision identifiers, used by Alembic.
