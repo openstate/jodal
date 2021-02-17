@@ -11,7 +11,7 @@ import sqlalchemy as sa
 try:
     from jodal.db import BinaryUUID
 except Exception as e:
-    pass 
+    pass
 
 
 # revision identifiers, used by Alembic.
@@ -22,6 +22,7 @@ depends_on = None
 
 
 def upgrade():
+     op.add_column('column', sa.Column('query', sa.String(100)))
      op.add_column('column', sa.Column('user_id', BinaryUUID))
 
 
