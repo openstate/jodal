@@ -13,6 +13,18 @@ jodal is het JOurnalistiek DAshboard Lokaal.
 In development mode you can run `./bin/dev.sh` from the base directory, which will launch
 the development environment. You can then go to http://localhost/ in your browser.
 
+# migrations
+
+Jodal uses [alembic](https://alembic.sqlalchemy.org/en/latest/index.html) for migrations
+
+## migrate all up to the latest
+
+`docker exec jodal_backend_1 alembic upgrade head`
+
+## rollback
+
+`docker exec jodal_backend_1 alembic downgrade -1`
+
 # contact
 
 Send an email to breyten@openstate.eu
