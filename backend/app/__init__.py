@@ -88,6 +88,7 @@ api = Api(app)
 
 
 from app import routes
-from app.resources import ColumnListResource
+from app.resources import ColumnListResource, ColumnResource
 
 api.add_resource(ColumnListResource, '/columns')
+api.add_resource(ColumnResource, '/columns/<int:column_id>')
