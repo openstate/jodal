@@ -12,7 +12,7 @@ import requests
 
 from app import app, AppError
 from app.search import perform_query
-
+from app.models import Column
 
 def decode_json_post_data(fn):
     """Decorator that parses POSTed JSON and attaches it to the request

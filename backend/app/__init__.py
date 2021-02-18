@@ -8,7 +8,9 @@ from config import Config
 from .utils import load_config
 
 from flask import Flask, jsonify
-
+from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow
+from flask_restful import Api
 
 class AppError(Exception):
     """API error class.
@@ -80,5 +82,12 @@ logging.basicConfig(
 
 
 app = create_app()
+db = SQLAlchemy(app)
+ma = Marshmallow(app)
+api = Api(app)
+
 
 from app import routes
+from app.resources import ColumnListResource
+
+api.add_resource(ColumnListResource, '/columns')
