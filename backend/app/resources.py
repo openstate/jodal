@@ -1,4 +1,4 @@
-from flask import request
+from flask import request, session
 from flask_restful import Resource
 
 from app import db
@@ -12,9 +12,19 @@ class ColumnListResource(Resource):
         return columns_schema.dump(columns)
 
     def post(self):
+        # TODO: proper token check
+        # TODO: check the jwt token that is sent along
+        if 'user' in session:
+            user_id = session['user']['sub']
+        else:
+            user_id = None
+
+        if user_id is None:
+            return '', 401
+
         new_column = Column(
             name=request.json['name'],
-            user_id=request.json['user_id'],
+            user_id=user_id,
             user_query=request.json['user_query']
         )
         db.session.add(new_column)
