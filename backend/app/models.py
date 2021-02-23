@@ -10,3 +10,4 @@ class Column(db.Model):
     locations = db.Column('locations', db.String(1024))
     user_query = db.Column('query', db.String(100))
     user_id = db.Column('user_id', BinaryUUID())
+    order = db.Column('order', db.Integer, nullable=False, default=0)

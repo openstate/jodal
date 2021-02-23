@@ -26,7 +26,7 @@ class LocationsField(fields.Field):
 
 class ColumnSchema(ma.Schema):
     class Meta:
-        fields = ("id", "user_id", "name", "locations", "user_query")
+        fields = ("id", "user_id", "name", "locations", "user_query", "order")
         model = Column
     locations = LocationsField()  # fields.Str()
 

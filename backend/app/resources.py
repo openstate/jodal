@@ -26,7 +26,8 @@ class ColumnListResource(Resource):
             name=request.json['name'],
             user_id=user_id,
             locations=request.json['locations'],
-            user_query=request.json['user_query']
+            user_query=request.json['user_query'],
+            order=request.json['order']
         )
         db.session.add(new_column)
         db.session.commit()
@@ -40,12 +41,10 @@ class ColumnResource(Resource):
     def patch(self, column_id):
         column = Column.query.get_or_404(column_id)
 
-        if 'name' in request.json:
-            column.name = request.json['name']
-        if 'locations' in request.json:
-            column.locations = request.json['locations']
-        if 'user_query' in request.json:
-            column.user_query = request.json['user_query']
+        editable = ['name', 'locations', 'user_query', 'order']
+        for f in editable:
+            if f in request.json:
+                setattr(column, f, request.json[f])
 
         db.session.commit()
         return column_schema.dump(column)
