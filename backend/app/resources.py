@@ -8,7 +8,19 @@ from app.schemas import (column_schema, columns_schema)
 
 class ColumnListResource(Resource):
     def get(self):
-        columns = Column.query.all()
+        # TODO: proper token check
+        # TODO: check the jwt token that is sent along
+        if 'user' in session:
+            user_id = session['user']['sub']
+        else:
+            user_id = None
+
+        if user_id is None:
+            return '', 401
+
+        #columns = Column.query.all()
+        columns = Column.query.filter(Column.user_id==user_id)
+
         return columns_schema.dump(columns)
 
     def post(self):
