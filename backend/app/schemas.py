@@ -3,7 +3,7 @@ from app.models import Column
 
 class ColumnSchema(ma.Schema):
     class Meta:
-        fields = ("id", "user_id", "name", "user_query")
+        fields = ("id", "user_id", "name", "locations", "user_query")
         model = Column
 
 column_schema = ColumnSchema()

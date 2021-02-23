@@ -25,6 +25,7 @@ class ColumnListResource(Resource):
         new_column = Column(
             name=request.json['name'],
             user_id=user_id,
+            locations=request.json['locations'],
             user_query=request.json['user_query']
         )
         db.session.add(new_column)
@@ -41,6 +42,8 @@ class ColumnResource(Resource):
 
         if 'name' in request.json:
             column.name = request.json['name']
+        if 'locations' in request.json:
+            column.locations = request.json['locations']
         if 'user_query' in request.json:
             column.user_query = request.json['user_query']
 
