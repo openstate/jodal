@@ -69,8 +69,8 @@ export let default_entries = [
 ];
 
 export const inquiries = writable([
-  {name: 'Amsterdam', ids:["GM0363"], query: "*", order: 0},
-  {name: 'Groningen',  ids:["GM0014"], query: "*", order: 1}
+  {name: 'Amsterdam', locations:["GM0363"], user_query: "*", order: 0},
+  {name: 'Groningen', locations:["GM0014"], user_query: "*", order: 1}
 //  writable({name: 'Enschede', order: 2, entries: shuffle(default_entries)}),
 //  writable({name: 'Leeuwarden', order: 3, entries: shuffle(default_entries)}),
 //  writable({name: 'Roermond', order: 4, entries: shuffle(default_entries)}),

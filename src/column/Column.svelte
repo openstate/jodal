@@ -24,14 +24,14 @@ let items_ = writable([]); //writable(shuffle(default_entries));
 let items = derived(items_, (items_) => orderBy(items_, ['date'], ['desc']))
 let item_ids = {};
 let empty = false;
-let query = inquiry.query;
+let query = inquiry.user_query;
 let show_settings = false;
 let show_marker = false;
 let scroll_marker;
 let virtual_list;
 
 function getLocations() {
-  column_locations = $locations.filter((l) => inquiry.ids.includes(l.id));
+  column_locations = $locations.filter((l) => inquiry.locations.includes(l.id));
 }
 
 function shuffle(array) {
@@ -124,7 +124,7 @@ onMount(function () {
       // FIXME: sources are fetched in parralel so updating the items does not work correctly like this.
       // so we wait until the full batch is complete then compare and update items
       $sources.forEach(function (s) {
-          fetchSource(inquiry.query, s.short, locations2sources[s.short], function (fetched_items) {
+          fetchSource(inquiry.user_query, s.short, locations2sources[s.short], function (fetched_items) {
             console.log('should set items now!');
             var real_items = get(items_);
             fetched_items.reverse();
