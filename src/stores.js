@@ -39,4 +39,22 @@ export function addInquiry(settings) {
   };
   inqs.push(column_def);
   inquiries.set(inqs);
+
+  var url = 'http://api.jodal.nl/columns';
+  return fetch(
+    url, {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify(column_def),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(
+      response => response.json()
+    ).then(
+      function (data) {
+        console.log('Added column succesfully!:');
+        console.dir(data);
+      }
+    );
 }

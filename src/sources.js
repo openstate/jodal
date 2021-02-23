@@ -180,7 +180,7 @@ function fetchPoliflw(query, location_ids, callback) {
             if (typeof(i.meta.highlight) === 'undefined') {
               desc = i.description.substring(0,140);
             } else {
-              desc = i.meta.hhlght.description;
+              desc = i.meta.highlight.description;
             }
             return {
               key: i.date,

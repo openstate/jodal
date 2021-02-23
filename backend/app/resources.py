@@ -1,3 +1,5 @@
+import logging
+
 from flask import request, session
 from flask_restful import Resource
 
@@ -34,6 +36,7 @@ class ColumnListResource(Resource):
         if user_id is None:
             return '', 401
 
+        logging.info(request.json)
         new_column = Column(
             name=request.json['name'],
             user_id=user_id,
