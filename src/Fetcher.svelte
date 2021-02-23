@@ -13,6 +13,7 @@ onMount(function () {
         function (data) {
           console.log('Got columns:');
           console.dir(data);
+          inquiries.set(data);
         }
       );
   }

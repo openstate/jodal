@@ -4,7 +4,7 @@ import Entry from './Entry.svelte';
 import IconButton from '@smui/icon-button';
 import Textfield from '@smui/textfield'
 import { writable, get, derived } from 'svelte/store';
-import { sources, locations, default_entries, fetchingEnabled } from '../stores.js';
+import { sources, locations, fetchingEnabled } from '../stores.js';
 import { fetchSource } from '../sources.js';
 import Switch from '@smui/switch';
 import FormField from '@smui/form-field';
@@ -20,7 +20,7 @@ let start=0;
 let end=5;
 let selected = false;
 
-let items_ = writable([]); //writable(shuffle(default_entries));
+let items_ = writable([]);
 let items = derived(items_, (items_) => orderBy(items_, ['date'], ['desc']))
 let item_ids = {};
 let empty = false;
