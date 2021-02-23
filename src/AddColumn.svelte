@@ -38,8 +38,8 @@
     // TODO: maybe we should do this async?
     addInquiry({
       name: name,
-      ids: selected_ids,
-      query: query
+      locations: selected_ids,
+      user_query: query
     });
   }
 
