@@ -58,3 +58,19 @@ export function addInquiry(settings) {
       }
     );
 }
+
+export function removeInquiry(column_id) {
+  var url = 'http://api.jodal.nl/columns/' + column_id;
+  return fetch(
+    url, {
+      method: "DELETE",
+      credentials: "include",
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(
+      function (data) {
+        console.log('Deleted column ' + column_id + ' succesfully!:');
+      }
+    );
+}

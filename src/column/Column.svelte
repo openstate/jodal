@@ -5,7 +5,7 @@ import Button from '@smui/button';
 import IconButton from '@smui/icon-button';
 import Textfield from '@smui/textfield'
 import { writable, get, derived } from 'svelte/store';
-import { sources, locations, fetchingEnabled } from '../stores.js';
+import { sources, locations, fetchingEnabled, removeInquiry } from '../stores.js';
 import { fetchSource } from '../sources.js';
 import Switch from '@smui/switch';
 import FormField from '@smui/form-field';
@@ -61,10 +61,6 @@ function doSomething() {
    show_settings = !show_settings;
  }
 
-function coumn_id() {
-    return "column-" + inquiry.order;
-};
-
 function doGoToEntry() {
   show_marker = false;
   if (scroll_marker) {
@@ -102,7 +98,7 @@ function handleClosedLeading() {
 }
 
 function removeColumn() {
-
+  removeInquiry(column_id);
 }
 
 var interval;
@@ -190,7 +186,7 @@ onDestroy(function () {
       {/each}
     {/if}
     <div class="column-settings-actions">
-      <Button align="end" on:click={() => doSomething()}><Label>Kolom verwijderen</Label></Button>
+      <Button align="end" on:click={() => removeColumn()}><Label>Kolom verwijderen</Label></Button>
     </div>
   </div>
   {/if}
