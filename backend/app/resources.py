@@ -1,4 +1,5 @@
 import logging
+from functools import wraps
 
 from flask import request, session
 from flask_restful import Resource
@@ -7,18 +8,28 @@ from app import db
 from app.models import Column
 from app.schemas import (column_schema, columns_schema)
 
-
-class ColumnListResource(Resource):
-    def get(self):
+def authenticate(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
         # TODO: proper token check
         # TODO: check the jwt token that is sent along
-        if 'user' in session:
+        user_id = None
+        try:
             user_id = session['user']['sub']
-        else:
-            user_id = None
+        except (LookupError, AttributeError) as e:
+            pass
 
-        if user_id is None:
-            return '', 401
+        if user_id:
+            return func(*args, **kwargs)
+
+        flask_restful.abort(401)
+    return wrapper
+
+class ColumnListResource(Resource):
+    method_decorators = [authenticate]
+
+    def get(self):
+        user_id = session['user']['sub']
 
         #columns = Column.query.all()
         columns = Column.query.filter(Column.user_id==user_id)
@@ -26,17 +37,7 @@ class ColumnListResource(Resource):
         return columns_schema.dump(columns)
 
     def post(self):
-        # TODO: proper token check
-        # TODO: check the jwt token that is sent along
-        if 'user' in session:
-            user_id = session['user']['sub']
-        else:
-            user_id = None
-
-        if user_id is None:
-            return '', 401
-
-        logging.info(request.json)
+        user_id = session['user']['sub']
         new_column = Column(
             name=request.json['name'],
             user_id=user_id,
@@ -49,12 +50,15 @@ class ColumnListResource(Resource):
         return column_schema.dump(new_column)
 
 class ColumnResource(Resource):
+    method_decorators = [authenticate]
+
     def get(self, column_id):
-        column = Column.query.get_or_404(column_id)
+        user_id = session['user']['sub']
+        column = Column.query.filter(Column.user_id==user_id, Column.id==column_id).first_or_404()
         return column_schema.dump(column)
 
     def patch(self, column_id):
-        column = Column.query.get_or_404(column_id)
+        column = Column.query.filter(Column.user_id==user_id, Column.id==column_id).first_or_404()
 
         editable = ['name', 'locations', 'user_query', 'order']
         for f in editable:
@@ -65,7 +69,7 @@ class ColumnResource(Resource):
         return column_schema.dump(column)
 
     def delete(self, column_id):
-        column = Column.query.get_or_404(column_id)
+        column = Column.query.filter(Column.user_id==user_id, Column.id==column_id).first_or_404()
         db.session.delete(column)
         db.session.commit()
         return '', 204
