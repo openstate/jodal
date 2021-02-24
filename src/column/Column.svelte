@@ -1,6 +1,7 @@
 <script>
 import { onMount, onDestroy } from 'svelte';
 import Entry from './Entry.svelte';
+import Button from '@smui/button';
 import IconButton from '@smui/icon-button';
 import Textfield from '@smui/textfield'
 import { writable, get, derived } from 'svelte/store';
@@ -25,10 +26,12 @@ let items = derived(items_, (items_) => orderBy(items_, ['date'], ['desc']))
 let item_ids = {};
 let empty = false;
 let query = inquiry.user_query;
+let column_id = inquiry.id;
 let show_settings = false;
 let show_marker = false;
 let scroll_marker;
 let virtual_list;
+let show_sources = false;
 
 function getLocations() {
   column_locations = $locations.filter((l) => inquiry.locations.includes(l.id));
@@ -98,7 +101,12 @@ function handleClosedLeading() {
   console('leadgsackar closed');
 }
 
+function removeColumn() {
+
+}
+
 var interval;
+
 
 onMount(function () {
   async function fetchData() {
@@ -165,7 +173,7 @@ onDestroy(function () {
 <svelte:window on:focus={getFocus} on:blur={loseFocus} />
 
 <section class="column-section">
-<div id="column-{inquiry.order}" class="column">
+<div id="column-{column_id}" class="column">
   <div class="column-title">
     <h2>{ inquiry.name }</h2>
     <IconButton align="end" class="material-icons" aria-label="Instellingen" alt="Instellingen" on:click={() => doSomething()}>tune</IconButton>
@@ -173,20 +181,25 @@ onDestroy(function () {
   {#if show_settings}
   <div class="column-settings" class:active={show_settings} transition:slide="{{ duration: 500 }}">
     <Textfield bind:value={query} label="Query" />
-    {#each $sources as src}
-    <FormField>
-      <Switch bind:checked={selected} />
-      <span slot="label">{ src.name }</span>
-    </FormField>
-    {/each}
+    {#if show_sources}
+      {#each $sources as src}
+      <FormField>
+        <Switch bind:checked={selected} />
+        <span slot="label">{ src.name }</span>
+      </FormField>
+      {/each}
+    {/if}
+    <div class="column-settings-actions">
+      <Button align="end" on:click={() => doSomething()}><Label>Kolom verwijderen</Label></Button>
+    </div>
   </div>
   {/if}
-  <div id="column-contents-{inquiry.order}" class="column-contents">
+  <div id="column-contents-{column_id}" class="column-contents">
   {#if show_marker}
     <Fab on:click={doGoToEntry} extended><Label>Nieuwe entries!</Label></Fab>
   {/if}
   {#each $items as entry}
-  	<Entry {...entry} column={inquiry.order} />
+  	<Entry {...entry} column={column_id} />
   {/each}
   </div>
 </div>

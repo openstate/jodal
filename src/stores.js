@@ -37,8 +37,6 @@ export function addInquiry(settings) {
     ...settings,
     order: (max_order + 1)
   };
-  inqs.push(column_def);
-  inquiries.set(inqs);
 
   var url = 'http://api.jodal.nl/columns';
   return fetch(
@@ -55,6 +53,8 @@ export function addInquiry(settings) {
       function (data) {
         console.log('Added column succesfully!:');
         console.dir(data);
+        inqs.push(data);
+        inquiries.set(inqs);
       }
     );
 }
