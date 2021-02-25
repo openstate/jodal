@@ -38,7 +38,7 @@ export function addInquiry(settings) {
     order: (max_order + 1)
   };
 
-  var url = 'http://api.jodal.nl/columns';
+  var url = window.location.protocol + '//api.jodal.nl/columns';
   return fetch(
     url, {
       method: "POST",
@@ -60,7 +60,7 @@ export function addInquiry(settings) {
 }
 
 export function removeInquiry(column_id) {
-  var url = 'http://api.jodal.nl/columns/' + column_id;
+  var url = window.location.protocol + '//api.jodal.nl/columns/' + column_id;
   return fetch(
     url, {
       method: "DELETE",
