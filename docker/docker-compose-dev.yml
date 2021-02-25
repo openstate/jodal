@@ -10,8 +10,8 @@ services:
     environment:
       OAUTHLIB_INSECURE_TRANSPORT: "1"
   fusionauth:
-    # ports:
-    #   - 9011:9011
+    ports:
+      - 9011:9011
     environment:
       FUSIONAUTH_APP_URL: http://users.jodal.nl
   node:

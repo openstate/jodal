@@ -23,6 +23,8 @@ services:
       - elasticsearch
     volumes:
       - ../backend:/opt/jodal
+    environment:
+      OAUTHLIB_INSECURE_TRANSPORT: "1"
     networks:
       - jodal
     restart: always
