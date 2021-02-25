@@ -5,7 +5,7 @@ import { identity, inquiries } from './stores.js';
 
 onMount(function () {
   async function fetchColumns() {
-    var url = 'http://api.jodal.nl/columns';
+    var url = window.location.protocol + '//api.jodal.nl/columns';
     return fetch(
       url, {credentials: "include"}).then(
         response => response.json()
@@ -18,7 +18,7 @@ onMount(function () {
       );
   }
   async function fetchIdentity() {
-    var url = 'http://api.jodal.nl/users/simple/me';
+    var url = window.location.protocol + '//api.jodal.nl/users/simple/me';
     return fetch(
       url, {credentials: "include"}).then(
         response => response.json()

@@ -13,9 +13,9 @@
           {#if $identity}
             <IconButton class="material-icons" aria-label="Add a column" title="Kolom toevoegen" on:click={() => startAddColumn()}>add</IconButton>
             <IconButton class="material-icons" aria-label="Account" title="{$identity.email}">account_circle</IconButton>
-            <IconButton class="material-icons" aria-label="Logout" href="http://api.jodal.nl/users/simple/logout" title="Uitloggen">logout</IconButton>
+            <IconButton class="material-icons" aria-label="Logout" href="//api.jodal.nl/users/simple/logout" title="Uitloggen">logout</IconButton>
           {:else}
-            <IconButton class="material-icons" aria-label="Login" href="http://api.jodal.nl/users/simple/login" title="Inloggen">login</IconButton>
+            <IconButton class="material-icons" aria-label="Login" href="//api.jodal.nl/users/simple/login" title="Inloggen">login</IconButton>
           {/if}
           </Section>
         </Row>
