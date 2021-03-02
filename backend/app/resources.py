@@ -59,6 +59,7 @@ class ColumnResource(Resource):
         return column_schema.dump(column)
 
     def patch(self, column_id):
+        user_id = session['user']['sub']
         column = Column.query.filter(Column.user_id==user_id, Column.id==column_id).first_or_404()
 
         editable = ['name', 'locations', 'user_query', 'order']
@@ -70,6 +71,7 @@ class ColumnResource(Resource):
         return column_schema.dump(column)
 
     def delete(self, column_id):
+        user_id = session['user']['sub']
         column = Column.query.filter(Column.user_id==user_id, Column.id==column_id).first_or_404()
         db.session.delete(column)
         db.session.commit()
