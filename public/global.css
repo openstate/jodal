@@ -128,6 +128,8 @@ h6 {
 	top: 64px;
 	left: 0;
 	bottom: 0;
+	right: 0;
+	bottom: 0;
 }
 
 .column-title {
@@ -235,4 +237,9 @@ h6 {
 	width: 32px;
 	height: 32px;
 	margin: 0 auto;
+}
+
+.start-explainer {
+	margin: 0 auto;
+	text-align: center;
 }
