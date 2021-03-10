@@ -229,3 +229,10 @@ h6 {
 #add-column-content input {
 	width: 500px;
 }
+
+.loading {
+	background: url("/images/loading.svg") no-repeat;
+	width: 32px;
+	height: 32px;
+	margin: 0 auto;
+}

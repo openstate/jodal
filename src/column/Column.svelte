@@ -32,6 +32,7 @@ let show_marker = false;
 let scroll_marker;
 let virtual_list;
 let show_sources = false;
+let loading = true;
 
 function getLocations() {
   column_locations = $locations.filter((l) => inquiry.locations.includes(l.id));
@@ -139,6 +140,7 @@ onMount(function () {
               }
             });
             items_.set(real_items);
+            loading = false;
           });
       });
       // var entry_idx = $items.length + 10;
@@ -191,6 +193,9 @@ onDestroy(function () {
   </div>
   {/if}
   <div id="column-contents-{column_id}" class="column-contents">
+  {#if loading}
+    <div class="loading"></div>
+  {/if}
   {#if show_marker}
     <Fab on:click={doGoToEntry} extended><Label>Nieuwe entries!</Label></Fab>
   {/if}
