@@ -12,9 +12,10 @@ export let location;
 let empty = false;
 
 import { slide } from 'svelte/transition';
+import { onMount, onDestroy } from 'svelte';
 
-function timeSince(timeStamp) {
-  var now = new Date();
+function timeSince(now, timeStamp) {
+  //var now = new Date();
   var secondsPast = (now.getTime() - timeStamp) / 1000;
   if (secondsPast < 60) {
     return parseInt(secondsPast) + 's';
@@ -34,6 +35,19 @@ function timeSince(timeStamp) {
   }
 }
 
+let cur_date = new Date();
+
+function updateTime() {
+  cur_date = new Date();
+  setTimeout(updateTime, 10000);
+}
+
+$: time_since = timeSince(cur_date, Date.parse(date));
+
+// lifecycle functions
+onMount(() => {
+  updateTime();
+});
 </script>
 
 <div class="entry" id="entry_{column}{key}" transition:slide="{{ duration: 150 }}">
@@ -52,7 +66,7 @@ function timeSince(timeStamp) {
   <div class="entry-byline">
     <ul>
     <li>
-      <date title="{ date }">{ timeSince(Date.parse(date)) }</date>
+      <date title="{ date }">{ time_since }</date>
     </li>
     <li class="last">
     <strong>{ location }</strong>
