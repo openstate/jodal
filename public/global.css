@@ -121,6 +121,7 @@ h6 {
 	bottom: 0;
 	background-color: #e1e8ed;
 	z-index: -1;
+	overflow: visile;
 }
 
 .columns {
@@ -130,6 +131,8 @@ h6 {
 	bottom: 0;
 	right: 0;
 	bottom: 0;
+	overflow: auto hidden;
+	white-space:nowrap;
 }
 
 .column-title {
@@ -151,8 +154,10 @@ h6 {
 	min-height: 200px;
 	height: calc(100vh - 9em);
 	overflow-y: scroll;
+	overflow-x: hidden;
 	margin: 2px;
 	clear: both;
+	white-space: normal;
 }
 
 .column-contents button {
