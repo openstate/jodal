@@ -102,6 +102,59 @@ function removeColumn() {
   removeInquiry(column_id);
 }
 
+function handleQueryInput(e){
+    // console.log('new query input should be handled!:');
+    // console.dir(e);
+}
+
+function handleQueryChange(e){
+    console.log('new query change should be handled!:');
+    console.dir(e);
+    items_.set([]);
+    inquiry.user_query = query;
+    // TODO: send the update back to the DB
+    loading = true;
+    console.log('fetchting for query change!');
+    fetchFromSources();
+}
+
+function fetchFromSources() {
+  if (column_locations.length <= 0) {
+    getLocations();
+  }
+
+  console.log('should fetch data for colum ' + inquiry.name + ' now!!');
+  var locations2sources = {};
+  $sources.forEach(function (s) {
+    locations2sources[s.short] = [];
+  });
+  column_locations.forEach(function (c) {
+    c.sources.forEach(function (s) {
+      //console.log('s:');
+      //console.dir(s.source);
+      locations2sources[s.source].push(s.id);
+    })
+  });
+  console.log(locations2sources);
+  // FIXME: sources are fetched in parralel so updating the items does not work correctly like this.
+  // so we wait until the full batch is complete then compare and update items
+  $sources.forEach(function (s) {
+      fetchSource(inquiry.user_query, s.short, locations2sources[s.short], function (fetched_items) {
+        console.log('should set items now!');
+        var real_items = get(items_);
+        fetched_items.reverse();
+        fetched_items.forEach(function (i) {
+          if (typeof(item_ids[i.key]) === 'undefined') {
+            real_items.unshift(i);
+            item_ids[i.key] = 1;
+          }
+        });
+        items_.set(real_items);
+        loading = false;
+      });
+  });
+}
+
 var interval;
 
 
@@ -109,49 +162,8 @@ onMount(function () {
   async function fetchData() {
     if (get(fetchingEnabled)) {
 
-      if (column_locations.length <= 0) {
-        getLocations();
-      }
+      fetchFromSources();
 
-      console.log('should fetch data for colum ' + inquiry.name + ' now!!');
-      var locations2sources = {};
-      $sources.forEach(function (s) {
-        locations2sources[s.short] = [];
-      });
-      column_locations.forEach(function (c) {
-        c.sources.forEach(function (s) {
-          //console.log('s:');
-          //console.dir(s.source);
-          locations2sources[s.source].push(s.id);
-        })
-      });
-      console.log(locations2sources);
-      // FIXME: sources are fetched in parralel so updating the items does not work correctly like this.
-      // so we wait until the full batch is complete then compare and update items
-      $sources.forEach(function (s) {
-          fetchSource(inquiry.user_query, s.short, locations2sources[s.short], function (fetched_items) {
-            console.log('should set items now!');
-            var real_items = get(items_);
-            fetched_items.reverse();
-            fetched_items.forEach(function (i) {
-              if (typeof(item_ids[i.key]) === 'undefined') {
-                real_items.unshift(i);
-                item_ids[i.key] = 1;
-              }
-            });
-            items_.set(real_items);
-            loading = false;
-          });
-      });
-      // var entry_idx = $items.length + 10;
-      // var default_new_entry = {
-      //   'key': "_" + entry_idx,
-      //   'title': 'Raadscommissie Kunst Diversiteit ' + entry_idx,
-      //   'type': 'Vergadering',
-      //   'source': 'https://openbesluitvorming.nl/',
-      //   'date': '11-11-2020',
-      //   'time': '13:30'
-      // };
       clearInterval(interval);
       interval = setInterval(fetchData, 60000 + (inquiry.order * 1000) + (Math.random() * 2000));
     } else {
@@ -178,7 +190,7 @@ onDestroy(function () {
   </div>
   {#if show_settings}
   <div class="column-settings" class:active={show_settings} transition:slide="{{ duration: 500 }}">
-    <Textfield bind:value={query} label="Query" />
+    <Textfield bind:value={query} on:change={handleQueryChange} on:input={handleQueryInput} label="Query" />
     {#if show_sources}
       {#each $sources as src}
       <FormField>
