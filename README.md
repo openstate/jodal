@@ -15,6 +15,10 @@ jodal is het JOurnalistiek DAshboard Lokaal.
 In development mode you can run `./bin/dev.sh` from the base directory, which will launch
 the development environment. You can then go to http://localhost/ in your browser.
 
+# deployment
+
+Jodal uses Fabric for deployment. Run `fab deploy`.
+
 # migrations
 
 Jodal uses [alembic](https://alembic.sqlalchemy.org/en/latest/index.html) for migrations
