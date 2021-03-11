@@ -7,7 +7,7 @@ onMount(function () {
   async function fetchColumns() {
     var url = window.location.protocol + '//api.jodal.nl/columns';
     return fetch(
-      url, {credentials: "include"}).then(
+      url, {credentials: "include", cache: 'no-cache'}).then(
         response => response.json()
       ).then(
         function (data) {
@@ -20,7 +20,7 @@ onMount(function () {
   async function fetchIdentity() {
     var url = window.location.protocol + '//api.jodal.nl/users/simple/me';
     return fetch(
-      url, {credentials: "include"}).then(
+      url, {credentials: "include", cache: 'no-cache'}).then(
         response => response.json()
       ).then(
         function (data) {

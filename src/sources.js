@@ -73,6 +73,7 @@ function fetchOpenBesluitVorming(query, location_ids, callback) {
   return fetch(
     url, {
       method: 'POST',
+      cache: 'no-cache',
       headers: new Headers({'content-type': 'application/json'}),
       body: JSON.stringify(payload)
     }).then(
@@ -118,7 +119,7 @@ function fetchOpenspending(query, location_ids, callback) {
   console.log(url);
 
   return fetch(
-    url).then(
+    url, {cache: 'no-cache'}).then(
       response => response.json()
     ).then(
       function (data) {
@@ -167,6 +168,7 @@ function fetchPoliflw(query, location_ids, callback) {
   return fetch(
     url, {
       method: 'POST',
+      cache: 'no-cache',
       body: JSON.stringify(payload)
     }).then(
       response => response.json()

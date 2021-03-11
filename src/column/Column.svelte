@@ -111,6 +111,7 @@ function handleQueryChange(e){
     console.log('new query change should be handled!:');
     console.dir(e);
     items_.set([]);
+    item_ids = {};
     inquiry.user_query = query;
     // TODO: send the update back to the DB
     loading = true;
