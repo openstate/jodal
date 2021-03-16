@@ -49,8 +49,8 @@ h3 {
 }
 
 h4 {
-	font-size: 26px;
-	line-height: 36px;
+	font-size: 16px;
+	line-height: 20px;
 }
 
 h5 {
@@ -86,8 +86,8 @@ h6 {
 	}
 
 	h4 {
-		font-size: 22px;
-		line-height: 32px;
+		font-size: 16px;
+		line-height: 20px;
 	}
 
 	h5 {
@@ -158,6 +158,8 @@ h6 {
 	margin: 2px;
 	clear: both;
 	white-space: normal;
+	font-size: 14px;
+	line-height: 18px;
 }
 
 .column-contents button {
