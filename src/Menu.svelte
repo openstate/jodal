@@ -10,6 +10,7 @@
             <Title>Jodal</Title>
           </Section>
           <Section align="end" toolbar>
+          <IconButton class="material-icons" aria-label="Login" href="mailto:jodal@openstate.eu?subject=Help" title="Om hulp vragen">help</IconButton>
           {#if $identity}
             <IconButton class="material-icons" aria-label="Add a column" title="Kolom toevoegen" on:click={() => startAddColumn()}>add</IconButton>
             <IconButton class="material-icons" aria-label="Account" title="{$identity.email}">face</IconButton>
