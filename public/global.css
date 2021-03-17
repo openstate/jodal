@@ -176,6 +176,10 @@ h6 {
 	display: block;
 }
 
+.column-settings-actions {
+	margin-top: 1em;
+}
+
 .column-section {
 	position: relative;
 	overflow: hidden;
