@@ -226,6 +226,7 @@ onDestroy(function () {
       {/each}
     {/if}
     <div class="column-settings-actions">
+      <Button align="begin" on:click={() => handleQueryInput()}><Label>Opslaan</Label></Button>
       <Button align="end" on:click={() => removeColumn()}><Label>Kolom verwijderen</Label></Button>
     </div>
   </div>
