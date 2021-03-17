@@ -49,8 +49,8 @@ h3 {
 }
 
 h4 {
-	font-size: 26px;
-	line-height: 36px;
+	font-size: 16px;
+	line-height: 20px;
 }
 
 h5 {
@@ -86,8 +86,8 @@ h6 {
 	}
 
 	h4 {
-		font-size: 22px;
-		line-height: 32px;
+		font-size: 16px;
+		line-height: 20px;
 	}
 
 	h5 {
@@ -158,6 +158,8 @@ h6 {
 	margin: 2px;
 	clear: both;
 	white-space: normal;
+	font-size: 14px;
+	line-height: 18px;
 }
 
 .column-contents button {
@@ -194,11 +196,25 @@ h6 {
 
 .entry {
 	border-bottom: 1px solid #c0c0c0;
+	margin-left: 4px;
 }
 
 .entry-title h4 {
 	margin-top: 4px;
 	margin-bottom: 12px;
+}
+
+.entry-title h4 a {
+	white-space: nowrap;
+ 	overflow: hidden;
+ 	text-overflow: ellipsis;
+	width: 95%;
+	display: inline-block;
+	text-decoration: none;
+}
+
+.entry-title h4 a:hover {
+	text-decoration: underline;
 }
 
 .entry-byline {
