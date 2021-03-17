@@ -54,7 +54,7 @@ onMount(() => {
   {#if title}
   <div class="entry-title">
     <h4>
-      <a href="{ url }" target="_blank">
+      <a href="{ url }" target="_blank" title="{title}">
       { title }
       </a>
     </h4>
