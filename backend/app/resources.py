@@ -58,7 +58,7 @@ class ColumnResource(Resource):
         column = Column.query.filter(Column.user_id==user_id, Column.id==column_id).first_or_404()
         return column_schema.dump(column)
 
-    def patch(self, column_id):
+    def post(self, column_id):
         user_id = session['user']['sub']
         column = Column.query.filter(Column.user_id==user_id, Column.id==column_id).first_or_404()
 

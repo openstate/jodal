@@ -113,6 +113,23 @@ function handleQueryChange(e){
     items_.set([]);
     item_ids = {};
     inquiry.user_query = query;
+
+    var url = window.location.protocol + '//api.jodal.nl/columns/' + inquiry.id;
+    fetch(
+      url, {
+        method: 'POST',
+        credentials: 'include',
+        cache: 'no-cache',
+        body: JSON.stringify(inquiry),
+        headers: new Headers({'content-type': 'application/json'})
+      }).then(
+        response => response.json()
+      ).then(
+        function (data) {
+            console.log('update of column completed:');
+            console.dir(data);
+        }
+    );
     var old_inquiries = get(inquiries).map(function (i) {
       if ((i.order == inquiry.order) && (i.user_query == inquiry.user_query)){
         return inquiry;
