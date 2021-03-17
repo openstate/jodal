@@ -5,7 +5,7 @@ import Button from '@smui/button';
 import IconButton from '@smui/icon-button';
 import Textfield from '@smui/textfield'
 import { writable, get, derived } from 'svelte/store';
-import { sources, locations, fetchingEnabled, removeInquiry } from '../stores.js';
+import { sources, locations, inquiries, fetchingEnabled, removeInquiry } from '../stores.js';
 import { fetchSource } from '../sources.js';
 import Switch from '@smui/switch';
 import FormField from '@smui/form-field';
@@ -113,6 +113,14 @@ function handleQueryChange(e){
     items_.set([]);
     item_ids = {};
     inquiry.user_query = query;
+    var old_inquiries = get(inquiries).map(function (i) {
+      if ((i.order == inquiry.order) && (i.user_query == inquiry.user_query)){
+        return inquiry;
+      } else {
+        return i;
+      }
+    });
+    inquiries.set(old_inquiries);
     // TODO: send the update back to the DB
     loading = true;
     console.log('fetchting for query change!');
