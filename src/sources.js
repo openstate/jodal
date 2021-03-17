@@ -91,7 +91,11 @@ function fetchOpenBesluitVorming(query, location_ids, callback) {
             if (typeof(i.highlight) === 'undefined') {
               desc = '';
             } else {
-              desc = i.highlight.description;
+              // TODO: can have more
+              desc = i.highlight.name || i.highlight.description || i.highlight.text;
+              if (typeof(desc) !== 'undefined') {
+                desc = desc[0];
+              }
             }
             var location = 'https://id.openraadsinformatie.nl/' + i._source.has_organization_name;
             return {
