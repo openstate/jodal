@@ -7,7 +7,7 @@ import Textfield from '@smui/textfield'
 import { writable, get, derived } from 'svelte/store';
 import { sources, locations, inquiries, fetchingEnabled, removeInquiry } from '../stores.js';
 import { fetchSource } from '../sources.js';
-import Switch from '@smui/switch';
+import Checkbox from '@smui/checkbox';
 import FormField from '@smui/form-field';
 import { slide } from 'svelte/transition';
 import Fab, {Label, Icon} from '@smui/fab';
@@ -19,7 +19,7 @@ let column_locations = [];
 let last_length=0;
 let start=0;
 let end=5;
-let selected = false;
+let selected = [];
 
 let items_ = writable([]);
 let items = derived(items_, (items_) => orderBy(items_, ['date'], ['desc']))
@@ -31,7 +31,7 @@ let show_settings = false;
 let show_marker = false;
 let scroll_marker;
 let virtual_list;
-let show_sources = false;
+let show_sources = true;
 let loading = true;
 
 function getLocations() {
@@ -219,12 +219,15 @@ onDestroy(function () {
     <Textfield bind:value={query} on:change={handleQueryChange} on:input={handleQueryInput} label="Query" />
     {#if show_sources}
       {#each $sources as src}
+      <div>
       <FormField>
-        <Switch bind:checked={selected} />
+        <Checkbox bind:group={selected} value={src.short} />
         <span slot="label">{ src.name }</span>
       </FormField>
+      </div>
       {/each}
     {/if}
+    <pre class="status">{selected}</pre>
     <div class="column-settings-actions">
       <Button align="begin" variant="unelevated" on:click={() => handleQueryInput()}><Label>Wijzigen</Label></Button>
       <Button align="end" variant="outlined" on:click={() => removeColumn()}><Label>Kolom verwijderen</Label></Button>
