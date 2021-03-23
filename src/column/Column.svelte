@@ -148,7 +148,7 @@ function handleQueryChange(e){
       }
     });
     inquiries.set(old_inquiries);
-    // TODO: send the update back to the DB
+    show_settings = !show_settings;
     loading = true;
     console.log('fetchting for query change!');
     fetchFromSources();
@@ -241,7 +241,6 @@ onDestroy(function () {
       </div>
       {/each}
     {/if}
-    <pre class="status">{selected}</pre>
     <div class="column-settings-actions">
       <Button align="begin" variant="unelevated" on:click={() => handleQueryChange()}><Label>Wijzigen</Label></Button>
       <Button align="end" variant="outlined" on:click={() => removeColumn()}><Label>Kolom verwijderen</Label></Button>
