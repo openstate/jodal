@@ -36,6 +36,11 @@ let loading = true;
 
 function getLocations() {
   column_locations = $locations.filter((l) => inquiry.locations.includes(l.id));
+  $sources.forEach(function (s) {
+    if (inquiry['src_' + s.short]) {
+      selected.push(s.short);
+    }
+  });
 }
 
 function shuffle(array) {
