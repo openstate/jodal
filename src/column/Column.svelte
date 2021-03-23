@@ -119,6 +119,11 @@ function handleQueryChange(e){
     item_ids = {};
     inquiry.user_query = query;
 
+    $sources.forEach(function (s) {
+      var val = (selected.indexOf(s.short) >= 0) ? true : false;
+      inquiry['src_' + s.short] = val;
+    });
+
     var url = window.location.protocol + '//api.jodal.nl/columns/' + inquiry.id;
     fetch(
       url, {
@@ -234,7 +239,7 @@ onDestroy(function () {
     {/if}
     <pre class="status">{selected}</pre>
     <div class="column-settings-actions">
-      <Button align="begin" variant="unelevated" on:click={() => handleQueryInput()}><Label>Wijzigen</Label></Button>
+      <Button align="begin" variant="unelevated" on:click={() => handleQueryChange()}><Label>Wijzigen</Label></Button>
       <Button align="end" variant="outlined" on:click={() => removeColumn()}><Label>Kolom verwijderen</Label></Button>
     </div>
   </div>
