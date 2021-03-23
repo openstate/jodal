@@ -175,6 +175,7 @@ function fetchFromSources() {
   // FIXME: sources are fetched in parralel so updating the items does not work correctly like this.
   // so we wait until the full batch is complete then compare and update items
   $sources.forEach(function (s) {
+    if (selected.indexOf(s.short) >= 0) {
       fetchSource(inquiry.user_query, s.short, locations2sources[s.short], function (fetched_items) {
         console.log('should set items now!');
         var real_items = get(items_);
@@ -188,6 +189,9 @@ function fetchFromSources() {
         items_.set(real_items);
         loading = false;
       });
+    } else {
+      console.log('Source ' + s.short + ' not fetched because not selected.');
+    }
   });
 }
 
