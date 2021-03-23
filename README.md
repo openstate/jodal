@@ -31,6 +31,10 @@ Jodal uses [alembic](https://alembic.sqlalchemy.org/en/latest/index.html) for mi
 
 `docker exec jodal_backend_1 alembic downgrade -1`
 
+## create a migration
+
+`docker exec jodal_backend_1 alembic revision -m "create account table"`
+
 # contact
 
 Send an email to breyten@openstate.eu
