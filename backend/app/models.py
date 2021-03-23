@@ -11,3 +11,6 @@ class Column(db.Model):
     user_query = db.Column('query', db.String(100))
     user_id = db.Column('user_id', BinaryUUID())
     order = db.Column('order', db.Integer, nullable=False, default=0)
+    src_poliflw = db.Column('src_poliflw', db.Boolean, default=True)
+    src_openspending = db.Column('src_openspending', db.Boolean, default=True)
+    src_openbesluitvorming = db.Column('src_openbesluitvorming', db.Boolean, default=True)

@@ -62,7 +62,9 @@ class ColumnResource(Resource):
         user_id = session['user']['sub']
         column = Column.query.filter(Column.user_id==user_id, Column.id==column_id).first_or_404()
 
-        editable = ['name', 'locations', 'user_query', 'order']
+        editable = [
+            'name', 'locations', 'user_query', 'order', 'src_poliflw',
+            'src_openspending', 'src_openbesluitvorming']
         for f in editable:
             if f in request.json:
                 setattr(column, f, request.json[f])
