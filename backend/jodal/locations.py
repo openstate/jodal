@@ -5,6 +5,7 @@ import os.path
 import re
 from pprint import pformat
 import hashlib
+from copy import deepcopy
 
 import requests
 
@@ -16,8 +17,10 @@ class MemoryMixin(object):
 
     def load(self, item):
         # logging.info('Should load item %s now' % (item,))
-        self.items.append(item)
-        pass
+        if isinstance(item, list):
+            self.items += item
+        else:
+            self.items.append(item)
 
 
 class ElasticsearchMixin(object):
@@ -71,6 +74,15 @@ class BaseLocationScraper(BaseScraper):
             else:
                 return requests.get(self.url, headers=self.headers).json()
 
+    def transform(self, item):
+        names = getattr(self, 'names', None) or [self.name]
+        result = []
+        for n in names:
+            r = deepcopy(item)
+            r['source'] = n
+            result.append(r)
+        return result
+
 
 class PoliFlwLocationScraper(MemoryMixin, BaseLocationScraper):
     name = 'poliflw'
@@ -87,15 +99,15 @@ class PoliFlwLocationScraper(MemoryMixin, BaseLocationScraper):
 
     def transform(self, item):
         name = self._sanatize_name(item['key'])
-        return {
+        return super(PoliFlwLocationScraper, self).transform({
             'name': name,
             'id': item['key'],
             'source': self.name
-        }
+        })
 
 
 class OpenspendingCountyLocationScraper(MemoryMixin, BaseLocationScraper):
-    name = 'openspending'
+    names = ['openspending', 'openspendinglabels']
     url = 'https://www.openspending.nl/api/v1/governments/?kind=county&limit=1000'
 
     def fetch(self):
@@ -104,16 +116,16 @@ class OpenspendingCountyLocationScraper(MemoryMixin, BaseLocationScraper):
 
     def transform(self, item):
         name = item['name']
-        return {
+        return super(OpenspendingCountyLocationScraper, self).transform({
             'name': name,
             'id': item['code'],  # 'https://www.openspending.nl%s' % (item['resource_uri'],),
             'kind': item['kind'],
             'parent_kind': item['state'],
             'source': self.name
-        }
+        })
 
 class OpenspendingProvinceLocationScraper(OpenspendingCountyLocationScraper):
-    name = 'openspending'
+    names = ['openspending', 'openspendinglabels']
     url = 'https://www.openspending.nl/api/v1/governments/?kind=province&limit=1000'
 
 
@@ -146,12 +158,12 @@ class OpenBesluitvormingLocationScraper(MemoryMixin, BaseLocationScraper):
 
     def transform(self, item):
         name = item['_source'].get('name', '').replace('Gemeente ', '').replace('(L)','(L.)')
-        return {
+        return super(OpenBesluitvormingLocationScraper, self).transform({
             'name': name,
             'id': '%s%s' % (item['_source']['@context']['@base'], item['_source']['@id'],),
             'kind': item['_source']['classification'],
             'source': self.name
-        }
+        })
 
 
 class LocationsScraperRunner(object):

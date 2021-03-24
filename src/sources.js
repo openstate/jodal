@@ -5,6 +5,7 @@ export function fetchSource(query, source, location_ids, callback) {
   var source2func = {
     'poliflw': fetchPoliflw,
     'openspending': fetchOpenspending,
+    'openspendinglabels': fetchOpenspendingLabels,
     'openbesluitvorming': fetchOpenBesluitVorming
   }
 
@@ -113,6 +114,10 @@ function fetchOpenBesluitVorming(query, location_ids, callback) {
         callback(items);
       }
     );
+}
+
+function fetchOpenspendingLabels(query, location_ids, callback) {
+  callback([]);
 }
 
 function fetchOpenspending(query, location_ids, callback) {

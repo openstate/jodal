@@ -166,8 +166,8 @@ function fetchFromSources() {
   });
   column_locations.forEach(function (c) {
     c.sources.forEach(function (s) {
-      //console.log('s:');
-      //console.dir(s.source);
+      console.log('s (' + s.id + ')');
+      console.dir(s.source);
       locations2sources[s.source].push(s.id);
     })
   });
