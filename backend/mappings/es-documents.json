@@ -1,0 +1,141 @@
+{
+    "index_patterns": "jodal_documents*",
+    "template": {
+      "settings": {
+          "index": {
+              "number_of_shards": 1,
+              "number_of_replicas": 0,
+              "query": {
+                  "default_field": "name"
+              },
+              "analysis": {
+                  "analyzer": {
+                      "default": {
+                        "type": "dutch"
+                      },
+                      "text_nl": {
+                          "type": "custom",
+                          "filter": [
+                              "asciifolding",
+                              "lowercase",
+                              "custom_word_delimiter"
+                          ],
+                          "tokenizer": "standard"
+                      }
+                  },
+                  "filter": {
+                      "custom_word_delimiter": {
+                          "type": "word_delimiter",
+                          "split_on_numerics": false,
+                          "generate_number_parts": true,
+                          "preserve_original": true,
+                          "stem_english_possesive": false,
+                          "catenate_words": false,
+                          "catenate_numbers": true,
+                          "split_on_case_change": false,
+                          "generate_word_parts": true
+                      }
+                  }
+              }
+          }
+      },
+      "mappings": {
+        "properties": {
+            "id": {
+              "type": "keyword"
+            },
+            "identifier": {
+              "type": "keyword"
+            },
+            "url": {
+              "type": "keyword"
+            },
+            "location": {
+              "type": "text",
+              "analyzer": "text_nl",
+              "fields": {
+                "raw": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "title": {
+              "type": "text",
+              "analyzer": "text_nl",
+              "fields": {
+                "raw": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "description": {
+              "type": "text",
+              "analyzer": "text_nl",
+              "fields": {
+                "raw": {
+                  "type": "keyword"
+                }
+              }
+            },
+            "created": {
+              "type": "date"
+            },
+            "modified": {
+              "type": "date"
+            },
+            "pubished": {
+              "type": "date"
+            },
+            "source": {
+              "type": "keyword"
+            },
+            "type": {
+              "type": "keyword"
+            },
+            "data": {
+              "type": "object",
+              "enabled": false
+            },
+            "details": {
+              "type": "nested",
+              "properties": {
+                "id": {
+                  "type": "keyword"
+                },
+                "identifier": {
+                  "type": "keyword"
+                },
+                "url": {
+                  "type": "keyword"
+                },
+                "title": {
+                  "type": "text",
+                  "analyzer": "text_nl",
+                  "fields": {
+                    "raw": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "description": {
+                  "type": "text",
+                  "analyzer": "text_nl",
+                  "fields": {
+                    "raw": {
+                      "type": "keyword"
+                    }
+                  }
+                },
+                "type": {
+                  "type": "keyword"
+                },
+                "data": {
+                  "type": "object",
+                  "enabled": false
+                }
+              }
+            }
+          }
+      }
+    }
+}
