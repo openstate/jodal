@@ -117,6 +117,20 @@ function fetchOpenBesluitVorming(query, location_ids, callback) {
 }
 
 function fetchOpenspendingLabels(query, location_ids, callback) {
+  var url = 'https://openspending.nl/api/v1/documents/?government__code__in=' + location_ids.join(",") + '&order_by=-created_at';
+  console.log(url);
+
+  return fetch(
+    url, {cache: 'no-cache'}).then(
+      response => response.json()
+    ).then(
+      function (data) {
+        // TODO: should search the labels now based on return document ids
+        // curl 'https://openspending.nl:443/api/v1/labels/?label=Veiligheid&document_id=24907|24797'
+        // labels should have first letter in caps and be exact
+      }
+  );
+
   callback([]);
 }
 
