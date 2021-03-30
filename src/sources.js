@@ -5,7 +5,6 @@ export function fetchSource(query, source, location_ids, callback) {
   var source2func = {
     'poliflw': fetchPoliflw,
     'openspending': fetchOpenspending,
-    'openspendinglabels': fetchOpenspendingLabels,
     'openbesluitvorming': fetchOpenBesluitVorming
   }
 

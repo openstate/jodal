@@ -107,7 +107,7 @@ class PoliFlwLocationScraper(MemoryMixin, BaseLocationScraper):
 
 
 class OpenspendingCountyLocationScraper(MemoryMixin, BaseLocationScraper):
-    names = ['openspending', 'openspendinglabels']
+    name = 'openspending'
     url = 'https://www.openspending.nl/api/v1/governments/?kind=county&limit=1000'
 
     def fetch(self):
@@ -125,7 +125,7 @@ class OpenspendingCountyLocationScraper(MemoryMixin, BaseLocationScraper):
         })
 
 class OpenspendingProvinceLocationScraper(OpenspendingCountyLocationScraper):
-    names = ['openspending', 'openspendinglabels']
+    name = 'openspending'
     url = 'https://www.openspending.nl/api/v1/governments/?kind=province&limit=1000'
 
 
