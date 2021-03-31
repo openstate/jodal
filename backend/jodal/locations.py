@@ -10,51 +10,7 @@ from copy import deepcopy
 import requests
 
 from jodal.es import setup_elasticsearch
-
-
-class MemoryMixin(object):
-    items = []
-
-    def load(self, item):
-        # logging.info('Should load item %s now' % (item,))
-        if isinstance(item, list):
-            self.items += item
-        else:
-            self.items.append(item)
-
-
-class ElasticsearchMixin(object):
-    def load(self, item):
-        pass
-
-
-class BaseScraper(object):
-    def __init__(self, *arg, **kwargs):
-        pass
-
-    def setup(self):
-        pass
-
-    def teardown(self):
-        pass
-
-    def fetch(self):
-        raise NotImplementedError
-
-    def transform(self, item):
-        raise NotImplementedError
-
-    def load(self, item):
-        raise NotImplementedError
-
-    def run(self):
-        self.setup()
-        result = self.fetch()
-        logging.info("Fetched %s items ..." % (len(result),))
-        for i in result:
-            t = self.transform(i)
-            self.load(t)
-        self.teardown()
+from jodal.scrapers import MemoryMixin, ElasticsearchMixin, BaseScraper
 
 
 class BaseLocationScraper(BaseScraper):

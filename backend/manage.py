@@ -22,6 +22,7 @@ from elasticsearch.exceptions import NotFoundError
 from jodal.utils import load_config
 from jodal.es import setup_elasticsearch
 from jodal.locations import LocationsScraperRunner
+from jodal.openspending import OpenSpendingScraperRunner
 
 logging.basicConfig(
     format='%(asctime)s.%(msecs)s:%(name)s:%(thread)d:%(levelname)s:%(process)d:%(message)s',
@@ -73,6 +74,15 @@ def scrapers_locations():
 
     LocationsScraperRunner().run()
 
+
+@command('openspending')
+def scrapers_openspending():
+    config = load_config()
+    es = setup_elasticsearch(config)
+
+    OpenSpendingScraperRunner().run()
+
+
 @command('put_templates')
 @click.option('--template_dir', default='./mappings/', help='Path to JSON file containing the template.')
 def es_put_template(template_dir):
@@ -105,6 +115,7 @@ def es_put_template(template_dir):
 # wrapper
 elasticsearch.add_command(es_put_template)
 scrapers.add_command(scrapers_locations)
+scrapers.add_command(scrapers_openspending)
 
 if __name__ == '__main__':
     cli()
