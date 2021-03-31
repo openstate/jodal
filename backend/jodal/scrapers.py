@@ -1,3 +1,4 @@
+import json
 import logging
 
 import requests
@@ -52,10 +53,16 @@ class BaseWebScraper(BaseScraper):
     def fetch(self):
         url = getattr(self, 'url', None)
         headers = getattr(self, 'headers', None)
+        method = getattr(self, 'method', 'post')
+        result = None
         if url is not None:
             logging.info('Fetching data for : %s' % (url,))
             payload = getattr(self, 'payload', None)
             if payload is not None:
-                return requests.post(url, headers=headers, data=json.dumps(payload)).json()
+                f = getattr(requests, method)
+                result = f(url, headers=headers, data=json.dumps(payload))
             else:
-                return requests.get(url, headers=headers).json()
+                params = getattr(self, 'params', None)
+                result = requests.get(url, headers=headers, params=params)
+        if result is not None:
+            return result.json()
