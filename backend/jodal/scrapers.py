@@ -5,10 +5,12 @@ import requests
 
 
 class MemoryMixin(object):
-    items = []
 
     def load(self, item):
         # logging.info('Should load item %s now' % (item,))
+        items = getattr(self, 'items', None)
+        if items is None:
+            self.items = []
         if isinstance(item, list):
             self.items += item
         else:
@@ -59,10 +61,12 @@ class BaseWebScraper(BaseScraper):
             logging.info('Fetching data for : %s' % (url,))
             payload = getattr(self, 'payload', None)
             if payload is not None:
+                logging.info('Fetch payload: %s' % (payload,))
                 f = getattr(requests, method)
                 result = f(url, headers=headers, data=json.dumps(payload))
             else:
                 params = getattr(self, 'params', None)
+                logging.info('Fetch params: %s' % (params,))
                 result = requests.get(url, headers=headers, params=params)
         if result is not None:
             return result.json()
