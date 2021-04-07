@@ -134,7 +134,7 @@ class AggregationsScraper(BaseOpenSpendingScraper):
 
 class DocumentsScraper(BaseOpenSpendingScraper):
     name = 'openspending'
-    url = 'https://openspending.nl/api/v1/documents/?limit=2'
+    url = 'https://openspending.nl/api/v1/documents/order_by=-created_at'
     payload = None
     headers = {
         'Content-type': 'application/json'
