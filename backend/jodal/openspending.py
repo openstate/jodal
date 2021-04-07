@@ -29,6 +29,11 @@ class BaseOpenSpendingScraper(MemoryMixin, BaseWebScraper):
             'sub': 'functies',
             'cat': 'categorieen'
         }
+        agg2openspending_names = {
+            'main': 'Hoofdfunctie',
+            'sub': 'Functie',
+            'cat': 'Categorie'
+        }
 
 
 class LabelsScraper(BaseOpenSpendingScraper):
@@ -95,10 +100,17 @@ class AggregationsScraper(BaseOpenSpendingScraper):
                         self.params['document_id'], a, p['term'],
                         self.params['direction'],)
                     p_uri = urljoin('https://www.openspending.nl/', p_id)
-                    logging.info(pformat(self.item))
-                    p_url = self.item['url'].replace(
-                        '/%s/' % (self.agg2openspending['main'],),
-                        '/%s/' % (self.agg2openspending[p['rerm']],))
+                    if a == 'sub':
+                        m_id = '/api/v1/labels/%s-%s-%s-%s/' % (
+                            self.params['document_id'], 'main', int(p['term'][0:1]) + 1,
+                            self.params['direction'],)
+                        m_label = label = self.labels.get(m_id, {'slug': '-'})
+                        p_url = self.item['url'] + '%s/%s/' % (
+                            m_label['slug'], self.agg2openspending[a],)
+                    else:
+                        p_url = self.item['url'].replace(
+                            '/%s/' % (self.agg2openspending['main'],),
+                            '/%s/' % (self.agg2openspending[a],))
                     p_hash = hashlib.sha1()
                     p_hash.update(p_uri.encode('utf-8'))
                     label = self.labels.get(p_id, {'label': '-'})
@@ -107,11 +119,11 @@ class AggregationsScraper(BaseOpenSpendingScraper):
                         'identifier': p_uri,
                         'url': p_url,  # need to change this!
                         'title': label['label'],
-                        'location': self.item['government']['code'],
-                        'created': self.item['created_at'],
-                        'modified': self.item['updated_at'],
-                        'published': self.item['parsed_at'],
-                        'type': [a, self.params['direction']],
+                        'location': self.item['location'],
+                        'created': self.item['created'],
+                        'modified': self.item['modified'],
+                        'published': self.item['published'],
+                        'type': [self.agg2openspending_names[a], self.item['type']],
                         'data': {
                             'value': p['total'],
                             'label': label
@@ -161,17 +173,6 @@ class DocumentsScraper(BaseOpenSpendingScraper):
             labels = {l['resource_uri']: l for l in labels_scraper.items}
 
             data = {}
-            for direction in ['in', 'out']:
-                options = {
-                    'document_id': item['id'],
-                    'direction': direction,
-                    'labels': labels,
-                    'item': item
-                }
-                aggregation = AggregationsScraper(**options)
-                aggregation.run()
-                if aggregation.items is not None:
-                    result += aggregation.items
 
             openspending_title += ' %s' % (item['year'],)
             r = {
@@ -188,6 +189,19 @@ class DocumentsScraper(BaseOpenSpendingScraper):
                 'data': data
             }
             result.append(r)
+
+            for direction in ['in', 'out']:
+                options = {
+                    'document_id': item['id'],
+                    'direction': direction,
+                    'labels': labels,
+                    'item': r
+                }
+                aggregation = AggregationsScraper(**options)
+                aggregation.run()
+                if aggregation.items is not None:
+                    result += aggregation.items
+
         logging.info(pformat(result))
         return result
 
