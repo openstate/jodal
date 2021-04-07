@@ -224,7 +224,8 @@ class OpenSpendingScraperRunner(object):
                 logging.error(e)
                 raise e
         logging.info('Fetching resulted in %s items ...' % (len(items)))
-        # es = setup_elasticsearch()
-        # for l in locations:
-        #     if not es.exists(id=l['id'], index='jodal_locations'):
-        #         es.create(id=l['id'], index='jodal_locations', body=l)
+        es = setup_elasticsearch()
+        es_index = 'jodal_documents'
+        for i in items:
+            if not es.exists(id=i['id'], index=es_index):
+                es.create(id=i['id'], index=es_index, body=i)
