@@ -55,9 +55,8 @@ class BaseScraper(object):
 
     def run(self):
         another_one = True
-        while another_one:
+        while another_one is not None:
             self.run_for_page()
-
             another_one = self.next()
 
 class BaseWebScraper(BaseScraper):
@@ -77,8 +76,9 @@ class BaseWebScraper(BaseScraper):
                 params = getattr(self, 'params', None)
                 logging.info('Fetch params: %s' % (params,))
                 result = requests.get(url, headers=headers, params=params)
+        self.result = result
         if result is not None:
             return result.json()
 
     def next(self):
-        return False
+        return None
