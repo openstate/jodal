@@ -41,7 +41,10 @@ class BaseScraper(object):
     def load(self, item):
         raise NotImplementedError
 
-    def run(self):
+    def next(self):
+        raise NotImplementedError
+
+    def run_for_page(self):
         self.setup()
         result = self.fetch()
         logging.info("Fetched %s items ..." % (len(result),))
@@ -50,6 +53,12 @@ class BaseScraper(object):
             self.load(t)
         self.teardown()
 
+    def run(self):
+        another_one = True
+        while another_one:
+            self.run_for_page()
+
+            another_one = self.next()
 
 class BaseWebScraper(BaseScraper):
     def fetch(self):
@@ -70,3 +79,6 @@ class BaseWebScraper(BaseScraper):
                 result = requests.get(url, headers=headers, params=params)
         if result is not None:
             return result.json()
+
+    def next(self):
+        return False

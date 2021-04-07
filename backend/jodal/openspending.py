@@ -15,7 +15,23 @@ from jodal.scrapers import (
     MemoryMixin, ElasticsearchMixin, BaseScraper, BaseWebScraper)
 
 
-class LabelsScraper(MemoryMixin, BaseWebScraper):
+class BaseOpenSpendingScraper(MemoryMixin, BaseWebScraper):
+        plan2openspendingplan = {
+            'budget': 'begroting',
+            'spending': 'realisatie'
+        }
+        gov_type2openspending = {
+            'GM': '06',
+            'PV': '03'
+        }
+        agg2openspending = {
+            'main': 'hoofdfuncties',
+            'sub': 'functies',
+            'cat': 'categorieen'
+        }
+
+
+class LabelsScraper(BaseOpenSpendingScraper):
     name = 'openspending'
     url = 'https://openspending.nl/api/v1/labels/'
     method = 'get'
@@ -41,7 +57,7 @@ class LabelsScraper(MemoryMixin, BaseWebScraper):
             result.append(item)
         return result
 
-class AggregationsScraper(MemoryMixin, BaseWebScraper):
+class AggregationsScraper(BaseOpenSpendingScraper):
     name = 'openspending'
     url = 'https://openspending.nl/api/v1/aggregations/all/'
     method = 'get'
@@ -54,8 +70,10 @@ class AggregationsScraper(MemoryMixin, BaseWebScraper):
     def __init__(self, *args, **kwargs):
         super(AggregationsScraper, self).__init__(*args, **kwargs)
         self.labels = kwargs['labels']
+        self.item = kwargs['item']
         self.params = deepcopy(kwargs)
         del self.params['labels']
+        del self.params['item']
         self.items = []
 
     def fetch(self):
@@ -77,14 +95,22 @@ class AggregationsScraper(MemoryMixin, BaseWebScraper):
                         self.params['document_id'], a, p['term'],
                         self.params['direction'],)
                     p_uri = urljoin('https://www.openspending.nl/', p_id)
+                    logging.info(pformat(self.item))
+                    p_url = self.item['url'].replace(
+                        '/%s/' % (self.agg2openspending['main'],),
+                        '/%s/' % (self.agg2openspending[p['rerm']],))
                     p_hash = hashlib.sha1()
                     p_hash.update(p_uri.encode('utf-8'))
                     label = self.labels.get(p_id, {'label': '-'})
                     result.append({
                         'id': p_hash.hexdigest(),
                         'identifier': p_uri,
-                        'url': p_uri,  # need to change this!
+                        'url': p_url,  # need to change this!
                         'title': label['label'],
+                        'location': self.item['government']['code'],
+                        'created': self.item['created_at'],
+                        'modified': self.item['updated_at'],
+                        'published': self.item['parsed_at'],
                         'type': [a, self.params['direction']],
                         'data': {
                             'value': p['total'],
@@ -94,7 +120,7 @@ class AggregationsScraper(MemoryMixin, BaseWebScraper):
         return result
 
 
-class DocumentsScraper(MemoryMixin, BaseWebScraper):
+class DocumentsScraper(BaseOpenSpendingScraper):
     name = 'openspending'
     url = 'https://openspending.nl/api/v1/documents/?limit=2'
     payload = None
@@ -113,14 +139,6 @@ class DocumentsScraper(MemoryMixin, BaseWebScraper):
         # logging.info(item)
         names = getattr(self, 'names', None) or [self.name]
         result = []
-        plan2openspendingplan = {
-            'budget': 'begroting',
-            'spending': 'realisatie'
-        }
-        gov_type2openspending = {
-            'GM': '06',
-            'PV': '03'
-        }
         for n in names:
             r_uri = urljoin('https://www.openspending.nl/', item['resource_uri'])
             h_id = hashlib.sha1()
@@ -128,9 +146,9 @@ class DocumentsScraper(MemoryMixin, BaseWebScraper):
             # https://openspending.nl/zwijndrecht/begroting/2021/lasten/hoofdfuncties/
 
             openspending_url = 'https://www.openspending.nl/%s/%s/%s/lasten/hoofdfuncties/' % (
-                item['government']['slug'], plan2openspendingplan[item['plan']],
+                item['government']['slug'], self.plan2openspendingplan[item['plan']],
                 item['year'],)
-            openspending_title = plan2openspendingplan[item['plan']].capitalize()
+            openspending_title = self.plan2openspendingplan[item['plan']].capitalize()
             if item['period'] > 0 and item['period'] < 5:
                 openspending_title += ' %se kwartaal' % (item['period'])
 
@@ -147,14 +165,14 @@ class DocumentsScraper(MemoryMixin, BaseWebScraper):
                 options = {
                     'document_id': item['id'],
                     'direction': direction,
-                    'labels': labels
+                    'labels': labels,
+                    'item': item
                 }
                 aggregation = AggregationsScraper(**options)
                 aggregation.run()
-                logging.info(aggregation.items)
-                # agg_result = aggregation.items
-                # if agg_result is not None:
-                #     data[direction] = agg_result
+                if aggregation.items is not None:
+                    result += aggregation.items
+
             openspending_title += ' %s' % (item['year'],)
             r = {
                 'id': h_id.hexdigest(),
@@ -166,11 +184,11 @@ class DocumentsScraper(MemoryMixin, BaseWebScraper):
                 'modified': item['updated_at'],
                 'published': item['parsed_at'],
                 'source': self.name,
-                'type': plan2openspendingplan[item['plan']].capitalize(),
+                'type': self.plan2openspendingplan[item['plan']].capitalize(),
                 'data': data
             }
             result.append(r)
-        #logging.info(result)
+        logging.info(pformat(result))
         return result
 
 
