@@ -78,7 +78,8 @@ class BaseWebScraper(BaseScraper):
                 result = requests.get(url, headers=headers, params=params)
         self.result = result
         if result is not None:
-            return result.json()
+            self.result_json = result.json()
+            return self.result_json
 
     def next(self):
         return None
