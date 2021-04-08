@@ -82,7 +82,7 @@ def scrapers_openspending(date_from):
     es = setup_elasticsearch(config)
     kwargs = {
         'config': config,
-        'date_from': date_from
+        'date_from': str(date_from)
     }
     OpenSpendingScraperRunner().run(**kwargs)
 

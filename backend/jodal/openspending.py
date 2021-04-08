@@ -148,9 +148,16 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseOpenSpendingScraper):
         self.config = kwargs['config']
         self.date_from = kwargs['date_from']
 
+    def next(self):
+        next_url = self.result_json['meta']['next']
+        if next_url is not None:
+            self.url = urljoin('https://openspending.nl', next_url)
+            return True
+
     def fetch(self):
         logging.info('Scraper: fetch from %s' % (self.date_from,))
-        self.url += '&created_at__gt=' + self.date_from
+        if 'created_at__gt' not in self.url:
+            self.url += '&created_at__gt=' + self.date_from
         result = super(DocumentsScraper, self).fetch()
         logging.info(
             'Scraper: in total %s results' % (result['meta']['total_count'],))
