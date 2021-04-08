@@ -34,8 +34,9 @@ class ElasticsearchBulkMixin(MemoryMixin, ElasticsearchMixin):
         self._init_es()
 
     def teardown(self):
+        logging.info(
+            'Elasticsearch: bulk storing %s items' % (len(self.items),))
         result = bulk(self.es, self.items, False)
-        logging.info(result)
         self.items = []
 
 
