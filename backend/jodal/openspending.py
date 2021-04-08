@@ -12,7 +12,8 @@ import requests
 
 from jodal.es import setup_elasticsearch
 from jodal.scrapers import (
-    MemoryMixin, ElasticsearchMixin, BaseScraper, BaseWebScraper)
+    MemoryMixin, ElasticsearchMixin, ElasticsearchBulkMixin, BaseScraper,
+    BaseWebScraper)
 
 
 class BaseOpenSpendingScraper(MemoryMixin, BaseWebScraper):
@@ -115,6 +116,8 @@ class AggregationsScraper(BaseOpenSpendingScraper):
                     p_hash.update(p_uri.encode('utf-8'))
                     label = self.labels.get(p_id, {'label': '-'})
                     result.append({
+                        '_id': p_hash.hexdigest(),
+                        '_index': 'jodal_documents',
                         'id': p_hash.hexdigest(),
                         'identifier': p_uri,
                         'url': p_url,  # need to change this!
@@ -132,9 +135,9 @@ class AggregationsScraper(BaseOpenSpendingScraper):
         return result
 
 
-class DocumentsScraper(BaseOpenSpendingScraper):
+class DocumentsScraper(ElasticsearchBulkMixin, BaseOpenSpendingScraper):
     name = 'openspending'
-    url = 'https://openspending.nl/api/v1/documents/order_by=-created_at'
+    url = 'https://openspending.nl/api/v1/documents/?order_by=-created_at&limit=2'
     payload = None
     headers = {
         'Content-type': 'application/json'
@@ -176,6 +179,8 @@ class DocumentsScraper(BaseOpenSpendingScraper):
 
             openspending_title += ' %s' % (item['year'],)
             r = {
+                '_id': h_id.hexdigest(),
+                '_index': 'jodal_documents',
                 'id': h_id.hexdigest(),
                 'identifier': r_uri,
                 'url': openspending_url,
@@ -202,7 +207,7 @@ class DocumentsScraper(BaseOpenSpendingScraper):
                 if aggregation.items is not None:
                     result += aggregation.items
 
-        logging.info(pformat(result))
+        # logging.info(pformat(result))
         return result
 
 
@@ -224,8 +229,8 @@ class OpenSpendingScraperRunner(object):
                 logging.error(e)
                 raise e
         logging.info('Fetching resulted in %s items ...' % (len(items)))
-        es = setup_elasticsearch()
-        es_index = 'jodal_documents'
-        for i in items:
-            if not es.exists(id=i['id'], index=es_index):
-                es.create(id=i['id'], index=es_index, body=i)
+        # es = setup_elasticsearch()
+        # es_index = 'jodal_documents'
+        # for i in items:
+        #     if not es.exists(id=i['id'], index=es_index):
+        #         es.create(id=i['id'], index=es_index, body=i)

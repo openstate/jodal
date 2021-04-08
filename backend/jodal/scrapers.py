@@ -2,12 +2,12 @@ import json
 import logging
 
 import requests
+from elasticsearch.helpers import bulk
+from jodal.es import setup_elasticsearch
 
 
 class MemoryMixin(object):
-
     def load(self, item):
-        # logging.info('Should load item %s now' % (item,))
         items = getattr(self, 'items', None)
         if items is None:
             self.items = []
@@ -18,8 +18,25 @@ class MemoryMixin(object):
 
 
 class ElasticsearchMixin(object):
+    es = None
+
+    def _init_es(self):
+        if self.es is None:
+            logging.info('Elasticsearch: setting up')
+            self.es = setup_elasticsearch()
+
     def load(self, item):
-        pass
+        self._init_es()
+
+
+class ElasticsearchBulkMixin(MemoryMixin, ElasticsearchMixin):
+    def setup(self):
+        self._init_es()
+
+    def teardown(self):
+        result = bulk(self.es, self.items, False)
+        logging.info(result)
+        self.items = []
 
 
 class BaseScraper(object):
