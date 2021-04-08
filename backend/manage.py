@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from copy import deepcopy
-from datetime import datetime
+from datetime import datetime, date, timedelta
 import json
 from glob import glob
 import gzip
@@ -76,11 +76,15 @@ def scrapers_locations():
 
 
 @command('openspending')
-def scrapers_openspending():
+@click.option('-f', '--date-from', default=(date.today() - timedelta(days=1)))
+def scrapers_openspending(date_from):
     config = load_config()
     es = setup_elasticsearch(config)
-
-    OpenSpendingScraperRunner().run()
+    kwargs = {
+        'config': config,
+        'date_from': date_from
+    }
+    OpenSpendingScraperRunner().run(**kwargs)
 
 
 @command('put_templates')

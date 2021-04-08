@@ -145,9 +145,15 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseOpenSpendingScraper):
 
     def __init__(self, *args, **kwargs):
         super(DocumentsScraper, self).__init__(*args, **kwargs)
+        self.config = kwargs['config']
+        self.date_from = kwargs['date_from']
 
     def fetch(self):
+        logging.info('Scraper: fetch from %s' % (self.date_from,))
+        self.url += '&created_at__gt=' + self.date_from
         result = super(DocumentsScraper, self).fetch()
+        logging.info(
+            'Scraper: in total %s results' % (result['meta']['total_count'],))
         return result['objects']
 
     def transform(self, item):
@@ -217,10 +223,10 @@ class OpenSpendingScraperRunner(object):
     ]
 
 
-    def run(self):
+    def run(self, *args, **kwargs):
         items = []
         for scraper in self.scrapers:
-            k = scraper()
+            k = scraper(**kwargs)
             try:
                 k.items = []
                 k.run()
