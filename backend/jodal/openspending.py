@@ -8,6 +8,7 @@ import hashlib
 from copy import deepcopy
 from urllib.parse import urljoin
 from time import sleep
+import locale
 
 import requests
 
@@ -56,6 +57,10 @@ class LabelsScraper(BaseOpenSpendingScraper):
     def fetch(self):
         sleep(1)
         result = super(LabelsScraper, self).fetch()
+
+        if result is None:
+            return []
+
         return result['objects']
 
     def transform(self, item):
@@ -87,6 +92,10 @@ class AggregationsScraper(BaseOpenSpendingScraper):
     def fetch(self):
         sleep(1)
         result = super(AggregationsScraper, self).fetch()
+
+        if result is None:
+            return []
+
         results = {}
         for f in ['main', 'sub', 'cat', 'total']:
             results[f] = result.get('facets', {}).get(f, {})
@@ -125,10 +134,10 @@ class AggregationsScraper(BaseOpenSpendingScraper):
                         '_index': 'jodal_documents',
                         'id': p_hash.hexdigest(),
                         'identifier': p_uri,
-                        'url': p_url,  # need to change this!
+                        'url': p_url,
                         'title': label['label'],
-                        'description': '%s: &euro; %s' % (
-                            self.item['title'], p['total'],),
+                        'description': '%s' % (
+                            self.item['title'],),
                         'location': self.item['location'],
                         'created': self.item['created'],
                         'modified': self.item['modified'],
@@ -154,6 +163,7 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseOpenSpendingScraper):
         super(DocumentsScraper, self).__init__(*args, **kwargs)
         self.config = kwargs['config']
         self.date_from = kwargs['date_from']
+        logging.info('Scraper: fetch from %s' % (self.date_from,))
 
     def next(self):
         next_url = self.result_json['meta']['next']
@@ -162,13 +172,16 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseOpenSpendingScraper):
             return True
 
     def fetch(self):
-        logging.info('Scraper: fetch from %s' % (self.date_from,))
+        sleep(2)
         if 'created_at__gt' not in self.url:
             self.url += '&created_at__gt=' + self.date_from
         result = super(DocumentsScraper, self).fetch()
         logging.info(
             'Scraper: in total %s results' % (result['meta']['total_count'],))
-        return result['objects']
+        if result is not None:
+            return result['objects']
+        else:
+            return []
 
     def transform(self, item):
         # logging.info(item)
@@ -227,7 +240,7 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseOpenSpendingScraper):
                 if aggregation.items is not None:
                     result += aggregation.items
 
-        logging.info(pformat(result))
+        # logging.info(pformat(result))
         return result
 
 
@@ -249,8 +262,3 @@ class OpenSpendingScraperRunner(object):
                 logging.error(e)
                 raise e
         logging.info('Fetching resulted in %s items ...' % (len(items)))
-        # es = setup_elasticsearch()
-        # es_index = 'jodal_documents'
-        # for i in items:
-        #     if not es.exists(id=i['id'], index=es_index):
-        #         es.create(id=i['id'], index=es_index, body=i)

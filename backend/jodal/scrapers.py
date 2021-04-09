@@ -65,7 +65,7 @@ class BaseScraper(object):
     def run_for_page(self):
         self.setup()
         result = self.fetch()
-        logging.info("Fetched %s items ..." % (len(result),))
+        # logging.info("Fetched %s items ..." % (len(result),))
         for i in result:
             t = self.transform(i)
             self.load(t)
@@ -85,23 +85,22 @@ class BaseWebScraper(BaseScraper):
             method = getattr(self, 'method', 'post')
             result = None
             if url is not None:
-                logging.info('Fetching data for : %s' % (url,))
                 payload = getattr(self, 'payload', None)
+                params = getattr(self, 'params', None)
+                logging.info('%s : %s , payload/params: %s' % (
+                    method, url, payload or params))
                 if payload is not None:
-                    logging.info('Fetch payload: %s' % (payload,))
                     f = getattr(requests, method)
                     result = f(url, headers=headers, data=json.dumps(payload), timeout=20)
                 else:
-                    params = getattr(self, 'params', None)
-                    logging.info('Fetch params: %s' % (params,))
                     result = requests.get(url, headers=headers, params=params, timeout=20)
             self.result = result
             if result is not None:
                 self.result_json = result.json()
                 return self.result_json
-        except requests.exceptions.ConnectTimeout as e:
+        except requests.exceptions.RequestException as e:
             self.result = None
-            self.result_json = None
+            self.result_json = {}
             pass
 
     def next(self):
