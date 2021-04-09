@@ -79,25 +79,30 @@ class BaseScraper(object):
 
 class BaseWebScraper(BaseScraper):
     def fetch(self):
-        url = getattr(self, 'url', None)
-        headers = getattr(self, 'headers', None)
-        method = getattr(self, 'method', 'post')
-        result = None
-        if url is not None:
-            logging.info('Fetching data for : %s' % (url,))
-            payload = getattr(self, 'payload', None)
-            if payload is not None:
-                logging.info('Fetch payload: %s' % (payload,))
-                f = getattr(requests, method)
-                result = f(url, headers=headers, data=json.dumps(payload))
-            else:
-                params = getattr(self, 'params', None)
-                logging.info('Fetch params: %s' % (params,))
-                result = requests.get(url, headers=headers, params=params)
-        self.result = result
-        if result is not None:
-            self.result_json = result.json()
-            return self.result_json
+        try:
+            url = getattr(self, 'url', None)
+            headers = getattr(self, 'headers', None)
+            method = getattr(self, 'method', 'post')
+            result = None
+            if url is not None:
+                logging.info('Fetching data for : %s' % (url,))
+                payload = getattr(self, 'payload', None)
+                if payload is not None:
+                    logging.info('Fetch payload: %s' % (payload,))
+                    f = getattr(requests, method)
+                    result = f(url, headers=headers, data=json.dumps(payload), timeout=20)
+                else:
+                    params = getattr(self, 'params', None)
+                    logging.info('Fetch params: %s' % (params,))
+                    result = requests.get(url, headers=headers, params=params, timeout=20)
+            self.result = result
+            if result is not None:
+                self.result_json = result.json()
+                return self.result_json
+        except requests.exceptions.ConnectTimeout as e:
+            self.result = None
+            self.result_json = None
+            pass
 
     def next(self):
         return None

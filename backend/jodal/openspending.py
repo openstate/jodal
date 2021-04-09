@@ -7,6 +7,7 @@ from pprint import pformat
 import hashlib
 from copy import deepcopy
 from urllib.parse import urljoin
+from time import sleep
 
 import requests
 
@@ -53,6 +54,7 @@ class LabelsScraper(BaseOpenSpendingScraper):
         self.items = []
 
     def fetch(self):
+        sleep(1)
         result = super(LabelsScraper, self).fetch()
         return result['objects']
 
@@ -83,6 +85,7 @@ class AggregationsScraper(BaseOpenSpendingScraper):
         self.items = []
 
     def fetch(self):
+        sleep(1)
         result = super(AggregationsScraper, self).fetch()
         results = {}
         for f in ['main', 'sub', 'cat', 'total']:
@@ -106,12 +109,14 @@ class AggregationsScraper(BaseOpenSpendingScraper):
                             self.params['document_id'], 'main', int(p['term'][0:1]) + 1,
                             self.params['direction'],)
                         m_label = label = self.labels.get(m_id, {'slug': '-'})
-                        p_url = self.item['url'] + '%s/%s/' % (
-                            m_label['slug'], self.agg2openspending[a],)
+                        p_url = self.item['url'] + '%s/%s/#l-%s' % (
+                            m_label['slug'], self.agg2openspending[a],
+                            p['term'],)
                     else:
                         p_url = self.item['url'].replace(
                             '/%s/' % (self.agg2openspending['main'],),
-                            '/%s/' % (self.agg2openspending[a],))
+                            '/%s/' % (self.agg2openspending[a],)) + '#l-%s' % (
+                                p['term'],)
                     p_hash = hashlib.sha1()
                     p_hash.update(p_uri.encode('utf-8'))
                     label = self.labels.get(p_id, {'label': '-'})
@@ -122,6 +127,8 @@ class AggregationsScraper(BaseOpenSpendingScraper):
                         'identifier': p_uri,
                         'url': p_url,  # need to change this!
                         'title': label['label'],
+                        'description': '%s: &euro; %s' % (
+                            self.item['title'], p['total'],),
                         'location': self.item['location'],
                         'created': self.item['created'],
                         'modified': self.item['modified'],
@@ -137,7 +144,7 @@ class AggregationsScraper(BaseOpenSpendingScraper):
 
 class DocumentsScraper(ElasticsearchBulkMixin, BaseOpenSpendingScraper):
     name = 'openspending'
-    url = 'https://openspending.nl/api/v1/documents/?order_by=-created_at&limit=2'
+    url = 'https://openspending.nl/api/v1/documents/?order_by=-created_at&limit=10'
     payload = None
     headers = {
         'Content-type': 'application/json'
@@ -220,7 +227,7 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseOpenSpendingScraper):
                 if aggregation.items is not None:
                     result += aggregation.items
 
-        # logging.info(pformat(result))
+        logging.info(pformat(result))
         return result
 
 
