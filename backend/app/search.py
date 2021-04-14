@@ -34,7 +34,7 @@ def parse_filters(filters):
                 if f and len(f.split(':')) == 2:
                         typ = f.split(':')[0]
                         val = f.split(':')[1]
-                        filter_dict[typ] = val
+                        filter_dict[typ] = val.split('|')
 
         return filter_dict
 
@@ -52,7 +52,7 @@ def get_basic_query(filters, term, page, page_size, sort, query_fields, aggregat
             k_parts = k.split('_')
             real_k = k
             if len(k_parts) == 1:
-                clause = {"term" : { k : v }}
+                clause = {"terms" : { k : v }}
             else:
                 real_k = k_parts[0]
                 part_k = k_parts[1]
