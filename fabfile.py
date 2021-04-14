@@ -50,6 +50,6 @@ def deploy(c):
     c.sudo('docker exec %s alembic upgrade head' % (APP_CONTAINER))
 
     # put elasticsearch mapings
-    c.sudo('docker exec %spython manage.py elasticsearch put_templates' % (APP_CONTAINER))
+    c.sudo('docker exec %s python manage.py elasticsearch put_templates' % (APP_CONTAINER))
     # Reload app
     # c.run('cd %s && touch uwsgi-touch-reload' % (DIR))
