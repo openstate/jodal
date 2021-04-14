@@ -1,5 +1,15 @@
 jodal:
   elasticsearch:
-    host: elastic
+    host: elasticsearch
     port: 9200
     timeout: 20
+    indices:
+      documents:
+        query:
+          fields:
+            - title
+            - description
+    aggregations:
+      kind:
+        terms:
+          field: "kind.keyword"
