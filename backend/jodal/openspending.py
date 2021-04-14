@@ -147,13 +147,18 @@ class AggregationsScraper(BaseOpenSpendingScraper):
                         'identifier': p_uri,
                         'url': p_url,
                         'title': label['label'],
-                        'description': '%s' % (
-                            self.item['title'],),
+                        'description': '%s - %s' % (
+                            self.item['title'],
+                            self.direction2openspending[self.params['direction']]),
                         'location': self.item['location'],
                         'created': self.item['created'],
                         'modified': self.item['modified'],
                         'published': self.item['published'],
-                        'type': [self.agg2openspending_names[a], self.item['type']],
+                        'type': [
+                            self.direction2openspending[self.params['direction']]),
+                            self.agg2openspending_names[a],
+                            self.item['type']
+                        ],
                         'data': {
                             'value': p['total'],
                             'label': label
