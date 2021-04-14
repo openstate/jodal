@@ -126,17 +126,27 @@ function fetchOpenspending(query, location_ids, callback) {
       response => response.json()
     ).then(
       function (data) {
+        console.dir(data.hits.hits);
         var items = [];
         if (typeof(data.hits.hits) !== 'undefined') {
           // FIXME: i.meta.highlight.description is an array!
           var idx=0;
           items = data.hits.hits.map(function (i) {
             idx += 1;
+            var desc = "";
+            if (typeof(i._source.data.value) === 'undefined') {
+              desc = i._source.description;
+            } else {
+              desc = i._source.data.value.toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'EUR',
+              }) + " in " + i._source.description;
+            }
             return {
               key: i._source.published + "" + idx,
               date: i._source.published,
               title: i._source.title,
-              description: i._source.description,
+              description: desc,
               location: i._source.location,
               type: i._source.type,
               source: 'openspending',
