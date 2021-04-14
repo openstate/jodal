@@ -19,7 +19,10 @@ def perform_query(term, filter_string, page, page_size, sort, index_name=None):
     else:
         idx = '_'.join(index_name.split('_')[1:])
         query_fields = app.config[app_name]['elasticsearch'].get('indices', {}).get(idx, {}).get('query', {}).get('fields', [])
-        aggregation_fields = app.config[app_name]['elasticsearch'].get('indices', {}).get(idx, {})['aggregations']
+        try:
+            aggregation_fields = app.config[app_name]['elasticsearch'].get('indices', {}).get(idx, {})['aggregations']
+        except KeyError as e:
+            aggregation_fields = app.config[app_name]['elasticsearch']['aggregations']
 
     query = get_basic_query(filters, term, page, page_size, sort, query_fields, aggregation_fields)
     logging.info(query)

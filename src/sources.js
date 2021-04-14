@@ -117,9 +117,8 @@ function fetchOpenBesluitVorming(query, location_ids, callback) {
 
 function fetchOpenspending(query, location_ids, callback) {
   console.log('Should fetch locations ' + location_ids + ' using openspending now!');
-  // FIXME: should fix openspending to allow one call for multiple codes
-  // government__code__in
-  var url = 'https://openspending.nl/api/v1/documents/?government__code__in=' + location_ids.join(",") + '&order_by=-created_at';
+  // 'http://api.jodal.nl/documents/search?query=*&filter=location.keyword:GM0777|GM0632&sort=published:desc'
+  var url =  window.location.protocol + '//api.jodal.nl/documents/search?query=*&filter=location.keyword:'+ location_ids.join(",") +'&sort=published:desc';
   console.log(url);
 
   return fetch(
@@ -128,24 +127,20 @@ function fetchOpenspending(query, location_ids, callback) {
     ).then(
       function (data) {
         var items = [];
-        if (typeof(data.objects) !== 'undefined') {
+        if (typeof(data.hits.hits) !== 'undefined') {
           // FIXME: i.meta.highlight.description is an array!
-          items = data.objects.map(function (i) {
-            var w = (i.plan == 'budget') ? 'begroting' : 'realisatie';
-            var title = w[0].toLocaleUpperCase() + w.slice(1);
-            if ((i.period > 0) && (i.period < 5)) {
-              title += ' ' + i.period + 'e kwartaal';
-            }
-            title += ' ' + i.year;
+          var idx=0;
+          items = data.hits.hits.map(function (i) {
+            idx += 1;
             return {
-              key: i.created_at,
-              date: i.created_at,
-              title: title,
-              description: '',
-              location: i.government.name,
-              type: i.plan == 'budget' ? 'Begroting' : 'Realisatie',
+              key: i._source.published + "" + idx,
+              date: i._source.published,
+              title: i._source.title,
+              description: i._source.description,
+              location: i._source.location,
+              type: i._source.type,
               source: 'openspending',
-              url: 'https://openspending.nl/' + i.government.slug + '/' + w + '/' + i.year + '-' + i.period + '/lasten/hoofdfuncties/'
+              url: i._source.url
             };
           });
         }
