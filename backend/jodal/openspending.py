@@ -37,6 +37,10 @@ class BaseOpenSpendingScraper(MemoryMixin, BaseWebScraper):
             'sub': 'Functie',
             'cat': 'Categorie'
         }
+        direction2openspending = {
+            'in': 'baten',
+            'out': 'lasten'
+        }
 
 
 class LabelsScraper(BaseOpenSpendingScraper):
@@ -106,6 +110,13 @@ class AggregationsScraper(BaseOpenSpendingScraper):
         result = []
         # '/api/v1/labels/33394-sub-6.6-out/'
         # logging.info(item)
+        item_url = self.item['url'].replace(
+            '/lasten/', '/%s/' % (
+                self.direction2openspending[self.params['direction']])
+        ).replace(
+            '/baten/', '/%s/' % (
+                self.direction2openspending[self.params['direction']])
+        )
         for n in names:
             for a in ['main', 'sub', 'cat']:
                 for p in item[a]['terms']:
@@ -118,11 +129,11 @@ class AggregationsScraper(BaseOpenSpendingScraper):
                             self.params['document_id'], 'main', int(p['term'][0:1]) + 1,
                             self.params['direction'],)
                         m_label = label = self.labels.get(m_id, {'slug': '-'})
-                        p_url = self.item['url'] + '%s/%s/#l-%s' % (
+                        p_url = item_url + '%s/%s/#l-%s' % (
                             m_label['slug'], self.agg2openspending[a],
                             p['term'],)
                     else:
-                        p_url = self.item['url'].replace(
+                        p_url = item_url.replace(
                             '/%s/' % (self.agg2openspending['main'],),
                             '/%s/' % (self.agg2openspending[a],)) + '#l-%s' % (
                                 p['term'],)
