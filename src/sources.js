@@ -126,6 +126,7 @@ function fetchOpenspending(query, location_ids, callback) {
       response => response.json()
     ).then(
       function (data) {
+        var _id2locations = get(id2locations);
         console.dir(data.hits.hits);
         var items = [];
         if (typeof(data.hits.hits) !== 'undefined') {
@@ -147,7 +148,7 @@ function fetchOpenspending(query, location_ids, callback) {
               date: i._source.published,
               title: i._source.title,
               description: desc,
-              location: i._source.location,
+              location: _id2locations[i._source.location],
               type: i._source.type,
               source: 'openspending',
               url: i._source.url
