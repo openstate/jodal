@@ -7,7 +7,7 @@
         <Row>
           <Section>
             <IconButton class="material-icons"  on:click={() => drawerOpen.update(n => !n)}>menu</IconButton>
-            <Title>Jodal</Title>
+            <Title>Journalistiek Dashboard Lokaal - Beta</Title>
           </Section>
           <Section align="end" toolbar>
           <IconButton class="material-icons" aria-label="Login" href="mailto:jodal@openstate.eu?subject=Help" title="Om hulp vragen">help</IconButton>

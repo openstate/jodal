@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Jodal</title>
+  <title>Journalistiek Dashboard Lokaal - Beta</title>
 </svelte:head>
 
 <div class="app-container">
