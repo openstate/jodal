@@ -21,7 +21,7 @@ export const sources = readable([
   },
   {
     short: 'openspending',
-    name: 'Openspending noticaties'
+    name: 'Openspending'
   }
 ]);
 
