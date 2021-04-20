@@ -154,7 +154,7 @@ class AggregationsScraper(BaseOpenSpendingScraper):
                         'created': self.item['created'],
                         'modified': self.item['modified'],
                         'published': self.item['published'],
-                        'source': 'openspending',
+                        'source': self.name,
                         'type': [
                             self.direction2openspending[self.params['direction']],
                             self.agg2openspending_names[a],
