@@ -1,19 +1,26 @@
 <div class="workspace" id="workspace">
   <div class="columns">
-  {#if $inquiries.length <= 0}
-  <div class="start-explainer">
-    <p>Je hebt nog geen kolommen toegevoegd. Klik op de knop hieronder om er een toe te voegen.</p>
-    <Button align="end" on:click={() => startAddColumn()}><Label>Kolom toevoegen</Label></Button>
-  </div>
-  {/if}
+  {#if $identity}
+    {#if $inquiries.length <= 0}
+    <div class="start-explainer">
+      <p>Je hebt nog geen kolommen toegevoegd. Klik op de knop hieronder om er een toe te voegen.</p>
+      <Button align="end" on:click={() => startAddColumn()}><Label>Kolom toevoegen</Label></Button>
+    </div>
+    {/if}
     {#each $inquiries as inq}
     	<Column inquiry={inq} />
     {/each}
+  {:else}
+  <div class="start-explainer">
+    <p>Je bent niet ingelogd. Klik op de knop hieronder om in te loggen of een account aan te maken.</p>
+    <Button align="end" href="//api.jodal.nl/users/simple/login"><Label>Inloggen</Label></Button>
+  </div>
+  {/if}
   </div>
 </div>
 
 <script>
-import { inquiries } from './stores.js';
+import { inquiries, identity } from './stores.js';
 import Column from './column/Column.svelte';
 import AddColumn, { startAddColumn } from './AddColumn.svelte';
 import Button from '@smui/button';
