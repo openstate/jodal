@@ -47,11 +47,12 @@ def perform_search(index_name=None):
     page = request.args.get('page', '')
     page_size = request.args.get('limit', '10')
     sort = request.args.get('sort', '')
+    doc_type = request.args.get('doc_type'. '_doc')
     if not term or term == "null":
         term = "*"
 
     results = perform_query(
-        term, filters, page, int(page_size), sort, index_name)
+        term, filters, page, int(page_size), sort, index_name, doc_type)
     return results
 
 

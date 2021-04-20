@@ -8,7 +8,7 @@ app_name = app.config['NAME_OF_APP']
 setup_es = load_object('%s.es.setup_elasticsearch' % (app_name,))
 es = setup_es(app.config[app_name])
 
-def perform_query(term, filter_string, page, page_size, sort, index_name=None):
+def perform_query(term, filter_string, page, page_size, sort, index_name=None, doc_type="_doc"):
 
     filters = parse_filters(filter_string)
 
@@ -26,7 +26,7 @@ def perform_query(term, filter_string, page, page_size, sort, index_name=None):
 
     query = get_basic_query(filters, term, page, page_size, sort, query_fields, aggregation_fields)
     logging.info(query)
-    result = es.search(index=index_name, body=query)
+    result = es.search(index=index_name, doc_type=doc_type, body=query)
 
     return result
 
