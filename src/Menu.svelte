@@ -10,7 +10,7 @@
             <Title>Journalistiek Dashboard Lokaal - Beta</Title>
           </Section>
           <Section align="end" toolbar>
-          <IconButton class="material-icons" aria-label="Login" href="mailto:jodal@openstate.eu?subject=Help" title="Om hulp vragen">help</IconButton>
+          <IconButton class="material-icons" aria-label="Login" on:click={() => showHelpDialog()} title="Om hulp vragen">help</IconButton>
           {#if $identity}
             <IconButton class="material-icons" aria-label="Add a column" title="Kolom toevoegen" on:click={() => startAddColumn()}>add</IconButton>
             <IconButton class="material-icons" aria-label="Account" title="{$identity.email}">face</IconButton>
@@ -22,11 +22,12 @@
         </Row>
       </TopAppBar>
 </section>
-
+<Help/>
 <AddColumn/>
 <script>
   import { drawerOpen,fetchingEnabled, identity } from './stores.js';
   import AddColumn, { startAddColumn } from './AddColumn.svelte';
+  import Help, { showHelpDialog } from './Help.svelte';
   import TopAppBar, {Row, Section, Title} from '@smui/top-app-bar';
   import IconButton from '@smui/icon-button';
   import Checkbox from '@smui/checkbox';
