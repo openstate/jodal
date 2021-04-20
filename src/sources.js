@@ -118,7 +118,7 @@ function fetchOpenBesluitVorming(query, location_ids, callback) {
 function fetchOpenspending(query, location_ids, callback) {
   console.log('Should fetch locations ' + location_ids + ' using openspending now!');
   // 'http://api.jodal.nl/documents/search?query=*&filter=location.keyword:GM0777|GM0632&sort=published:desc'
-  var url =  window.location.protocol + '//api.jodal.nl/documents/search?query=*&filter=location.keyword:'+ location_ids.join(",") +'&sort=published:desc';
+  var url =  window.location.protocol + '//api.jodal.nl/documents/search?query=' + encodeURIComponent(query) + '&filter=location.keyword:'+ location_ids.join(",") +'&sort=published:desc';
   console.log(url);
 
   return fetch(
