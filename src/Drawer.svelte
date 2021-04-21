@@ -2,43 +2,19 @@
 <section>
     <div class="drawer-container">
       <Drawer variant="modal" bind:this={myDrawer2} bind:open={myDrawer2Open} on:MDCDrawer:closed={() => drawerOpen.update(n => false)}>
-        <Header>
-          <Title>Super Mail</Title>
-          <Subtitle>It's the best fake mail app drawer.</Subtitle>
-        </Header>
         <Content>
           <List>
-            <Item href="javascript:void(0)" on:click={() => setActive2('Inbox')} activated={active2 === 'Inbox'}>
-              <Graphic class="material-icons" aria-hidden="true">inbox</Graphic>
-              <Text>Inbox</Text>
+          {#if $identity}
+            <Item href="//api.jodal.nl/users/simple/logout">
+              <Graphic class="material-icons" aria-hidden="true">login</Graphic>
+              <Text>Uitloggen</Text>
             </Item>
-            <Item href="javascript:void(0)" on:click={() => setActive2('Star')} activated={active2 === 'Star'}>
-              <Graphic class="material-icons" aria-hidden="true">star</Graphic>
-              <Text>Star</Text>
-            </Item>
-            <Item href="javascript:void(0)" on:click={() => setActive2('Sent Mail')} activated={active2 === 'Sent Mail'}>
-              <Graphic class="material-icons" aria-hidden="true">send</Graphic>
-              <Text>Sent Mail</Text>
-            </Item>
-            <Item href="javascript:void(0)" on:click={() => setActive2('Drafts')} activated={active2 === 'Drafts'}>
-              <Graphic class="material-icons" aria-hidden="true">drafts</Graphic>
-              <Text>Drafts</Text>
-            </Item>
-
-            <Separator nav />
-            <Subheader component={H6}>Labels</Subheader>
-            <Item href="javascript:void(0)" on:click={() => setActive2('Family')} activated={active2 === 'Family'}>
-              <Graphic class="material-icons" aria-hidden="true">bookmark</Graphic>
-              <Text>Family</Text>
-            </Item>
-            <Item href="javascript:void(0)" on:click={() => setActive2('Friends')} activated={active2 === 'Friends'}>
-              <Graphic class="material-icons" aria-hidden="true">bookmark</Graphic>
-              <Text>Friends</Text>
-            </Item>
-            <Item href="javascript:void(0)" on:click={() => setActive2('Work')} activated={active2 === 'Work'}>
-              <Graphic class="material-icons" aria-hidden="true">bookmark</Graphic>
-              <Text>Work</Text>
-            </Item>
+          {:else}
+          <Item href="//api.jodal.nl/users/simple/login">
+            <Graphic class="material-icons" aria-hidden="true">account_box</Graphic>
+            <Text>Inloggen</Text>
+          </Item>
+          {/if}
           </List>
         </Content>
       </Drawer>
@@ -53,7 +29,7 @@
   import Button, {Label} from '@smui/button';
   import List, {Item, Text, Graphic, Separator, Subheader} from '@smui/list';
   import H6 from '@smui/common/H6.svelte';
-  import { drawerOpen } from './stores.js';
+  import { drawerOpen, identity } from './stores.js';
 
   let clicked = 'nothing yet';
   let myDrawer;
