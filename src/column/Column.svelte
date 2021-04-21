@@ -251,6 +251,9 @@ onDestroy(function () {
   {#if loading}
     <div class="loading"></div>
   {/if}
+  {#if !loading && ($items.length <= 0)}
+    <p>Er werd nog niks gevonden dat aan je zoekopdracht voldeed.</p>
+  {/if}
   {#if show_marker}
     <Fab on:click={doGoToEntry} extended><Label>Nieuwe entries!</Label></Fab>
   {/if}
