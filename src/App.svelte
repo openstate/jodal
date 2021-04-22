@@ -7,6 +7,7 @@
 <Drawer/>
 <Workspace/>
 <Fetcher/>
+<Document/>
 </div>
 
 <script>
@@ -14,6 +15,7 @@
 	import Drawer from './Drawer.svelte';
   import Workspace from './Workspace.svelte';
   import Fetcher from './Fetcher.svelte';
+  import Document from './Document.svelte';
 </script>
 
 <style>

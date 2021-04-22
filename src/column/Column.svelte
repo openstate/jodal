@@ -258,7 +258,7 @@ onDestroy(function () {
     <Fab on:click={doGoToEntry} extended><Label>Nieuwe entries!</Label></Fab>
   {/if}
   {#each $items as entry}
-  	<Entry {...entry} column={column_id} />
+  	<Entry {...entry} column={column_id} entry={entry} />
   {/each}
   </div>
 </div>

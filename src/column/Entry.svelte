@@ -8,11 +8,13 @@ export let description;
 export let source;
 export let url;
 export let location;
+export let entry;
 
 let empty = false;
 
 import { slide } from 'svelte/transition';
 import { onMount, onDestroy } from 'svelte';
+import { showDocumentDialog } from '../Document.svelte';
 
 function timeSince(now, timeStamp) {
   //var now = new Date();
@@ -54,7 +56,8 @@ onMount(() => {
   {#if title}
   <div class="entry-title">
     <h4>
-      <a href="{ url }" target="_blank" title="{title}">
+      <!-- <a href="{ url }" target="_blank" title="{title}"> -->
+      <a href="#a" {title} on:click={() => showDocumentDialog(entry)}>
       { title }
       </a>
     </h4>
