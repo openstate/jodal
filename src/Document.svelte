@@ -1,4 +1,5 @@
 <Dialog
+  id="dialog-doc"
   bind:open
   bind:this={docDialog}
   aria-labelledby="default-focus-title"
@@ -6,12 +7,12 @@
 >
   <Title id="default-focus-title">{$item.title}</Title>
   <Content id="default-focus-content">
-    {$item}
+    { @html $description}
   </Content>
   <Actions>
-  <a href="{$item.url}" target="_blank" class="mdc-button">
-    <Label>Ga naar bron</Label>
-  </a>
+    <a href="{$item.url}" target="_blank" class="mdc-button">
+      <Label>Ga naar bron</Label>
+    </a>
 
     <Button
       default
@@ -36,8 +37,26 @@
 <script context="module">
   let docDialog;
   let item = writable({});
+  let description = writable("");
+
+  function getDocumentTools() {
+    var url = 'https://blog.jodal.nl/?page_id=14&content-only=1';
+    return fetch(
+      url, {cache: 'no-cache'})
+        .then(res => {
+            return res.text();
+        }).then(
+          function (data) {
+            console.log('got document data:');
+            console.dir(data);
+            description.set(data);
+          }
+      );
+  }
+
 	export function showDocumentDialog(doc) {
-    item.set(doc)
+    item.set(doc);
+    getDocumentTools();
     docDialog.open();
 	}
 </script>

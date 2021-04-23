@@ -191,7 +191,7 @@ function fetchPoliflw(query, location_ids, callback) {
             var desc = "";
             if (typeof(i.meta.highlight) === 'undefined') {
               if (typeof(i.description) !== 'undefined') {
-                desc = i.description.substring(0,140) + '&ellips;';                
+                desc = i.description.substring(0,140) + '&hellip;';                
               }
             } else {
               desc = i.meta.highlight.description;
