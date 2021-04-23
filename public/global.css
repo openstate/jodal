@@ -221,6 +221,11 @@ h6 {
 	text-decoration: underline;
 }
 
+.entry-contents-link, .entry-contents-link:hover {
+	text-decoration: none;
+	color: #2E1E3D;
+}
+
 .entry-byline {
 	font-size: 13px;
 	line-height: 15px;

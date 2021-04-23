@@ -56,15 +56,16 @@ onMount(() => {
   {#if title}
   <div class="entry-title">
     <h4>
-      <!-- <a href="{ url }" target="_blank" title="{title}"> -->
-      <a href="#a" {title} on:click={() => showDocumentDialog(entry)}>
+      <a href="#entry_{column}{key}" {title} on:click={() => showDocumentDialog(entry)}>
       { title }
       </a>
     </h4>
   </div>
   {/if}
   <div class="entry-contents">
-  { @html description }
+    <a href="#entry_{column}{key}" class="entry-contents-link" {title} on:click={() => showDocumentDialog(entry)}>
+    { @html description }
+    </a>
   </div>
   <div class="entry-byline">
     <ul>

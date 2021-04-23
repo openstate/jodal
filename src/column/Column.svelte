@@ -12,6 +12,7 @@ import FormField from '@smui/form-field';
 import { slide } from 'svelte/transition';
 import Fab, {Label, Icon} from '@smui/fab';
 import orderBy from 'lodash/orderBy';
+import { showDocumentDialog } from '../Document.svelte';
 
 export let inquiry;
 

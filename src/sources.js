@@ -188,9 +188,11 @@ function fetchPoliflw(query, location_ids, callback) {
         if (typeof(data.item) !== 'undefined') {
           // FIXME: i.meta.highlight.description is an array!
           items = data.item.map(function (i) {
-            var desc;
+            var desc = "";
             if (typeof(i.meta.highlight) === 'undefined') {
-              desc = i.description.substring(0,140);
+              if (typeof(i.description) !== 'undefined') {
+                desc = i.description.substring(0,140) + '&ellips;';                
+              }
             } else {
               desc = i.meta.highlight.description;
             }
