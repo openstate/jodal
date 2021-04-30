@@ -102,7 +102,8 @@ function fetchOpenBesluitVorming(query, location_ids, callback) {
               key: i._source.start_date,
               date: i._source.start_date,
               title: i._source.name,
-              description: desc,
+              highlight: desc,
+              description: i._source.description,
               location: _id2locations[location],
               type: types[i._source["@type"]],
               source: 'openbesluitvorming',
@@ -147,6 +148,7 @@ function fetchOpenspending(query, location_ids, callback) {
               key: i._source.published + "" + idx,
               date: i._source.published,
               title: i._source.title,
+              highlight: desc,
               description: desc,
               location: _id2locations[i._source.location],
               type: i._source.type,
@@ -191,7 +193,7 @@ function fetchPoliflw(query, location_ids, callback) {
             var desc = "";
             if (typeof(i.meta.highlight) === 'undefined') {
               if (typeof(i.description) !== 'undefined') {
-                desc = i.description.substring(0,140) + '&hellip;';                
+                desc = i.description.substring(0,140) + '&hellip;';
               }
             } else {
               desc = i.meta.highlight.description;
@@ -200,7 +202,8 @@ function fetchPoliflw(query, location_ids, callback) {
               key: i.date,
               date: i.date,
               title: i.title,
-              description: desc,
+              highlight: desc,
+              description: i.description,
               location: i.location,
               type: i.source,
               source: 'poliflw',
