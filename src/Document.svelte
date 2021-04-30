@@ -4,6 +4,7 @@
   bind:this={docDialog}
   aria-labelledby="default-focus-title"
   aria-describedby="default-focus-content"
+  class="document-dialog"
 >
   <Title id="default-focus-title">{$item.title}</Title>
   <Content id="default-focus-content">

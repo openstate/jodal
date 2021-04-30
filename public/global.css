@@ -273,3 +273,8 @@ h6 {
 	margin: 0 auto;
 	text-align: center;
 }
+
+.document-dialog .mdc-dialog__surface {
+  max-width: 80% !important;
+	height: 90%;
+}
