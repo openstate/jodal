@@ -278,3 +278,16 @@ h6 {
   max-width: 80% !important;
 	height: 90%;
 }
+
+.document-dialog-content-tools {
+	width: 18%;
+	float:left;
+	margin-right: 1em;
+}
+
+.document-dialog-content-description {
+	width: 78%;
+	float: right;
+	border-left: 1px solid #ccc;
+	padding: 1em;
+}

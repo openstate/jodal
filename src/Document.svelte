@@ -8,8 +8,12 @@
 >
   <Title id="default-focus-title">{$item.title}</Title>
   <Content id="default-focus-content">
-    { @html $item.description }
-    { @html $description}
+    <div class="document-dialog-content-tools">
+      { @html $description }
+    </div>
+    <div class="document-dialog-content-description">
+      { @html $item.description }
+    </div>
   </Content>
   <Actions>
     <a href="{$item.url}" target="_blank" class="mdc-button">
