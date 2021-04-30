@@ -8,6 +8,7 @@
 >
   <Title id="default-focus-title">{$item.title}</Title>
   <Content id="default-focus-content">
+    { @html $item.description }
     { @html $description}
   </Content>
   <Actions>

@@ -5,6 +5,7 @@ export let date;
 export let type;
 export let column;
 export let description;
+export let highlight;
 export let source;
 export let url;
 export let location;
@@ -64,7 +65,7 @@ onMount(() => {
   {/if}
   <div class="entry-contents">
     <a href="#entry_{column}{key}" class="entry-contents-link" {title} on:click={() => showDocumentDialog(entry)}>
-    { @html description }
+    { @html highlight }
     </a>
   </div>
   <div class="entry-byline">
