@@ -65,6 +65,12 @@ function fetchOpenBesluitVorming(query, location_ids, callback) {
         "text": {}
       }
     },
+    "_source": {
+      "includes": [
+        "*"
+      ],
+      "excludes": []
+    },
     "sort": [
       {"start_date": {"order": "desc"}}
     ],
@@ -97,13 +103,19 @@ function fetchOpenBesluitVorming(query, location_ids, callback) {
                 desc = desc[0];
               }
             }
+            var full_text = '';
+            if (typeof(i._source.text_pages) !== 'undefined') {
+              full_text = '<p>' + i._source.text_pages.join("</p><p>") + '</p>';
+            } else {
+              full_text = i._source.text;
+            }
             var location = 'https://id.openraadsinformatie.nl/' + i._source.has_organization_name;
             return {
               key: i._source.start_date,
               date: i._source.start_date,
               title: i._source.name,
               highlight: desc,
-              description: i._source.description,
+              description: full_text || '',
               location: _id2locations[location],
               type: types[i._source["@type"]],
               source: 'openbesluitvorming',
