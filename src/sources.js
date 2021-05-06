@@ -111,7 +111,7 @@ function fetchOpenBesluitVorming(query, location_ids, callback) {
             }
             var location = 'https://id.openraadsinformatie.nl/' + i._source.has_organization_name;
             return {
-              key: i._source.start_date,
+              key: i._source.start_date + '_' + i._id,
               date: i._source.start_date,
               title: i._source.name,
               highlight: desc,
