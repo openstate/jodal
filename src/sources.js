@@ -21,7 +21,7 @@ export function fetchSource(query, source, location_ids, callback) {
 
 function fetchOpenBesluitVorming(query, location_ids, callback) {
   _fetchOpenBesluitVorming(query, location_ids, ["AgendaItem", "Meeting"], "start_date", callback);
-  _fetchOpenBesluitVorming(query, location_ids, ["MediaObject"], "date_modified", callback);
+  _fetchOpenBesluitVorming(query, location_ids, ["MediaObject"], "last_discussed_at", callback);
 }
 
 function _fetchOpenBesluitVorming(query, location_ids, doc_types, date_field, callback) {
@@ -78,11 +78,11 @@ function _fetchOpenBesluitVorming(query, location_ids, doc_types, date_field, ca
       ],
       "excludes": []
     },
-    "sort": [
-      {"start_date": {"order": "desc"}}
-    ],
     "size":10
   };
+  var order = {};
+  order[date_field] = {"order": "desc"};
+  payload.sort = [order];
   return fetch(
     url, {
       method: 'POST',
@@ -119,7 +119,7 @@ function _fetchOpenBesluitVorming(query, location_ids, doc_types, date_field, ca
             var location = 'https://id.openraadsinformatie.nl/' + i._source.has_organization_name;
             return {
               key: i._source.start_date + '_' + i._id,
-              date: i._source.start_date,
+              date: i._source[date_field],
               title: i._source.name,
               highlight: desc,
               description: full_text || '',
