@@ -20,6 +20,11 @@ export function fetchSource(query, source, location_ids, callback) {
 }
 
 function fetchOpenBesluitVorming(query, location_ids, callback) {
+  _fetchOpenBesluitVorming(query, location_ids, ["AgendaItem", "Meeting"], "start_date", callback);
+  _fetchOpenBesluitVorming(query, location_ids, ["MediaObject"], "date_modified", callback);
+}
+
+function _fetchOpenBesluitVorming(query, location_ids, doc_types, date_field, callback) {
   console.log('Should fetch locations ' + location_ids + ' using openbesluitvorming now!');
   var types = {
     'MediaObject': 'Bestand',
@@ -33,6 +38,8 @@ function fetchOpenBesluitVorming(query, location_ids, callback) {
   };
   var url = 'https://api.openraadsinformatie.nl/v1/elastic/_search';
   var ids_only = location_ids.map(function (l) { return l.replace('https://id.openraadsinformatie.nl/', '');});
+  var range_filter = {};
+  range_filter[date_field] = {"lte": "now"};
   var payload = {
     "aggs": {
       "types": {
@@ -53,8 +60,8 @@ function fetchOpenBesluitVorming(query, location_ids, callback) {
         ],
         "filter": [
           {"terms": {"has_organization_name": ids_only}},
-          {"terms": {"@type.keyword": ["MediaObject", "AgendaItem", "Meeting"]}},
-          {"range": {"start_date": {"lte": "now"}}}
+          {"terms": {"@type.keyword": doc_types}},
+          {"range": range_filter}
         ]
       }
     },
@@ -105,7 +112,7 @@ function fetchOpenBesluitVorming(query, location_ids, callback) {
             }
             var full_text = '';
             if (typeof(i._source.text_pages) !== 'undefined') {
-              full_text = '<p>' + i._source.text_pages.join("</p><p>") + '</p>';
+              full_text = '<p>' + i._source.text_pages.map(function (p) {return p.text;}).join("</p><p>") + '</p>';
             } else {
               full_text = i._source.text;
             }
