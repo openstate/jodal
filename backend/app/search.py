@@ -11,7 +11,7 @@ es = setup_es(app.config[app_name])
 def perform_query(term, filter_string, page, page_size, sort, index_name=None):
 
     filters = parse_filters(filter_string)
-
+    logging.info(filters)
     if index_name is None:
         # TODO: query fields adjustable per index, or by query somehow
         query_fields = app.config[app_name]['elasticsearch'].get('query', {}).get('fields', [])
@@ -33,11 +33,11 @@ def perform_query(term, filter_string, page, page_size, sort, index_name=None):
 
 def parse_filters(filters):
         filter_dict = {}
-        for f in filters.split(','):
+        for f in filters.split('|'):
                 if f and len(f.split(':')) == 2:
                         typ = f.split(':')[0]
                         val = f.split(':')[1]
-                        filter_dict[typ] = val.split('|')
+                        filter_dict[typ] = val.split(',')
 
         return filter_dict
 
