@@ -42,7 +42,7 @@ class ColumnListResource(Resource):
         new_column = Column(
             name=request.json['name'],
             user_id=user_id,
-            locations=request.json['locations'],
+            locations=",".join(request.json['locations']),
             user_query=request.json['user_query'],
             order=request.json['order']
         )
@@ -61,14 +61,13 @@ class ColumnResource(Resource):
     def post(self, column_id):
         user_id = session['user']['sub']
         column = Column.query.filter(Column.user_id==user_id, Column.id==column_id).first_or_404()
-
+        updated_column = column_schema.load(request.json)
         editable = [
             'name', 'locations', 'user_query', 'order', 'src_poliflw',
             'src_openspending', 'src_openbesluitvorming']
         for f in editable:
             if f in request.json:
-                setattr(column, f, request.json[f])
-
+                setattr(column, f, updated_column[f])
         db.session.commit()
         return column_schema.dump(column)
 
