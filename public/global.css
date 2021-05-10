@@ -291,3 +291,8 @@ h6 {
 	border-left: 1px solid #ccc;
 	padding: 1em;
 }
+
+
+.document-dialog-content-description em {
+	background: yellow;
+}

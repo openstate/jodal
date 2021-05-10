@@ -12,7 +12,7 @@
       { @html $description }
     </div>
     <div class="document-dialog-content-description">
-      { @html $item.description }
+      { @html $item.highlighted_description }
     </div>
   </Content>
   <Actions>
@@ -61,6 +61,12 @@
   }
 
 	export function showDocumentDialog(doc) {
+    if (typeof(doc.highlight) !== 'undefined') {
+      var highlight_tags_removed = doc.highlight.replace('<em>', '').replace('</em>', '');
+      doc.highlighted_description = doc.description.replaceAll(highlight_tags_removed, doc.highlight);
+    } else {
+      doc.highlighted_description = doc.description;
+    }
     item.set(doc);
     getDocumentTools();
     docDialog.open();
