@@ -2,6 +2,7 @@
   id="dialog-doc"
   bind:open
   bind:this={docDialog}
+  on:MDCDialog:opened={() => scrollHighlightIntoView()}
   aria-labelledby="default-focus-title"
   aria-describedby="default-focus-content"
   class="document-dialog"
@@ -38,6 +39,15 @@
   let open;
   let response = 'Nothing yet.';
 
+  function scrollHighlightIntoView() {
+    var highlight_em = document.getElementsByClassName('document-dialog-content-description')[0].getElementsByTagName('em');
+    console.log(highlight_em);
+    if (highlight_em.length > 0) {
+      console.log('SCROLL INTO VIEW');
+      highlight_em[0].scrollIntoView();
+      highlight_em[0].scrollBy(0, -60); // small correction bc somethings thing is not shown
+    }
+  }
 </script>
 
 <script context="module">
