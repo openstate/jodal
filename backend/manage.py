@@ -23,6 +23,7 @@ from jodal.utils import load_config
 from jodal.es import setup_elasticsearch
 from jodal.locations import LocationsScraperRunner
 from jodal.openspending import OpenSpendingScraperRunner
+from jodal.poliflw import PoliflwScraperRunner
 
 logging.basicConfig(
     format='%(asctime)s.%(msecs)s:%(name)s:%(thread)d:%(levelname)s:%(process)d:%(message)s',
@@ -87,6 +88,20 @@ def scrapers_openspending(date_from):
     OpenSpendingScraperRunner().run(**kwargs)
 
 
+@command('poliflw')
+@click.option('-f', '--date-from', default=(date.today() - timedelta(days=1)))
+@click.option('-t', '--date-to', default=date.today())
+def scrapers_poliflw(date_from, date_to):
+    config = load_config()
+    es = setup_elasticsearch(config)
+    kwargs = {
+        'config': config,
+        'date_from': str(date_from),
+        'date_to': str(date_to)
+    }
+    PoliflwScraperRunner().run(**kwargs)
+
+
 @command('put_templates')
 @click.option('--template_dir', default='./mappings/', help='Path to JSON file containing the template.')
 def es_put_template(template_dir):
@@ -120,6 +135,7 @@ def es_put_template(template_dir):
 elasticsearch.add_command(es_put_template)
 scrapers.add_command(scrapers_locations)
 scrapers.add_command(scrapers_openspending)
+scrapers.add_command(scrapers_poliflw)
 
 if __name__ == '__main__':
     cli()
