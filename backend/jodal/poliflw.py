@@ -67,9 +67,9 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
         self.payload['filters']['date']['from'] = str(self.date_from)
         self.payload['filters']['date']['to'] = str(self.date_to)
         result = super(DocumentsScraper, self).fetch()
-        logging.info(
-            'Scraper: in total %s results' % (result['meta']['total'],))
         if result is not None:
+            logging.info(
+                'Scraper: in total %s results' % (result['meta']['total'],))
             return result.get('item', [])
         else:
             return []
