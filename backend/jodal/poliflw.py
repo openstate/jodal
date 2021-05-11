@@ -30,7 +30,8 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
             }
         },
         "sort": "date",
-        "order": "desc"
+        "order": "desc",
+        "from": 0
     }
     headers = {
         'Content-type': 'application/json'
@@ -44,13 +45,24 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
         logging.info('Scraper: fetch from %s to %s' % (
             self.date_from, self.date_to,))
 
+    def _get_poliflw_locations(self):
+        result = {}
+        logging.info('Fetching locations')
+        results = self.es.search(index='jodal_locations', body={"size":1000})
+        for l in results.get('hits', {}).get('hits', []):
+            cbs_id = l['_id']
+            for p in l['_source'].get('sources', []):
+                if p['source'] == 'poliflw':
+                    result[p['name']] = cbs_id
+        return result
+
     def next(self):
-        next_url = self.result_json['meta']['next']
-        if next_url is not None:
-            self.url = urljoin('https://openspending.nl', next_url)
+        if len(self.result_json.get('item', [])) > 0:
+            self.payload['from'] += 10
             return True
 
     def fetch(self):
+        self.poliflw_locations = self._get_poliflw_locations()
         sleep(1)
         self.payload['filters']['date']['from'] = str(self.date_from)
         self.payload['filters']['date']['to'] = str(self.date_to)
@@ -58,7 +70,7 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
         logging.info(
             'Scraper: in total %s results' % (result['meta']['total'],))
         if result is not None:
-            return result['item']
+            return result.get('item', [])
         else:
             return []
 
@@ -71,36 +83,25 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
             h_id = hashlib.sha1()
             h_id.update(r_uri.encode('utf-8'))
             poliflw_url = 'https://www.poliflw.nl/l/%s/%s/%s' % (
-                item['location'], item['parties'][0], item['_id'],)
+                item['location'], item['parties'][0], item['id'],)
             data = {}
-            r = {
-                '_id': h_id.hexdigest(),
-                '_index': 'jodal_documents',
-                'id': h_id.hexdigest(),
-                'identifier': r_uri,
-                'url': poliflw_url,
-                'location': item['location'],  # convert to GMxxxx ids
-                'title': item.get('title', ''),
-                'created': item['date'],
-                'modified': item['date'],
-                'published': item['date'],
-                'source': self.name,
-                'type': 'Bericht',
-                'data': data
-            }
-            result.append(r)
-
-            for direction in ['in', 'out']:
-                options = {
-                    'document_id': item['id'],
-                    'direction': direction,
-                    'labels': labels,
-                    'item': r
+            if item['location'] in self.poliflw_locations:
+                r = {
+                    '_id': h_id.hexdigest(),
+                    '_index': 'jodal_documents',
+                    'id': h_id.hexdigest(),
+                    'identifier': r_uri,
+                    'url': poliflw_url,
+                    'location': self.poliflw_locations[item['location']],
+                    'title': item.get('title', ''),
+                    'created': item['date'],
+                    'modified': item['date'],
+                    'published': item['date'],
+                    'source': self.name,
+                    'type': 'Bericht',
+                    'data': data
                 }
-                aggregation = AggregationsScraper(**options)
-                aggregation.run()
-                if aggregation.items is not None:
-                    result += aggregation.items
+                result.append(r)
 
         # logging.info(pformat(result))
         return result
