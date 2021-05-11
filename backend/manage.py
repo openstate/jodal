@@ -89,15 +89,23 @@ def scrapers_openspending(date_from):
 
 
 @command('poliflw')
-@click.option('-f', '--date-from', default=(date.today() - timedelta(days=1)))
-@click.option('-t', '--date-to', default=date.today())
+@click.option('-f', '--date-from', default=(datetime.now() - timedelta(minutes=30)))
+@click.option('-t', '--date-to', default=datetime.now())
 def scrapers_poliflw(date_from, date_to):
     config = load_config()
     es = setup_elasticsearch(config)
+    try:
+        df = date_from.isoformat()
+    except AttributeError as e:
+        df = str(date_from)
+    try:
+        dt = date_to.isoformat()
+    except AttributeError as e:
+        dt = str(date_to)
     kwargs = {
         'config': config,
-        'date_from': str(date_from),
-        'date_to': str(date_to)
+        'date_from': df,
+        'date_to': dt
     }
     PoliflwScraperRunner().run(**kwargs)
 
