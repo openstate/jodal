@@ -90,8 +90,9 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
             r_uri = item['meta']['pfl_url']
             h_id = hashlib.sha1()
             h_id.update(r_uri.encode('utf-8'))
+            item_id = item.get('id', None) or item.get('meta', {}).get('_id', None)
             poliflw_url = 'https://www.poliflw.nl/l/%s/%s/%s' % (
-                item['location'], item['parties'][0], item['id'],)
+                item['location'], item['parties'][0], item_id,)
             data = {}
             if item['location'] in self.poliflw_locations:
                 r = {
