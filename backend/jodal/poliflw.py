@@ -31,6 +31,7 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
         },
         "sort": "date",
         "order": "desc",
+        "scroll": "1d",
         "from": 0
     }
     headers = {
@@ -58,6 +59,9 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
 
     def next(self):
         if len(self.result_json.get('item', [])) > 0:
+            scroll_id = self.result_json.get('meta', {}).get('scroll', None)
+            if scroll_id is not None:
+                self.payload['scroll_id'] = scroll_id
             self.payload['from'] += 10
             return True
 
