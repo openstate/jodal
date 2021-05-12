@@ -92,9 +92,9 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
             h_id.update(r_uri.encode('utf-8'))
             item_id = item.get('id', None) or item.get('meta', {}).get('_id', None)
             poliflw_url = 'https://www.poliflw.nl/l/%s/%s/%s' % (
-                item['location'], item['parties'][0], item_id,)
+                item.get('location', None), item.get('parties', ['-'])][0], item_id,)
             data = {}
-            if item['location'] in self.poliflw_locations:
+            if item.get('location', None) in self.poliflw_locations:
                 r = {
                     '_id': h_id.hexdigest(),
                     '_index': 'jodal_documents',
