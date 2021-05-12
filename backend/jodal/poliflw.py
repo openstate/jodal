@@ -31,7 +31,6 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
         },
         "sort": "date",
         "order": "desc",
-        "scroll": "1d",
         "from": 0
     }
     headers = {
@@ -43,8 +42,12 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
         self.config = kwargs['config']
         self.date_from = kwargs['date_from']
         self.date_to = kwargs['date_to']
-        logging.info('Scraper: fetch from %s to %s' % (
-            self.date_from, self.date_to,))
+        self.scroll = kwargs.get('scroll', None)
+        if self.scroll is not None:
+            self.payload['scroll'] = self.scroll
+        self.poliflw_locations = None
+        logging.info('Scraper: fetch from %s to %s, scroll time %s' % (
+            self.date_from, self.date_to, self.scroll,))
 
     def _get_poliflw_locations(self):
         result = {}
@@ -66,7 +69,8 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
             return True
 
     def fetch(self):
-        self.poliflw_locations = self._get_poliflw_locations()
+        if self.poliflw_locations is None:
+            self.poliflw_locations = self._get_poliflw_locations()
         sleep(1)
         self.payload['filters']['date']['from'] = str(self.date_from)
         self.payload['filters']['date']['to'] = str(self.date_to)

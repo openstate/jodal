@@ -91,7 +91,8 @@ def scrapers_openspending(date_from):
 @command('poliflw')
 @click.option('-f', '--date-from', default=(datetime.now() - timedelta(minutes=30)))
 @click.option('-t', '--date-to', default=datetime.now())
-def scrapers_poliflw(date_from, date_to):
+@click.option('-s', '--scroll', default=None)
+def scrapers_poliflw(date_from, date_to, scroll):
     config = load_config()
     es = setup_elasticsearch(config)
     try:
@@ -105,7 +106,8 @@ def scrapers_poliflw(date_from, date_to):
     kwargs = {
         'config': config,
         'date_from': df,
-        'date_to': dt
+        'date_to': dt,
+        'scroll': scroll
     }
     PoliflwScraperRunner().run(**kwargs)
 
