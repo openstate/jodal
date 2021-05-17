@@ -24,6 +24,7 @@ from jodal.es import setup_elasticsearch
 from jodal.locations import LocationsScraperRunner
 from jodal.openspending import OpenSpendingScraperRunner
 from jodal.poliflw import PoliflwScraperRunner
+from jodal.obv import OpenbesluitvormingScraperRunner
 
 logging.basicConfig(
     format='%(asctime)s.%(msecs)s:%(name)s:%(thread)d:%(levelname)s:%(process)d:%(message)s',
@@ -112,6 +113,30 @@ def scrapers_poliflw(date_from, date_to, scroll):
     PoliflwScraperRunner().run(**kwargs)
 
 
+@command('obv')
+@click.option('-f', '--date-from', default=(datetime.now() - timedelta(minutes=30)))
+@click.option('-t', '--date-to', default=datetime.now())
+@click.option('-s', '--scroll', default=None)
+def scrapers_obv(date_from, date_to, scroll):
+    config = load_config()
+    es = setup_elasticsearch(config)
+    try:
+        df = date_from.isoformat()
+    except AttributeError as e:
+        df = str(date_from)
+    try:
+        dt = date_to.isoformat()
+    except AttributeError as e:
+        dt = str(date_to)
+    kwargs = {
+        'config': config,
+        'date_from': df,
+        'date_to': dt,
+        'scroll': scroll
+    }
+    OpenbesluitvormingScraperRunner().run(**kwargs)
+
+
 @command('put_templates')
 @click.option('--template_dir', default='./mappings/', help='Path to JSON file containing the template.')
 def es_put_template(template_dir):
@@ -146,6 +171,7 @@ elasticsearch.add_command(es_put_template)
 scrapers.add_command(scrapers_locations)
 scrapers.add_command(scrapers_openspending)
 scrapers.add_command(scrapers_poliflw)
+scrapers.add_command(scrapers_obv)
 
 if __name__ == '__main__':
     cli()
