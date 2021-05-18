@@ -6,9 +6,10 @@ import re
 from pprint import pformat
 import hashlib
 from copy import deepcopy
-from urllib.parse import urljoin
+from urllib.parse import urljoin, quote
 from time import sleep
 import locale
+import urllib
 
 import requests
 
@@ -17,12 +18,14 @@ from jodal.scrapers import (
     MemoryMixin, ElasticsearchMixin, ElasticsearchBulkMixin, BaseScraper,
     BaseWebScraper)
 
-
+def _encode_uri_component(s):
+     return quote(s, safe='~()*!.\'')
 
 class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
     name = 'openbesluitvorming'
     url = 'https://api.openraadsinformatie.nl/v1/elastic/_search'
     types = ["AgendaItem", "Meeting"]
+    date_field = 'start_date'
     payload = {
         "aggs": {
           "types": {
@@ -44,7 +47,7 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
             "filter": [
               # {"terms": {"has_organization_name": ids_only}},
               #{"terms": {"@type.keyword": types}},
-              {"range": {"start_date": {"lte": "now"}}}
+              #{"range": {"start_date": {"lte": "now"}}}
             ]
           }
         },
@@ -74,27 +77,32 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
 
     def __init__(self, *args, **kwargs):
         super(MeetingsAndAgendaScraper, self).__init__(*args, **kwargs)
+        self.payload['query']['bool']['filter'] = []
         self.payload['query']['bool']['filter'].append(
               {"terms": {"@type.keyword": self.types}})
+        self.payload['query']['bool']['filter'].append(
+              {"range": {self.date_field: {"lte": "now"}}})
+        self.payload['sort'] = {
+            self.date_field: {"order": "desc"}}
         self.config = kwargs['config']
         self.date_from = kwargs['date_from']
         self.date_to = kwargs['date_to']
         self.scroll = kwargs.get('scroll', None)
         if self.scroll is not None:
             self.payload['scroll'] = self.scroll
-        # self.poliflw_locations = None
+        self.locations = None
         logging.info('Scraper: fetch from %s to %s, scroll time %s' % (
             self.date_from, self.date_to, self.scroll,))
 
     def _get_poliflw_locations(self):
         result = {}
-        # logging.info('Fetching locations')
-        # results = self.es.search(index='jodal_locations', body={"size":1000})
-        # for l in results.get('hits', {}).get('hits', []):
-        #     cbs_id = l['_id']
-        #     for p in l['_source'].get('sources', []):
-        #         if p['source'] == 'poliflw':
-        #             result[p['name']] = cbs_id
+        logging.info('Fetching locations')
+        results = self.es.search(index='jodal_locations', body={"size":1000})
+        for l in results.get('hits', {}).get('hits', []):
+            cbs_id = l['_id']
+            for p in l['_source'].get('sources', []):
+                if p['source'] == self.name:
+                    result[p['id']] = cbs_id
         return result
 
     def next(self):
@@ -106,45 +114,50 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
             return True
 
     def fetch(self):
-        # if self.poliflw_locations is None:
-        #     self.poliflw_locations = self._get_poliflw_locations()
+        if self.locations is None:
+            self.locations = self._get_poliflw_locations()
         sleep(1)
         # self.payload['filters']['date']['from'] = str(self.date_from)
         # self.payload['filters']['date']['to'] = str(self.date_to)
         result = super(MeetingsAndAgendaScraper, self).fetch()
-        logging.info(result)
-        return result  # TODO: remove
+        logging.info(pformat(result))
         if result is not None:
             logging.info(
-                'Scraper: in total %s results' % (result['meta']['total'],))
-            return result.get('item', [])
+                'Scraper: in total %s results' % (result['hits']['total'],))
+            return result.get('hits', {}).get('hits', [])
         else:
             return []
 
     def transform(self, item):
-        # logging.info(item)
+        sitem = item['_source']
+        logging.info(pformat(item))
         names = getattr(self, 'names', None) or [self.name]
         result = []
         for n in names:
-            r_uri = item['meta']['pfl_url']
+            logging.info(pformat(item))
+            r_uri = urljoin(sitem['@context']['@base'], sitem['@id'])
+            logging.info(r_uri)
             h_id = hashlib.sha1()
             h_id.update(r_uri.encode('utf-8'))
-            item_id = item.get('id', None) or item.get('meta', {}).get('_id', None)
-            poliflw_url = 'https://www.poliflw.nl/l/%s/%s/%s' % (
-                item.get('location', None), item.get('parties', ['-'])[0], item_id,)
             data = {}
-            if item.get('location', None) in self.poliflw_locations:
+            if sitem.get('has_organization_name', None) is not None:
+                location_uri = urljoin(
+                    sitem['@context']['@base'], sitem['has_organization_name'])
+                location_id = self.locations[location_uri]
+                logging.info('%s => %s' % (location_uri, location_id,))
+                # 'https://openbesluitvorming.nl/?zoekterm=' + encodeURIComponent(query) + '&organisaties=%5B%22' + i._index + '%22%5D&showResource=' + encodeURIComponent(encodeURIComponent('https://id.openraadsinformatie.nl/' + i._id))
+                obv_url = 'https://openbesluitvorming.nl/?zoekterm=%22*%22&organisaties=%5B%22' + item['_index'] + '%22%5D&showResource=' + _encode_uri_component(_encode_uri_component(r_uri))
                 r = {
                     '_id': h_id.hexdigest(),
                     '_index': 'jodal_documents',
                     'id': h_id.hexdigest(),
                     'identifier': r_uri,
-                    'url': poliflw_url,
-                    'location': self.poliflw_locations[item['location']],
-                    'title': item.get('title', ''),
-                    'created': item['date'],
-                    'modified': item['date'],
-                    'published': item['date'],
+                    'url': obv_url,
+                    'location': location_id,
+                    'title': sitem.get('title', ''),
+                    'created': sitem[self.date_field],
+                    'modified': sitem[self.date_field],
+                    'published': sitem[self.date_field],
                     'source': self.name,
                     'type': 'Bericht',
                     'data': data
@@ -156,7 +169,8 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
 
 
 class MediaObjectsScraper(MeetingsAndAgendaScraper):
-    types = ['MediaObjects']
+    types = ['MediaObject']
+    date_field = 'last_discussed_at'
 
 
 class OpenbesluitvormingScraperRunner(object):
