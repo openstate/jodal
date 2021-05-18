@@ -74,6 +74,7 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
           ],
           "excludes": []
         },
+        "from":0,
         "size":10,
         "sort": {
             "start_date": {
@@ -93,6 +94,7 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
         self.scroll = kwargs.get('scroll', None)
         if self.scroll is not None:
             self.payload['scroll'] = self.scroll
+        self.payload['from'] = 0
         self.payload['query']['bool']['filter'] = []
         self.payload['query']['bool']['filter'].append(
               {"terms": {"@type.keyword": self.types}})
@@ -111,7 +113,7 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
         logging.info('Scraper: fetch from %s to %s, scroll time %s' % (
             self.date_from, self.date_to, self.scroll,))
 
-    def _get_poliflw_locations(self):
+    def _get_locations(self):
         result = {}
         logging.info('Fetching locations')
         results = self.es.search(index='jodal_locations', body={"size":1000})
@@ -123,7 +125,7 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
         return result
 
     def next(self):
-        if len(self.result_json.get('item', [])) > 0:
+        if len(self.result_json.get('hits', {}).get('hits', [])) > 0:
             scroll_id = self.result_json.get('meta', {}).get('scroll', None)
             if scroll_id is not None:
                 self.payload['scroll_id'] = scroll_id
@@ -132,7 +134,7 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
 
     def fetch(self):
         if self.locations is None:
-            self.locations = self._get_poliflw_locations()
+            self.locations = self._get_locations()
         sleep(1)
         # self.payload['filters']['date']['from'] = str(self.date_from)
         # self.payload['filters']['date']['to'] = str(self.date_to)
@@ -165,27 +167,31 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
             if sitem.get('has_organization_name', None) is not None:
                 location_uri = urljoin(
                     sitem['@context']['@base'], sitem['has_organization_name'])
-                location_id = self.locations[location_uri]
-                # logging.info('%s => %s' % (location_uri, location_id,))
-                # 'https://openbesluitvorming.nl/?zoekterm=' + encodeURIComponent(query) + '&organisaties=%5B%22' + i._index + '%22%5D&showResource=' + encodeURIComponent(encodeURIComponent('https://id.openraadsinformatie.nl/' + i._id))
-                obv_url = 'https://openbesluitvorming.nl/?zoekterm=%22*%22&organisaties=%5B%22' + item['_index'] + '%22%5D&showResource=' + _encode_uri_component(_encode_uri_component(r_uri))
-                r = {
-                    '_id': h_id.hexdigest(),
-                    '_index': 'jodal_documents',
-                    'id': h_id.hexdigest(),
-                    'identifier': r_uri,
-                    'url': obv_url,
-                    'location': location_id,
-                    'title': sitem.get('title', ''),
-                    'description': self._get_description(sitem),
-                    'created': sitem[self.date_field],
-                    'modified': sitem[self.date_field],
-                    'published': sitem[self.date_field],
-                    'source': self.name,
-                    'type': self.obv_types[sitem['@type']],
-                    'data': data
-                }
-                result.append(r)
+                try:
+                    location_id = self.locations[location_uri]
+                except KeyError as e:
+                    location_id = None
+                if location_id is not None:
+                    # logging.info('%s => %s' % (location_uri, location_id,))
+                    # 'https://openbesluitvorming.nl/?zoekterm=' + encodeURIComponent(query) + '&organisaties=%5B%22' + i._index + '%22%5D&showResource=' + encodeURIComponent(encodeURIComponent('https://id.openraadsinformatie.nl/' + i._id))
+                    obv_url = 'https://openbesluitvorming.nl/?zoekterm=%22*%22&organisaties=%5B%22' + item['_index'] + '%22%5D&showResource=' + _encode_uri_component(_encode_uri_component(r_uri))
+                    r = {
+                        '_id': h_id.hexdigest(),
+                        '_index': 'jodal_documents',
+                        'id': h_id.hexdigest(),
+                        'identifier': r_uri,
+                        'url': obv_url,
+                        'location': location_id,
+                        'title': sitem.get('name', ''),
+                        'description': self._get_description(sitem),
+                        'created': sitem[self.date_field],
+                        'modified': sitem[self.date_field],
+                        'published': sitem[self.date_field],
+                        'source': self.name,
+                        'type': self.obv_types[sitem['@type']],
+                        'data': data
+                    }
+                    result.append(r)
 
         # logging.info(pformat(result))
         return result
