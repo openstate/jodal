@@ -127,6 +127,15 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
         else:
             return []
 
+    def _get_description(self, sitem):
+        full_text = ''
+        if sitem.get('text_pages') is not None:
+            full_text = '<p>' + "</p><p>".join(
+                [p['text'] for p in sitem['text_pages']]) + '</p>';
+        else:
+            full_text = sitem.get('text', '')
+        return full_text
+
     def transform(self, item):
         sitem = item['_source']
         names = getattr(self, 'names', None) or [self.name]
@@ -151,7 +160,7 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
                     'url': obv_url,
                     'location': location_id,
                     'title': sitem.get('title', ''),
-                    # TODO: content
+                    'description': self._get_description(sitem),
                     'created': sitem[self.date_field],
                     'modified': sitem[self.date_field],
                     'published': sitem[self.date_field],
