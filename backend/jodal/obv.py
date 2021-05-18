@@ -19,9 +19,10 @@ from jodal.scrapers import (
 
 
 
-class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
+class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
     name = 'openbesluitvorming'
     url = 'https://api.openraadsinformatie.nl/v1/elastic/_search'
+    types = ["AgendaItem", "Meeting"]
     payload = {
         "aggs": {
           "types": {
@@ -42,8 +43,8 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
             ],
             "filter": [
               # {"terms": {"has_organization_name": ids_only}},
-              {"terms": {"@type.keyword": ["AgendaItem", "Meeting"]}},
-              {"range": {"start_date": {"lte": "nowe"}}}
+              #{"terms": {"@type.keyword": types}},
+              {"range": {"start_date": {"lte": "now"}}}
             ]
           }
         },
@@ -72,7 +73,9 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
     }
 
     def __init__(self, *args, **kwargs):
-        super(DocumentsScraper, self).__init__(*args, **kwargs)
+        super(MeetingsAndAgendaScraper, self).__init__(*args, **kwargs)
+        self.payload['query']['bool']['filter'].append(
+              {"terms": {"@type.keyword": self.types}})
         self.config = kwargs['config']
         self.date_from = kwargs['date_from']
         self.date_to = kwargs['date_to']
@@ -108,7 +111,7 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
         sleep(1)
         # self.payload['filters']['date']['from'] = str(self.date_from)
         # self.payload['filters']['date']['to'] = str(self.date_to)
-        result = super(DocumentsScraper, self).fetch()
+        result = super(MeetingsAndAgendaScraper, self).fetch()
         logging.info(result)
         return result  # TODO: remove
         if result is not None:
@@ -152,9 +155,14 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
         return result
 
 
+class MediaObjectsScraper(MeetingsAndAgendaScraper):
+    types = ['MediaObjects']
+
+
 class OpenbesluitvormingScraperRunner(object):
     scrapers = [
-        DocumentsScraper
+        MeetingsAndAgendaScraper,
+        MediaObjectsScraper
     ]
 
 
