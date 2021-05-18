@@ -26,6 +26,16 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
     url = 'https://api.openraadsinformatie.nl/v1/elastic/_search'
     types = ["AgendaItem", "Meeting"]
     date_field = 'start_date'
+    obv_types = {
+        'MediaObject': 'Bestand',
+        'AgendaItem': 'Agendapunt',
+        'Report': 'Rapport',
+        'Meeting': 'Vergadering',
+        'Person': 'Persoon',
+        'Membership': 'Lidmaatschap',
+        'Organization': 'Organisatie',
+        'ImageObject': 'Beeld'
+    };
     payload = {
         "aggs": {
           "types": {
@@ -165,7 +175,7 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
                     'modified': sitem[self.date_field],
                     'published': sitem[self.date_field],
                     'source': self.name,
-                    'type': 'Bericht',  #todo actual type
+                    'type': self.obv_types[sitem['@type']],
                     'data': data
                 }
                 result.append(r)
