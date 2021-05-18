@@ -120,7 +120,6 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
         # self.payload['filters']['date']['from'] = str(self.date_from)
         # self.payload['filters']['date']['to'] = str(self.date_to)
         result = super(MeetingsAndAgendaScraper, self).fetch()
-        logging.info(pformat(result))
         if result is not None:
             logging.info(
                 'Scraper: in total %s results' % (result['hits']['total'],))
@@ -130,13 +129,10 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
 
     def transform(self, item):
         sitem = item['_source']
-        logging.info(pformat(item))
         names = getattr(self, 'names', None) or [self.name]
         result = []
         for n in names:
-            logging.info(pformat(item))
             r_uri = urljoin(sitem['@context']['@base'], sitem['@id'])
-            logging.info(r_uri)
             h_id = hashlib.sha1()
             h_id.update(r_uri.encode('utf-8'))
             data = {}
@@ -144,7 +140,7 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
                 location_uri = urljoin(
                     sitem['@context']['@base'], sitem['has_organization_name'])
                 location_id = self.locations[location_uri]
-                logging.info('%s => %s' % (location_uri, location_id,))
+                # logging.info('%s => %s' % (location_uri, location_id,))
                 # 'https://openbesluitvorming.nl/?zoekterm=' + encodeURIComponent(query) + '&organisaties=%5B%22' + i._index + '%22%5D&showResource=' + encodeURIComponent(encodeURIComponent('https://id.openraadsinformatie.nl/' + i._id))
                 obv_url = 'https://openbesluitvorming.nl/?zoekterm=%22*%22&organisaties=%5B%22' + item['_index'] + '%22%5D&showResource=' + _encode_uri_component(_encode_uri_component(r_uri))
                 r = {
@@ -155,11 +151,12 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
                     'url': obv_url,
                     'location': location_id,
                     'title': sitem.get('title', ''),
+                    # TODO: content
                     'created': sitem[self.date_field],
                     'modified': sitem[self.date_field],
                     'published': sitem[self.date_field],
                     'source': self.name,
-                    'type': 'Bericht',
+                    'type': 'Bericht',  #todo actual type
                     'data': data
                 }
                 result.append(r)
