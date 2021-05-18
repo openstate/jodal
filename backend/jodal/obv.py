@@ -87,19 +87,26 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
 
     def __init__(self, *args, **kwargs):
         super(MeetingsAndAgendaScraper, self).__init__(*args, **kwargs)
-        self.payload['query']['bool']['filter'] = []
-        self.payload['query']['bool']['filter'].append(
-              {"terms": {"@type.keyword": self.types}})
-        self.payload['query']['bool']['filter'].append(
-              {"range": {self.date_field: {"lte": "now"}}})
-        self.payload['sort'] = {
-            self.date_field: {"order": "desc"}}
         self.config = kwargs['config']
         self.date_from = kwargs['date_from']
         self.date_to = kwargs['date_to']
         self.scroll = kwargs.get('scroll', None)
         if self.scroll is not None:
             self.payload['scroll'] = self.scroll
+        self.payload['query']['bool']['filter'] = []
+        self.payload['query']['bool']['filter'].append(
+              {"terms": {"@type.keyword": self.types}})
+        self.payload['query']['bool']['filter'].append(
+              {
+                "range": {
+                    self.date_field: {
+                        'from': str(self.date_from),
+                        'to': str(self.date_to)
+                    }
+                }
+            })
+        self.payload['sort'] = {
+            self.date_field: {"order": "desc"}}
         self.locations = None
         logging.info('Scraper: fetch from %s to %s, scroll time %s' % (
             self.date_from, self.date_to, self.scroll,))
