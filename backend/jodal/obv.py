@@ -26,6 +26,7 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
     url = 'https://api.openraadsinformatie.nl/v1/elastic/_search'
     types = ["AgendaItem", "Meeting"]
     date_field = 'start_date'
+    page_size = 50
     obv_types = {
         'MediaObject': 'Bestand',
         'AgendaItem': 'Agendapunt',
@@ -75,7 +76,7 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
           "excludes": []
         },
         "from":0,
-        "size":10,
+        "size":page_size,
         "sort": {
             "start_date": {
                 "order": "desc"
@@ -129,15 +130,13 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
             scroll_id = self.result_json.get('meta', {}).get('scroll', None)
             if scroll_id is not None:
                 self.payload['scroll_id'] = scroll_id
-            self.payload['from'] += 10
+            self.payload['from'] += self.page_size
             return True
 
     def fetch(self):
         if self.locations is None:
             self.locations = self._get_locations()
         sleep(1)
-        # self.payload['filters']['date']['from'] = str(self.date_from)
-        # self.payload['filters']['date']['to'] = str(self.date_to)
         result = super(MeetingsAndAgendaScraper, self).fetch()
         if result is not None:
             logging.info(
