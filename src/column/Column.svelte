@@ -244,7 +244,7 @@ onDestroy(function () {
     {/if}
     <div class="column-settings-actions">
       <Button align="begin" variant="unelevated" on:click={() => handleQueryChange()}><Label>Wijzigen</Label></Button>
-      <Button align="end" variant="outlined" on:click={() => removeColumn()}><Label>Kolom verwijderen</Label></Button>
+      <Button align="end" variant="outlined" on:click={() => removeColumn()}><Label>Zoekopdracht verwijderen</Label></Button>
     </div>
   </div>
   {/if}

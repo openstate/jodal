@@ -3,8 +3,8 @@
   {#if $identity}
     {#if $inquiries.length <= 0}
     <div class="start-explainer">
-      <p>Je hebt nog geen kolommen toegevoegd. Klik op de knop hieronder om er een toe te voegen.</p>
-      <Button align="end" on:click={() => startAddColumn()}><Label>Kolom toevoegen</Label></Button>
+      <p>Je hebt nog geen zoekopdracht toegevoegd. Klik op de knop hieronder om er een toe te voegen.</p>
+      <Button align="end" on:click={() => startAddColumn()}><Label>Zoekopdracht toevoegen</Label></Button>
     </div>
     {/if}
     {#each $inquiries as inq}
