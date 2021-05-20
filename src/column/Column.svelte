@@ -161,39 +161,30 @@ function fetchFromSources() {
   }
 
   console.log('should fetch data for colum ' + inquiry.name + ' now!!');
-  var locations2sources = {};
-  $sources.forEach(function (s) {
-    locations2sources[s.short] = [];
-  });
-  column_locations.forEach(function (c) {
-    c.sources.forEach(function (s) {
-      console.log('s (' + s.id + ')');
-      console.dir(s.source);
-      locations2sources[s.source].push(s.id);
-    })
-  });
-  console.log(locations2sources);
-  // FIXME: sources are fetched in parralel so updating the items does not work correctly like this.
-  // so we wait until the full batch is complete then compare and update items
+  var selected_sources = []
   $sources.forEach(function (s) {
     if (selected.indexOf(s.short) >= 0) {
-      fetchSource(inquiry.user_query, s.short, locations2sources[s.short], function (fetched_items) {
-        console.log('should set items now!');
-        var real_items = get(items_);
-        fetched_items.reverse();
-        fetched_items.forEach(function (i) {
-          if (typeof(item_ids[i.key]) === 'undefined') {
-            real_items.unshift(i);
-            item_ids[i.key] = 1;
-          }
-        });
-        items_.set(real_items);
-        loading = false;
-      });
+      selected_sources.push(s.short);
     } else {
       console.log('Source ' + s.short + ' not fetched because not selected.');
     }
   });
+  console.log('fetching ' + selected_sources + ' now ...');
+
+  fetchSource(inquiry.user_query, selected_sources, column_locations, function (fetched_items) {
+    console.log('should set items now!');
+    var real_items = get(items_);
+    fetched_items.reverse();
+    fetched_items.forEach(function (i) {
+      if (typeof(item_ids[i.key]) === 'undefined') {
+        real_items.unshift(i);
+        item_ids[i.key] = 1;
+      }
+    });
+    items_.set(real_items);
+    loading = false;
+  });
+
 }
 
 var interval;
