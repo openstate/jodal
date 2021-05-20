@@ -1,22 +1,72 @@
 import { get } from 'svelte/store';
 import { id2locations } from './stores.js';
 
-export function fetchSource(query, source, location_ids, callback) {
-  var source2func = {
-    'poliflw': fetchPoliflw,
-    'openspending': fetchOpenspending,
-    'openbesluitvorming': fetchOpenBesluitVorming
-  }
+export function fetchSource(query, sources, location_ids, callback) {
+  return fetchFromApi(query, sources, location_ids.map(function (l) { return l.id;}), callback);
+}
 
-  if (location_ids.length <= 0) {
-    console.log('not enough locations to warrant a fetch');
-    return;
-  }
+function fetchFromApi(query, sources, location_ids, callback) {
+  console.log('Should fetch locations ' + location_ids + ' using openspending now!');
+  // 'http://api.jodal.nl/documents/search?query=*&filter=location.keyword:GM0777|GM0632&sort=published:desc'
+  var url =  window.location.protocol + '//api.jodal.nl/documents/search?query=' + encodeURIComponent(query) + '&filter=source.keyword:' + encodeURIComponent(sources.join(",")) + '|location.keyword:'+ location_ids.join(",") +'&sort=published:desc&limit=50';
+  console.log(url);
 
-  var fnc = source2func[source];
-  if (typeof(fnc) !== 'undefined') {
-    return fnc(query, location_ids, callback);
-  }
+  return fetch(
+    url, {cache: 'no-cache'}).then(
+      response => response.json()
+    ).then(
+      function (data) {
+        var _id2locations = get(id2locations);
+        console.dir(data.hits.hits);
+        var items = [];
+        if (typeof(data.hits.hits) !== 'undefined') {
+          // FIXME: i.meta.highlight.description is an array!
+          var idx=0;
+          items = data.hits.hits.map(function (i) {
+            idx += 1;
+
+            var hl;
+            if (typeof(i._source.highlight) === 'undefined') {
+              hl = '';
+            } else {
+              // TODO: can have more
+              hl = i._source.highlight.name || i._source.highlight.description || i._source.highlight.text;
+              if (typeof(hl) !== 'undefined') {
+                hl = hl[0];
+              }
+            }
+
+
+            var desc = i._source.description;
+
+            // TODO: refactor this into something neater
+            if (i._source.source == 'openspending') {
+              if (typeof(i._source.data.value) === 'undefined') {
+                desc = i._source.description;
+              } else {
+                desc = i._source.data.value.toLocaleString('en-US', {
+                  style: 'currency',
+                  currency: 'EUR',
+                }) + " in " + i._source.description;
+              }
+            }
+
+            return {
+              key: i._source.published + "" + idx,
+              date: i._source.published,
+              title: i._source.title,
+              highlight: hl,
+              description: desc,
+              location: _id2locations[i._source.location],
+              type: i._source.type,
+              source: i._source.source,
+              url: i._source.url
+            };
+          });
+        }
+        callback(items);
+      }
+    );
 }
 
 function fetchOpenBesluitVorming(query, location_ids, callback) {
