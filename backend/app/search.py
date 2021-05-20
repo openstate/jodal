@@ -100,6 +100,19 @@ def get_basic_query(filters, term, page, page_size, sort, query_fields, aggregat
                     ]
                 }
             },
+            "highlight": {
+              "fields": {
+                "name": {},
+                "description": {},
+                "text": {}
+              }
+            },
+            "_source": {
+              "includes": [
+                "*"
+              ],
+              "excludes": []
+            },
             "size": page_size,
             "from": start,
             "aggs" : aggregations

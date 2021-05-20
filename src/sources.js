@@ -26,11 +26,11 @@ function fetchFromApi(query, sources, location_ids, callback) {
             idx += 1;
 
             var hl;
-            if (typeof(i._source.highlight) === 'undefined') {
+            if (typeof(i.highlight) === 'undefined') {
               hl = '';
             } else {
               // TODO: can have more
-              hl = i._source.highlight.name || i._source.highlight.description || i._source.highlight.text;
+              hl = i.highlight.name || i.highlight.description || i.highlight.text;
               if (typeof(hl) !== 'undefined') {
                 hl = hl[0];
               }
