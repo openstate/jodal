@@ -26,7 +26,7 @@ def perform_query(term, filter_string, page, page_size, sort, index_name=None):
             aggregation_fields = app.config[app_name]['elasticsearch']['aggregations']
         highlighting = app.config[app_name]['elasticsearch'].get('indices', {}).get(idx, {}).get('highlight', None)
 
-    query = get_basic_query(filters, term, page, page_size, sort, query_fields, aggregation_fields, highlight)
+    query = get_basic_query(filters, term, page, page_size, sort, query_fields, aggregation_fields, highlighting)
     logging.info(query)
     result = es.search(index=index_name, body=query)
 
@@ -102,12 +102,6 @@ def get_basic_query(filters, term, page, page_size, sort, query_fields, aggregat
                     ]
                 }
             },
-            # "highlight": {
-            #   "fields": {
-            #     "title": {},
-            #     "description": {}
-            #   }
-            # },
             "_source": {
               "includes": [
                 "*"

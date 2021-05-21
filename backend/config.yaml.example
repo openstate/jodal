@@ -9,6 +9,17 @@ jodal:
           fields:
             - title
             - description
+        highlight:
+          fields:
+            title: {}
+            description: {}
+        aggregations:
+          source:
+            terms:
+              field: "source.keyword"
+          location:
+            terms:
+              field: "location.keyword"
     aggregations:
       kind:
         terms:
