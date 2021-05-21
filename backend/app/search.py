@@ -102,9 +102,8 @@ def get_basic_query(filters, term, page, page_size, sort, query_fields, aggregat
             },
             "highlight": {
               "fields": {
-                "name": {},
-                "description": {},
-                "text": {}
+                "title": {},
+                "description": {}
               }
             },
             "_source": {

@@ -30,7 +30,7 @@ function fetchFromApi(query, sources, location_ids, callback) {
               hl = '';
             } else {
               // TODO: can have more
-              hl = i.highlight.name || i.highlight.description || i.highlight.text;
+              hl = i.highlight.title || i.highlight.description;
               if (typeof(hl) !== 'undefined') {
                 hl = hl[0];
               }
@@ -49,13 +49,14 @@ function fetchFromApi(query, sources, location_ids, callback) {
                   currency: 'EUR',
                 }) + " in " + i._source.description;
               }
+              hl = desc;
             }
 
             return {
               key: i._source.published + "" + idx,
               date: i._source.published,
               title: i._source.title,
-              highlight: hl,
+              highlight: hl || '',
               description: desc,
               location: _id2locations[i._source.location],
               type: i._source.type,
