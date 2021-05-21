@@ -16,6 +16,7 @@ def perform_query(term, filter_string, page, page_size, sort, index_name=None):
         # TODO: query fields adjustable per index, or by query somehow
         query_fields = app.config[app_name]['elasticsearch'].get('query', {}).get('fields', [])
         aggregation_fields = app.config[app_name]['elasticsearch']['aggregations']
+        highlighting = app.config[app_name]['elasticsearch'].get('highlight', None)
     else:
         idx = '_'.join(index_name.split('_')[1:])
         query_fields = app.config[app_name]['elasticsearch'].get('indices', {}).get(idx, {}).get('query', {}).get('fields', [])
@@ -23,8 +24,9 @@ def perform_query(term, filter_string, page, page_size, sort, index_name=None):
             aggregation_fields = app.config[app_name]['elasticsearch'].get('indices', {}).get(idx, {})['aggregations']
         except KeyError as e:
             aggregation_fields = app.config[app_name]['elasticsearch']['aggregations']
+        highlighting = app.config[app_name]['elasticsearch'].get('indices', {}).get(idx, {}).get('highlight', None)
 
-    query = get_basic_query(filters, term, page, page_size, sort, query_fields, aggregation_fields)
+    query = get_basic_query(filters, term, page, page_size, sort, query_fields, aggregation_fields, highlight)
     logging.info(query)
     result = es.search(index=index_name, body=query)
 
@@ -43,7 +45,7 @@ def parse_filters(filters):
 
 
 #Those queries implement the filters as AND filter and the query as query_string_query
-def get_basic_query(filters, term, page, page_size, sort, query_fields, aggregation_fields):
+def get_basic_query(filters, term, page, page_size, sort, query_fields, aggregation_fields, highlight):
         query = None
 
         if not page:
@@ -100,12 +102,12 @@ def get_basic_query(filters, term, page, page_size, sort, query_fields, aggregat
                     ]
                 }
             },
-            "highlight": {
-              "fields": {
-                "title": {},
-                "description": {}
-              }
-            },
+            # "highlight": {
+            #   "fields": {
+            #     "title": {},
+            #     "description": {}
+            #   }
+            # },
             "_source": {
               "includes": [
                 "*"
@@ -117,6 +119,8 @@ def get_basic_query(filters, term, page, page_size, sort, query_fields, aggregat
             "aggs" : aggregations
         }
 
+        if highlight is not None:
+                query['highlight'] = highlight
         if filters:
             query['query']['bool']['filter'] = filter_clauses
 
