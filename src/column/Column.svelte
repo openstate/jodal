@@ -217,7 +217,8 @@ onDestroy(function () {
 
 <svelte:window on:focus={getFocus} on:blur={loseFocus} />
 
-<section class="column-section" class:hidden-column={hidden} out:fade>
+{#if !hidden}
+<section class="column-section" out:fade>
 <div id="column-{column_id}" class="column">
   <div class="column-title">
     <h2>{ inquiry.name }</h2>
@@ -258,6 +259,7 @@ onDestroy(function () {
   </div>
 </div>
 </section>
+{/if}
 
 <style>
 </style>
