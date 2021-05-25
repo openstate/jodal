@@ -34,6 +34,7 @@ let scroll_marker;
 let virtual_list;
 let show_sources = true;
 let loading = true;
+let hidden = false;
 
 function getLocations() {
   column_locations = $locations.filter((l) => inquiry.locations.includes(l.id));
@@ -106,6 +107,7 @@ function handleClosedLeading() {
 
 function removeColumn() {
   show_settings = false;
+  hidden = true;
   removeInquiry(column_id);
 }
 
@@ -193,14 +195,14 @@ var interval;
 
 onMount(function () {
   async function fetchData() {
-    if (get(fetchingEnabled)) {
+    if (get(fetchingEnabled) && !hidden) {
 
       fetchFromSources();
 
       clearInterval(interval);
       interval = setInterval(fetchData, 60000 + (inquiry.order * 1000) + (Math.random() * 2000));
     } else {
-      //console.log('Fetching not yet enabled for column ' + inquiry.name);
+      console.log('Fetching not yet enabled for column ' + inquiry.name);
     }
   };
   interval = setInterval(fetchData, 1000 + (Math.random() * 2000));
@@ -215,7 +217,7 @@ onDestroy(function () {
 
 <svelte:window on:focus={getFocus} on:blur={loseFocus} />
 
-<section class="column-section" out:fade>
+<section class="column-section" class:hidden-column={hidden} out:fade>
 <div id="column-{column_id}" class="column">
   <div class="column-title">
     <h2>{ inquiry.name }</h2>

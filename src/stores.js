@@ -73,10 +73,10 @@ export function removeInquiry(column_id) {
     }).then(
       function (data) {
         console.log('Deleted column ' + column_id + ' succesfully!:');
-        var inqs = get(inquiries).filter(function (i) {return i.id != column_id;});
-        console.log('inquiries after deletion:');
-        console.dir(inqs);
-        inquiries.set(inqs);
+        // var inqs = get(inquiries).filter(function (i) {return i.id != column_id;});
+        // console.log('inquiries after deletion:');
+        // console.dir(inqs);
+        // inquiries.set(inqs);
       }
     );
 }
