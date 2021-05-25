@@ -105,6 +105,7 @@ function handleClosedLeading() {
 }
 
 function removeColumn() {
+  show_settings = false;
   removeInquiry(column_id);
 }
 
