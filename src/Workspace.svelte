@@ -12,8 +12,9 @@
     {/each}
   {:else}
   <div class="start-explainer">
-    <p>Je bent niet ingelogd. Klik op de knop hieronder om in te loggen of een account aan te maken.</p>
-    <Button align="end" href="//api.jodal.nl/users/simple/login"><Label>Inloggen</Label></Button>
+    <p>Je bent niet ingelogd. Klik op de &eacuter;&eacute;n van de knoppen hieronder om in te loggen of een account aan te maken.</p>
+    <Button align="end" href="//api.jodal.nl/users/simple/login"><Label>Inloggen</Label></Button> of 
+    <Button align="end" href="//api.jodal.nl/users/simple/register"><Label>Registreren</Label></Button>
   </div>
   {/if}
   </div>
