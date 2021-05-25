@@ -7,7 +7,7 @@
       <Button align="end" on:click={() => startAddColumn()}><Label>Zoekopdracht toevoegen</Label></Button>
     </div>
     {/if}
-    {#each $inquiries as inq}
+    {#each $ordered_inquiries as inq}
     	<Column inquiry={inq} />
     {/each}
   {:else}
@@ -21,7 +21,7 @@
 </div>
 
 <script>
-import { inquiries, identity } from './stores.js';
+import { ordered_inquiries, inquiries, identity } from './stores.js';
 import Column from './column/Column.svelte';
 import AddColumn, { startAddColumn } from './AddColumn.svelte';
 import Button from '@smui/button';

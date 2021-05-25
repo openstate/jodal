@@ -30,6 +30,8 @@ export const inquiries = writable([
 //  {name: 'Groningen', locations:["GM0014"], user_query: "*", order: 1}
 ]);
 
+export const ordered_inquiries = derived(inquiries, $inquiries => [...$inquiries].sort((a,b) => (a.order > b.order) ? 1 : ((b.order > a.order) ? -1 : 0)));
+
 export function addInquiry(settings) {
   var inqs = get(inquiries);
   var max_order = Math.max.apply(Math, inqs.map(function(i) { return i.order; }));
