@@ -36,6 +36,7 @@ let show_sources = true;
 let loading = true;
 let hidden = false;
 let stable_date = undefined;
+let stable_page_number = 1;
 
 function getLocations() {
   column_locations = $locations.filter((l) => inquiry.locations.includes(l.id));
@@ -82,6 +83,12 @@ function doGoToEntry() {
     // console.log('Should move column ' + inquiry.order + 'to position ' + topPos + 'now!');
     document.getElementById(column_id).scrollTop = topPos;
   }
+}
+
+function doNextPage() {
+  console.log('should get next page with stable ' + stable_date + ' with page ' + stable_page_number);
+  fetchFromSources(stable_page_number, stable_date);
+  stable_page_number += 1;
 }
 
 function getFocus() {
@@ -159,7 +166,15 @@ function handleQueryChange(e){
     fetchFromSources();
 }
 
-function fetchFromSources() {
+function fetchFromSources(page, stable_param) {
+  var real_page = 0;
+  if (typeof(page) !== 'undefined') {
+    real_page = page;
+  }
+  var real_stable = null;
+  if (typeof(stable_param) !== 'undefined') {
+    real_stable = stable_param;
+  }
   if (column_locations.length <= 0) {
     getLocations();
   }
@@ -175,7 +190,7 @@ function fetchFromSources() {
   });
   console.log('fetching ' + selected_sources + ' now ...');
 
-  fetchSource(inquiry.user_query, selected_sources, column_locations, null, 0, function (fetched_items) {
+  fetchSource(inquiry.user_query, selected_sources, column_locations, real_stable, real_page, function (fetched_items) {
     console.log('should set items now!');
     var real_items = get(items_);
     fetched_items.reverse();
@@ -262,6 +277,7 @@ onDestroy(function () {
   	<Entry {...entry} column={column_id} entry={entry} />
   {/each}
   </div>
+  <Button align="center" variant="outlined" on:click={() => doNextPage()}><Label>Meer resultaten</Label></Button>
 </div>
 </section>
 {/if}
