@@ -35,6 +35,7 @@ let virtual_list;
 let show_sources = true;
 let loading = true;
 let hidden = false;
+let stable_date = undefined;
 
 function getLocations() {
   column_locations = $locations.filter((l) => inquiry.locations.includes(l.id));
@@ -174,10 +175,14 @@ function fetchFromSources() {
   });
   console.log('fetching ' + selected_sources + ' now ...');
 
-  fetchSource(inquiry.user_query, selected_sources, column_locations, function (fetched_items) {
+  fetchSource(inquiry.user_query, selected_sources, column_locations, null, 0, function (fetched_items) {
     console.log('should set items now!');
     var real_items = get(items_);
     fetched_items.reverse();
+    if ((typeof(stable_date) === 'undefined') && (fetched_items.length > 0)) {
+      stable_date = fetched_items[0].date;
+      console.log('Set stable date for column ' + inquiry.name + 'sorting to: ' + stable_date);
+    }
     fetched_items.forEach(function (i) {
       if (typeof(item_ids[i.key]) === 'undefined') {
         real_items.unshift(i);
