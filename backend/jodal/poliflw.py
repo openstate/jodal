@@ -103,6 +103,7 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
                     'url': poliflw_url,
                     'location': self.poliflw_locations[item['location']],
                     'title': item.get('title', ''),
+                    'description': item.get('discription', ''),
                     'created': item['date'],
                     'modified': item['date'],
                     'published': item['date'],
