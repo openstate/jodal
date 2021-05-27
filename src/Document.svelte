@@ -73,7 +73,11 @@
 	export function showDocumentDialog(doc) {
     if (typeof(doc.highlight) !== 'undefined') {
       var highlight_tags_removed = doc.highlight.replace('<em>', '').replace('</em>', '');
-      doc.highlighted_description = doc.description.replaceAll(highlight_tags_removed, doc.highlight);
+      if (typeof(doc.description) !== 'undefined') {
+        doc.highlighted_description = doc.description.replaceAll(highlight_tags_removed, doc.highlight);
+      } else {
+        doc.highlighted_description = doc.highlight;
+      }
     } else {
       doc.highlighted_description = doc.description;
     }
