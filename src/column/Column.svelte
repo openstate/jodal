@@ -87,6 +87,7 @@ function doGoToEntry() {
 
 function doNextPage() {
   console.log('should get next page with stable ' + stable_date + ' with page ' + stable_page_number);
+  loading = true;
   fetchFromSources(stable_page_number, stable_date);
   stable_page_number += 1;
 }
@@ -264,9 +265,6 @@ onDestroy(function () {
   </div>
   {/if}
   <div id="column-contents-{column_id}" class="column-contents">
-  {#if loading}
-    <div class="loading"></div>
-  {/if}
   {#if !loading && ($items.length <= 0)}
     <p>Er werd nog niks gevonden dat aan je zoekopdracht voldeed.</p>
   {/if}
@@ -276,8 +274,15 @@ onDestroy(function () {
   {#each $items as entry}
   	<Entry {...entry} column={column_id} entry={entry} />
   {/each}
+  {#if !loading && ($items.length > 0)}
+  <div id="more-page-link" class="entry entry-paging">
+    <Button variant="outlined" on:click={() => doNextPage()}><Label>Meer resultaten</Label></Button>
   </div>
-  <Button align="center" variant="outlined" on:click={() => doNextPage()}><Label>Meer resultaten</Label></Button>
+  {/if}
+  {#if loading}
+    <div class="loading"></div>
+  {/if}
+  </div>
 </div>
 </section>
 {/if}
