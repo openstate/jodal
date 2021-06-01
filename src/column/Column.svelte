@@ -289,7 +289,7 @@ onDestroy(function () {
   <div class="column-counts">
     {#each $sources as s}
       <div class="column-counts-source">
-        <img src="/images/sources/{ s.short }.svg" alt="{ s.name }" title="{s.name}" class="source-logo"><span title="{$source_counts[s.short]}">{human_readable_numer($source_counts[s.short])}</span>
+        <img src="/images/sources/{ s.short }.svg" alt="{ s.name }" title="{s.name}" class="source-logo"><span title="{$source_counts[s.short] || 0}">{human_readable_numer($source_counts[s.short] || 0)}</span>
       </div>
     {/each}
   </div>
