@@ -226,10 +226,14 @@ function fetchFromSources(page, stable_param) {
 
 // https://ourcodeworld.com/articles/read/713/converting-bytes-to-human-readable-values-kb-mb-gb-tb-pb-eb-zb-yb-with-javascript
 function human_readable_numer(numb) {
-    var i = Math.floor(Math.log(numb) / Math.log(1000)),
-    sizes = ['', 'K', 'M', 'm', 'B', '', '', '', ''];
+    if (numb > 0) {
+      var i = Math.floor(Math.log(numb) / Math.log(1000)),
+      sizes = ['', 'K', 'M', 'm', 'B', '', '', '', ''];
 
-    return (numb / Math.pow(1024, i)).toFixed(1) * 1 + '' + sizes[i];
+      return (numb / Math.pow(1024, i)).toFixed(1) * 1 + '' + sizes[i];
+    } else {
+      return '0';
+    }
 }
 
 var interval;
