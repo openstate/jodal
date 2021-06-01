@@ -231,7 +231,7 @@ function human_readable_numer(numb) {
       var i = Math.floor(Math.log(numb) / Math.log(base)),
       sizes = ['', 'K', 'M', 'm', 'B', '', '', '', ''];
 
-      return (numb / Math.pow(base, i)).toFixed(1) * 1 + '' + sizes[i];
+      return (numb / Math.pow(base, i)).toFixed(0) * 1 + '' + sizes[i];
     } else {
       return '0';
     }
