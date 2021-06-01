@@ -99,6 +99,7 @@ function getFocus() {
   console.log('got focus! resulted in  ' + (count - last_length) + ' new $items');
   show_marker =  ((count-last_length) > 0); //(end - start);
   last_length = count;
+
 }
 
 function loseFocus() {
@@ -110,6 +111,7 @@ function loseFocus() {
     last_length = count;
     show_marker = false;
   }
+  old_source_counts.set(source_counts);
 }
 
 function handleClosedLeading() {
@@ -216,7 +218,6 @@ function fetchFromSources(page, stable_param) {
     console.dir(new_source_counts);
 
     items_.set(real_items);
-    old_source_counts.set(source_counts);
     source_counts.set(new_source_counts);
     loading = false;
   });
@@ -280,7 +281,7 @@ onDestroy(function () {
   <div class="column-counts">
     {#each $sources as s}
       <div class="column-counts-source">
-        <img src="/images/sources/{ s.short }.svg" alt="{ s.name }" class="source-logo"> {$source_counts[s.short]}
+        <img src="/images/sources/{ s.short }.svg" alt="{ s.name }" title="{s.name}" class="source-logo"><span>{$source_counts[s.short]}</span>
       </div>
     {/each}
   </div>

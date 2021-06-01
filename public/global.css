@@ -161,6 +161,18 @@ h6 {
 }
 
 .column-counts-source {
+	font-size: 14px;
+	line-height: 20px;
+}
+
+.column-counts-source .source-logo {
+	height: 20px !important;
+	margin-top: 0px !important;
+	margin-right: 8px;
+	vertical-align: middle;
+}
+
+.column-counts-source span {
 
 }
 
