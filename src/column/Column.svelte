@@ -37,6 +37,8 @@ let loading = true;
 let hidden = false;
 let stable_date = undefined;
 let stable_page_number = 1;
+let old_source_counts = writable({});
+let source_counts = writable({});
 
 function getLocations() {
   column_locations = $locations.filter((l) => inquiry.locations.includes(l.id));
@@ -191,7 +193,7 @@ function fetchFromSources(page, stable_param) {
   });
   console.log('fetching ' + selected_sources + ' now ...');
 
-  fetchSource(inquiry.user_query, selected_sources, column_locations, real_stable, real_page, function (fetched_items) {
+  fetchSource(inquiry.user_query, selected_sources, column_locations, real_stable, real_page, function (fetched_items, original_response) {
     console.log('should set items now!');
     var real_items = get(items_);
     fetched_items.reverse();
@@ -205,7 +207,17 @@ function fetchFromSources(page, stable_param) {
         item_ids[i.key] = 1;
       }
     });
+
+    var new_source_counts = {};
+    original_response.aggregations.source.buckets.forEach(function (b) {
+      new_source_counts[b.key] = b.doc_count;
+    });
+    console.log('new counts:');
+    console.dir(new_source_counts);
+
     items_.set(real_items);
+    old_source_counts.set(source_counts);
+    source_counts.set(new_source_counts);
     loading = false;
   });
 
@@ -262,6 +274,15 @@ onDestroy(function () {
       <Button align="begin" variant="unelevated" on:click={() => handleQueryChange()}><Label>Wijzigen</Label></Button>
       <Button align="end" variant="outlined" on:click={() => removeColumn()}><Label>Verwijderen</Label></Button>
     </div>
+  </div>
+  {/if}
+  {#if $items.length > 0}
+  <div class="column-counts">
+    {#each $sources as s}
+      <div class="column-counts-source">
+        <img src="/images/sources/{ s.short }.svg" alt="{ s.name }" class="source-logo"> {$source_counts[s.short]}
+      </div>
+    {/each}
   </div>
   {/if}
   <div id="column-contents-{column_id}" class="column-contents">
