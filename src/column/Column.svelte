@@ -224,6 +224,14 @@ function fetchFromSources(page, stable_param) {
 
 }
 
+// https://ourcodeworld.com/articles/read/713/converting-bytes-to-human-readable-values-kb-mb-gb-tb-pb-eb-zb-yb-with-javascript
+function human_readable_numer(numb) {
+    var i = Math.floor(Math.log(numb) / Math.log(1000)),
+    sizes = ['', 'K', 'M', 'm', 'B', '', '', '', ''];
+
+    return (numb / Math.pow(1024, i)).toFixed(1) * 1 + '' + sizes[i];
+}
+
 var interval;
 
 
@@ -281,7 +289,7 @@ onDestroy(function () {
   <div class="column-counts">
     {#each $sources as s}
       <div class="column-counts-source">
-        <img src="/images/sources/{ s.short }.svg" alt="{ s.name }" title="{s.name}" class="source-logo"><span>{$source_counts[s.short]}</span>
+        <img src="/images/sources/{ s.short }.svg" alt="{ s.name }" title="{s.name}" class="source-logo"><span title="{$source_counts[s.short]}">{human_readable_numer($source_counts[s.short])}</span>
       </div>
     {/each}
   </div>
