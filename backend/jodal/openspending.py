@@ -161,6 +161,7 @@ class AggregationsScraper(BaseOpenSpendingScraper):
                             self.item['type']
                         ],
                         'data': {
+                            'openspending_document_id': self.params['document_id'],
                             'value': p['total'],
                             'label': label
                         }
@@ -225,7 +226,9 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseOpenSpendingScraper):
             labels_scraper.run()
             labels = {l['resource_uri']: l for l in labels_scraper.items}
 
-            data = {}
+            data = {
+                'openspending_document_id': item['id']
+            }
 
             openspending_title += ' %s' % (item['year'],)
             r = {
