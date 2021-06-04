@@ -192,8 +192,9 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseOpenSpendingScraper):
 
     def fetch(self):
         sleep(2)
-        if 'created_at__gt' not in self.url:
-            self.url += '&created_at__gt=' + self.date_from
+        for cparam in ['created_at__gt', 'created_at__lt']:
+            if cparam not in self.url:
+                self.url += '&' + cparam + '=' + self.date_from
         result = super(DocumentsScraper, self).fetch()
         logging.info(
             'Scraper: in total %s results' % (result['meta']['total_count'],))
