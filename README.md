@@ -11,6 +11,7 @@ jodal is het JOurnalistiek DAshboard Lokaal.
 2. `cd ../docker`
 3. `docker-compose  up -d`
 4. `docker exec jodal_backend_1 ./manage.py elasticsearch put_templates`
+5. `docker exec jodal_backend_1 alembic upgrade head`
 
 In development mode you can run `./bin/dev.sh` from the base directory, which will launch
 the development environment. You can then go to http://localhost/ in your browser.
@@ -44,7 +45,7 @@ Jodal runs several scrapers, in the `jodal_backend_1` container. Run the floowin
 3. `docker exec jodal_backend_1 ./mana ge.py scrapers poliflw -f 2021-01-01`
 4. `docker exec jodal_backend_1 ./mana ge.py scrapers obv -f 2021-01-01`
 
-## local development
+# local development
 
 For local development, add the following in `/etc/hosts`:
 
