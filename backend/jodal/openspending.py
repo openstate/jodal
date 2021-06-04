@@ -181,7 +181,8 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseOpenSpendingScraper):
         super(DocumentsScraper, self).__init__(*args, **kwargs)
         self.config = kwargs['config']
         self.date_from = kwargs['date_from']
-        logging.info('Scraper: fetch from %s' % (self.date_from,))
+        self.date_to = kwargs['date_to']
+        logging.info('Scraper: fetch from %s to %s' % (self.date_from, self.date_to,))
 
     def next(self):
         next_url = self.result_json['meta']['next']
