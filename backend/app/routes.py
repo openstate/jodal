@@ -140,6 +140,11 @@ def callback():
     return redirect(app.config['JODAL_URL'])
 
 
+@app.route('/documents/download/<source>/<item_id>')
+def download(source, item_id)
+    return jsonify({"status": "ok"})
+
+
 @app.route('/search')
 def search():
     results = perform_search()

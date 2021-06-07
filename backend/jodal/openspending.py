@@ -266,6 +266,109 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseOpenSpendingScraper):
         return result
 
 
+class DocumentScraper(BaseOpenSpendingScraper):
+    name = 'openspending'
+    url = 'https://openspending.nl/api/v1/documents/'
+    payload = None
+    headers = {
+        'Content-type': 'application/json'
+    }
+
+    def __init__(self, *args, **kwargs):
+        super(DocumentScraper, self).__init__(*args, **kwargs)
+        self.config = kwargs['config']
+        self.document_id = kwargs['document_id']
+        logging.info('Fetching document %s' % (self.document_id,))
+
+    def next(self):
+        pass
+
+    def fetch(self):
+        sleep(2)
+        self.url += '%s/' % (self.document_id,)
+        result = super(DocumentScraper, self).fetch()
+        return [result]
+
+    def _convert_aggregation_item(self, item):
+        result = {
+            'document': item['data']['label']['document_id'],
+            'locatie': item['location'],  # convert to name
+            'jaar': self.result_json['year'],
+            'plan': self.plan2openspendingplan[self.result_json['plan']],
+            'periode': self.result_json['period'],
+            'soort': self.direction2openspending[
+                item['data']['label']['direction']],
+            'type': self.agg2openspending_names[
+                item['data']['label']['type']],
+            'code': item['data']['label']['code'],
+            'naam': item['title'],
+            'bedrag': item['data']['value']
+        }
+        return result
+
+    def transform(self, item):
+        # logging.info(item)
+        names = getattr(self, 'names', None) or [self.name]
+        result = []
+        for n in names:
+            r_uri = self.url
+            h_id = hashlib.sha1()
+            h_id.update(r_uri.encode('utf-8'))
+            # https://openspending.nl/zwijndrecht/begroting/2021/lasten/hoofdfuncties/
+            openspending_url = 'https://www.openspending.nl/%s/%s/%s/lasten/hoofdfuncties/' % (
+                item['government']['slug'], self.plan2openspendingplan[item['plan']],
+                item['year'],)
+            openspending_title = self.plan2openspendingplan[item['plan']].capitalize()
+            if item['period'] > 0 and item['period'] < 5:
+                openspending_title += ' %se kwartaal' % (item['period'])
+
+            labels_options = {
+                'document_id': item['id'],
+                'limit': 10000
+            }
+            labels_scraper = LabelsScraper(**labels_options)
+            labels_scraper.run()
+            labels = {l['resource_uri']: l for l in labels_scraper.items}
+
+            data = {
+                'openspending_document_id': item['id']
+            }
+
+            openspending_title += ' %s' % (item['year'],)
+            r = {
+                '_id': h_id.hexdigest(),
+                '_index': 'jodal_documents',
+                'id': h_id.hexdigest(),
+                'identifier': r_uri,
+                'url': openspending_url,
+                'location': item['government']['code'],
+                'title': openspending_title,
+                'created': item['created_at'],
+                'modified': item['updated_at'],
+                'published': item['parsed_at'],
+                'source': self.name,
+                'type': self.plan2openspendingplan[item['plan']].capitalize(),
+                'data': data
+            }
+            result.append(r)
+
+            for direction in ['in', 'out']:
+                options = {
+                    'document_id': item['id'],
+                    'direction': direction,
+                    'labels': labels,
+                    'item': r
+                }
+                aggregation = AggregationsScraper(**options)
+                aggregation.run()
+                if aggregation.items is not None:
+                    result += [
+                        self._convert_aggregation_item(a) for a in aggregation.items]
+
+        # logging.info(pformat(result))
+        return result
+
+
 class OpenSpendingScraperRunner(object):
     scrapers = [
         DocumentsScraper
@@ -283,4 +386,25 @@ class OpenSpendingScraperRunner(object):
             except Exception as e:
                 logging.error(e)
                 raise e
+        logging.info('Fetching resulted in %s items ...' % (len(items)))
+
+
+class OpenSpendingDocumentScraperRunner(object):
+    scrapers = [
+        DocumentScraper
+    ]
+
+
+    def run(self, *args, **kwargs):
+        items = []
+        for scraper in self.scrapers:
+            k = scraper(**kwargs)
+            try:
+                k.items = []
+                k.run()
+                items += k.items
+            except Exception as e:
+                logging.error(e)
+                raise e
+        logging.info(pformat(items))
         logging.info('Fetching resulted in %s items ...' % (len(items)))

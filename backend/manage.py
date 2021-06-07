@@ -22,7 +22,8 @@ from elasticsearch.exceptions import NotFoundError
 from jodal.utils import load_config
 from jodal.es import setup_elasticsearch
 from jodal.locations import LocationsScraperRunner
-from jodal.openspending import OpenSpendingScraperRunner
+from jodal.openspending import (
+    OpenSpendingScraperRunner, OpenSpendingDocumentScraperRunner)
 from jodal.poliflw import PoliflwScraperRunner
 from jodal.obv import OpenbesluitvormingScraperRunner
 
@@ -75,6 +76,18 @@ def scrapers_locations():
     es = setup_elasticsearch(config)
 
     LocationsScraperRunner().run()
+
+
+@command('openspendingdoc')
+@click.option('-d', '--document-id')
+def scrapers_openspendingdoc(document_id):
+    config = load_config()
+    es = setup_elasticsearch(config)
+    kwargs = {
+        'config': config,
+        'document_id': document_id
+    }
+    OpenSpendingDocumentScraperRunner().run(**kwargs)
 
 
 @command('openspending')
@@ -180,6 +193,7 @@ def es_put_template(template_dir):
 elasticsearch.add_command(es_put_template)
 scrapers.add_command(scrapers_locations)
 scrapers.add_command(scrapers_openspending)
+scrapers.add_command(scrapers_openspendingdoc)
 scrapers.add_command(scrapers_poliflw)
 scrapers.add_command(scrapers_obv)
 
