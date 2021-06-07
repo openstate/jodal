@@ -291,8 +291,8 @@ class DocumentScraper(BaseOpenSpendingScraper):
 
     def _convert_aggregation_item(self, item):
         result = {
-            'document': item['data']['label']['document_id'],
-            'locatie': item['location'],  # convert to name
+            #'document': item['data']['label']['document_id'],
+            'locatie': self.result_json['government']['name'],
             'jaar': self.result_json['year'],
             'plan': self.plan2openspendingplan[self.result_json['plan']],
             'periode': self.result_json['period'],
@@ -350,7 +350,7 @@ class DocumentScraper(BaseOpenSpendingScraper):
                 'type': self.plan2openspendingplan[item['plan']].capitalize(),
                 'data': data
             }
-            result.append(r)
+            # result.append(r)
 
             for direction in ['in', 'out']:
                 options = {
@@ -406,5 +406,5 @@ class OpenSpendingDocumentScraperRunner(object):
             except Exception as e:
                 logging.error(e)
                 raise e
-        logging.info(pformat(items))
         logging.info('Fetching resulted in %s items ...' % (len(items)))
+        return items

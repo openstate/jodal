@@ -13,6 +13,7 @@ import requests
 from app import app, AppError
 from app.search import perform_query
 from app.models import Column
+from app.downloads import prepare_download
 
 def decode_json_post_data(fn):
     """Decorator that parses POSTed JSON and attaches it to the request
@@ -140,9 +141,10 @@ def callback():
     return redirect(app.config['JODAL_URL'])
 
 
-@app.route('/documents/download/<source>/<item_id>')
-def download(source, item_id)
-    return jsonify({"status": "ok"})
+@app.route('/documents/download/<source>/<external_item_id>')
+def download(source, external_item_id):
+    items = prepare_download(source, external_item_id, 'json')
+    return jsonify(items)
 
 
 @app.route('/search')
