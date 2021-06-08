@@ -29,21 +29,23 @@ def prepare_download(source, external_item_id, file_format):
     setup_es = load_object('%s.es.setup_elasticsearch' % (app_name,))
     es = setup_es(app.config[app_name])
 
-    runconfig = {
-        'config': app.config,
-        SOURCE2PARAM[source]: external_item_id
-    }
-
-    items = SOURCE2SCRAPER[source]().run(**runconfig)
+    try:
+        runconfig = {
+            'config': app.config,
+            SOURCE2PARAM[source]: external_item_id
+        }
+        items = SOURCE2SCRAPER[source]().run(**runconfig)
+    except LookupError as e:
+        items = None
 
     return items
 
 def perform_download(contents, external_item_id, file_format):
-    json_contents = json.dumps(contents)
-    attachment_filepath = '%s.%s' % (external_item_id, file_format)
-    # return send_file(
-    #     fp, mimetype=FILEFORMAT2MIME[file_format], as_attachment=True,
-    #     attachment_filename=attachment_filepath)
-    return Response(json_contents,
-        mimetype=FILEFORMAT2MIME[file_format],
-        headers={'Content-Disposition':'attachment;filename=%s' % (attachment_filepath,)})
+    if contents is not None:
+        json_contents = json.dumps(contents)
+        attachment_filepath = '%s.%s' % (external_item_id, file_format)
+        return Response(json_contents,
+            mimetype=FILEFORMAT2MIME[file_format],
+            headers={'Content-Disposition':'attachment;filename=%s' % (attachment_filepath,)})
+    else:
+        return jsonify({"status": "error", "msg": "Download mislukt."}), 500
