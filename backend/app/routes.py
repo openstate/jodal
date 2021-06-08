@@ -4,7 +4,7 @@ from functools import wraps
 import logging
 import traceback
 
-from flask import Flask, session, render_template, request, redirect, url_for, flash, Markup, jsonify
+from flask import Flask, session, render_template, request, redirect, url_for, flash, Markup, jsonify, send_file
 from requests_oauthlib import OAuth2Session
 from fusionauth.fusionauth_client import FusionAuthClient
 import pkce
@@ -13,7 +13,7 @@ import requests
 from app import app, AppError
 from app.search import perform_query
 from app.models import Column
-from app.downloads import prepare_download
+from app.downloads import prepare_download, perform_download
 
 def decode_json_post_data(fn):
     """Decorator that parses POSTed JSON and attaches it to the request
@@ -143,8 +143,10 @@ def callback():
 
 @app.route('/documents/download/<source>/<external_item_id>')
 def download(source, external_item_id):
-    items = prepare_download(source, external_item_id, 'json')
-    return jsonify(items)
+    file_format = request.args.get('format', 'json')
+    items = prepare_download(source, external_item_id, file_format)
+    return perform_download(items, external_item_id, file_format)
+    # return jsonify(items)
 
 
 @app.route('/search')
