@@ -24,6 +24,14 @@ FILEFORMAT2MIME = {
     'json': 'application/json'
 }
 
+FILEFORMAT2CONVERTER = {
+    'json': 'convert_for_json'
+}
+
+class Converter(object):
+    def convert_for_json(self, contents):
+        return json.dumps(contents)
+
 def prepare_download(source, external_item_id, file_format):
     app_name = app.config['NAME_OF_APP']
     setup_es = load_object('%s.es.setup_elasticsearch' % (app_name,))
@@ -40,11 +48,17 @@ def prepare_download(source, external_item_id, file_format):
 
     return items
 
+
 def perform_download(contents, external_item_id, file_format):
     if contents is not None:
-        json_contents = json.dumps(contents)
+        cvt = Converter()
+        try:
+            file_contents = getattr(cvt, FILEFORMAT2CONVERTER[file_format])(contents)
+        except LookupError as e:
+            return jsonify({"status": "error", "msg": "Download mislukt."}), 500
         attachment_filepath = '%s.%s' % (external_item_id, file_format)
-        return Response(json_contents,
+        return Response(
+            file_contents,
             mimetype=FILEFORMAT2MIME[file_format],
             headers={'Content-Disposition':'attachment;filename=%s' % (attachment_filepath,)})
     else:
