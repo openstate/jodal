@@ -300,7 +300,7 @@ class DocumentScraper(BaseOpenSpendingScraper):
                 item['data']['label']['direction']],
             'type': self.agg2openspending_names[
                 item['data']['label']['type']],
-            'code': item['data']['label']['code'],
+            'code': str(item['data']['label']['code']),
             'naam': item['title'],
             'bedrag': item['data']['value']
         }

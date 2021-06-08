@@ -144,9 +144,10 @@ def callback():
 @app.route('/documents/download/<source>/<external_item_id>')
 def download(source, external_item_id):
     file_format = request.args.get('format', 'json')
-    items = prepare_download(source, external_item_id, file_format)
-    return perform_download(items, external_item_id, file_format)
-    # return jsonify(items)
+    items = prepare_download(
+        source, external_item_id, file_format)
+    return perform_download(
+        items, source, external_item_id, file_format)
 
 
 @app.route('/search')
