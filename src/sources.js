@@ -65,7 +65,8 @@ function fetchFromApi(query, sources, location_ids, stable, page, callback) {
               location: _id2locations[i._source.location],
               type: i._source.type,
               source: i._source.source,
-              url: i._source.url
+              url: i._source.url,
+              data: i._source.data
             };
           });
         }

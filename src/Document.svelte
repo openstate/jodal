@@ -17,6 +17,11 @@
     </div>
   </Content>
   <Actions>
+    {#if $item.source == 'openspending' && (typeof($item.data) !== 'undefined')}
+    <a href="//api.jodal.nl/documents/download/{$item.source}/{$item.data.label.document_id}" target="_blank" class="mdc-button">
+      <Label>Downloaden</Label>
+    </a>
+    {/if}
     <a href="{$item.url}" target="_blank" class="mdc-button">
       <Label>Ga naar bron</Label>
     </a>
