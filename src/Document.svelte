@@ -17,10 +17,14 @@
     </div>
   </Content>
   <Actions>
-    {#if $item.source == 'openspending' && (typeof($item.data) !== 'undefined')}
-    <a href="//api.jodal.nl/documents/download/{$item.source}/{$item.data.label.document_id}" target="_blank" class="mdc-button">
-      <Label>Downloaden</Label>
-    </a>
+    {#if $item.source == 'openspending' && (typeof($item.data) !== 'undefined') && (typeof($item.data.label) !== 'undefined')}
+    <Group>
+      {#each export_formats[$item.source] as fmt}
+        <a href="//api.jodal.nl/documents/download/{$item.source}/{$item.data.label.document_id}?format={fmt}" target="_blank" class="mdc-button">
+          <Label>Downloaden als {fmt}</Label>
+        </a>
+      {/each}
+    </Group>
     {/if}
     <a href="{$item.url}" target="_blank" class="mdc-button">
       <Label>Ga naar bron</Label>
@@ -38,12 +42,14 @@
 
 <script>
   import Dialog, { Title, Content, Actions, InitialFocus } from '@smui/dialog';
-  import Button, { Label } from '@smui/button';
+  import Button, { Group, Label } from '@smui/button';
   import { writable, get, derived } from 'svelte/store';
 
   let open;
   let response = 'Nothing yet.';
-
+  let export_formats = {
+    'openspending': ['csv', 'json']
+  };
   function scrollHighlightIntoView() {
     var highlight_em = document.getElementsByClassName('document-dialog-content-description')[0].getElementsByTagName('em');
     console.log(highlight_em);
