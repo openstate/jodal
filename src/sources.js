@@ -66,7 +66,10 @@ function fetchFromApi(query, sources, location_ids, stable, page, callback) {
               type: i._source.type,
               source: i._source.source,
               url: i._source.url,
-              data: i._source.data
+              data: i._source.data,
+              _id: i._id,
+              _index: i._index,
+              _type: i._type
             };
           });
         }

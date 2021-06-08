@@ -117,6 +117,25 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
         return result
 
 
+class DocumentScraper(MemoryMixin, BaseScraper):
+    def __init__(self, *args, **kwargs):
+        super(DocumentScraper, self).__init__(*args, **kwargs)
+        self.config = kwargs['config']
+        self.document_id = kwargs['document_id']
+        logging.info('Fetching document %s' % (self.document_id,))
+
+    def next(self):
+        pass
+
+    def fetch(self):
+        self.es = setup_elasticsearch(self.config)
+        item = self.es.get(index='jodal_documents', id=self.document_id)
+        return [item]
+
+    def transform(self, item):
+        return item
+
+
 class PoliflwScraperRunner(object):
     scrapers = [
         DocumentsScraper
@@ -135,3 +154,24 @@ class PoliflwScraperRunner(object):
                 logging.error(e)
                 raise e
         logging.info('Fetching resulted in %s items ...' % (len(items)))
+
+
+class PoliflwDocumentScraperRunner(object):
+    scrapers = [
+        DocumentScraper
+    ]
+
+
+    def run(self, *args, **kwargs):
+        items = []
+        for scraper in self.scrapers:
+            k = scraper(**kwargs)
+            try:
+                k.items = []
+                k.run()
+                items += k.items
+            except Exception as e:
+                logging.error(e)
+                raise e
+        logging.info('Fetching resulted in %s items ...' % (len(items)))
+        return items

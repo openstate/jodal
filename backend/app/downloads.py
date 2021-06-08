@@ -12,23 +12,28 @@ from app.search import perform_query
 from app.models import Column
 
 from jodal.openspending import OpenSpendingDocumentScraperRunner
+from jodal.poliflw import PoliflwDocumentScraperRunner
 
 SOURCE2SCRAPER = {
-    'openspending': OpenSpendingDocumentScraperRunner
+    'openspending': OpenSpendingDocumentScraperRunner,
+    'poliflw': PoliflwDocumentScraperRunner
 }
 
 SOURCE2PARAM = {
-    'openspending': 'document_id'
+    'openspending': 'document_id',
+    'poliflw': 'document_id'
 }
 
 FILEFORMAT2MIME = {
     'json': 'application/json',
-    'csv': 'text/csv'
+    'csv': 'text/csv',
+    'txt': 'text/plain'
 }
 
 FILEFORMAT2CONVERTER = {
     'json': 'convert_for_json',
-    'csv': 'convert_for_csv'
+    'csv': 'convert_for_csv',
+    'txt': 'convert_for_txt'
 }
 
 SOURCE2CSVFIELDS = {
@@ -49,6 +54,16 @@ class Converter(object):
 
     def convert_for_json(self, contents, source):
         return json.dumps(contents)
+
+    def convert_for_txt(self, contents, source):
+        output = ""
+        for i in contents:
+            output += """
+            %s
+
+            %s
+            """ % (i['_source'].get('title', ''), i['_source'].get('description', ''),)
+        return output
 
 def prepare_download(source, external_item_id, file_format):
     app_name = app.config['NAME_OF_APP']
