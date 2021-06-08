@@ -105,3 +105,22 @@ class BaseWebScraper(BaseScraper):
 
     def next(self):
         return None
+
+
+class BaseFromElasticsearch(MemoryMixin, BaseWebScraper):
+    def __init__(self, *args, **kwargs):
+        super(BaseFromElasticsearch, self).__init__(*args, **kwargs)
+        self.config = kwargs['config']
+        self.document_id = kwargs['document_id']
+        logging.info('Fetching document %s' % (self.document_id,))
+
+    def next(self):
+        pass
+
+    def fetch(self):
+        self.es = setup_elasticsearch(self.config)
+        item = self.es.get(index='jodal_documents', id=self.document_id)
+        return [item]
+
+    def transform(self, item):
+        return item

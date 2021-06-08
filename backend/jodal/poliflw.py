@@ -15,7 +15,7 @@ import requests
 from jodal.es import setup_elasticsearch
 from jodal.scrapers import (
     MemoryMixin, ElasticsearchMixin, ElasticsearchBulkMixin, BaseScraper,
-    BaseWebScraper)
+    BaseWebScraper, BaseFromElasticsearch)
 
 
 
@@ -117,23 +117,8 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
         return result
 
 
-class DocumentScraper(MemoryMixin, BaseScraper):
-    def __init__(self, *args, **kwargs):
-        super(DocumentScraper, self).__init__(*args, **kwargs)
-        self.config = kwargs['config']
-        self.document_id = kwargs['document_id']
-        logging.info('Fetching document %s' % (self.document_id,))
-
-    def next(self):
-        pass
-
-    def fetch(self):
-        self.es = setup_elasticsearch(self.config)
-        item = self.es.get(index='jodal_documents', id=self.document_id)
-        return [item]
-
-    def transform(self, item):
-        return item
+class DocumentScraper(BaseFromElasticsearch):
+    pass
 
 
 class PoliflwScraperRunner(object):

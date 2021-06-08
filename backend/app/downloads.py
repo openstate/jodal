@@ -13,15 +13,18 @@ from app.models import Column
 
 from jodal.openspending import OpenSpendingDocumentScraperRunner
 from jodal.poliflw import PoliflwDocumentScraperRunner
+from jodal.obv import OpenbesluitvormingDocumentScraperRunner
 
 SOURCE2SCRAPER = {
     'openspending': OpenSpendingDocumentScraperRunner,
-    'poliflw': PoliflwDocumentScraperRunner
+    'poliflw': PoliflwDocumentScraperRunner,
+    'openbesluitvorming': OpenbesluitvormingDocumentScraperRunner
 }
 
 SOURCE2PARAM = {
     'openspending': 'document_id',
-    'poliflw': 'document_id'
+    'poliflw': 'document_id',
+    'openbesluitvorming': 'document_id'
 }
 
 FILEFORMAT2MIME = {

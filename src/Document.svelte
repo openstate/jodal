@@ -15,9 +15,6 @@
     <div class="document-dialog-content-description">
       { @html $item.highlighted_description }
     </div>
-    <div>
-      { @html JSON.stringify($item).replaceAll('",', '",<br>')}
-    </div>
   </Content>
   <Actions>
     {#if $item.source == 'openspending' && (typeof($item.data) !== 'undefined') && (typeof($item.data.label) !== 'undefined')}
@@ -31,7 +28,7 @@
     </Group>
     {/if}
 
-    {#if $item.source == 'poliflw' && (typeof($item._id) !== 'undefined')}
+    {#if ($item.source == 'poliflw' || $item.source == 'openbesluitvorming') && (typeof($item._id) !== 'undefined')}
     <Group style="margin-right: 4em;">
       <Label style="margin: 2px; line-height: 28px; margin-right: 1em;">Downloaden als:</Label>
       {#each export_formats[$item.source] as fmt}
@@ -65,7 +62,8 @@
   let response = 'Nothing yet.';
   let export_formats = {
     'openspending': ['csv', 'json'],
-    'poliflw': ['txt', 'json']
+    'poliflw': ['txt', 'json'],
+    'openbesluitvorming': ['txt', 'json']
   };
   function scrollHighlightIntoView() {
     var highlight_em = document.getElementsByClassName('document-dialog-content-description')[0].getElementsByTagName('em');

@@ -16,7 +16,7 @@ import requests
 from jodal.es import setup_elasticsearch
 from jodal.scrapers import (
     MemoryMixin, ElasticsearchMixin, ElasticsearchBulkMixin, BaseScraper,
-    BaseWebScraper)
+    BaseWebScraper, BaseFromElasticsearch)
 
 def _encode_uri_component(s):
      return quote(s, safe='~()*!.\'')
@@ -201,6 +201,10 @@ class MediaObjectsScraper(MeetingsAndAgendaScraper):
     date_field = 'last_discussed_at'
 
 
+class DocumentScraper(BaseFromElasticsearch):
+    pass
+
+
 class OpenbesluitvormingScraperRunner(object):
     scrapers = [
         MeetingsAndAgendaScraper,
@@ -220,3 +224,24 @@ class OpenbesluitvormingScraperRunner(object):
                 logging.error(e)
                 raise e
         logging.info('Fetching resulted in %s items ...' % (len(items)))
+
+
+class OpenbesluitvormingDocumentScraperRunner(object):
+    scrapers = [
+        DocumentScraper
+    ]
+
+
+    def run(self, *args, **kwargs):
+        items = []
+        for scraper in self.scrapers:
+            k = scraper(**kwargs)
+            try:
+                k.items = []
+                k.run()
+                items += k.items
+            except Exception as e:
+                logging.error(e)
+                raise e
+        logging.info('Fetching resulted in %s items ...' % (len(items)))
+        return items
