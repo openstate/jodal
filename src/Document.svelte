@@ -18,14 +18,16 @@
   </Content>
   <Actions>
     {#if $item.source == 'openspending' && (typeof($item.data) !== 'undefined') && (typeof($item.data.label) !== 'undefined')}
-    <Group>
+    <Group style="margin-right: 4em;">
+      <Label style="margin: 2px; line-height: 28px; margin-right: 1em;">Downloaden als:</Label>
       {#each export_formats[$item.source] as fmt}
         <a href="//api.jodal.nl/documents/download/{$item.source}/{$item.data.label.document_id}?format={fmt}" target="_blank" class="mdc-button">
-          <Label>Downloaden als {fmt}</Label>
+          <Label>{fmt}</Label>
         </a>
       {/each}
     </Group>
     {/if}
+
     <a href="{$item.url}" target="_blank" class="mdc-button">
       <Label>Ga naar bron</Label>
     </a>
@@ -42,7 +44,7 @@
 
 <script>
   import Dialog, { Title, Content, Actions, InitialFocus } from '@smui/dialog';
-  import Button, { Group, Label } from '@smui/button';
+  import Button, { Group, GroupItem, Label, Icon } from '@smui/button';
   import { writable, get, derived } from 'svelte/store';
 
   let open;
