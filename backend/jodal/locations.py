@@ -39,6 +39,9 @@ class BaseLocationScraper(BaseScraper):
             result.append(r)
         return result
 
+    def next(self):
+        return None
+
 
 class PoliFlwLocationScraper(MemoryMixin, BaseLocationScraper):
     name = 'poliflw'
