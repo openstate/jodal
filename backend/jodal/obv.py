@@ -92,11 +92,20 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
         self.config = kwargs['config']
         self.date_from = kwargs['date_from']
         self.date_to = kwargs['date_to']
+
+        self.payload['query']['bool']['filter'] = []
+        self.organizations = kwargs.get('organizations', None)
+        if self.organizations is not None:
+            ids_only = self.organizations.split(',')
+            self.payload['query']['bool']['filter'].append(
+                {"terms": {"has_organization_name": ids_only}},)
+
         self.scroll = kwargs.get('scroll', None)
         if self.scroll is not None:
             self.payload['scroll'] = self.scroll
+
         self.payload['from'] = 0
-        self.payload['query']['bool']['filter'] = []
+
         self.payload['query']['bool']['filter'].append(
               {"terms": {"@type.keyword": self.types}})
         self.payload['query']['bool']['filter'].append(
@@ -111,8 +120,8 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
         self.payload['sort'] = {
             self.date_field: {"order": "desc"}}
         self.locations = None
-        logging.info('Scraper: fetch from %s to %s, scroll time %s' % (
-            self.date_from, self.date_to, self.scroll,))
+        logging.info('Scraper: fetch from %s dates %s to %s, scroll time %s' % (
+            self.organizations, self.date_from, self.date_to, self.scroll,))
 
     def _get_locations(self):
         result = {}

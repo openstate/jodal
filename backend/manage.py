@@ -140,7 +140,8 @@ def scrapers_poliflw(date_from, date_to, scroll):
 @click.option('-f', '--date-from', default=(datetime.now() - timedelta(minutes=30)))
 @click.option('-t', '--date-to', default=datetime.now())
 @click.option('-s', '--scroll', default=None)
-def scrapers_obv(date_from, date_to, scroll):
+@click.option('-o', '--organizations', default=None)
+def scrapers_obv(date_from, date_to, scroll, organizations):
     config = load_config()
     es = setup_elasticsearch(config)
     try:
@@ -155,7 +156,8 @@ def scrapers_obv(date_from, date_to, scroll):
         'config': config,
         'date_from': df,
         'date_to': dt,
-        'scroll': scroll
+        'scroll': scroll,
+        'organizations': organizations
     }
     OpenbesluitvormingScraperRunner().run(**kwargs)
 
