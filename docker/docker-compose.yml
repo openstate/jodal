@@ -11,7 +11,7 @@ services:
       - ./nginx-start/:/opt/nginx/
       - ./nginx/:/etc/nginx/
       - ../public/:/usr/share/nginx/html/
-      - ../www/_site:/usr/share/nginx/html-www/
+      - ../www/:/usr/share/nginx/html-www/
     restart: always
     networks:
       - nginx-load-balancer
@@ -45,7 +45,7 @@ services:
       context: ../www
       dockerfile: Dockerfile
     volumes:
-      - ../www:/opt/jodal
+      - ../www/:/opt/jodal
     networks:
       - jodal
   backend:
