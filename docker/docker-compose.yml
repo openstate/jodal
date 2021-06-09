@@ -11,6 +11,7 @@ services:
       - ./nginx-start/:/opt/nginx/
       - ./nginx/:/etc/nginx/
       - ../public/:/usr/share/nginx/html/
+      - ../www/_site:/usr/share/nginx/html-www/
     restart: always
     networks:
       - nginx-load-balancer
@@ -39,6 +40,14 @@ services:
     restart: always
     # Use this to keep the container running
     tty: true
+  makesite:
+    build:
+      context: ../www
+      dockerfile: Dockerfile
+    volumes:
+      - ../www:/opt/jodal
+    networks:
+      - jodal
   backend:
     build:
       context: ../backend
