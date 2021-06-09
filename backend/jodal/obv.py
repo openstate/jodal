@@ -98,7 +98,7 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
         if self.organizations is not None:
             ids_only = self.organizations.split(',')
             self.payload['query']['bool']['filter'].append(
-                {"terms": {"has_organization_name": ids_only}},)
+                {"terms": {"has_organization_name": ids_only}})
 
         self.scroll = kwargs.get('scroll', None)
         if self.scroll is not None:
