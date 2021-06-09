@@ -8,9 +8,10 @@ import hashlib
 from copy import deepcopy
 
 import requests
+from elasticsearch.helpers import bulk
 
 from jodal.es import setup_elasticsearch
-from jodal.scrapers import MemoryMixin, ElasticsearchMixin, BaseScraper
+from jodal.scrapers import MemoryMixin, ElasticsearchMixin, BaseScraper, ElasticsearchBulkMixin
 
 
 class BaseLocationScraper(BaseScraper):
@@ -258,5 +259,6 @@ class LocationsScraperRunner(object):
         locations = self.aggregate(items)
         es = setup_elasticsearch()
         for l in locations:
-            if not es.exists(id=l['id'], index='jodal_locations'):
-                es.create(id=l['id'], index='jodal_locations', body=l)
+            l['_id'] = l['id']
+            l['_index'] = 'jodal_locations'
+        result = bulk(es, locations, False)
