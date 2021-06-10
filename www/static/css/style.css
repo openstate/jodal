@@ -228,6 +228,36 @@ footer section {
 
 
 .img-fluid {
-	max-width: 100%;
+	max-width: 33.33%;
 	height: auto;
+}
+
+.footer-icons {
+	display: flex;
+	justify-content: center;
+}
+
+.fa-3x {
+	font-size: 3em;
+}
+
+.footer-icons a {
+	color: #8fb7d1;
+	margin: 20px;
+	font-size: 22px;
+}
+
+.svg-inline--fa {
+	display: inline-block;
+	font-size: inherit;
+	height: 3em;
+	overflow: visible;
+	vertical-align: -0.125em;
+}
+
+.footer-icons .ckan svg {
+	width: 66px;
+	height: 66px;
+	fill: #8fb7d1;
+	stroke: #8fb7d1;
 }
