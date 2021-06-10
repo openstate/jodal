@@ -221,3 +221,7 @@ footer section {
 .feature h3 {
   text-align: center;
 }
+
+.video-container {
+	margin: 2rem auto 0 auto;
+}
