@@ -36,8 +36,9 @@ def deploy(c):
         )
     )
 
-    # start new containers
-    c.sudo("cd %s && docker-compose start" % (os.path.join(DIR, docker),))
+    # build & start new containers
+    c.sudo("sh -c 'cd %s && docker-compose build'" % (os.path.join(DIR, 'docker'),))
+    c.sudo("sh -c 'cd %s && docker-compose up -d'" % (os.path.join(DIR, 'docker'),))
 
     # compile web landing page
     c.sudo("docker exec %s ./makesite.py" % (MAKESITE_CONTAINER,))

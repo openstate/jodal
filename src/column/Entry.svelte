@@ -57,14 +57,14 @@ onMount(() => {
   {#if title}
   <div class="entry-title">
     <h4>
-      <a href="#entry_{column}{key}" {title} on:click={() => showDocumentDialog(entry)}>
+      <a href="#entry_{column}{key}" {title} on:click={function (e) { e.preventDefault(); showDocumentDialog(entry); return false;}}>
       { title }
       </a>
     </h4>
   </div>
   {/if}
   <div class="entry-contents">
-    <a href="#entry_{column}{key}" class="entry-contents-link" {title} on:click={() => showDocumentDialog(entry)}>
+    <a href="#entry_{column}{key}" class="entry-contents-link" {title} on:click={function (e) { e.preventDefault(); showDocumentDialog(entry); return false;}}>
     { @html highlight }
     </a>
   </div>
