@@ -151,6 +151,18 @@ header h1 {
 
 footer {
   text-align: center;
+  background: #e9eef1;
+	font-family: IBM Plex Sans Condensed,Helvetica Neue,Arial,sans-serif;
+	color: #2e1e3d;
+	word-wrap: break-word;
+	font-size: 22px;
+	font-weight: 400;
+	letter-spacing: .01em;
+	line-height: 32px;
+}
+
+footer section {
+  padding-left: 2rem;
 }
 
 .actions {
