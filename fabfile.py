@@ -1,3 +1,5 @@
+import os.path
+
 from fabric import Connection, Config, task
 from invoke import Exit
 import getpass
@@ -13,6 +15,8 @@ NODE_CONTAINER = 'jodal_node_1'
 
 # App container
 APP_CONTAINER = 'jodal_backend_1'
+# makesite container
+MAKESITE_CONTAINER = 'jodal_makesite_1'
 
 # Server name
 SERVER = 'fluorine'
@@ -32,6 +36,11 @@ def deploy(c):
         )
     )
 
+    # start new containers
+    c.sudo("cd %s && docker-compose start" % (os.path.join(DIR, docker),))
+
+    # compile web landing page
+    c.sudo("docker exec %s ./makesite.py" % (MAKESITE_CONTAINER,))
     # Compile assets
     output = c.sudo(
         'docker inspect --format="{{.State.Status}}" %s' % (NODE_CONTAINER)
