@@ -103,6 +103,14 @@ main {
   justify-content: center;
 }
 
+main h2 {
+  text-align: center;
+}
+
+main p {
+  text-align: center;
+}
+
 .lead {
   text-align: center;
 }
@@ -184,4 +192,20 @@ footer {
 .btn-default {
 	background: rgb(166, 38, 137);
 	color: white;
+}
+
+.features {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.feature {
+  flex: 1 0 20%;
+  text-align: center;
+}
+
+.feature h3 {
+  text-align: center;
 }
