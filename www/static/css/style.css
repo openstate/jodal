@@ -144,3 +144,44 @@ header h1 {
 footer {
   text-align: center;
 }
+
+.actions {
+  text-align: center;
+}
+
+.btn {
+  --mdc-ripple-fg-size: 59px;
+  --mdc-ripple-fg-scale: 1.9698291453315258;
+  --mdc-ripple-fg-translate-start: 50.13330078125px, -8.5px;
+  --mdc-ripple-fg-translate-end: 20.46666717529297px, -11.5px;
+  font-family: Roboto,sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-size: .875rem;
+  /* line-height: 2.25rem; */
+  font-weight: 500;
+  letter-spacing: .08929em;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 0 8px;
+  display: inline-flex;
+  position: relative;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-width: 64px;
+  height: 36px;
+  border: none;
+  outline: none;
+  line-height: inherit;
+  user-select: none;
+  -webkit-appearance: none;
+  overflow: hidden;
+  vertical-align: middle;
+  border-radius: 4px;
+}
+
+.btn-default {
+	background: rgb(166, 38, 137);
+	color: white;
+}
