@@ -162,7 +162,7 @@ footer {
 }
 
 footer section {
-  padding-left: 2rem;
+  padding: 2rem;
 }
 
 .actions {
@@ -224,4 +224,10 @@ footer section {
 
 .video-container {
 	margin: 2rem auto 0 auto;
+}
+
+
+.img-fluid {
+	max-width: 100%;
+	height: auto;
 }
