@@ -93,6 +93,23 @@ h6 {
 		font-size: 26px;
 		line-height: 36px;
 	}
+
+	.footer-icons {
+     grid-template-columns: repeat(5, 1fr) !important;
+  }
+
+}
+
+@media(max-width:1080px){
+  .footer-icons {
+     grid-template-columns: repeat(6, 1fr) !important;
+  }
+}
+
+@media(max-width:540px){
+  .footer-icons {
+     grid-template-columns: repeat(3, 1fr) !important;
+  }
 }
 
 main {
@@ -224,8 +241,9 @@ footer section {
 
 .video-container {
 	margin: 2rem auto 0 auto;
+	width: 80%;
+	max-width: 640px;
 }
-
 
 .img-fluid {
 	max-width: 33.33%;
@@ -233,8 +251,9 @@ footer section {
 }
 
 .footer-icons {
-	display: flex;
+	display: grid;
 	justify-content: center;
+	 grid-template-columns: repeat(10, 1fr);
 }
 
 .fa-3x {
