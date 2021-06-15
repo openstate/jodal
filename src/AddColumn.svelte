@@ -83,13 +83,13 @@
     <div>
       <Textfield>
         <Input bind:value={name} id="column-name" aria-controls="helper-text-column-name" aria-describedby="helper-text-column-name" />
-        <FloatingLabel for="input-column-name">Naam</FloatingLabel>
+        <FloatingLabel for="input-column-name">Kolom naam</FloatingLabel>
         <LineRipple />
       </Textfield>
       <HelperText id="helper-text-column-name">Een beschrijvende naam voor de zoekopdracht</HelperText>
     </div>
     <div class="multi-select-input">
-       <Select items={$selectable_locations} isMulti={true} bind:selectedValue={selectedLocations}></Select>
+       <Select items={$selectable_locations} isMulti={true} bind:selectedValue={selectedLocations} placeholder="Selecteer gemeente(s) ..."></Select>
        <HelperText>Lokatie</HelperText>
     </div>
     <div>
