@@ -12,7 +12,7 @@ onMount(function () {
       ).then(
         function (data) {
           console.log('Got columns:');
-          console.dir(data);
+          //console.dir(data);
           inquiries.set(data);
         }
       );
@@ -25,7 +25,7 @@ onMount(function () {
       ).then(
         function (data) {
           console.log('Got identity:');
-          console.dir(data);
+          //console.dir(data);
           identity.set(data);
         }
       );

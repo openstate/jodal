@@ -23,6 +23,18 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
+"@beyonk/async-script-loader@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@beyonk/async-script-loader/-/async-script-loader-1.0.3.tgz#71dd39d9415cfd4560e25c0823a640b1750d1b37"
+  integrity sha512-EX204cmtpjHRyyGsNzkIvOX74OdzP974ICvAT67/7EH0eSHoAKRTvqA9b6s1bKk6Phx1JR5ReSOAI4dbjj72uA==
+
+"@beyonk/svelte-social-auth@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@beyonk/svelte-social-auth/-/svelte-social-auth-2.1.1.tgz#43dc2d23dd90c52b86389ee7f3f6528ac4f75c86"
+  integrity sha512-GoUR3IEc8L9muL/O0eEcIHDTTXhb98/qO3YCh0U3wvjucOYJEem9j9LTzZUgjXsYOa1UM51qOlx/oYNz+bGR2Q==
+  dependencies:
+    "@beyonk/async-script-loader" "^1.0.3"
+
 "@material/animation@^3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@material/animation/-/animation-3.1.0.tgz#ab04e7c2e92ab370a2b28d12af1b88538d23014f"

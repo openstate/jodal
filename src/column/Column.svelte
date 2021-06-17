@@ -131,7 +131,7 @@ function handleQueryInput(e){
 
 function handleQueryChange(e){
     console.log('new query change should be handled!:');
-    console.dir(e);
+    //console.dir(e);
     items_.set([]);
     item_ids = {};
     inquiry.user_query = query;
@@ -154,7 +154,7 @@ function handleQueryChange(e){
       ).then(
         function (data) {
             console.log('update of column completed:');
-            console.dir(data);
+            //console.dir(data);
         }
     );
     var old_inquiries = get(inquiries).map(function (i) {

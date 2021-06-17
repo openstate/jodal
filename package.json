@@ -22,6 +22,7 @@
     "svelte-material-ui": "^1.0.0"
   },
   "dependencies": {
+    "@beyonk/svelte-social-auth": "^2.1.1",
     "sirv-cli": "^1.0.0",
     "svelte-select": "^3.16.1"
   }

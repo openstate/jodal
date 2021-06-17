@@ -60,13 +60,13 @@
             })
           })
           console.dir('id2locations:')
-          console.log(_id2locations);
+          //console.log(_id2locations);
           id2locations.set(_id2locations);
           console.log('location items:')
-          console.dir(items)
+          //console.dir(items)
           locations.set(items)
           console.log('selectable locations:')
-          console.dir($selectable_locations)
+          //console.dir($selectable_locations)
           console.log('setting fetching to enabled!')
           fetchingEnabled.set(true)
         });
