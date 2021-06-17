@@ -9,7 +9,6 @@
 >
   <Title id="default-focus-title">{$item.title}</Title>
   <Content id="default-focus-content">
-    <GoogleAuth clientId="261459702447-7irhrdbh5ib31tif0s0gkchcqhn8t259.apps.googleusercontent.com" on:auth-success={(e) => handleGoogleSignin(e)} />
     <div class="document-dialog-content-tools">
       { @html $description }
     </div>
@@ -26,6 +25,7 @@
           <Label>{fmt}</Label>
         </a>
       {/each}
+      <GoogleAuth text="Bewerken" clientId="261459702447-7irhrdbh5ib31tif0s0gkchcqhn8t259.apps.googleusercontent.com" on:auth-success={(e) => handleGoogleSignin(e)} />
     </Group>
     {/if}
 
@@ -78,12 +78,22 @@
     }
   }
 
+  async function getOpenspendingData() {
+    console.log('getting spreadsheet data:')
+    var url = "//api.jodal.nl/documents/download/" + $item.source + '/' + $item.data.openspending_document_id + '?format=json';
+    await fetch(url)
+      .then(r => r.json())
+      .then(data => {
+        console.log('got spreadsheet data:')
+        console.log(data);
+      });
+  };
+
   function handleGoogleSignin(e) {
         console.log('Google signin worked!');
         console.dir(e.detail.user);
+        getOpenspendingData();
         var auth = gapi.auth2.getAuthInstance();
-        // auth.signIn().then(function (response) {
-        //   console.log('auth signed in!');
         gapi.load("client", async function() {
           console.log('gapi.client loaded!');
           gapi.client.load("sheets", "v4", async function() {
