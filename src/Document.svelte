@@ -90,7 +90,7 @@
             console.log('gapi sheets loaded!');
             gapi.client.sheets.spreadsheets.create({
               properties: {
-                title: $item.title
+                title: $item.location + ' - ' + $item.title
               }
             }).then((response) => {
               console.log('spreadsheet created:', response);
