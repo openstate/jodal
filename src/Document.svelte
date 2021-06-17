@@ -32,7 +32,7 @@
     <Group style="margin-right: 4em;">
       <Label style="margin: 2px; line-height: 28px; margin-right: 1em;">Downloaden als:</Label>
       {#each export_formats[$item.source] as fmt}
-        <a href="//api.jodal.nl/documents/download/{$item.source}/{$item._id}?format={fmt}" target="_blank" class="mdc-button">
+        <a href="//api.jodal.nl/documents/download/{$item.source}/{$item.data.openspending_document_id}?format={fmt}" target="_blank" class="mdc-button">
           <Label>{fmt}</Label>
         </a>
       {/each}
