@@ -55,7 +55,8 @@
 </Dialog>
 
 <script>
-  import { GoogleAuth } from '@beyonk/svelte-social-auth'
+
+  import GoogleAuth from './GoogleAuth.svelte';
   import Dialog, { Title, Content, Actions, InitialFocus } from '@smui/dialog';
   import Button, { Group, GroupItem, Label, Icon } from '@smui/button';
   import { writable, get, derived } from 'svelte/store';
@@ -78,37 +79,39 @@
   }
 
   function handleGoogleSignin(e) {
-    var DISCOVERY_DOCS = [
-    "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest",
-    "https://sheets.googleapis.com/$discovery/rest?version=v4",
-];
-var SCOPES = [
-    "https://www.googleapis.com/auth/drive",
-    "https://www.googleapis.com/auth/spreadsheets"
-];
-    console.log('Google signin worked!');
-    console.dir(e.detail.user);
-    gapi.client.init({
-  discoveryDocs: DISCOVERY_DOCS,
-  clientId: '261459702447-7irhrdbh5ib31tif0s0gkchcqhn8t259.apps.googleusercontent.com',
-  scope: SCOPES.join(' '),
-}).then(() => {
-  console.log('Initiated client');
-  gapi.client.sheets.spreadsheets.create({
-    properties: {
-      title: 'Test Spreadsheet'
-    }
-  }).then(function(sheet) {
-    console.log('created sheet!');
-    console.dir(sheet);
-  });
+        console.log('Google signin worked!');
+        console.dir(e.detail.user);
+  };
+//   function handleGoogleSignin(e) {
+//     var DISCOVERY_DOCS = [
+//     "https://www.googleapis.com/discovery/v1/apis/drive/v3/rest",
+//     "https://sheets.googleapis.com/$discovery/rest?version=v4",
+// ];
+// var SCOPES = [
+//     "https://www.googleapis.com/auth/drive",
+//     "https://www.googleapis.com/auth/spreadsheets"
+// ];
+//     gapi.client.init({
+//   discoveryDocs: DISCOVERY_DOCS,
+//   clientId: '261459702447-7irhrdbh5ib31tif0s0gkchcqhn8t259.apps.googleusercontent.com',
+//   scope: SCOPES.join(' '),
+// }).then(() => {
+//   console.log('Initiated client');
+//   gapi.client.sheets.spreadsheets.create({
+//     properties: {
+//       title: 'Test Spreadsheet'
+//     }
+//   }).then(function(sheet) {
+//     console.log('created sheet!');
+//     console.dir(sheet);
+//   });
   // gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
   // updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
   // authorizeButton.onclick = handleAuthClick;
   // signoutButton.onclick = handleSignoutClick;
   //console.dir(gapi.auth2.getAuthInstance().isSignedIn.get());
-});
-  };
+//});
+//  };
 </script>
 
 <script context="module">
