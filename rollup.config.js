@@ -1,4 +1,5 @@
 import svelte from 'rollup-plugin-svelte';
+import replace from '@rollup/plugin-replace';
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import postcss from 'rollup-plugin-postcss';
@@ -51,6 +52,15 @@ export default {
         // — pass `false` as the second argument if you don't want the sourcemap
         css.write('bundle.css');
       },
+		}),
+
+		replace({
+			// 2 level deep object should be stringify
+			runEnvironment: JSON.stringify({
+				env: {
+					isProduction: production,
+				}
+			}),
 		}),
 
 		// If you have external dependencies installed from

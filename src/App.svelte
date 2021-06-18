@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Journalistiek Dashboard Lokaal - Beta</title>
+  <title>Journalistiek Dashboard Lokaal - Beta ({runEnv})</title>
 </svelte:head>
 
 <div class="app-container">
@@ -16,6 +16,8 @@
   import Workspace from './Workspace.svelte';
   import Fetcher from './Fetcher.svelte';
   import Document from './Document.svelte';
+
+  const runEnv = runEnvironment.env.isProd ? 'Production' : 'Dev';
 </script>
 
 <style>
