@@ -59,6 +59,7 @@ export default {
 			runEnvironment: JSON.stringify({
 				env: {
 					isProduction: production,
+					googleClientId: production ? '' : '261459702447-7irhrdbh5ib31tif0s0gkchcqhn8t259.apps.googleusercontent.com'
 				}
 			}),
 		}),

@@ -25,7 +25,7 @@
           <Label>{fmt}</Label>
         </a>
       {/each}
-      <GoogleAuth text="Bewerken" clientId="261459702447-7irhrdbh5ib31tif0s0gkchcqhn8t259.apps.googleusercontent.com" on:auth-success={(e) => handleGoogleSignin(e)} />
+      <GoogleAuth text="Bewerken" clientId="{googleClientId}" on:auth-success={(e) => handleGoogleSignin(e)} />
     </Group>
     {/if}
 
@@ -68,6 +68,9 @@
     'poliflw': ['txt', 'json'],
     'openbesluitvorming': ['txt', 'json']
   };
+
+  const googleClientId = runEnvironment.env.googleClientId;
+
   function scrollHighlightIntoView() {
     var highlight_em = document.getElementsByClassName('document-dialog-content-description')[0].getElementsByTagName('em');
     console.log(highlight_em);
