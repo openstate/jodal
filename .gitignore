@@ -4,3 +4,4 @@ backend/config.yaml
 *.pyc
 backend/config.py
 backend/cache/**/*.json
+__pycache__
