@@ -25,7 +25,9 @@
           <Label>{fmt}</Label>
         </a>
       {/each}
+      {#if false}
       <GoogleAuth text="Bewerken" clientId="{googleClientId}" on:auth-success={(e) => handleGoogleSignin(e)} />
+      {/if}
     </Group>
     {/if}
 
