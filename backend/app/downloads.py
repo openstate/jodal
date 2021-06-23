@@ -1,4 +1,5 @@
 import os
+import os.path
 import json
 from functools import wraps
 import logging
@@ -73,6 +74,19 @@ def prepare_download(source, external_item_id, file_format):
     setup_es = load_object('%s.es.setup_elasticsearch' % (app_name,))
     es = setup_es(app.config[app_name])
 
+    cache_dir = os.path.join(
+        os.path.abspath(os.path.dirname(__file__)), '../cache/%s/' % (source,))
+    cache_filepath = os.path.join(
+        cache_dir, '%s.%s' % (external_item_id, file_format))
+
+    items = None
+    if os.path.exists(cache_filepath):
+        with open(cache_filepath) as in_file:
+            items = json.load(in_file)
+
+    if items is not None:
+        return items
+
     try:
         runconfig = {
             'config': app.config,
@@ -81,6 +95,10 @@ def prepare_download(source, external_item_id, file_format):
         items = SOURCE2SCRAPER[source]().run(**runconfig)
     except LookupError as e:
         items = None
+
+    if items is not None:
+        with open(cache_filepath, 'w') as out_file:
+            json.dump(items, out_file)
 
     return items
 

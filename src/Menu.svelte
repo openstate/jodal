@@ -1,7 +1,3 @@
-<svelte:head>
-  <title>Jodal</title>
-</svelte:head>
-
 <section>
       <TopAppBar variant="static" {prominent} {dense} color={secondaryColor ? 'secondary' : 'primary'}>
         <Row>
