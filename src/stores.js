@@ -54,7 +54,7 @@ export function addInquiry(settings) {
     ).then(
       function (data) {
         console.log('Added column succesfully!:');
-        console.dir(data);
+        //console.dir(data);
         inqs.push(data);
         inquiries.set(inqs);
       }

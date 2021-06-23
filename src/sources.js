@@ -21,7 +21,7 @@ function fetchFromApi(query, sources, location_ids, stable, page, callback) {
     ).then(
       function (data) {
         var _id2locations = get(id2locations);
-        console.dir(data.hits.hits);
+        //console.dir(data.hits.hits);
         var items = [];
         if (typeof(data.hits.hits) !== 'undefined') {
           // FIXME: i.meta.highlight.description is an array!

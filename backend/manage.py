@@ -23,7 +23,8 @@ from jodal.utils import load_config
 from jodal.es import setup_elasticsearch
 from jodal.locations import LocationsScraperRunner
 from jodal.openspending import (
-    OpenSpendingScraperRunner, OpenSpendingDocumentScraperRunner)
+    OpenSpendingScraperRunner, OpenSpendingDocumentScraperRunner,
+    OpenSpendingCacheScraperRunner)
 from jodal.poliflw import PoliflwScraperRunner
 from jodal.obv import OpenbesluitvormingScraperRunner
 
@@ -111,6 +112,27 @@ def scrapers_openspending(date_from, date_to):
     }
     OpenSpendingScraperRunner().run(**kwargs)
 
+@command('openspendingcache')
+@click.option('-f', '--date-from', default=(date.today() - timedelta(days=1)))
+@click.option('-t', '--date-to', default=datetime.now())
+def scrapers_openspendingcache(date_from, date_to):
+    config = load_config()
+    es = setup_elasticsearch(config)
+    try:
+        df = date_from.isoformat()
+    except AttributeError as e:
+        df = str(date_from)
+    try:
+        dt = date_to.isoformat()
+    except AttributeError as e:
+        dt = str(date_to)
+    kwargs = {
+        'config': config,
+        'date_from': df,
+        'date_to': dt
+    }
+    OpenSpendingCacheScraperRunner().run(**kwargs)
+
 
 @command('poliflw')
 @click.option('-f', '--date-from', default=(datetime.now() - timedelta(minutes=30)))
@@ -196,6 +218,7 @@ elasticsearch.add_command(es_put_template)
 scrapers.add_command(scrapers_locations)
 scrapers.add_command(scrapers_openspending)
 scrapers.add_command(scrapers_openspendingdoc)
+scrapers.add_command(scrapers_openspendingcache)
 scrapers.add_command(scrapers_poliflw)
 scrapers.add_command(scrapers_obv)
 

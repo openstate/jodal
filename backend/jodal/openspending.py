@@ -369,6 +369,49 @@ class DocumentScraper(BaseOpenSpendingScraper):
         return result
 
 
+class DocumentIdsScraper(BaseOpenSpendingScraper):
+    name = 'openspending'
+    url = 'https://openspending.nl/api/v1/documents/?order_by=-created_at&limit=10'
+    payload = None
+    headers = {
+        'Content-type': 'application/json'
+    }
+
+    def __init__(self, *args, **kwargs):
+        super(DocumentIdsScraper, self).__init__(*args, **kwargs)
+        self.config = kwargs['config']
+        self.date_from = kwargs['date_from']
+        self.date_to = kwargs['date_to']
+        logging.info('Scraper: fetch from %s to %s' % (self.date_from, self.date_to,))
+
+    def next(self):
+        next_url = self.result_json['meta']['next']
+        if next_url is not None:
+            self.url = urljoin('https://openspending.nl', next_url)
+            return True
+
+    def fetch(self):
+        sleep(2)
+        for cparam, dparam in {'created_at__gt': 'date_from', 'created_at__lt': 'date_to'}.items():
+            if cparam not in self.url:
+                self.url += '&' + cparam + '=' + getattr(self, dparam)
+        result = super(DocumentIdsScraper, self).fetch()
+        logging.info(
+            'Scraper: in total %s results' % (result['meta']['total_count'],))
+        if result is not None:
+            return result['objects']
+        else:
+            return []
+
+    def transform(self, item):
+        # logging.info(item)
+        names = getattr(self, 'names', None) or [self.name]
+        result = []
+        for n in names:
+            result.append(item['id'])
+        return result
+
+
 class OpenSpendingScraperRunner(object):
     scrapers = [
         DocumentsScraper
@@ -387,6 +430,28 @@ class OpenSpendingScraperRunner(object):
                 logging.error(e)
                 raise e
         logging.info('Fetching resulted in %s items ...' % (len(items)))
+
+
+class OpenSpendingCacheScraperRunner(object):
+    scrapers = [
+        DocumentIdsScraper
+    ]
+
+
+    def run(self, *args, **kwargs):
+        items = []
+        for scraper in self.scrapers:
+            k = scraper(**kwargs)
+            try:
+                k.items = []
+                k.run()
+                items += k.items
+            except Exception as e:
+                logging.error(e)
+                raise e
+        logging.info('Fetching resulted in %s items ...' % (len(items)))
+        for item in items:
+            print(item)
 
 
 class OpenSpendingDocumentScraperRunner(object):

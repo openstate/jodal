@@ -25,6 +25,9 @@
           <Label>{fmt}</Label>
         </a>
       {/each}
+      {#if false}
+      <GoogleAuth text="Bewerken" clientId="{googleClientId}" on:auth-success={(e) => handleGoogleSignin(e)} />
+      {/if}
     </Group>
     {/if}
 
@@ -54,6 +57,8 @@
 </Dialog>
 
 <script>
+
+  import GoogleAuth from './GoogleAuth.svelte';
   import Dialog, { Title, Content, Actions, InitialFocus } from '@smui/dialog';
   import Button, { Group, GroupItem, Label, Icon } from '@smui/button';
   import { writable, get, derived } from 'svelte/store';
@@ -65,6 +70,9 @@
     'poliflw': ['txt', 'json'],
     'openbesluitvorming': ['txt', 'json']
   };
+
+  const googleClientId = runEnvironment.env.googleClientId;
+
   function scrollHighlightIntoView() {
     var highlight_em = document.getElementsByClassName('document-dialog-content-description')[0].getElementsByTagName('em');
     console.log(highlight_em);
@@ -74,6 +82,38 @@
       highlight_em[0].scrollBy(0, -60); // small correction bc somethings thing is not shown
     }
   }
+
+  async function getOpenspendingData() {
+    console.log('getting spreadsheet data:')
+    var url = "//api.jodal.nl/documents/download/" + $item.source + '/' + $item.data.openspending_document_id + '?format=json';
+    await fetch(url)
+      .then(r => r.json())
+      .then(data => {
+        console.log('got spreadsheet data:')
+        console.log(data);
+      });
+  };
+
+  function handleGoogleSignin(e) {
+        console.log('Google signin worked!');
+        console.dir(e.detail.user);
+        getOpenspendingData();
+        var auth = gapi.auth2.getAuthInstance();
+        gapi.load("client", async function() {
+          console.log('gapi.client loaded!');
+          gapi.client.load("sheets", "v4", async function() {
+            console.log('gapi sheets loaded!');
+            gapi.client.sheets.spreadsheets.create({
+              properties: {
+                title: $item.location + ' - ' + $item.title
+              }
+            }).then((response) => {
+              console.log('spreadsheet created:', response);
+            });
+          });
+        });
+        // });
+  };
 </script>
 
 <script context="module">
