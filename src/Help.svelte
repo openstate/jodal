@@ -6,7 +6,7 @@
 >
   <Title id="default-focus-title">Help</Title>
   <Content id="default-focus-content">
-    Als je vragen hebt kan je ons altijd mailen op <a href="mailto:jodal@openstate.eu?Subject=Help">jodal@openstate.eu</a>
+    Als je vragen hebt kan je ons altijd mailen op <a href="mailto:jodal@openstate.eu?Subject=Help">jodal@openstate.eu</a>. Er is ook een <a href="//www.jodal.nl/privacy/" target="_blank">privacy statement</a>.
   </Content>
   <Actions>
     <Button
