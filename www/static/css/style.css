@@ -120,6 +120,14 @@ main {
   justify-content: center;
 }
 
+main article p {
+	text-align: left;
+}
+
+main article h2 {
+	text-align: left;
+}
+
 main h2 {
   text-align: center;
 }
