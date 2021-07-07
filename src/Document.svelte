@@ -10,38 +10,36 @@
   <Title id="default-focus-title">{$item.title}</Title>
   <Content id="default-focus-content">
     <div class="document-dialog-content-tools">
+      <h4>Bewerken</h4>
+      {#if $item.source == 'openspending' && (typeof($item.data) !== 'undefined') && (typeof($item.data.label) !== 'undefined')}
+      {#if true}
+      <GoogleAuth text="Bewerken" clientId="{googleClientId}" on:auth-success={(e) => handleGoogleSignin(e)} />
+      {/if}
+          <h4>Downloaden als:</h4>
+          {#each export_formats[$item.source] as fmt}
+            <a href="//api.jodal.nl/documents/download/{$item.source}/{$item.data.label.document_id}?format={fmt}" target="_blank" class="mdc-button document-download-button">
+              <Label>{fmt}</Label>
+            </a>
+          {/each}
+      {:else}
       { @html $description }
+      {/if}
+
+      {#if ($item.source == 'poliflw' || $item.source == 'openbesluitvorming') && (typeof($item._id) !== 'undefined')}
+        <h4>Downloaden als:</h4>
+        {#each export_formats[$item.source] as fmt}
+          <a href="//api.jodal.nl/documents/download/{$item.source}/{$item.data.openspending_document_id}?format={fmt}" target="_blank" class="mdc-button document-download-button">
+            <Label>{fmt}</Label>
+          </a>
+        {/each}
+      {/if}
+
     </div>
     <div class="document-dialog-content-description">
       { @html $item.highlighted_description }
     </div>
   </Content>
   <Actions>
-    {#if $item.source == 'openspending' && (typeof($item.data) !== 'undefined') && (typeof($item.data.label) !== 'undefined')}
-    <Group style="margin-right: 4em;">
-      <Label style="margin: 2px; line-height: 28px; margin-right: 1em;">Downloaden als:</Label>
-      {#each export_formats[$item.source] as fmt}
-        <a href="//api.jodal.nl/documents/download/{$item.source}/{$item.data.label.document_id}?format={fmt}" target="_blank" class="mdc-button">
-          <Label>{fmt}</Label>
-        </a>
-      {/each}
-      {#if true}
-      <GoogleAuth text="Bewerken" clientId="{googleClientId}" on:auth-success={(e) => handleGoogleSignin(e)} />
-      {/if}
-    </Group>
-    {/if}
-
-    {#if ($item.source == 'poliflw' || $item.source == 'openbesluitvorming') && (typeof($item._id) !== 'undefined')}
-    <Group style="margin-right: 4em;">
-      <Label style="margin: 2px; line-height: 28px; margin-right: 1em;">Downloaden als:</Label>
-      {#each export_formats[$item.source] as fmt}
-        <a href="//api.jodal.nl/documents/download/{$item.source}/{$item.data.openspending_document_id}?format={fmt}" target="_blank" class="mdc-button">
-          <Label>{fmt}</Label>
-        </a>
-      {/each}
-    </Group>
-    {/if}
-
     <a href="{$item.url}" target="_blank" class="mdc-button">
       <Label>Ga naar bron</Label>
     </a>
@@ -156,6 +154,7 @@
                 appendValues(sheet.result.spreadsheetId, "Sheet1!A:A", "USER_ENTERED", data, function (r) {
                   console.log('appended!');
                   console.dir(r);
+                  // TODO: constructy link to edit document and show
                 });
               }
             });

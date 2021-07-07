@@ -315,8 +315,13 @@ h6 {
 	text-align: center;
 }
 
+.document-dialog .mdc-dialog__container {
+	width: 100%;
+}
+
 .document-dialog .mdc-dialog__surface {
   max-width: 80% !important;
+	min-width: 80% !important;
 	height: 90%;
 }
 
@@ -327,7 +332,7 @@ h6 {
 }
 
 .document-dialog-content-description {
-	width: 78%;
+	width: 74%;
 	float: right;
 	border-left: 1px solid #ccc;
 	padding: 1em;
@@ -337,3 +342,7 @@ h6 {
 .document-dialog-content-description em {
 	background: yellow;
 }
+
+ .document-download-button {
+	 display: block;
+ }
