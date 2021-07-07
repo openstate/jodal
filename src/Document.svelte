@@ -95,6 +95,35 @@
       });
   };
 
+  function appendValues(spreadsheetId, range, valueInputOption, _values, callback) {
+    // [START sheets_append_values]
+    var values = [
+      [
+        // Cell values ...
+      ],
+      // Additional rows ...
+    ];
+    // [START_EXCLUDE silent]
+    values = _values;
+    // [END_EXCLUDE]
+    var body = {
+      values: values
+    };
+    gapi.client.sheets.spreadsheets.values.append({
+       spreadsheetId: spreadsheetId,
+       range: range,
+       valueInputOption: valueInputOption,
+       resource: body
+    }).then((response) => {
+      var result = response.result;
+      console.log(`${result.updates.updatedCells} cells appended.`)
+      // [START_EXCLUDE silent]
+      callback(response);
+      // [END_EXCLUDE]
+    });
+    // [END sheets_append_values]
+  }
+
   function handleGoogleSignin(e) {
         console.log('Google signin worked!');
         console.dir(e.detail.user);
@@ -115,9 +144,19 @@
             Promise.all([data_promise, spreadsheet_promise]).then(function (values) {
               console.log('all promises deliviered:');
               console.dir(values);
-              if (values.length = 2) {
-                var data = values[0];
+              if (values.length == 2) {
+                var data_keys = Object.keys(values[0][0]);
+                var data = values[0].map(function (r) {
+                  return data_keys.map(function (k) { return r[k];});
+                });
+                data.splice(0, 0, data_keys);  // add header information
+                console.log('Converted csv data');
+                console.dir(data);
                 var sheet = values[1];
+                appendValues(sheet.result.spreadsheetId, "Sheet1!A:A", "USER_ENTERED", data, function (r) {
+                  console.log('appended!');
+                  console.dir(r);
+                });
               }
             });
           });
