@@ -13,7 +13,11 @@
       <h4>Bewerken</h4>
       {#if $item.source == 'openspending' && (typeof($item.data) !== 'undefined') && (typeof($item.data.label) !== 'undefined')}
       {#if typeof($GoogleSpreadSheetId) === 'undefined'}
-      <GoogleAuth text="Bewerken" clientId="{googleClientId}" on:auth-success={(e) => handleGoogleSignin(e)} />
+        {#if converting}
+          <Label>Converteren ...</Label>
+        {:else}
+          <GoogleAuth text="Bewerken" clientId="{googleClientId}" on:auth-success={(e) => handleGoogleSignin(e)} />
+        {/if}
       {:else}
       <a href="https://docs.google.com/spreadsheets/d/{$GoogleSpreadSheetId}/edit" target="_blank" class="mdc-button document-download-button">
         <Label>Openen</Label>
@@ -65,6 +69,7 @@
   import Button, { Group, GroupItem, Label, Icon } from '@smui/button';
   import { writable, get, derived } from 'svelte/store';
 
+  let converting = false;
   let open;
   let response = 'Nothing yet.';
   let export_formats = {
@@ -72,7 +77,6 @@
     'poliflw': ['txt', 'json'],
     'openbesluitvorming': ['txt', 'json']
   };
-  let GoogleSpreadSheetId = writable(undefined);
 
   const googleClientId = runEnvironment.env.googleClientId;
 
@@ -130,6 +134,7 @@
   function handleGoogleSignin(e) {
         console.log('Google signin worked!');
         console.dir(e.detail.user);
+        converting = true;
         var data_promise = getOpenspendingData();
         var auth = gapi.auth2.getAuthInstance();
         gapi.load("client", async function() {
@@ -161,6 +166,7 @@
                   console.dir(r);
                   // TODO: constructy link to edit document and show
                   GoogleSpreadSheetId.set(sheet.result.spreadsheetId);
+                  converting = false;
                 });
               }
             });
@@ -174,6 +180,7 @@
   let docDialog;
   let item = writable({});
   let description = writable("");
+  let GoogleSpreadSheetId = writable(undefined);
 
   function getDocumentTools() {
     var url = 'https://blog.jodal.nl/?page_id=14&content-only=1';
@@ -202,6 +209,7 @@
       doc.highlighted_description = doc.description;
     }
     item.set(doc);
+    GoogleSpreadSheetId.set(undefined);
     getDocumentTools();
     docDialog.open();
 	}
