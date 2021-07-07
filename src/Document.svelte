@@ -12,8 +12,12 @@
     <div class="document-dialog-content-tools">
       <h4>Bewerken</h4>
       {#if $item.source == 'openspending' && (typeof($item.data) !== 'undefined') && (typeof($item.data.label) !== 'undefined')}
-      {#if true}
+      {#if typeof($GoogleSpreadSheetId) === 'undefined'}
       <GoogleAuth text="Bewerken" clientId="{googleClientId}" on:auth-success={(e) => handleGoogleSignin(e)} />
+      {:else}
+      <a href="https://docs.google.com/spreadsheets/d/{$GoogleSpreadSheetId}/edit" target="_blank" class="mdc-button document-download-button">
+        <Label>Openen</Label>
+      </a>
       {/if}
           <h4>Downloaden als:</h4>
           {#each export_formats[$item.source] as fmt}
@@ -68,6 +72,7 @@
     'poliflw': ['txt', 'json'],
     'openbesluitvorming': ['txt', 'json']
   };
+  let GoogleSpreadSheetId = writable(undefined);
 
   const googleClientId = runEnvironment.env.googleClientId;
 
@@ -155,6 +160,7 @@
                   console.log('appended!');
                   console.dir(r);
                   // TODO: constructy link to edit document and show
+                  GoogleSpreadSheetId.set(sheet.result.spreadsheetId);
                 });
               }
             });
