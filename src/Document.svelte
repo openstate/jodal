@@ -25,7 +25,7 @@
           <Label>{fmt}</Label>
         </a>
       {/each}
-      {#if false}
+      {#if true}
       <GoogleAuth text="Bewerken" clientId="{googleClientId}" on:auth-success={(e) => handleGoogleSignin(e)} />
       {/if}
     </Group>
@@ -86,29 +86,39 @@
   async function getOpenspendingData() {
     console.log('getting spreadsheet data:')
     var url = "//api.jodal.nl/documents/download/" + $item.source + '/' + $item.data.openspending_document_id + '?format=json';
-    await fetch(url)
+    return fetch(url)
       .then(r => r.json())
       .then(data => {
-        console.log('got spreadsheet data:')
+        console.log('got spreadsheet data:');
         console.log(data);
+        return data;
       });
   };
 
   function handleGoogleSignin(e) {
         console.log('Google signin worked!');
         console.dir(e.detail.user);
-        getOpenspendingData();
+        var data_promise = getOpenspendingData();
         var auth = gapi.auth2.getAuthInstance();
         gapi.load("client", async function() {
           console.log('gapi.client loaded!');
           gapi.client.load("sheets", "v4", async function() {
             console.log('gapi sheets loaded!');
-            gapi.client.sheets.spreadsheets.create({
+            var spreadsheet_promise = gapi.client.sheets.spreadsheets.create({
               properties: {
                 title: $item.location + ' - ' + $item.title
               }
             }).then((response) => {
               console.log('spreadsheet created:', response);
+              return response;
+            });
+            Promise.all([data_promise, spreadsheet_promise]).then(function (values) {
+              console.log('all promises deliviered:');
+              console.dir(values);
+              if (values.length = 2) {
+                var data = values[0];
+                var sheet = values[1];
+              }
             });
           });
         });
