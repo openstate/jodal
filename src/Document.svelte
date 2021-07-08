@@ -11,24 +11,24 @@
   <Content id="default-focus-content">
     <div class="document-dialog-content-tools">
       <h4>Bewerken</h4>
-      {#if $item.source == 'openspending' && (typeof($item.data) !== 'undefined') && (typeof($item.data.label) !== 'undefined')}
-      {#if typeof($GoogleSpreadSheetId) === 'undefined'}
-        {#if converting}
-          <Label>Converteren ...</Label>
+      {#if ($identity.email == 'bje@dds.nl') && $item.source == 'openspending' && (typeof($item.data) !== 'undefined') && (typeof($item.data.label) !== 'undefined')}
+        {#if typeof($GoogleSpreadSheetId) === 'undefined'}
+          {#if converting}
+            <Label>Converteren ...</Label>
+          {:else}
+            <GoogleAuth text="Bewerken" clientId="{googleClientId}" on:auth-success={(e) => handleGoogleSignin(e)} />
+          {/if}
         {:else}
-          <GoogleAuth text="Bewerken" clientId="{googleClientId}" on:auth-success={(e) => handleGoogleSignin(e)} />
+          <a href="https://docs.google.com/spreadsheets/d/{$GoogleSpreadSheetId}/edit" target="_blank" class="mdc-button document-download-button">
+            <Label>Openen</Label>
+          </a>
         {/if}
-      {:else}
-      <a href="https://docs.google.com/spreadsheets/d/{$GoogleSpreadSheetId}/edit" target="_blank" class="mdc-button document-download-button">
-        <Label>Openen</Label>
-      </a>
-      {/if}
-          <h4>Downloaden als:</h4>
-          {#each export_formats[$item.source] as fmt}
-            <a href="//api.jodal.nl/documents/download/{$item.source}/{$item.data.label.document_id}?format={fmt}" target="_blank" class="mdc-button document-download-button">
-              <Label>{fmt}</Label>
-            </a>
-          {/each}
+        <h4>Downloaden als:</h4>
+        {#each export_formats[$item.source] as fmt}
+          <a href="//api.jodal.nl/documents/download/{$item.source}/{$item.data.label.document_id}?format={fmt}" target="_blank" class="mdc-button document-download-button">
+            <Label>{fmt}</Label>
+          </a>
+        {/each}
       {:else}
       { @html $description }
       {/if}
@@ -68,6 +68,7 @@
   import Dialog, { Title, Content, Actions, InitialFocus } from '@smui/dialog';
   import Button, { Group, GroupItem, Label, Icon } from '@smui/button';
   import { writable, get, derived } from 'svelte/store';
+  import { identity } from './stores.js';
 
   let converting = false;
   let open;
