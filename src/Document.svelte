@@ -36,7 +36,7 @@
       {#if ($item.source == 'poliflw' || $item.source == 'openbesluitvorming') && (typeof($item._id) !== 'undefined')}
         <h4>Downloaden als:</h4>
         {#each export_formats[$item.source] as fmt}
-          <a href="//api.jodal.nl/documents/download/{$item.source}/{$item.data.openspending_document_id}?format={fmt}" target="_blank" class="mdc-button document-download-button">
+          <a href="//api.jodal.nl/documents/download/{$item.source}/{$item._id}?format={fmt}" target="_blank" class="mdc-button document-download-button">
             <Label>{fmt}</Label>
           </a>
         {/each}

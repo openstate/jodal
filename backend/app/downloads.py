@@ -11,6 +11,7 @@ from flask import Flask, session, render_template, request, redirect, url_for, f
 from app import app, AppError, load_object
 from app.search import perform_query
 from app.models import Column
+from app.utils import html2text
 
 from jodal.openspending import OpenSpendingDocumentScraperRunner
 from jodal.poliflw import PoliflwDocumentScraperRunner
@@ -45,6 +46,8 @@ SOURCE2CSVFIELDS = {
         'locatie','jaar','plan','periode','soort','type','code','naam','bedrag']
 }
 
+CACHE_SOURCES = ['openspending']
+
 class Converter(object):
     def convert_for_csv(self, contents, source):
         result = None
@@ -56,17 +59,24 @@ class Converter(object):
             result = fp.getvalue().strip('\r\n')
         return result
 
+    def _clean_contents(sel, contents):
+        for i in contents:
+            i['_source']['title'] = html2text(i['_source'].get('title', ''))
+            i['_source']['description'] = html2text(i['_source'].get('description', ''))
+        return contents
+
     def convert_for_json(self, contents, source):
-        return json.dumps(contents)
+        return json.dumps(self._clean_contents(contents))
 
     def convert_for_txt(self, contents, source):
         output = ""
-        for i in contents:
+        for i in self._clean_contents(contents):
             output += """
             %s
 
             %s
-            """ % (i['_source'].get('title', ''), i['_source'].get('description', ''),)
+            """ % (
+                i['_source']['title'], i['_source']['description'],)
         return output
 
 def prepare_download(source, external_item_id, file_format):
@@ -96,7 +106,7 @@ def prepare_download(source, external_item_id, file_format):
     except LookupError as e:
         items = None
 
-    if items is not None:
+    if (items is not None) and (source in CACHE_SOURCES):
         with open(cache_filepath, 'w') as out_file:
             json.dump(items, out_file)
 

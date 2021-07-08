@@ -6,7 +6,22 @@ except ImportError:
 
 import re
 
+import bleach
+from bleach.sanitizer import Cleaner
+from html5lib.filters.base import Filter
+
 from .exceptions import ConfigurationError
+
+
+def html2text(s):
+    ATTRS = {}
+    TAGS = []
+    cleaner = Cleaner(
+        tags=TAGS, attributes=ATTRS, filters=[Filter], strip=True)
+    try:
+        return cleaner.clean(s).replace('&amp;nbsp;', '')
+    except TypeError:
+        return u''
 
 
 def load_config(config_file='config.yaml'):
