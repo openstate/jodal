@@ -11,7 +11,7 @@
   <Content id="default-focus-content">
     <div class="document-dialog-content-tools">
       <h4>Bewerken</h4>
-      {#if ($identity.email == 'bje@dds.nl') && $item.source == 'openspending' && (typeof($item.data) !== 'undefined') && (typeof($item.data.label) !== 'undefined')}
+      {#if $item.source == 'openspending' && (typeof($item.data) !== 'undefined') && (typeof($item.data.label) !== 'undefined')}
         {#if typeof($GoogleSpreadSheetId) === 'undefined'}
           {#if converting}
             <Label>Converteren ...</Label>
