@@ -162,7 +162,8 @@
                 console.log('Converted csv data');
                 console.dir(data);
                 var sheet = values[1];
-                appendValues(sheet.result.spreadsheetId, "Sheet1!A:A", "USER_ENTERED", data, function (r) {
+                var sheetName = sheet.result.sheets[0].properties.title;
+                appendValues(sheet.result.spreadsheetId, sheetName + "!A:A", "USER_ENTERED", data, function (r) {
                   console.log('appended!');
                   console.dir(r);
                   // TODO: constructy link to edit document and show
