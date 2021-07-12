@@ -1,6 +1,7 @@
 <div class="workspace" id="workspace">
   <div class="columns">
   {#if $identity}
+    <Message/>
     {#if $inquiries.length <= 0}
     <div class="start-explainer">
       <p>Je hebt nog geen zoekopdracht toegevoegd. Klik op de knop hieronder om er een toe te voegen.</p>
@@ -26,6 +27,8 @@ import Column from './column/Column.svelte';
 import AddColumn, { startAddColumn } from './AddColumn.svelte';
 import Button from '@smui/button';
 import Fab, {Label, Icon} from '@smui/fab';
+import Message from './Message.svelte';
+
 
 let empty = ($inquiries.length <= 0);
 </script>

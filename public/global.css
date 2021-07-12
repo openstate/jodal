@@ -346,3 +346,15 @@ h6 {
  .document-download-button {
 	 display: block;
  }
+
+.message {
+	background: #8fd9e8;
+	color: #2e1e3d;
+	padding: 0.1rem 1.25rem;
+	display: flex;
+	align-items: center;
+}
+
+.close-btn {
+	margin-left: auto;
+}
