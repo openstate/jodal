@@ -1,5 +1,5 @@
 // https://css-tricks.com/how-to-fetch-and-parse-rss-feeds-in-javascript/
-function fetch_feed(feed, callback) {
+export function fetch_feed(feed, callback) {
   return fetch(feed)
   .then(response => response.text())
   .then(str => new window.DOMParser().parseFromString(str, "text/xml"))
@@ -16,7 +16,7 @@ function fetch_feed(feed, callback) {
         description: el.querySelector("description").innerHTML,
         date: el.querySelector("pubDate").innerHTML
       };
-      parsed.items.append(result);
+      parsed.items.push(result);
     });
     callback(parsed);
   })

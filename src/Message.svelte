@@ -1,16 +1,35 @@
 {#if showMsg}
 <div class="message" bind:this={msg} in:fade out:fade>
-<span>Dit is een test bericht. <a href="http://openstate.eu/" target="_blank">Meer &gt;</a></span>
+<span>{ title } <a href="{ link }" target="_blank">Meer &gt;</a></span>
 <IconButton class="material-icons close-btn" aria-label="Sluiten" on:click={() => showMsg = false } title="Sluiten">close</IconButton>
 </div>
 {/if}
 
 <script>
-import IconButton from '@smui/icon-button';
+import { onMount, onDestroy } from 'svelte';
 import { fade } from 'svelte/transition';
 
-let showMsg = true;;
+import IconButton from '@smui/icon-button';
+
+import { fetch_feed } from './feed.js';
+
+let showMsg = false;
 let msg;
+let title = "";
+let link = "";
+
+onMount(function () {
+  fetch_feed('https://blog.jodal.nl/category/updates/feed/', function (feed) {
+    console.log('got feed items!');
+    title = feed.items[0].title;
+    link = feed.items[0].link;
+    showMsg = true;
+  });
+});
+
+onDestroy(function () {
+});
+
 </script>
 
 <style>
