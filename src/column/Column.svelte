@@ -273,7 +273,7 @@ onDestroy(function () {
   </div>
   {#if show_settings}
   <div class="column-settings" class:active={show_settings} transition:slide="{{ duration: 500 }}">
-    <Textfield bind:value={query} on:change={handleQueryChange} on:input={handleQueryInput} label="Query" />
+    <Textfield bind:value={query} on:change={handleQueryChange} on:input={handleQueryInput} label="Zoekopdracht" />
     {#if show_sources}
       {#each $sources as src}
       <div>
