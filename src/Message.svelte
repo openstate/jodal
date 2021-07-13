@@ -17,14 +17,23 @@ let showMsg = false;
 let msg;
 let title = "";
 let link = "";
+let oldlink = "";
+var interval;
 
-onMount(function () {
+function fetch_updates() {
   fetch_feed('https://blog.jodal.nl/category/updates/feed/', function (feed) {
     console.log('got feed items!');
     title = feed.items[0].title;
     link = feed.items[0].link;
-    showMsg = true;
+    showMsg = (oldlink != link);
+    oldlink = link;
   });
+  clearInterval(interval);
+  interval = setInterval(fetch_updates, 60000 + (Math.random() * 2000));
+}
+
+onMount(function () {
+  fetch_updates();
 });
 
 onDestroy(function () {
