@@ -10,13 +10,13 @@
   <Title id="default-focus-title">{$item.title}</Title>
   <Content id="default-focus-content">
     <div class="document-dialog-content-tools">
-      <h4>Bewerken</h4>
+      <h4>Exporteren</h4>
       {#if $item.source == 'openspending' && (typeof($item.data) !== 'undefined') && (typeof($item.data.label) !== 'undefined')}
         {#if typeof($GoogleSpreadSheetId) === 'undefined'}
           {#if converting}
             <Label>Converteren ...</Label>
           {:else}
-            <GoogleAuth text="Bewerken" clientId="{googleClientId}" on:auth-success={(e) => handleGoogleSignin(e)} />
+            <GoogleAuth text="Exporteer" clientId="{googleClientId}" on:auth-success={(e) => handleGoogleSignin(e)} />
           {/if}
         {:else}
           <a href="https://docs.google.com/spreadsheets/d/{$GoogleSpreadSheetId}/edit" target="_blank" class="mdc-button document-download-button">
