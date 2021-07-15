@@ -294,7 +294,11 @@ onDestroy(function () {
   <div class="column-counts">
     {#each $sources as s}
       <div class="column-counts-source">
-        <img src="/images/sources/{ s.short }.svg" alt="{ s.name }" title="{s.name}" class="source-logo"><span title="{$source_counts[s.short] || 0}">{human_readable_numer($source_counts[s.short] || 0)}</span>
+        <Button on:click={() => console.log('clicked!')}>
+          <Label>
+            <img src="/images/sources/{ s.short }.svg" alt="{ s.name }" title="{s.name}" class="source-logo"><span title="{$source_counts[s.short] || 0}">{human_readable_numer($source_counts[s.short] || 0)}</span>
+          </Label>
+        </Button>
       </div>
     {/each}
   </div>
