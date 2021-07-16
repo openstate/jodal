@@ -25,7 +25,7 @@ function timeDisplay(timeStamp) {
   return day + " " + month + year  + " " + tsDate.toLocaleTimeString('nl-NL').slice(0,5);
 }
 
-let cur_date = new Date();
+let cur_date = Date.parse(date);
 
 $: time_since = timeDisplay(cur_date);
 
