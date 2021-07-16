@@ -9,6 +9,8 @@
   import { onMount, onDestroy } from 'svelte';
   //import Select, {Option} from '@smui/select';
   import Select from 'svelte-select';
+  import { showSearchHelpDialog } from './SearchHelp.svelte';
+  import IconButton from '@smui/icon-button';
 
   let clicked = false;
   let name;
@@ -85,6 +87,7 @@
         <Input bind:value={name} id="column-name" aria-controls="helper-text-column-name" aria-describedby="helper-text-column-name" />
         <FloatingLabel for="input-column-name">Kolom naam</FloatingLabel>
         <LineRipple />
+        <IconButton align="end" class="material-icons" aria-label="Hulp bij een zoekopdracht maken" alt="Hulp bij een zoekopdracht maken" on:click={() => showSearchHelpDialog()}>info</IconButton>
       </Textfield>
       <HelperText id="helper-text-column-name">Een beschrijvende naam voor de zoekopdracht</HelperText>
     </div>

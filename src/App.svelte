@@ -8,6 +8,7 @@
 <Workspace/>
 <Fetcher/>
 <Document/>
+<SearchHelp/>
 </div>
 
 <script>
@@ -16,6 +17,7 @@
   import Workspace from './Workspace.svelte';
   import Fetcher from './Fetcher.svelte';
   import Document from './Document.svelte';
+  import SearchHelp from './SearchHelp.svelte';
 
   const runEnv = runEnvironment.env.isProd ? 'Production' : 'Dev';
 </script>
