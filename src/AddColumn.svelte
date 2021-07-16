@@ -87,7 +87,6 @@
         <Input bind:value={name} id="column-name" aria-controls="helper-text-column-name" aria-describedby="helper-text-column-name" />
         <FloatingLabel for="input-column-name">Kolom naam</FloatingLabel>
         <LineRipple />
-        <IconButton align="end" class="material-icons" aria-label="Hulp bij een zoekopdracht maken" alt="Hulp bij een zoekopdracht maken" on:click={() => showSearchHelpDialog()}>info</IconButton>
       </Textfield>
       <HelperText id="helper-text-column-name">Een beschrijvende naam voor de zoekopdracht</HelperText>
     </div>
@@ -100,6 +99,7 @@
         <Input bind:value={query} id="column-query" aria-controls="helper-text-column-query" aria-describedby="helper-text-column-query" />
         <FloatingLabel for="input-column-name">Zoekopdracht</FloatingLabel>
         <LineRipple />
+        <IconButton align="end" class="material-icons" aria-label="Hulp bij een zoekopdracht maken" alt="Hulp bij een zoekopdracht maken" on:click={() => showSearchHelpDialog()}>info</IconButton>
       </Textfield>
       <HelperText id="helper-text-column-name">De zoekopdracht</HelperText>
     </div>
