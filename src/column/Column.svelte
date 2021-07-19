@@ -295,7 +295,7 @@ onDestroy(function () {
   {#if $items.length > 0}
   <div class="column-counts">
     {#each $sources as s}
-      <div class="column-counts-source">
+      <div class="column-counts-source" class:column-counts-source-disabled={!inquiry['src_' + s.short]}>
         <Button on:click={() => console.log('clicked!')}>
           <Label>
             <img src="/images/sources/{ s.short }.svg" alt="{ s.name }" title="{s.name}" class="source-logo"><span title="{$source_counts[s.short] || 0}">{human_readable_numer($source_counts[s.short] || 0)}</span>

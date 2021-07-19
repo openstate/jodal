@@ -167,6 +167,20 @@ h6 {
 	justify-items: initial;
 }
 
+.column-counts-source-disabled {
+	background: #e0e0e0;
+
+}
+
+.column-counts-source-disabled .mdc-button__label img {
+	opacity: 0.5;
+}
+
+.column-counts-source-disabled .mdc-button__label span {
+	color: #b0b0b0 !important;
+}
+
+
 .column-counts-source .source-logo {
 	height: 20px !important;
 	margin-top: 0px !important;
