@@ -163,6 +163,8 @@ h6 {
 .column-counts-source {
 	font-size: 14px;
 	line-height: 20px;
+	display: grid;
+	justify-items: initial;
 }
 
 .column-counts-source .source-logo {
