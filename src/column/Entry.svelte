@@ -17,40 +17,18 @@ import { slide } from 'svelte/transition';
 import { onMount, onDestroy } from 'svelte';
 import { showDocumentDialog } from '../Document.svelte';
 
-function timeSince(now, timeStamp) {
-  //var now = new Date();
-  var secondsPast = (now.getTime() - timeStamp) / 1000;
-  if (secondsPast < 60) {
-    return parseInt(secondsPast) + 's';
-  }
-  if (secondsPast < 3600) {
-    return parseInt(secondsPast / 60) + 'm';
-  }
-  if (secondsPast <= 86400) {
-    return parseInt(secondsPast / 3600) + 'h';
-  }
-  if (secondsPast > 86400) {
-    var tsDate = new Date(timeStamp);
-    var day = tsDate.getDate();
-    var month = tsDate.toDateString().match(/ [a-zA-Z]*/)[0].replace(" ", "");
-    var year = tsDate.getFullYear() == now.getFullYear() ? "" : " " + tsDate.getFullYear();
-    return day + " " + month + year  + " " + tsDate.toLocaleTimeString('nl-NL').slice(0,5);
-  }
+function timeDisplay(timeStamp) {
+  var tsDate = new Date(timeStamp);
+  var day = tsDate.getDate();
+  var month = tsDate.toDateString().match(/ [a-zA-Z]*/)[0].replace(" ", "");
+  var year = " " + tsDate.getFullYear();
+  return day + " " + month + year  + " " + tsDate.toLocaleTimeString('nl-NL').slice(0,5);
 }
 
-let cur_date = new Date();
+let cur_date = Date.parse(date);
 
-function updateTime() {
-  cur_date = new Date();
-  setTimeout(updateTime, 10000);
-}
+$: time_since = timeDisplay(cur_date);
 
-$: time_since = timeSince(cur_date, Date.parse(date));
-
-// lifecycle functions
-onMount(() => {
-  updateTime();
-});
 </script>
 
 <div class="entry" id="entry_{column}{key}" transition:slide="{{ duration: 150 }}">

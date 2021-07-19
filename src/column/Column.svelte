@@ -13,6 +13,7 @@ import { fade, slide } from 'svelte/transition';
 import Fab, {Label, Icon} from '@smui/fab';
 import orderBy from 'lodash/orderBy';
 import { showDocumentDialog } from '../Document.svelte';
+import { showSearchHelpDialog } from '../SearchHelp.svelte';
 
 export let inquiry;
 
@@ -274,6 +275,7 @@ onDestroy(function () {
   {#if show_settings}
   <div class="column-settings" class:active={show_settings} transition:slide="{{ duration: 500 }}">
     <Textfield bind:value={query} on:change={handleQueryChange} on:input={handleQueryInput} label="Zoekopdracht" />
+    <IconButton align="end" class="material-icons" aria-label="Hulp bij een zoekopdracht maken" alt="Hulp bij een zoekopdracht maken" on:click={() => showSearchHelpDialog()}>info</IconButton>
     {#if show_sources}
       {#each $sources as src}
       <div>
