@@ -221,6 +221,9 @@ function fetchFromSources(page, stable_param) {
     });
 
     var new_source_counts = {};
+    $sources.forEach(function (s) {
+      new_source_counts[s.short] = 0;
+    });
     original_response.aggregations.source.buckets.forEach(function (b) {
       new_source_counts[b.key] = b.doc_count;
     });
@@ -308,7 +311,6 @@ onDestroy(function () {
     </div>
   </div>
   {/if}
-  {#if $items.length > 0}
   <div class="column-counts">
     {#each $sources as s}
       <div class="column-counts-source" class:column-counts-source-disabled={!inquiry['src_' + s.short]}>
@@ -320,7 +322,6 @@ onDestroy(function () {
       </div>
     {/each}
   </div>
-  {/if}
   <div id="column-contents-{column_id}" class="column-contents">
   {#if !loading && ($items.length <= 0)}
     <p>Er werd nog niks gevonden dat aan je zoekopdracht voldeed.</p>
