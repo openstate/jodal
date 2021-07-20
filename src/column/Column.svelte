@@ -241,7 +241,7 @@ function handleSourceButtonClick(src_short) {
   var updInquiry = {
   }
 
-  var val = false;
+  var val = !inquiry['src_' + src_short];
   updInquiry['src_' + src_short] = val;
 
   updateInquiry(updInquiry);
