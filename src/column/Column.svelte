@@ -21,7 +21,6 @@ let column_locations = [];
 let last_length=0;
 let start=0;
 let end=5;
-let selected = [];
 
 let items_ = writable([]);
 let items = derived(items_, (items_) => orderBy(items_, ['date'], ['desc']))
@@ -43,11 +42,6 @@ let source_counts = writable({});
 
 function getLocations() {
   column_locations = $locations.filter((l) => inquiry.locations.includes(l.id));
-  $sources.forEach(function (s) {
-    if (inquiry['src_' + s.short]) {
-      selected.push(s.short);
-    }
-  });
 }
 
 function shuffle(array) {
@@ -179,11 +173,6 @@ function handleQueryChange(e){
       user_query: query
     }
 
-    $sources.forEach(function (s) {
-      var val = (selected.indexOf(s.short) >= 0) ? true : false;
-      updInquiry['src_' + s.short] = val;
-    });
-
     updateInquiry(updInquiry);
 
     show_settings = !show_settings;
@@ -208,7 +197,7 @@ function fetchFromSources(page, stable_param) {
   console.log('should fetch data for colum ' + inquiry.name + ' now!!');
   var selected_sources = []
   $sources.forEach(function (s) {
-    if (selected.indexOf(s.short) >= 0) {
+    if (inquiry['src_' + s.short]) {
       selected_sources.push(s.short);
     } else {
       console.log('Source ' + s.short + ' not fetched because not selected.');
@@ -243,6 +232,23 @@ function fetchFromSources(page, stable_param) {
     loading = false;
   });
 
+}
+
+function handleSourceButtonClick(src_short) {
+  console.log(src_short + 'source selected!');
+  items_.set([]);
+  item_ids = {};
+  var updInquiry = {
+  }
+
+  var val = false;
+  updInquiry['src_' + src_short] = val;
+
+  updateInquiry(updInquiry);
+
+  loading = true;
+  console.log('fetchting for query change!');
+  fetchFromSources();
 }
 
 // https://ourcodeworld.com/articles/read/713/converting-bytes-to-human-readable-values-kb-mb-gb-tb-pb-eb-zb-yb-with-javascript
@@ -296,16 +302,6 @@ onDestroy(function () {
   <div class="column-settings" class:active={show_settings} transition:slide="{{ duration: 500 }}">
     <Textfield bind:value={query} on:change={handleQueryChange} on:input={handleQueryInput} label="Zoekopdracht" />
     <IconButton align="end" class="material-icons" aria-label="Hulp bij een zoekopdracht maken" alt="Hulp bij een zoekopdracht maken" on:click={() => showSearchHelpDialog()}>info</IconButton>
-    {#if show_sources}
-      {#each $sources as src}
-      <div>
-      <FormField>
-        <Checkbox bind:group={selected} value={src.short} />
-        <span slot="label">{ src.name }</span>
-      </FormField>
-      </div>
-      {/each}
-    {/if}
     <div class="column-settings-actions">
       <Button align="begin" variant="unelevated" on:click={() => handleQueryChange()}><Label>Wijzigen</Label></Button>
       <Button align="end" variant="outlined" on:click={() => removeColumn()}><Label>Verwijderen</Label></Button>
@@ -316,7 +312,7 @@ onDestroy(function () {
   <div class="column-counts">
     {#each $sources as s}
       <div class="column-counts-source" class:column-counts-source-disabled={!inquiry['src_' + s.short]}>
-        <Button on:click={() => console.log('clicked!')}>
+        <Button on:click={() => handleSourceButtonClick(s.short)}>
           <Label>
             <img src="/images/sources/{ s.short }.svg" alt="{ s.name }" title="{s.name}" class="source-logo"><span title="{$source_counts[s.short] || 0}">{human_readable_numer($source_counts[s.short] || 0)}</span>
           </Label>
