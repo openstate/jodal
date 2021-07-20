@@ -130,42 +130,62 @@ function handleQueryInput(e){
     // console.dir(e);
 }
 
+function update(obj, upd/*, …*/) {
+    for (var i=1; i<arguments.length; i++) {
+        for (var prop in arguments[i]) {
+            var val = arguments[i][prop];
+            if (typeof val == "object") // this also applies to arrays or null!
+                update(obj[prop], val);
+            else
+                obj[prop] = val;
+        }
+    }
+    return obj;
+}
+
+function updateInquiry(updatedFields) {
+  var url = window.location.protocol + '//api.jodal.nl/columns/' + inquiry.id;
+  fetch(
+    url, {
+      method: 'POST',
+      credentials: 'include',
+      cache: 'no-cache',
+      body: JSON.stringify(update(inquiry, updatedFields)),
+      headers: new Headers({'content-type': 'application/json'})
+    }).then(
+      response => response.json()
+    ).then(
+      function (data) {
+          console.log('update of column completed:');
+          //console.dir(data);
+      }
+  );
+  var old_inquiries = get(inquiries).map(function (i) {
+    if ((i.order == inquiry.order) && (i.user_query == inquiry.user_query)){
+      return inquiry;
+    } else {
+      return i;
+    }
+  });
+  inquiries.set(old_inquiries);
+}
+
 function handleQueryChange(e){
     console.log('new query change should be handled!:');
     //console.dir(e);
     items_.set([]);
     item_ids = {};
-    inquiry.user_query = query;
+    var updInquiry = {
+      user_query: query
+    }
 
     $sources.forEach(function (s) {
       var val = (selected.indexOf(s.short) >= 0) ? true : false;
-      inquiry['src_' + s.short] = val;
+      updInquiry['src_' + s.short] = val;
     });
 
-    var url = window.location.protocol + '//api.jodal.nl/columns/' + inquiry.id;
-    fetch(
-      url, {
-        method: 'POST',
-        credentials: 'include',
-        cache: 'no-cache',
-        body: JSON.stringify(inquiry),
-        headers: new Headers({'content-type': 'application/json'})
-      }).then(
-        response => response.json()
-      ).then(
-        function (data) {
-            console.log('update of column completed:');
-            //console.dir(data);
-        }
-    );
-    var old_inquiries = get(inquiries).map(function (i) {
-      if ((i.order == inquiry.order) && (i.user_query == inquiry.user_query)){
-        return inquiry;
-      } else {
-        return i;
-      }
-    });
-    inquiries.set(old_inquiries);
+    updateInquiry(updInquiry);
+
     show_settings = !show_settings;
     loading = true;
     console.log('fetchting for query change!');
