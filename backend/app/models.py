@@ -16,5 +16,5 @@ class Column(db.Model):
     src_openbesluitvorming = db.Column('src_openbesluitvorming', db.Boolean, default=True)
     sort = db.Column('sort', db.String(16), default='published', nullable=False)
     sort_order = db.Column('sort_order', db.String(4), default='desc', nullable=False)
-    date_start = db.Column('date_start', db.DateTime)
-    date_end = db.Column('date_end', db.DateTime)
+    date_start = db.Column('date_start', db.DateTime, nullable=True)
+    date_end = db.Column('date_end', db.DateTime, nullable=True)

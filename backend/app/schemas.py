@@ -32,6 +32,8 @@ class ColumnSchema(ma.Schema):
             "sort", "sort_order", "date_start",  "date_end")
         model = Column
     locations = LocationsField()  # fields.Str()
+    date_start = fields.DateTime(allow_none=True, default=None)
+    date_end = fields.DateTime(allow_none=True, default=None)
 
 column_schema = ColumnSchema()
 columns_schema = ColumnSchema(many=True)
