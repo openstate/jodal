@@ -28,7 +28,8 @@ class ColumnSchema(ma.Schema):
     class Meta:
         fields = (
             "id", "user_id", "name", "locations", "user_query", "order",
-            "src_poliflw", "src_openspending", "src_openbesluitvorming")
+            "src_poliflw", "src_openspending", "src_openbesluitvorming",
+            "sort", "sort_order", "date_start",  "date_end")
         model = Column
     locations = LocationsField()  # fields.Str()
 
