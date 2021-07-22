@@ -211,7 +211,7 @@ function fetchFromSources(page, stable_param) {
   });
   console.log('fetching ' + selected_sources + ' now ...');
 
-  fetchSource(inquiry.user_query, selected_sources, column_locations, real_stable, real_page, function (fetched_items, original_response) {
+  fetchSource(inquiry.user_query, selected_sources, column_locations, inquiry.sort, inquiry.sort_order, real_stable, real_page, function (fetched_items, original_response) {
     console.log('should set items now!');
     var real_items = get(items_);
     fetched_items.reverse();
@@ -315,12 +315,12 @@ onDestroy(function () {
     </div>
     <div>
     <Select bind:value={orderField} label="Sorteren op">
-      <Option value="published" selected={true}>Datum</Option>
-      <Option value="_score" selected={false}>Relevantie</Option>
+      <Option value="published" selected={orderField == 'published'}>Datum</Option>
+      <Option value="_score" selected={orderField == '_score'}>Relevantie</Option>
     </Select>
     <Select bind:value={orderWay} label="Volgorde">
-      <Option value="desc" selected={true}>Nieuwste eerst</Option>
-      <Option value="asc" selected={false}>Oudste eerst</Option>
+      <Option value="desc" selected={orderWay == 'desc'}>Nieuwste eerst</Option>
+      <Option value="asc" selected={orderWay == "asc"}>Oudste eerst</Option>
     </Select>
     </div>
     <div class="column-settings-actions">
