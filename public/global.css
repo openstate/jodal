@@ -213,6 +213,7 @@ h6 {
 .column-settings {
 	clear: both;
 	display: none;
+	padding-bottom: 8px;
 }
 
 .column-settings.active {

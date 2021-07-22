@@ -69,7 +69,8 @@ function fetchFromApi(query, sources, location_ids, sort_field, sort_order, stab
               data: i._source.data,
               _id: i._id,
               _index: i._index,
-              _type: i._type
+              _type: i._type,
+              _score: i._score
             };
           });
         }

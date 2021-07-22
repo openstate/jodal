@@ -25,7 +25,7 @@ let start=0;
 let end=5;
 
 let items_ = writable([]);
-let items = derived(items_, (items_) => orderBy(items_, ['date'], ['desc']))
+let items = derived(items_, (items_) => orderBy(items_, [(inquiry.sort == 'published') ? 'date' : '_score'], [inquiry.sort_order]))
 let item_ids = {};
 let empty = false;
 let query = inquiry.user_query;
@@ -319,8 +319,8 @@ onDestroy(function () {
       <Option value="_score" selected={orderField == '_score'}>Relevantie</Option>
     </Select>
     <Select bind:value={orderWay} label="Volgorde">
-      <Option value="desc" selected={orderWay == 'desc'}>Nieuwste eerst</Option>
-      <Option value="asc" selected={orderWay == "asc"}>Oudste eerst</Option>
+      <Option value="desc" selected={orderWay == 'desc'}>Aflopend</Option>
+      <Option value="asc" selected={orderWay == "asc"}>Oplopend</Option>
     </Select>
     </div>
     <div class="column-settings-actions">
