@@ -16,6 +16,8 @@ import { showDocumentDialog } from '../Document.svelte';
 import { showSearchHelpDialog } from '../SearchHelp.svelte';
 import Select, {Option} from '@smui/select';
 import HelperText from '@smui/select/helper-text/index';
+import Flatpickr from 'svelte-flatpickr';
+import FloatingLabel from '@smui/floating-label';
 
 export let inquiry;
 
@@ -43,6 +45,29 @@ let old_source_counts = writable({});
 let source_counts = writable({});
 let orderField = inquiry.sort;
 let orderWay = inquiry.sort_order;
+
+
+let startDateValue, startDateFormattedValue;
+
+const startDateOptions = {
+	enableTime: true,
+	onChange(selectedDates, dateStr) {
+		console.log('flatpickr hook', selectedDates, dateStr);
+	}
+};
+
+$: console.log({ startDateValue, startDateFormattedValue });
+
+function handleStartDateChange(event) {
+	const [ selectedDates, dateStr ] = event.detail;
+	console.log({ selectedDates, dateStr });
+}
+
+function handleStartDateSubmit(event) {
+	event.preventDefault();
+
+	console.log(event.target.elements['date'].value);
+}
 
 function getLocations() {
   column_locations = $locations.filter((l) => inquiry.locations.includes(l.id));
@@ -322,6 +347,10 @@ onDestroy(function () {
       <Option value="desc" selected={orderWay == 'desc'}>Aflopend</Option>
       <Option value="asc" selected={orderWay == "asc"}>Oplopend</Option>
     </Select>
+    </div>
+    <div>
+      <FloatingLabel for="start_date">Begin</FloatingLabel>
+      <Flatpickr {startDateOptions} bind:startDateValue bind:startDateFormattedValue on:change={handleStartDateChange} name="start_date" />
     </div>
     <div class="column-settings-actions">
       <Button align="begin" variant="unelevated" on:click={() => handleQueryChange()}><Label>Wijzigen</Label></Button>
