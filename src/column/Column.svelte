@@ -17,6 +17,7 @@ import { showSearchHelpDialog } from '../SearchHelp.svelte';
 import Select, {Option} from '@smui/select';
 import HelperText from '@smui/select/helper-text/index';
 import Flatpickr from 'svelte-flatpickr';
+import { Dutch } from "flatpickr/dist/l10n/nl.js"
 import FloatingLabel from '@smui/floating-label';
 
 export let inquiry;
@@ -51,6 +52,7 @@ let startDateValue, startDateFormattedValue;
 
 const startDateOptions = {
 	enableTime: true,
+  locale: Dutch,
 	onChange(selectedDates, dateStr) {
 		console.log('flatpickr hook', selectedDates, dateStr);
 	}
@@ -349,8 +351,8 @@ onDestroy(function () {
     </Select>
     </div>
     <div>
-      <FloatingLabel for="start_date">Begin</FloatingLabel>
-      <Flatpickr {startDateOptions} bind:startDateValue bind:startDateFormattedValue on:change={handleStartDateChange} name="start_date" />
+      <FloatingLabel for="start_date" class="mdc-floating-label--float-above">Begin</FloatingLabel>
+      <Flatpickr options={startDateOptions} bind:startDateValue bind:startDateFormattedValue on:change={handleStartDateChange} name="start_date" />
     </div>
     <div class="column-settings-actions">
       <Button align="begin" variant="unelevated" on:click={() => handleQueryChange()}><Label>Wijzigen</Label></Button>
