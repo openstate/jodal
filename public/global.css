@@ -249,6 +249,7 @@ h6 {
 .entry-paging {
 	border-bottom: 0px none !important;
 	margin-top: 12px;
+	height: 150px;
 }
 
 .entry-paging button {
