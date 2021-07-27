@@ -90,11 +90,14 @@ def prepare_download(source, external_item_id, file_format):
         cache_dir, '%s.%s' % (external_item_id, file_format))
 
     items = None
+    logging.info('Checking if %s exists' % (cache_filepath,))
     if os.path.exists(cache_filepath):
+        logging.info('%s Exists' % (cache_filepath,))
         with open(cache_filepath) as in_file:
             items = json.load(in_file)
 
     if items is not None:
+        logging.info('Loaded %s items from cache ...' % (len(items,)))
         return items
 
     try:
