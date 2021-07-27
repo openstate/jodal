@@ -59,14 +59,15 @@ class Converter(object):
             result = fp.getvalue().strip('\r\n')
         return result
 
-    def _clean_contents(sel, contents):
-        for i in contents:
-            i['_source']['title'] = html2text(i['_source'].get('title', ''))
-            i['_source']['description'] = html2text(i['_source'].get('description', ''))
+    def _clean_contents(sel, contents, source):
+        if source == 'poliflw':
+            for i in contents:
+                i['_source']['title'] = html2text(i['_source'].get('title', ''))
+                i['_source']['description'] = html2text(i['_source'].get('description', ''))
         return contents
 
     def convert_for_json(self, contents, source):
-        return json.dumps(self._clean_contents(contents))
+        return json.dumps(self._clean_contents(contents, source))
 
     def convert_for_txt(self, contents, source):
         output = ""
