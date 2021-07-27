@@ -123,7 +123,7 @@ def perform_download(contents, source, external_item_id, file_format):
             file_contents = getattr(cvt, FILEFORMAT2CONVERTER[file_format])(
                 contents, source)
         except LookupError as e:
-            return jsonify({"status": "error", "msg": "Download mislukt, geen geldige formatter (s)." % (file_format,)}), 500
+            return jsonify({"status": "error", "msg": "Download mislukt, geen geldige formatter (%s)." % (file_format,)}), 500
         attachment_filepath = '%s.%s' % (external_item_id, file_format)
         return Response(
             file_contents,
