@@ -59,14 +59,15 @@ class Converter(object):
             result = fp.getvalue().strip('\r\n')
         return result
 
-    def _clean_contents(sel, contents):
-        for i in contents:
-            i['_source']['title'] = html2text(i['_source'].get('title', ''))
-            i['_source']['description'] = html2text(i['_source'].get('description', ''))
+    def _clean_contents(sel, contents, source):
+        if source == 'poliflw':
+            for i in contents:
+                i['_source']['title'] = html2text(i['_source'].get('title', ''))
+                i['_source']['description'] = html2text(i['_source'].get('description', ''))
         return contents
 
     def convert_for_json(self, contents, source):
-        return json.dumps(self._clean_contents(contents))
+        return json.dumps(self._clean_contents(contents, source))
 
     def convert_for_txt(self, contents, source):
         output = ""
@@ -90,11 +91,14 @@ def prepare_download(source, external_item_id, file_format):
         cache_dir, '%s.%s' % (external_item_id, file_format))
 
     items = None
+    logging.info('Checking if %s exists' % (cache_filepath,))
     if os.path.exists(cache_filepath):
+        logging.info('%s Exists' % (cache_filepath,))
         with open(cache_filepath) as in_file:
             items = json.load(in_file)
 
     if items is not None:
+        logging.info('Loaded %s items from cache ...' % (len(items,)))
         return items
 
     try:
@@ -120,11 +124,11 @@ def perform_download(contents, source, external_item_id, file_format):
             file_contents = getattr(cvt, FILEFORMAT2CONVERTER[file_format])(
                 contents, source)
         except LookupError as e:
-            return jsonify({"status": "error", "msg": "Download mislukt."}), 500
+            return jsonify({"status": "error", "msg": "Download mislukt, geen geldige formatter (%s)." % (file_format,)}), 500
         attachment_filepath = '%s.%s' % (external_item_id, file_format)
         return Response(
             file_contents,
             mimetype=FILEFORMAT2MIME[file_format],
             headers={'Content-Disposition':'attachment;filename=%s' % (attachment_filepath,)})
     else:
-        return jsonify({"status": "error", "msg": "Download mislukt."}), 500
+        return jsonify({"status": "error", "msg": "Download mislukt, geen items."}), 500
