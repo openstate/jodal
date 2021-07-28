@@ -354,11 +354,12 @@ onDestroy(function () {
     <div>
       <Flatpickr options={startDateOptions} bind:startDateValue bind:startDateFormattedValue on:change={handleStartDateChange} name="start_date" element="#my-picker">
         <div class="flatpickr" id="my-picker">
-          <input type="text" placeholder="Select Date.." data-input>
-
-        	<a href="#" class="input-button" title="clear" data-clear>
-        	 <i class="icon-close"></i>
-        	</a>
+          <label class="mdc-text-field smui-text-field--standard mdc-ripple-upgraded" style="--mdc-ripple-fg-size:139px; --mdc-ripple-fg-scale:1.7936046986927414; --mdc-ripple-fg-translate-start:-27.5px, -32.5px; --mdc-ripple-fg-translate-end:46.833335876464844px, -41.5px;">
+            <input type="text" class="mdc-text-field__input" placeholder="Select Date.." data-input>
+            <span class="mdc-floating-label mdc-floating-label--float-above">Start</span>
+            <div class="mdc-line-ripple" style="transform-origin: 42px center 0px;"></div>
+          </label>
+          <IconButton align="end" class="material-icons" aria-label="Hulp bij een zoekopdracht maken" alt="Hulp bij een zoekopdracht maken" data-clear>clear</IconButton>
         </div>
       </Flatpickr>
     </div>
