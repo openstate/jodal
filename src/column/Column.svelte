@@ -52,6 +52,7 @@ let startDateValue, startDateFormattedValue;
 
 const startDateOptions = {
 	enableTime: true,
+  element: '#my-picker',
   locale: Dutch,
 	onChange(selectedDates, dateStr) {
 		console.log('flatpickr hook', selectedDates, dateStr);
@@ -351,8 +352,15 @@ onDestroy(function () {
     </Select>
     </div>
     <div>
-      <FloatingLabel for="start_date" class="mdc-floating-label--float-above">Begin</FloatingLabel>
-      <Flatpickr options={startDateOptions} bind:startDateValue bind:startDateFormattedValue on:change={handleStartDateChange} name="start_date" />
+      <Flatpickr options={startDateOptions} bind:startDateValue bind:startDateFormattedValue on:change={handleStartDateChange} name="start_date" element="#my-picker">
+        <div class="flatpickr" id="my-picker">
+          <input type="text" placeholder="Select Date.." data-input>
+
+        	<a href="#" class="input-button" title="clear" data-clear>
+        	 <i class="icon-close"></i>
+        	</a>
+        </div>
+      </Flatpickr>
     </div>
     <div class="column-settings-actions">
       <Button align="begin" variant="unelevated" on:click={() => handleQueryChange()}><Label>Wijzigen</Label></Button>
