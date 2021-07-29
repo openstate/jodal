@@ -48,12 +48,14 @@ let orderField = inquiry.sort;
 let orderWay = inquiry.sort_order;
 
 
-let startDateValue = inquiry.date_start ? inquiry.date_start : '';
+let startDateValue = inquiry.date_start ? new Date(Date.parse(inquiry.date_start)) : '';
 let startDateFormattedValue = '';
+let endDateValue = inquiry.date_start ? new Date(Date.parse(inquiry.date_end)) : '';
+let endDateFormattedValue = '';
 
 const startDateOptions = {
 	enableTime: false,
-  element: '#my-picker',
+  element: '#start-picker-' + column_id,
   locale: Dutch,
   defaultHour: 0,
   defaultMinute: 0,
@@ -62,6 +64,18 @@ const startDateOptions = {
 		console.log('flatpickr hook', selectedDates, dateStr);
 	}
 };
+const endDateOptions = {
+	enableTime: false,
+  element: '#end-picker-' + column_id,
+  locale: Dutch,
+  defaultHour: 0,
+  defaultMinute: 0,
+  defaultDate: endDateValue,
+	onChange(selectedDates, dateStr) {
+		console.log('flatpickr hook', selectedDates, dateStr);
+	}
+};
+
 console.log('sdo: ', startDateOptions);
 
 function handleStartDateChange(event) {
@@ -73,6 +87,19 @@ function handleStartDateChange(event) {
   } else {
     startDateValue = '';
     startDateFormattedValue = '';
+  }
+  fpInstance.close();
+}
+
+function handleEndDateChange(event) {
+	const [ selectedDates, dateStr, fpInstance ] = event.detail;
+	console.log({ selectedDates,  dateStr });
+  if (selectedDates.length > 0) {
+    endDateValue = selectedDates[0].toISOString();
+    endDateFormattedValue = dateStr;
+  } else {
+    endDateValue = '';
+    endDateFormattedValue = '';
   }
   fpInstance.close();
 }
@@ -215,12 +242,24 @@ function handleQueryChange(e){
     items_.set([]);
     item_ids = {};
     var AdamStartDateValue = new Date();
-    AdamStartDateValue.setTime(startDateValue.getTime() - (startDateValue.getTimezoneOffset() * 60 * 1000));
+    if (startDateValue != '') {
+      console.dir(startDateValue);
+      AdamStartDateValue.setTime(startDateValue.getTime() - (startDateValue.getTimezoneOffset() * 60 * 1000));
+    } else {
+      AdamStartDateValue = null;
+    }
+    var AdamEndDateValue = new Date();
+    if (endDateValue != '') {
+      AdamEndDateValue.setTime(endDateValue.getTime() - (endDateValue.getTimezoneOffset() * 60 * 1000));
+    } else {
+      AdamEndDateValue = null;
+    }
     var updInquiry = {
       user_query: query,
       sort: orderField,
       sort_order: orderWay,
-      date_start: AdamStartDateValue //.toISOString().split('T')[0] + 'T00:00:00' // TODO: flatpickr uses browser date so correct for that
+      date_start: AdamStartDateValue,
+      date_end: AdamEndDateValue
     };
 
     updateInquiry(updInquiry);
@@ -368,19 +407,35 @@ onDestroy(function () {
     </Select>
     </div>
     <div>
-      <Flatpickr options={startDateOptions} bind:value={startDateValue} bind:formattedValue={startDateFormattedValue} on:change={handleStartDateChange} name="start_date" element="#my-picker">
-        <div class="flatpickr" id="my-picker">
+      <Flatpickr options={startDateOptions} bind:value={startDateValue} bind:formattedValue={startDateFormattedValue} on:change={handleStartDateChange} name="start_date" element="#start-picker-{column_id}">
+        <div class="flatpickr" id="start-picker-{column_id}">
           <label class="mdc-text-field smui-text-field--standard mdc-ripple-upgraded" style="--mdc-ripple-fg-size:139px; --mdc-ripple-fg-scale:1.7936046986927414; --mdc-ripple-fg-translate-start:-27.5px, -32.5px; --mdc-ripple-fg-translate-end:46.833335876464844px, -41.5px;">
             <input type="text" class="mdc-text-field__input" placeholder="Select Date.." data-input>
-            <span class="mdc-floating-label mdc-floating-label--float-above">Start</span>
+            <span class="mdc-floating-label mdc-floating-label--float-above">Startdatum</span>
             <div class="mdc-line-ripple" style="transform-origin: 42px center 0px;"></div>
           </label>
-          <IconButton align="end" class="material-icons" aria-label="Hulp bij een zoekopdracht maken" alt="Hulp bij een zoekopdracht maken" data-clear>clear</IconButton>
+          <IconButton align="end" class="material-icons" aria-label="Datum leegmaken" alt="Datum leegmaken" data-clear>clear</IconButton>
         </div>
       </Flatpickr><p>{inquiry.date_start}</p>
       <p>{startDateValue}</p>
       <p>{startDateFormattedValue}</p>
     </div>
+
+    <div>
+      <Flatpickr options={endDateOptions} bind:value={endDateValue} bind:formattedValue={endDateFormattedValue} on:change={handleEndDateChange} name="end_date" element="#end-picker-{column_id}">
+        <div class="flatpickr" id="end-picker-{column_id}">
+          <label class="mdc-text-field smui-text-field--standard mdc-ripple-upgraded" style="--mdc-ripple-fg-size:139px; --mdc-ripple-fg-scale:1.7936046986927414; --mdc-ripple-fg-translate-start:-27.5px, -32.5px; --mdc-ripple-fg-translate-end:46.833335876464844px, -41.5px;">
+            <input type="text" class="mdc-text-field__input" placeholder="Select Date.." data-input>
+            <span class="mdc-floating-label mdc-floating-label--float-above">Einddatum</span>
+            <div class="mdc-line-ripple" style="transform-origin: 42px center 0px;"></div>
+          </label>
+          <IconButton align="end" class="material-icons" aria-label="Datum leegmaken" alt="Datum leegmaken" data-clear>clear</IconButton>
+        </div>
+      </Flatpickr><p>{inquiry.date_start}</p>
+      <p>{startDateValue}</p>
+      <p>{startDateFormattedValue}</p>
+    </div>
+
     <div class="column-settings-actions">
       <Button align="begin" variant="unelevated" on:click={() => handleQueryChange()}><Label>Wijzigen</Label></Button>
       <Button align="end" variant="outlined" on:click={() => removeColumn()}><Label>Verwijderen</Label></Button>
