@@ -16,7 +16,7 @@ import { showDocumentDialog } from '../Document.svelte';
 import { showSearchHelpDialog } from '../SearchHelp.svelte';
 import Select, {Option} from '@smui/select';
 import HelperText from '@smui/select/helper-text/index';
-import Flatpickr from 'svelte-flatpickr';
+import Flatpickr from '../Flatpickr.svelte';
 import { Dutch } from "flatpickr/dist/l10n/nl.js"
 import FloatingLabel from '@smui/floating-label';
 
@@ -48,22 +48,33 @@ let orderField = inquiry.sort;
 let orderWay = inquiry.sort_order;
 
 
-let startDateValue, startDateFormattedValue;
+let startDateValue = inquiry.date_start ? inquiry.date_start : '';
+let startDateFormattedValue = '';
 
 const startDateOptions = {
-	enableTime: true,
+	enableTime: false,
   element: '#my-picker',
   locale: Dutch,
+  defaultHour: 0,
+  defaultMinute: 0,
+  defaultDate: startDateValue,
 	onChange(selectedDates, dateStr) {
 		console.log('flatpickr hook', selectedDates, dateStr);
 	}
 };
-
-$: console.log({ startDateValue, startDateFormattedValue });
+console.log('sdo: ', startDateOptions);
 
 function handleStartDateChange(event) {
-	const [ selectedDates, dateStr ] = event.detail;
-	console.log({ selectedDates, dateStr });
+	const [ selectedDates, dateStr, fpInstance ] = event.detail;
+	console.log({ selectedDates,  dateStr });
+  if (selectedDates.length > 0) {
+    startDateValue = selectedDates[0].toISOString();
+    startDateFormattedValue = dateStr;
+  } else {
+    startDateValue = '';
+    startDateFormattedValue = '';
+  }
+  fpInstance.close();
 }
 
 function handleStartDateSubmit(event) {
@@ -352,7 +363,7 @@ onDestroy(function () {
     </Select>
     </div>
     <div>
-      <Flatpickr options={startDateOptions} bind:startDateValue bind:startDateFormattedValue on:change={handleStartDateChange} name="start_date" element="#my-picker">
+      <Flatpickr options={startDateOptions} bind:value={startDateValue} bind:formattedValue={startDateFormattedValue} on:change={handleStartDateChange} name="start_date" element="#my-picker">
         <div class="flatpickr" id="my-picker">
           <label class="mdc-text-field smui-text-field--standard mdc-ripple-upgraded" style="--mdc-ripple-fg-size:139px; --mdc-ripple-fg-scale:1.7936046986927414; --mdc-ripple-fg-translate-start:-27.5px, -32.5px; --mdc-ripple-fg-translate-end:46.833335876464844px, -41.5px;">
             <input type="text" class="mdc-text-field__input" placeholder="Select Date.." data-input>
@@ -361,7 +372,9 @@ onDestroy(function () {
           </label>
           <IconButton align="end" class="material-icons" aria-label="Hulp bij een zoekopdracht maken" alt="Hulp bij een zoekopdracht maken" data-clear>clear</IconButton>
         </div>
-      </Flatpickr>
+      </Flatpickr><p>{inquiry.date_start}</p>
+      <p>{startDateValue}</p>
+      <p>{startDateFormattedValue}</p>
     </div>
     <div class="column-settings-actions">
       <Button align="begin" variant="unelevated" on:click={() => handleQueryChange()}><Label>Wijzigen</Label></Button>
