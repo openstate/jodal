@@ -171,9 +171,9 @@ function update(obj, upd/*, …*/) {
     for (var i=1; i<arguments.length; i++) {
         for (var prop in arguments[i]) {
             var val = arguments[i][prop];
-            if (typeof val == "object") // this also applies to arrays or null!
-                update(obj[prop], val);
-            else
+            // if (typeof val == "object") // this also applies to arrays or null!
+            //     update(obj[prop], val);
+            // else
                 obj[prop] = val;
         }
     }
@@ -207,15 +207,20 @@ function updateInquiry(updatedFields) {
   inquiries.set(old_inquiries);
 }
 
+function convertDateToUTC(date) { return new Date(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(), date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds()); }
+
 function handleQueryChange(e){
     console.log('new query change should be handled!:');
-    //console.dir(e);
+    console.dir(startDateValue);
     items_.set([]);
     item_ids = {};
+    var AdamStartDateValue = new Date();
+    AdamStartDateValue.setTime(startDateValue.getTime() - (startDateValue.getTimezoneOffset() * 60 * 1000));
     var updInquiry = {
       user_query: query,
       sort: orderField,
-      sort_order: orderWay
+      sort_order: orderWay,
+      date_start: AdamStartDateValue //.toISOString().split('T')[0] + 'T00:00:00' // TODO: flatpickr uses browser date so correct for that
     };
 
     updateInquiry(updInquiry);
