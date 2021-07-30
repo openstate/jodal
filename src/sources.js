@@ -1,17 +1,25 @@
 import { get } from 'svelte/store';
 import { id2locations } from './stores.js';
 
-export function fetchSource(query, sources, location_ids, sort_field, sort_order, stable, page, callback) {
-  return fetchFromApi(query, sources, location_ids.map(function (l) { return l.id;}), sort_field, sort_order, stable, page, callback);
+export function fetchSource(query, sources, location_ids, date_start, date_end, sort_field, sort_order, stable, page, callback) {
+  return fetchFromApi(query, sources, location_ids.map(function (l) { return l.id;}), date_start, date_end, sort_field, sort_order, stable, page, callback);
 }
 
-function fetchFromApi(query, sources, location_ids, sort_field, sort_order, stable, page, callback) {
+function fetchFromApi(query, sources, location_ids, date_start, date_end, sort_field, sort_order, stable, page, callback) {
   console.log('Should fetch locations ' + location_ids + ' using openspending now!');
   // 'http://api.jodal.nl/documents/search?query=*&filter=location.keyword:GM0777|GM0632&sort=published:desc'
   var api_filter = '&filter=source.keyword:' + encodeURIComponent(sources.join(",")) + '|location.keyword:'+ location_ids.join(",")
   if (stable !== null) {
     api_filter += "|published_to:" + encodeURIComponent(stable);
   }
+  var date_filter = '';
+  if (date_start) {
+    date_filter = date_filter + '|published_from:' + encodeURIComponent(date_start);
+  }
+  if (date_end) {
+    date_filter = date_filter + '|published_to:' + encodeURIComponent(date_end);
+  }
+  api_filter += date_filter;
   var url =  window.location.protocol + '//api.jodal.nl/documents/search?page='+ page + '&query=' + encodeURIComponent(query) + api_filter +'&sort=' + sort_field + ':' + sort_order + '&limit=50';
   console.log(url);
 

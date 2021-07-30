@@ -36,9 +36,9 @@ def perform_query(term, filter_string, page, page_size, sort, index_name=None):
 def parse_filters(filters):
         filter_dict = {}
         for f in filters.split('|'):
-                if f and len(f.split(':')) == 2:
-                        typ = f.split(':')[0]
-                        val = f.split(':')[1]
+                if f and len(f.split(':', 1)) == 2:
+                        typ = f.split(':', 1)[0]
+                        val = f.split(':', 1)[1]
                         filter_dict[typ] = val.split(',')
 
         return filter_dict
@@ -68,9 +68,9 @@ def get_basic_query(filters, term, page, page_size, sort, query_fields, aggregat
                         }
                     })
                 if part_k == 'to':
-                    clause['range'][real_k]['lt'] = v
+                    clause['range'][real_k]['lt'] = v[0]
                 else:
-                    clause['range'][real_k]['gte'] = v
+                    clause['range'][real_k]['gte'] = v[0]
             must_clauses[real_k] = clause
         filter_clauses = list(must_clauses.values())
 
