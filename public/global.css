@@ -192,6 +192,16 @@ h6 {
 
 }
 
+.column-dates {
+	margin: 2px;
+	clear: both;
+	white-space: normal;
+	font-size: 14px;
+	line-height: 18px;
+	text-align: center;
+	display: block !important;
+}
+
 .column-contents {
 	border-top: 1px solid #f1f1f1;
 	min-height: 200px;

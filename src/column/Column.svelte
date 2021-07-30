@@ -416,9 +416,7 @@ onDestroy(function () {
           </label>
           <IconButton align="end" class="material-icons" aria-label="Datum leegmaken" alt="Datum leegmaken" data-clear>clear</IconButton>
         </div>
-      </Flatpickr><p>{inquiry.date_start}</p>
-      <p>{startDateValue}</p>
-      <p>{startDateFormattedValue}</p>
+      </Flatpickr>
     </div>
 
     <div>
@@ -431,9 +429,7 @@ onDestroy(function () {
           </label>
           <IconButton align="end" class="material-icons" aria-label="Datum leegmaken" alt="Datum leegmaken" data-clear>clear</IconButton>
         </div>
-      </Flatpickr><p>{inquiry.date_start}</p>
-      <p>{startDateValue}</p>
-      <p>{startDateFormattedValue}</p>
+      </Flatpickr>
     </div>
 
     <div class="column-settings-actions">
@@ -453,6 +449,19 @@ onDestroy(function () {
       </div>
     {/each}
   </div>
+  {#if startDateValue || endDateValue}
+  <div class="column-counts column-dates">
+    {#if inquiry.date_start && inquiry.date_end}
+    {inquiry.date_start.split('T')[0]} t/m {inquiry.date_end.split('T')[0]}
+    {/if}
+    {#if inquiry.date_start && !inquiry.date_end}
+    van {inquiry.date_start.split('T')[0]}
+    {/if}
+    {#if !inquiry.date_start && inquiry.date_end}
+    tot {inquiry.date_end.split('T')[0]}
+    {/if}
+  </div>
+  {/if}
   <div id="column-contents-{column_id}" class="column-contents">
   {#if !loading && ($items.length <= 0)}
     <p>Er werd nog niks gevonden dat aan je zoekopdracht voldeed.</p>
