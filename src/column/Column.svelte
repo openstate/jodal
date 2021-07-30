@@ -356,6 +356,14 @@ function human_readable_numer(numb) {
     }
 }
 
+
+function formatDate(d) {
+  let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+  let mo = new Intl.DateTimeFormat('en', { month: 'short' }).format(d);
+  let da = new Intl.DateTimeFormat('en', { day: 'numeric' }).format(d);
+  return `${da}-${mo}-${ye}`;
+}
+
 var interval;
 
 
@@ -452,13 +460,13 @@ onDestroy(function () {
   {#if startDateValue || endDateValue}
   <div class="column-counts column-dates">
     {#if inquiry.date_start && inquiry.date_end}
-    {inquiry.date_start.split('T')[0]} t/m {inquiry.date_end.split('T')[0]}
+    {formatDate(startDateValue)} t/m {formatDate(endDateValue)}
     {/if}
     {#if inquiry.date_start && !inquiry.date_end}
-    van {inquiry.date_start.split('T')[0]}
+    van {formatDate(startDateValue)}
     {/if}
     {#if !inquiry.date_start && inquiry.date_end}
-    tot {inquiry.date_end.split('T')[0]}
+    tot {formatDate(endDateValue)}
     {/if}
   </div>
   {/if}
