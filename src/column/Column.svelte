@@ -275,8 +275,8 @@ function handleQueryChange(e){
       user_query: query,
       sort: orderField,
       sort_order: orderWay,
-      date_start: AdamStartDateValue,
-      date_end: AdamEndDateValue,
+      date_start: AdamStartDateValue.toISOString(),
+      date_end: AdamEndDateValue.toISOString(),
 			locations: selected.map(function (l) { return l.id;})
     };
 
