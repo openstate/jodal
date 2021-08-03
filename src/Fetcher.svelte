@@ -1,7 +1,7 @@
 <script>
 import { onMount, onDestroy } from 'svelte';
 import { get } from 'svelte/store';
-import { identity, inquiries } from './stores.js';
+import { identity, inquiries, locations, id2locations, fetchingEnabled } from './stores.js';
 
 onMount(function () {
   async function fetchColumns() {
@@ -30,8 +30,36 @@ onMount(function () {
         }
       );
   };
+  async function fetchLocations() {
+    return fetch(window.location.protocol + '//api.jodal.nl/locations/search?limit=500&sort=name.keyword:asc')
+      .then(r => r.json())
+      .then(data => {
+        console.log('got locations data:')
+        console.log(data);
+        var items = data.hits.hits.map(function (l) {
+          return l._source;
+        })
+        var _id2locations = {};
+        items.forEach(function (i) {
+          i['sources'].forEach(function (s) {
+            _id2locations[s['id']] = i['name']
+          })
+        })
+        console.dir('id2locations:')
+        //console.log(_id2locations);
+        id2locations.set(_id2locations);
+        console.log('location items:')
+        //console.dir(items)
+        locations.set(items);
+        console.log('selectable locations:')
+        //console.dir($selectable_locations)
+        console.log('setting fetching to enabled!')
+        fetchingEnabled.set(true)
+      });
+  };
   fetchIdentity();
   fetchColumns();
+  fetchLocations();
 });
 
 onDestroy(function () {

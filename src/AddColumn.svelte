@@ -44,38 +44,6 @@
       user_query: query
     });
   }
-
-  onMount(async () => {
-      await fetch('//api.jodal.nl/locations/search?limit=500&sort=name.keyword:asc')
-      //await fetch('https://api.jodal.nl/locations/search?limit=500&sort=name.keyword:asc')
-        .then(r => r.json())
-        .then(data => {
-          console.log('got locations data:')
-          console.log(data);
-          items = data.hits.hits.map(function (l) {
-            return l._source;
-          })
-          _id2locations = {}
-          items.forEach(function (i) {
-            i['sources'].forEach(function (s) {
-              _id2locations[s['id']] = i['name']
-            })
-          })
-          console.dir('id2locations:')
-          //console.log(_id2locations);
-          id2locations.set(_id2locations);
-          console.log('location items:')
-          //console.dir(items)
-          locations.set(items)
-          console.log('selectable locations:')
-          //console.dir($selectable_locations)
-          console.log('setting fetching to enabled!')
-          fetchingEnabled.set(true)
-        });
-    });
-
-  onDestroy(function () {
-  });
 </script>
 
 <Dialog bind:this={simpleDialog} aria-labelledby="simple-title" aria-describedby="simple-content">
