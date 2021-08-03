@@ -27,7 +27,6 @@
     console.log(selectedLocations);
     var selected_ids = selectedLocations.map(function (l) { return l.value; });
     var selected_names = selectedLocations.map(function (l) { return l.label; })
-    // TODO: Supprt adding multiple locations in a single column
     var selected = $locations.filter(l => selected_ids.indexOf(l.id) >= 0);
     if (name == '') {
       name = selected_names.join(", ");

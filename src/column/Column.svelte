@@ -219,6 +219,7 @@ function update(obj, upd/*, …*/) {
 
 function updateInquiry(updatedFields) {
   var url = window.location.protocol + '//api.jodal.nl/columns/' + inquiry.id;
+	console.log('query change update fields:', update(inquiry, updatedFields));
   fetch(
     url, {
       method: 'POST',
@@ -264,12 +265,19 @@ function handleQueryChange(e){
     } else {
       AdamEndDateValue = null;
     }
+		console.log('query change selected', selectedLocations);
+		var selected_ids = selectedLocations.map(function (l) { return l.value; });
+		var selected_names = selectedLocations.map(function (l) { return l.label; });
+		console.log('query change selected ids', selected_ids);
+		var selected = $locations.filter(l => selected_ids.indexOf(l.id) >= 0);
+		console.log('query change selected', selected);
     var updInquiry = {
       user_query: query,
       sort: orderField,
       sort_order: orderWay,
       date_start: AdamStartDateValue,
-      date_end: AdamEndDateValue
+      date_end: AdamEndDateValue,
+			locations: selected.map(function (l) { return l.id;})
     };
 
     updateInquiry(updInquiry);
