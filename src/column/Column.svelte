@@ -47,8 +47,7 @@ let old_source_counts = writable({});
 let source_counts = writable({});
 let orderField = inquiry.sort;
 let orderWay = inquiry.sort_order;
-let selectedLocations = inquiry.locations;
-
+let selectedLocations = [];
 let startDateValue = inquiry.date_start ? new Date(Date.parse(inquiry.date_start)) : '';
 let startDateFormattedValue = '';
 let endDateValue = inquiry.date_start ? new Date(Date.parse(inquiry.date_end)) : '';
@@ -78,6 +77,13 @@ const endDateOptions = {
 };
 
 console.log('sdo: ', startDateOptions);
+
+function prepareSettings() {
+	console.log('inquiry locations: ', inquiry.locations);
+	console.log('inquiry filtering locations: ', $locations.length);
+	selectedLocations =  $locations.filter(l => inquiry.locations.indexOf(l.id) >= 0).map(function (l) { return {value: l.id, label: l.name};});
+	console.log('inquiry  selected', selectedLocations);
+};
 
 function handleStartDateChange(event) {
 	const [ selectedDates, dateStr, fpInstance ] = event.detail;
@@ -137,6 +143,9 @@ function shuffle(array) {
 function doSomething() {
   console.log('toggling settings!');
    show_settings = !show_settings;
+	 if (show_settings) {
+		 prepareSettings();
+	 }
  }
 
 function doGoToEntry() {
