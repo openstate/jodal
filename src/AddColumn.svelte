@@ -11,6 +11,7 @@
   import Select from 'svelte-select';
   import { showSearchHelpDialog } from './SearchHelp.svelte';
   import IconButton from '@smui/icon-button';
+  import LocationSelector from './LocationSelector.svelte';
 
   let clicked = false;
   let name;
@@ -58,10 +59,7 @@
       </Textfield>
       <HelperText id="helper-text-column-name">Een beschrijvende naam voor de zoekopdracht</HelperText>
     </div>
-    <div class="multi-select-input">
-       <Select items={$selectable_locations} isMulti={true} bind:selectedValue={selectedLocations} placeholder="Selecteer gemeente(s) ..."></Select>
-       <HelperText>Lokatie</HelperText>
-    </div>
+    <LocationSelector bind:selectedLocations />
     <div>
       <Textfield>
         <Input bind:value={query} id="column-query" aria-controls="helper-text-column-query" aria-describedby="helper-text-column-query" />
