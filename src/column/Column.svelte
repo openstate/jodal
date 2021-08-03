@@ -19,6 +19,7 @@ import HelperText from '@smui/select/helper-text/index';
 import Flatpickr from '../Flatpickr.svelte';
 import { Dutch } from "flatpickr/dist/l10n/nl.js"
 import FloatingLabel from '@smui/floating-label';
+import LocationSelector from '../LocationSelector.svelte';
 
 export let inquiry;
 
@@ -46,7 +47,7 @@ let old_source_counts = writable({});
 let source_counts = writable({});
 let orderField = inquiry.sort;
 let orderWay = inquiry.sort_order;
-
+let selectedLocations = inquiry.locations;
 
 let startDateValue = inquiry.date_start ? new Date(Date.parse(inquiry.date_start)) : '';
 let startDateFormattedValue = '';
@@ -404,6 +405,7 @@ onDestroy(function () {
     <Textfield bind:value={query} on:change={handleQueryChange} on:input={handleQueryInput} label="Zoekopdracht" />
     <IconButton align="end" class="material-icons" aria-label="Hulp bij een zoekopdracht maken" alt="Hulp bij een zoekopdracht maken" on:click={() => showSearchHelpDialog()}>info</IconButton>
     </div>
+		<LocationSelector bind:selectedLocations />
     <div>
     <Select bind:value={orderField} label="Sorteren op">
       <Option value="published" selected={orderField == 'published'}>Datum</Option>
