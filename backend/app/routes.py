@@ -14,6 +14,7 @@ from app import app, AppError
 from app.search import perform_query
 from app.models import Column
 from app.downloads import prepare_download, perform_download
+from app.user import delete_user_data
 
 def decode_json_post_data(fn):
     """Decorator that parses POSTed JSON and attaches it to the request
@@ -139,6 +140,30 @@ def callback():
     session['user'] = fusionauth.get(app.config['USERINFO_URL']).json()
     # return redirect('/users/simple/me')
     return redirect(app.config['JODAL_URL'])
+
+
+@app.route("/users/delete")
+def do_delete():
+    if session.get('user') != None:
+        user = session['user']
+    else:
+        user = None
+    result = {}
+    if user is None:
+        result={}
+        return jsonify(result)
+
+    # first delete associated user data
+    delete_user_data(user['sub'])
+
+    # Delete User For A Given ID
+    client_response =client.delete_user(user['sub'])
+    if client_response.was_successful():
+    	result = client_response.success_response
+    else:
+    	result = client_response.error_response
+
+    return jsonif(result)
 
 
 @app.route('/documents/download/<source>/<external_item_id>')
