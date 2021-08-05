@@ -22,6 +22,7 @@ class Config(object):
     CLIENT_ID="47067915-8bfd-4e57-957c-a232e2025524"
     CLIENT_SECRET="QyT2uwYGHx5jp4FKY9EmYcsBWhP7s0lXupncdoo3SP8"
     FA_URL='http://users.jodal.nl'
+    FA_INTERNAL_URL='http://fusionauth:9011'
     AUTHORIZATION_BASE_URL='http://users.jodal.nl/oauth2/authorize'
     TOKEN_URL='http://fusionauth:9011/oauth2/token'
     USERINFO_URL='http://fusionauth:9011/oauth2/userinfo'

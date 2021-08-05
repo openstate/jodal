@@ -155,6 +155,7 @@ def do_delete():
     delete_user_data(user['sub'])
 
     # Delete User For A Given ID
+    client = FusionAuthClient(app.config['API_KEY'], app.config['FA_INTERNAL_URL'])
     client_response =client.delete_user(user['sub'])
     if client_response.was_successful():
         session.clear()
