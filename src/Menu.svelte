@@ -9,7 +9,7 @@
           <IconButton class="material-icons" aria-label="Login" on:click={() => showHelpDialog()} title="Om hulp vragen">help</IconButton>
           {#if $identity}
             <IconButton class="material-icons" aria-label="Add a column" title="Zoekopdracht toevoegen" on:click={() => startAddColumn()}>add</IconButton>
-            <IconButton class="material-icons" aria-label="Account" title="{$identity.email}">face</IconButton>
+            <IconButton class="material-icons" aria-label="Account" title="Account informatie" on:click={() => showAccountDialog()}>face</IconButton>
             <IconButton class="material-icons" aria-label="Logout" href="//api.jodal.nl/users/simple/logout" title="Uitloggen">login</IconButton>
           {:else}
             <IconButton class="material-icons" aria-label="Login" href="//api.jodal.nl/users/simple/login" title="Inloggen">account_box</IconButton>
@@ -19,6 +19,7 @@
       </TopAppBar>
 </section>
 <Help/>
+<Account/>
 <AddColumn/>
 <script>
   import { drawerOpen,fetchingEnabled, identity } from './stores.js';
@@ -28,6 +29,7 @@
   import IconButton from '@smui/icon-button';
   import Checkbox from '@smui/checkbox';
   import FormField from '@smui/form-field';
+  import Account, { showAccountDialog } from './Account.svelte';
 
   let prominent = false;
   let dense = false;

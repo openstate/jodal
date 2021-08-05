@@ -148,10 +148,8 @@ def do_delete():
         user = session['user']
     else:
         user = None
-    result = {}
     if user is None:
-        result={}
-        return jsonify(result)
+        return redirect(app.config['JODAL_URL'])
 
     # first delete associated user data
     delete_user_data(user['sub'])
@@ -159,11 +157,10 @@ def do_delete():
     # Delete User For A Given ID
     client_response =client.delete_user(user['sub'])
     if client_response.was_successful():
-    	result = client_response.success_response
+        session.clear()
+        return redirect(app.config['FA_URL']+'/oauth2/logout?client_id='+app.config['CLIENT_ID'])
     else:
-    	result = client_response.error_response
-
-    return jsonif(result)
+        return redirect(app.config['JODAL_URL'])
 
 
 @app.route('/documents/download/<source>/<external_item_id>')
