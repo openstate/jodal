@@ -6,7 +6,7 @@
             <Title>Journalistiek Dashboard Lokaal - Beta</Title>
           </Section>
           <Section align="end" toolbar>
-          <IconButton class="material-icons" aria-label="Login" on:click={() => showHelpDialog()} title="Om hulp vragen">help</IconButton>
+          <IconButton class="material-icons" aria-label="Hulp" href="https://blog.jodal.nl/" target="_blank" title="Om hulp vragen">help</IconButton>
           {#if $identity}
             <IconButton class="material-icons" aria-label="Add a column" title="Zoekopdracht toevoegen" on:click={() => startAddColumn()}>add</IconButton>
             <IconButton class="material-icons" aria-label="Account" title="Account informatie" on:click={() => showAccountDialog()}>face</IconButton>
@@ -24,7 +24,6 @@
 <script>
   import { drawerOpen,fetchingEnabled, identity } from './stores.js';
   import AddColumn, { startAddColumn } from './AddColumn.svelte';
-  import Help, { showHelpDialog } from './Help.svelte';
   import TopAppBar, {Row, Section, Title} from '@smui/top-app-bar';
   import IconButton from '@smui/icon-button';
   import Checkbox from '@smui/checkbox';
