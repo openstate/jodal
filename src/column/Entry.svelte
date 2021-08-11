@@ -31,18 +31,18 @@ $: time_since = timeDisplay(cur_date);
 
 </script>
 
-<div class="entry" id="entry_{column}{key}" transition:slide="{{ duration: 150 }}">
+<div class="entry" id="entry_{column}{key}" transition:slide="{{ duration: 150 }}" on:click={function (e) { e.preventDefault(); showDocumentDialog(entry); return false;}}>
   {#if title}
   <div class="entry-title">
     <h4>
-      <a href="#entry_{column}{key}" {title} on:click={function (e) { e.preventDefault(); showDocumentDialog(entry); return false;}}>
+      <a href="#entry_{column}{key}" {title}>
       { title }
       </a>
     </h4>
   </div>
   {/if}
   <div class="entry-contents">
-    <a href="#entry_{column}{key}" class="entry-contents-link" {title} on:click={function (e) { e.preventDefault(); showDocumentDialog(entry); return false;}}>
+    <a href="#entry_{column}{key}" class="entry-contents-link" {title}>
     { @html highlight }
     </a>
   </div>
