@@ -17,31 +17,31 @@
     <tbody>
     <tr>
       <td>vvd windmolens</td>
-      <td>de term "vvd" of "windmolens" bevatten</td>
+      <td>het woord "vvd" of "windmolens" bevatten</td>
     </tr>
     <tr>
       <td>vvd + windmolens</td>
-      <td>zowel de term "vvd" en "windmolens" bevatten</td>
+      <td>zowel het woord "vvd" en "windmolens" bevatten</td>
     </tr>
     <tr>
       <td>vvd | windmolens</td>
-      <td>minstens een van de termen "vvd" of "windmolens" bevatten</td>
+      <td>minstens een van de woorden "vvd" of "windmolens" bevatten</td>
     </tr>
     <tr>
       <td>vvd -windmolens</td>
-      <td>de term "vvd" bevatten, maar <em>niet</em> "windmolens"</td>
+      <td>het woord "vvd" bevatten, maar <em>niet</em> "windmolens"</td>
     </tr>
     <tr>
       <td>"vvd windmolens"</td>
-      <td>die de termen "vvd" en "windmolens" in deze exacte volgorde bevatten</td>
+      <td>die de woorden "vvd" en "windmolens" in deze exacte volgorde bevatten</td>
     </tr>
     <tr>
       <td>euro*</td>
-      <td>die termen bevatten die beginnen met "euro" (euro, Europa, Europees kampioenschap)</td>
+      <td>die woorden bevatten die beginnen met "euro" (euro, Europa, Europees kampioenschap)</td>
     </tr>
     <tr>
       <td>(vvd windmolens) | euro*</td>
-      <td>die "vvd" <em>en</em> "windmolens" bevatten, <em>of</em> termen die beginnen met "euro" (haakjes geven prioriteit
+      <td>die "vvd" <em>en</em> "windmolens" bevatten, <em>of</em> woorden die beginnen met "euro" (haakjes geven prioriteit
         aan)
       </td>
     </tr>
