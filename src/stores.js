@@ -53,10 +53,13 @@ export function addInquiry(settings) {
       response => response.json()
     ).then(
       function (data) {
-        console.log('Added column succesfully!:');
+        console.log('Added column succesfully!:', data);
         //console.dir(data);
         inqs.push(data);
         inquiries.set(inqs);
+        setTimeout(function() {
+          document.getElementById('column-' + data.id).scrollIntoView();
+        }, 100);
       }
     );
 }
