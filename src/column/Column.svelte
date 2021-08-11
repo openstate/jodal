@@ -199,11 +199,6 @@ function removeColumn() {
   removeInquiry(column_id);
 }
 
-function handleQueryInput(e){
-    // console.log('new query input should be handled!:');
-    // console.dir(e);
-}
-
 function update(obj, upd/*, …*/) {
     for (var i=1; i<arguments.length; i++) {
         for (var prop in arguments[i]) {
@@ -250,6 +245,7 @@ function convertDateToUTC(date) { return new Date(date.getUTCFullYear(), date.ge
 function handleQueryChange(e){
     console.log('new query change should be handled!:');
     console.dir(startDateValue);
+		loading = true;
     items_.set([]);
     item_ids = {};
     var AdamStartDateValue = new Date();
@@ -275,15 +271,12 @@ function handleQueryChange(e){
       user_query: query,
       sort: orderField,
       sort_order: orderWay,
-      date_start: AdamStartDateValue.toISOString(),
-      date_end: AdamEndDateValue.toISOString(),
+      date_start: AdamStartDateValue ? AdamStartDateValue.toISOString() : null,
+      date_end: AdamEndDateValue ? AdamEndDateValue.toISOString() : null,
 			locations: selected.map(function (l) { return l.id;})
     };
-
+		show_settings = !show_settings;
     updateInquiry(updInquiry);
-
-    show_settings = !show_settings;
-    loading = true;
     console.log('fetchting for query change!');
     fetchFromSources();
 }
@@ -419,7 +412,7 @@ onDestroy(function () {
   {#if show_settings}
   <div class="column-settings" class:active={show_settings} transition:slide="{{ duration: 500 }}">
     <div>
-    <Textfield bind:value={query} on:change={handleQueryChange} on:input={handleQueryInput} label="Zoekopdracht" />
+    <Textfield bind:value={query} on:change={handleQueryChange} label="Zoekopdracht" />
     <IconButton align="end" class="material-icons" aria-label="Hulp bij een zoekopdracht maken" alt="Hulp bij een zoekopdracht maken" on:click={() => showSearchHelpDialog()}>info</IconButton>
     </div>
 		<LocationSelector bind:selectedLocations />
