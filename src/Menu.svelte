@@ -18,7 +18,6 @@
         </Row>
       </TopAppBar>
 </section>
-<Help/>
 <Account/>
 <AddColumn/>
 <script>
