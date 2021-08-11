@@ -57,9 +57,9 @@ $: time_since = timeDisplay(cur_date);
     </ul>
     <ul>
       <li class="first">
-        <a href="{ url }" target="_blank" title="{ source }" class="source-link">
+        <div class="source-link">
           <img src="/images/sources/{ source }.svg" alt="{ source }" class="source-logo">
-        </a>
+        </div>
       </li>
       <li class="last">
         { type }
