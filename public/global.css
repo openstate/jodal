@@ -270,6 +270,7 @@ h6 {
 .entry {
 	border-bottom: 1px solid #c0c0c0;
 	margin-left: 4px;
+	margin-right: 4px;
 	cursor: pointer;
 }
 
