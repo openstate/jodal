@@ -1,6 +1,6 @@
 <div class="workspace" id="workspace">
   <div class="columns">
-  {#if $identity || isTesting}
+  {#if $identity}
     <Message/>
     {#if $inquiries.length <= 0}
     <div class="start-explainer">
@@ -22,7 +22,7 @@
 </div>
 
 <script>
-import { ordered_inquiries, inquiries, identity, isTesting } from './stores.js';
+import { ordered_inquiries, inquiries, identity } from './stores.js';
 import Column from './column/Column.svelte';
 import AddColumn, { startAddColumn } from './AddColumn.svelte';
 import Button from '@smui/button';
