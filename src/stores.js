@@ -3,8 +3,6 @@ import { onMount } from "svelte";
 
 export const identity = writable(false);
 
-export const isTesting = (window.location.hostname == 'test.jodal.nl');
-
 export const fetchingEnabled = writable(false);
 
 export const drawerOpen = writable(false);

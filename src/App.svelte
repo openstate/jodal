@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Journalistiek Dashboard Lokaal - Beta ({runEnv}) ({ hostname })</title>
+  <title>Journalistiek Dashboard Lokaal - Beta ({runEnv})</title>
 </svelte:head>
 
 <div class="app-container">
@@ -18,10 +18,8 @@
   import Fetcher from './Fetcher.svelte';
   import Document from './Document.svelte';
   import SearchHelp from './SearchHelp.svelte';
-  import { isTesting } from './stores.js';
 
   const runEnv = runEnvironment.env.isProd ? 'Production' : 'Dev';
-  const hostname = isTesting ? 'Testing': 'Live';
 </script>
 
 <style>
