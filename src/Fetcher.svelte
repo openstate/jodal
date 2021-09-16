@@ -11,9 +11,11 @@ onMount(function () {
         response => response.json()
       ).then(
         function (data) {
-          console.log('Got columns:');
-          //console.dir(data);
-          inquiries.set(data);
+          if ((typeof(data) === 'object') && (data.length)) {
+            console.log('Got columns:');
+            //console.dir(data);
+            inquiries.set(data);
+          }
         }
       );
   }
@@ -24,9 +26,11 @@ onMount(function () {
         response => response.json()
       ).then(
         function (data) {
-          console.log('Got identity:');
-          //console.dir(data);
-          identity.set(data);
+          if (data) {
+            console.log('Got identity:');
+            //console.dir(data);
+            identity.set(data);
+          }
         }
       );
   };
