@@ -6,7 +6,7 @@
             <Title>Journalistiek Dashboard Lokaal - Beta</Title>
           </Section>
           <Section align="end" toolbar>
-          <IconButton class="material-icons" aria-label="Hulp" href="https://blog.jodal.nl/" target="_blank" title="Om hulp vragen">help</IconButton>
+          <IconButton class="material-icons" aria-label="Hulp" title="Om hulp vragen" on:click={() => showHelpDialog()}>help</IconButton>
           {#if $identity}
             <IconButton class="material-icons" aria-label="Add a column" title="Zoekopdracht toevoegen" on:click={() => startAddColumn()}>add</IconButton>
             <IconButton class="material-icons" aria-label="Account" title="Account informatie" on:click={() => showAccountDialog()}>face</IconButton>
@@ -20,6 +20,7 @@
 </section>
 <Account/>
 <AddColumn/>
+<Help/>
 <script>
   import { drawerOpen,fetchingEnabled, identity } from './stores.js';
   import AddColumn, { startAddColumn } from './AddColumn.svelte';
@@ -28,6 +29,7 @@
   import Checkbox from '@smui/checkbox';
   import FormField from '@smui/form-field';
   import Account, { showAccountDialog } from './Account.svelte';
+  import Help, {showHelpDialog } from './Help.svelte';
 
   let prominent = false;
   let dense = false;
