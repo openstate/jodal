@@ -345,6 +345,16 @@ h6 {
 	text-align: center;
 }
 
+.help-dialog .mdc-dialog__container {
+	width: 100%;
+}
+
+.help-dialog .mdc-dialog__surface {
+  max-width: 80% !important;
+	min-width: 80% !important;
+	height: 90%;
+}
+
 .document-dialog .mdc-dialog__container {
 	width: 100%;
 }
@@ -387,4 +397,17 @@ h6 {
 
 .close-btn {
 	margin-left: auto;
+}
+
+.acc-chevron {
+	float: right;
+}
+
+.collapsible-header {
+	background-image: -webkit-linear-gradient(top,#f5f5f5 0,#e8e8e8 100%);
+	background-image: linear-gradient(to bottom,#f5f5f5 0,#e8e8e8 100%);
+	background-repeat: repeat-x;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff5f5f5', endColorstr='#ffe8e8e8', GradientType=0);
+	cursor: pointer !important;
+	margin-bottom: 5px;
 }
