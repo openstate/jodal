@@ -1,4 +1,5 @@
 <script>
+  // https://codesandbox.io/s/svelte-material-accordion-yv1v2?file=/App.svelte
  import { slide } from "svelte/transition";
  //import { openAccordian } from "./AccordionStore.js";
  import { createEventDispatcher } from "svelte";
@@ -26,5 +27,3 @@
       <slot />
   </div>
 {/if}
-
-        

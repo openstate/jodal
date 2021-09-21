@@ -17,39 +17,18 @@
 
   <Accordions>
 
-     <Accordion id="1" {openedAccordion} on:accordionSelected={toggleAccordion}>
+    {#each questions as question}
+     <Accordion id="{question.id}" {openedAccordion} on:accordionSelected={toggleAccordion}>
      <span slot="title" class="valign-wrapper">
-      Weten waar JODAL voor te gebruiken is?
+      {question.question}
       <span class="material-icons acc-chevron">chevron_right</span>
      </span>
-     <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-     tempor incididunt ut labore et dolore magna aliqua.
-      Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-      aliquip ex ea commodo consequat.</span>
+     <span>
+      <iframe src="{question.video}" width="640" height="320" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+      <p>{question.description}</p>
+    </span>
     </Accordion>
-
-    <Accordion  id="2" {openedAccordion}  on:accordionSelected={toggleAccordion}>
-      <span slot="title" class="valign-wrapper">
-        Een account aanmaken op JODAL
-        <span class="material-icons acc-chevron">chevron_right</span>
-      </span>
-      <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua.
-       Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-       aliquip ex ea commodo consequat.</span>
-    </Accordion>
-
-    <Accordion id="3" {openedAccordion}  on:accordionSelected={toggleAccordion}>
-      <span slot="title" class="valign-wrapper">
-        Uitleg over de hoofdpagina van JODAL
-        <span class="material-icons acc-chevron">chevron_right</span>
-      </span>
-      <span>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-      incididunt ut labore et dolore magna aliqua.
-       Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-       ex ea commodo consequat.</span>
-    </Accordion>
-
+    {/each}
   </Accordions>
   </div>
   </Content>
@@ -72,6 +51,57 @@
   let open;
   let response = 'Nothing yet.';
 
+  // https://player.vimeo.com/video/606390974
+  let questions = [
+    {
+      id: 1,
+      question: "Weten wat JODAL voor te gebruiken is?",
+      video: "https://player.vimeo.com/video/606390896",
+      description: "Wil je meer weten over hoe het platform en hoe JODAL jou kan helpen bij het doen van onderzoek? Bekijk deze video."
+    },
+    {
+      id: 2,
+      question: "Een account aanmaken",
+      video: "https://player.vimeo.com/video/606390855",
+      description: "JODAL is een gepersonaliseerde omgeving. Wil je uitleg over hoe je een eigen account aanmaakt? Bekijk deze video."
+    },
+    {
+      id: 3,
+      question: "Uitleg over de hoofdpagina",
+      video: "https://player.vimeo.com/video/606390896",
+      description: "De hoofdpagina van JODAL is jouw gepersonaliseerde dashboard. Meer weten over hoe dit werkt? Bekijk deze video."
+    },
+    {
+      id: 4,
+      question: "Een nieuwe zoekopdracht aanmaken",
+      video: "https://player.vimeo.com/video/606391507",
+      description: "Wil je weten hoe je een nieuwe zoekopdracht aanmaakt? Bekijk deze video."
+    },
+    {
+      id: 5,
+      question: "Een zoekopdracht aanpassen",
+      video: "https://player.vimeo.com/video/606390974",
+      description: "Wil je weten hoe je een bestaande zoekopdracht kan aanpassen, verfijnen of verwijderen? Bekijk deze video."
+    },
+    {
+      id: 6,
+      question: "Een bron vinden",
+      video: "https://player.vimeo.com/video/606391074",
+      description: "Jouw gepersonaliseerde zoekresultaten komen van verschillende bronnen. Meer weten over hoe je bij de juiste bron komt? Bekijk deze video."
+    },
+    {
+      id: 7,
+      question: "Uitleg over het hergebruiken van informatie",
+      video: "https://player.vimeo.com/video/606391313",
+      description: "Mocht je vragen hebben over het platform of andere data-vragen dan kan je terecht bij onze helpdesk. Bekijk deze video voor meer informatie."
+    },
+    {
+      id: 8,
+      question: "Meer weten over je account en privacy",
+      video: "https://player.vimeo.com/video/606391199",
+      description: "Uitleg over het beheren van je account en privacy vind je in deze video."
+    },
+  ];
   // opened Accordion
   let openedAccordion = 0;
   const toggleAccordion = e =>
