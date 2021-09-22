@@ -35,34 +35,58 @@ export const ordered_inquiries = derived(inquiries, $inquiries => [...$inquiries
 
 export function addInquiry(settings) {
   var inqs = get(inquiries);
-  var max_order = Math.max.apply(Math, inqs.map(function(i) { return i.order; }));
+  var max_order = (inqs.length > 0) ? Math.max.apply(Math, get(inquiries).map(function(i) { return i.order; })) : 0;
   var column_def = {
     ...settings,
     order: (max_order + 1)
   };
 
-  var url = window.location.protocol + '//api.jodal.nl/columns';
-  return fetch(
-    url, {
-      method: "POST",
-      credentials: "include",
-      body: JSON.stringify(column_def),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(
-      response => response.json()
-    ).then(
-      function (data) {
-        console.log('Added column succesfully!:', data);
-        //console.dir(data);
-        inqs.push(data);
-        inquiries.set(inqs);
-        setTimeout(function() {
-          document.getElementById('column-' + data.id).scrollIntoView();
-        }, 100);
-      }
-    );
+  if (get(isTesting)) {
+    var column_def_update = {
+      ...column_def,
+      id: max_order + 1,
+      date_end: null,
+      date_start: null,
+      sort: "published",
+      sort_order: "desc",
+      user_id: "x"
+    };
+    get(sources).forEach(function (s) {
+      column_def_update['src_' + s.short] = true;
+    });
+
+    console.log('Anonymous column data:');
+    console.dir(column_def_update);
+    _addInquiry(column_def_update);
+  } else {
+    var url = window.location.protocol + '//api.jodal.nl/columns';
+    return fetch(
+      url, {
+        method: "POST",
+        credentials: "include",
+        body: JSON.stringify(column_def),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(
+        response => response.json()
+      ).then(
+        function (data) {
+          _addInquiry(data);
+        }
+      );
+    }
+}
+
+function _addInquiry(data) {
+  console.log('Added column succesfully!:', data);
+  //console.dir(data);
+  var inqs = get(inquiries);
+  inqs.push(data);
+  inquiries.set(inqs);
+  setTimeout(function() {
+    document.getElementById('column-' + data.id).scrollIntoView();
+  }, 100);
 }
 
 export function removeInquiry(column_id) {
