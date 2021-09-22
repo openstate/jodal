@@ -3,7 +3,7 @@
         <Row>
           <Section>
             <IconButton class="material-icons"  on:click={() => drawerOpen.update(n => !n)}>menu</IconButton>
-            <Title>Journalistiek Dashboard Lokaal - Beta</Title>
+            <Title>Journalistiek Dashboard Lokaal - {testEnv}</Title>
           </Section>
           <Section align="end" toolbar>
           <IconButton class="material-icons" aria-label="Hulp" title="Om hulp vragen" on:click={() => showHelpDialog()}>help</IconButton>
@@ -22,7 +22,7 @@
 <AddColumn/>
 <Help/>
 <script>
-  import { drawerOpen,fetchingEnabled, identity } from './stores.js';
+  import { drawerOpen,fetchingEnabled, identity, isTesting } from './stores.js';
   import AddColumn, { startAddColumn } from './AddColumn.svelte';
   import TopAppBar, {Row, Section, Title} from '@smui/top-app-bar';
   import IconButton from '@smui/icon-button';
@@ -30,6 +30,8 @@
   import FormField from '@smui/form-field';
   import Account, { showAccountDialog } from './Account.svelte';
   import Help, {showHelpDialog } from './Help.svelte';
+
+  $: testEnv = $isTesting ? 'Test' : 'Beta';
 
   let prominent = false;
   let dense = false;

@@ -1,6 +1,7 @@
 import { readable, writable, get, derived } from 'svelte/store';
 import { onMount } from "svelte";
 
+export const isTesting = readable((window.location.hostname == 'test.jodal.nl'));
 export const identity = writable(false);
 
 export const fetchingEnabled = writable(false);
