@@ -12,7 +12,9 @@
             <IconButton class="material-icons" aria-label="Account" title="Account informatie" on:click={() => showAccountDialog()}>face</IconButton>
             <IconButton class="material-icons" aria-label="Logout" href="//api.jodal.nl/users/simple/logout" title="Uitloggen">login</IconButton>
           {:else}
+            {#if !$isTesting}
             <IconButton class="material-icons" aria-label="Login" href="//api.jodal.nl/users/simple/login" title="Inloggen">account_box</IconButton>
+            {/if}
           {/if}
           </Section>
         </Row>

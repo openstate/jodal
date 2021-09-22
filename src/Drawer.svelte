@@ -15,10 +15,12 @@
               <Text>Uitloggen</Text>
             </Item>
           {:else}
-          <Item href="//api.jodal.nl/users/simple/login">
-            <Graphic class="material-icons" aria-hidden="true">account_box</Graphic>
-            <Text>Inloggen</Text>
-          </Item>
+            {#if !$isTesting}
+            <Item href="//api.jodal.nl/users/simple/login">
+              <Graphic class="material-icons" aria-hidden="true">account_box</Graphic>
+              <Text>Inloggen</Text>
+            </Item>
+            {/if}
           {/if}
           </List>
         </Content>
@@ -34,7 +36,7 @@
   import Button, {Label} from '@smui/button';
   import List, {Item, Text, Graphic, Separator, Subheader} from '@smui/list';
   import H6 from '@smui/common/H6.svelte';
-  import { drawerOpen, identity } from './stores.js';
+  import { drawerOpen, identity, isTesting } from './stores.js';
 
   let clicked = 'nothing yet';
   let myDrawer;
