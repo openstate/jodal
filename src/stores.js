@@ -90,21 +90,23 @@ function _addInquiry(data) {
 }
 
 export function removeInquiry(column_id) {
-  var url = window.location.protocol + '//api.jodal.nl/columns/' + column_id;
-  return fetch(
-    url, {
-      method: "DELETE",
-      credentials: "include",
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(
-      function (data) {
-        console.log('Deleted column ' + column_id + ' succesfully!:');
-        // var inqs = get(inquiries).filter(function (i) {return i.id != column_id;});
-        // console.log('inquiries after deletion:');
-        // console.dir(inqs);
-        // inquiries.set(inqs);
-      }
-    );
+  if (!get(isTesting)) {
+    var url = window.location.protocol + '//api.jodal.nl/columns/' + column_id;
+    return fetch(
+      url, {
+        method: "DELETE",
+        credentials: "include",
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      }).then(
+        function (data) {
+          console.log('Deleted column ' + column_id + ' succesfully!:');
+          // var inqs = get(inquiries).filter(function (i) {return i.id != column_id;});
+          // console.log('inquiries after deletion:');
+          // console.dir(inqs);
+          // inquiries.set(inqs);
+        }
+      );
+  }
 }
