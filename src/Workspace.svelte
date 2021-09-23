@@ -1,5 +1,10 @@
 <div class="workspace" id="workspace">
   <div class="columns">
+  {#if $isTesting}
+    <div class="message message-warning">
+      <span>Dit is een testomgeving! Wijzigingen zullen niet worden opgeslagen.</span>
+    </div>
+  {/if}
   {#if $identity || $isTesting}
     <Message/>
     {#if $inquiries.length <= 0}

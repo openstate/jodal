@@ -1,5 +1,5 @@
 {#if showMsg}
-<div class="message" bind:this={msg} in:fade out:fade>
+<div class="message message-info" bind:this={msg} in:fade out:fade>
 <span>{ title } <a href="{ link }" target="_blank">Meer &gt;</a></span>
 <IconButton class="material-icons close-btn" aria-label="Sluiten" on:click={() => close_msg() } title="Sluiten">close</IconButton>
 </div>
