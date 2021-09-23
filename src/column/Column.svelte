@@ -5,7 +5,7 @@ import Button from '@smui/button';
 import IconButton from '@smui/icon-button';
 import Textfield from '@smui/textfield'
 import { writable, get, derived } from 'svelte/store';
-import { sources, locations, inquiries, fetchingEnabled, removeInquiry } from '../stores.js';
+import { sources, locations, inquiries, fetchingEnabled, removeInquiry, isTesting } from '../stores.js';
 import { fetchSource } from '../sources.js';
 import Checkbox from '@smui/checkbox';
 import FormField from '@smui/form-field';
@@ -213,23 +213,28 @@ function update(obj, upd/*, …*/) {
 }
 
 function updateInquiry(updatedFields) {
-  var url = window.location.protocol + '//api.jodal.nl/columns/' + inquiry.id;
-	console.log('query change update fields:', update(inquiry, updatedFields));
-  fetch(
-    url, {
-      method: 'POST',
-      credentials: 'include',
-      cache: 'no-cache',
-      body: JSON.stringify(update(inquiry, updatedFields)),
-      headers: new Headers({'content-type': 'application/json'})
-    }).then(
-      response => response.json()
-    ).then(
-      function (data) {
-          console.log('update of column completed:');
-          //console.dir(data);
-      }
-  );
+	if (!get(isTesting)) {
+	  var url = window.location.protocol + '//api.jodal.nl/columns/' + inquiry.id;
+		console.log('query change update fields:', update(inquiry, updatedFields));
+	  fetch(
+	    url, {
+	      method: 'POST',
+	      credentials: 'include',
+	      cache: 'no-cache',
+	      body: JSON.stringify(update(inquiry, updatedFields)),
+	      headers: new Headers({'content-type': 'application/json'})
+	    }).then(
+	      response => response.json()
+	    ).then(
+	      function (data) {
+	          console.log('update of column completed:');
+	          //console.dir(data);
+	      }
+	  );
+	} else {
+		update(inquiry, updatedFields);
+	}
+
   var old_inquiries = get(inquiries).map(function (i) {
     if ((i.order == inquiry.order) && (i.user_query == inquiry.user_query)){
       return inquiry;
