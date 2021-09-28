@@ -418,4 +418,6 @@ h6 {
 	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff5f5f5', endColorstr='#ffe8e8e8', GradientType=0);
 	cursor: pointer !important;
 	margin-bottom: 5px;
+	font-size: 18px;
+	line-height: 26px;
 }
