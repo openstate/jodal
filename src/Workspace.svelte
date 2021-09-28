@@ -2,7 +2,7 @@
   <div class="columns">
   {#if $isTesting}
     <div class="message message-warning">
-      <span>Dit is een testomgeving! Wijzigingen zullen niet worden opgeslagen.</span>
+      <span>Hier kun je Jodal uitproberen! De zoekopdrachten zullen niet worden opgeslagen.</span>
     </div>
   {/if}
   {#if $identity || $isTesting}
