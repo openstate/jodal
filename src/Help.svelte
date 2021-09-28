@@ -24,8 +24,10 @@
       <span class="material-icons acc-chevron">chevron_right</span>
      </span>
      <span>
+      {#if question.video}
       <iframe src="{question.video}" width="640" height="320" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-      <p>{question.description}</p>
+      {/if}
+      <p>{ @html question.description}</p>
     </span>
     </Accordion>
     {/each}
@@ -55,7 +57,7 @@
   let questions = [
     {
       id: 1,
-      question: "Weten wat JODAL voor te gebruiken is?",
+      question: "Weten waar JODAL voor te gebruiken is?",
       video: "https://player.vimeo.com/video/606390896",
       description: "Wil je meer weten over hoe het platform en hoe JODAL jou kan helpen bij het doen van onderzoek? Bekijk deze video."
     },
@@ -100,6 +102,12 @@
       question: "Meer weten over je account en privacy",
       video: "https://player.vimeo.com/video/606391199",
       description: "Uitleg over het beheren van je account en privacy vind je in deze video."
+    },
+    {
+      id: 9,
+      question:"Ik heb een andere vraag over JODAL",
+      video: null,
+      description: "Vragen kan je altijd mailen naar <a href=\"mailto:jodal@openstate.eu\">jodal@openstate.eu</a>."
     },
   ];
   // opened Accordion
