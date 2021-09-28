@@ -1,38 +1,42 @@
 <script>
 import { onMount, onDestroy } from 'svelte';
 import { get } from 'svelte/store';
-import { identity, inquiries, locations, id2locations, fetchingEnabled } from './stores.js';
+import { identity, inquiries, locations, id2locations, fetchingEnabled, isTesting } from './stores.js';
 
 onMount(function () {
   async function fetchColumns() {
-    var url = window.location.protocol + '//api.jodal.nl/columns';
-    return fetch(
-      url, {credentials: "include", cache: 'no-cache'}).then(
-        response => response.json()
-      ).then(
-        function (data) {
-          if ((typeof(data) === 'object') && (data.length)) {
-            console.log('Got columns:');
-            //console.dir(data);
-            inquiries.set(data);
+    if (!get(isTesting)) {
+      var url = window.location.protocol + '//api.jodal.nl/columns';
+      return fetch(
+        url, {credentials: "include", cache: 'no-cache'}).then(
+          response => response.json()
+        ).then(
+          function (data) {
+            if ((typeof(data) === 'object') && (data.length)) {
+              console.log('Got columns:');
+              //console.dir(data);
+              inquiries.set(data);
+            }
           }
-        }
-      );
+        );
+    }
   }
   async function fetchIdentity() {
-    var url = window.location.protocol + '//api.jodal.nl/users/simple/me';
-    return fetch(
-      url, {credentials: "include", cache: 'no-cache'}).then(
-        response => response.json()
-      ).then(
-        function (data) {
-          if (data) {
-            console.log('Got identity:');
-            //console.dir(data);
-            identity.set(data);
+    if (!get(isTesting)) {
+      var url = window.location.protocol + '//api.jodal.nl/users/simple/me';
+      return fetch(
+        url, {credentials: "include", cache: 'no-cache'}).then(
+          response => response.json()
+        ).then(
+          function (data) {
+            if (data) {
+              console.log('Got identity:');
+              //console.dir(data);
+              identity.set(data);
+            }
           }
-        }
-      );
+        );
+    }
   };
   async function fetchLocations() {
     return fetch(window.location.protocol + '//api.jodal.nl/locations/search?limit=500&sort=name.keyword:asc')
