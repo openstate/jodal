@@ -6,7 +6,6 @@
 >
   <Title id="default-focus-title">Account</Title>
   <Content id="default-focus-content">
-    <p><strong>Naam:</strong> {$identity.given_name} {$identity.family_name}</p>
     <p><strong>Email:</strong> {$identity.email}</p>
     <Button
       variant="unelevated"
