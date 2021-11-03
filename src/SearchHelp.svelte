@@ -20,7 +20,7 @@
       <td>het woord "vvd" of "windmolens" bevatten</td>
     </tr>
     <tr>
-      <td>vvd + windmolens</td>
+      <td>vvd +windmolens</td>
       <td>zowel het woord "vvd" en "windmolens" bevatten</td>
     </tr>
     <tr>
