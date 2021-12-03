@@ -71,7 +71,7 @@ class Converter(object):
 
     def convert_for_txt(self, contents, source):
         output = ""
-        for i in self._clean_contents(contents):
+        for i in self._clean_contents(contents, source):
             output += """
             %s
 
