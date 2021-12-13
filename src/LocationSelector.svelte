@@ -1,6 +1,9 @@
 <div class="multi-select-input">
    <Select items={$selectable_locations} isMulti={true} bind:selectedValue={selectedLocations} placeholder="Selecteer gemeente(s) ..."></Select>
    <HelperText>Lokatie</HelperText>
+   {#if selectedLocations}
+   <p class="locations-select-byline">Er zijn {selectedLocations.length} lokaties geselecteerd</p>
+   {/if}
    <Button align="begin" variant="outlined" on:click={() => selectAllLocations()}><Label>Alle lokaties</Label></Button>
    <Button align="end" variant="outlined" on:click={() => clearLocations()}><Label>Leeg maken</Label></Button>
 </div>

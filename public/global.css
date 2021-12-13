@@ -297,9 +297,13 @@ h6 {
 	color: #2E1E3D;
 }
 
-.entry-byline {
+.entry-byline, .locations-select-byline {
 	font-size: 13px;
 	line-height: 15px;
+}
+
+.locations-select-byline {
+	margin-top: 0;
 }
 
 .entry-byline ul {
