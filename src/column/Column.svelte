@@ -53,6 +53,7 @@ let startDateFormattedValue = '';
 let endDateValue = inquiry.date_start ? new Date(Date.parse(inquiry.date_end)) : '';
 let endDateFormattedValue = '';
 let columnName = inquiry.name;
+let itemsLeft = true;
 
 const startDateOptions = {
 	enableTime: false,
@@ -328,15 +329,18 @@ function fetchFromSources(page, stable_param) {
     });
 
     var new_source_counts = {};
+		var total_count = 0;
     $sources.forEach(function (s) {
       new_source_counts[s.short] = 0;
     });
     original_response.aggregations.source.buckets.forEach(function (b) {
       new_source_counts[b.key] = b.doc_count;
+			total_count += b.doc_count;
     });
     console.log('new counts:');
     console.dir(new_source_counts);
 
+		itemsLeft = (real_items.length < total_count);
     items_.set(real_items);
     source_counts.set(new_source_counts);
     loading = false;
@@ -506,7 +510,7 @@ onDestroy(function () {
   {#each $items as entry}
   	<Entry {...entry} column={column_id} entry={entry} />
   {/each}
-  {#if !loading && ($items.length > 0)}
+  {#if !loading && itemsLeft}
   <div id="more-page-link" class="entry entry-paging">
     <Button variant="outlined" on:click={() => doNextPage()}><Label>Meer resultaten</Label></Button>
   </div>
