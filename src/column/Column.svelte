@@ -52,6 +52,7 @@ let startDateValue = inquiry.date_start ? new Date(Date.parse(inquiry.date_start
 let startDateFormattedValue = '';
 let endDateValue = inquiry.date_start ? new Date(Date.parse(inquiry.date_end)) : '';
 let endDateFormattedValue = '';
+let columnName = inquiry.name;
 
 const startDateOptions = {
 	enableTime: false,
@@ -273,6 +274,7 @@ function handleQueryChange(e){
 		var selected = $locations.filter(l => selected_ids.indexOf(l.id) >= 0);
 		console.log('query change selected', selected);
     var updInquiry = {
+			name: columnName,
       user_query: query,
       sort: orderField,
       sort_order: orderWay,
@@ -416,11 +418,17 @@ onDestroy(function () {
   </div>
   {#if show_settings}
   <div class="column-settings" class:active={show_settings} transition:slide="{{ duration: 500 }}">
+		<div>
+			<Textfield bind:value={columnName} on:change={handleQueryChange} label="Naam" />
+		</div>
+
     <div>
-    <Textfield bind:value={query} on:change={handleQueryChange} label="Zoekopdracht" />
-    <IconButton align="end" class="material-icons" aria-label="Hulp bij een zoekopdracht maken" alt="Hulp bij een zoekopdracht maken" on:click={() => showSearchHelpDialog()}>info</IconButton>
+	    <Textfield bind:value={query} on:change={handleQueryChange} label="Zoekopdracht" />
+	    <IconButton align="end" class="material-icons" aria-label="Hulp bij een zoekopdracht maken" alt="Hulp bij een zoekopdracht maken" on:click={() => showSearchHelpDialog()}>info</IconButton>
     </div>
+
 		<LocationSelector bind:selectedLocations />
+
     <div>
     <Select bind:value={orderField} label="Sorteren op">
       <Option value="published" selected={orderField == 'published'}>Datum</Option>
@@ -431,6 +439,7 @@ onDestroy(function () {
       <Option value="asc" selected={orderWay == "asc"}>Oplopend</Option>
     </Select>
     </div>
+
     <div>
       <Flatpickr options={startDateOptions} bind:value={startDateValue} bind:formattedValue={startDateFormattedValue} on:change={handleStartDateChange} name="start_date" element="#start-picker-{column_id}">
         <div class="flatpickr" id="start-picker-{column_id}">
