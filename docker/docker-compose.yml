@@ -98,7 +98,7 @@ services:
       - cluster.name=ras-cluster
       - xpack.security.enabled=false
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m -Dlog4j2.formatMsgNoLookups=true"
       - xpack.monitoring.enabled=false
     ulimits:
       memlock:
