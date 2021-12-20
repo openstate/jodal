@@ -21,6 +21,103 @@ from jodal.scrapers import (
 def _encode_uri_component(s):
      return quote(s, safe='~()*!.\'')
 
+class CountsScraper(MemoryMixin, BaseWebScraper):
+    url = 'https://api.openraadsinformatie.nl/v1/elastic/_search'
+    date_field = 'start_date'
+    payload = {
+        "aggs": {
+          "organizations": {
+            "terms": {
+              "field": "has_organization_name.keyword",
+              "size": 10000
+            }
+          }
+        },
+        "query": {
+          "bool": {
+            "must": [
+              {
+                "simple_query_string": {
+                    "query": "*",
+                    "fields": ["name", "description", "text"]
+                }
+              }
+            ],
+            "filter": [
+              # {"terms": {"has_organization_name": ids_only}},
+              #{"terms": {"@type.keyword": types}},
+              #{"range": {"start_date": {"lte": "now"}}}
+            ]
+          }
+        },
+        "highlight": {
+          "fields": {
+            "name": {},
+            "description": {},
+            "text": {}
+          }
+        },
+        "_source": {
+          "includes": [
+            "*"
+          ],
+          "excludes": []
+        },
+        "from":0,
+        "size":0,
+        "sort": {
+            "start_date": {
+                "order": "desc"
+            }
+        }
+    }
+    headers = {
+        'Content-type': 'application/json'
+    }
+
+    def __init__(self, *args, **kwargs):
+        super(CountsScraper, self).__init__(*args, **kwargs)
+        self.config = kwargs['config']
+        self.date_from = kwargs['date_from']
+        self.date_to = kwargs['date_to']
+
+        self.payload['query']['bool']['filter'] = []
+        self.organizations = kwargs.get('organizations', None)
+        if self.organizations is not None:
+            ids_only = self.organizations.split(',')
+            self.payload['query']['bool']['filter'].append(
+                {"terms": {"has_organization_name": ids_only}})
+
+        self.payload['from'] = 0
+        self.payload['query']['bool']['filter'].append(
+              {
+                "range": {
+                    self.date_field: {
+                        'from': str(self.date_from),
+                        'to': str(self.date_to)
+                    }
+                }
+            })
+        logging.info('Scraper: fetch from %s dates %s to %s' % (
+            self.organizations, self.date_from, self.date_to,))
+
+    def transform(self, item):
+        print(item)
+        result = []
+
+    def fetch(self):
+        # if self.locations is None:
+        #     self.locations = self._get_locations()
+        # sleep(1)
+        result = super(CountsScraper, self).fetch()
+        print(result)
+        if result is not None:
+            return result.get('aggregations', {}).get('organizations', {}).get('buckets', [])
+        else:
+            return []
+
+
+
 class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
     name = 'openbesluitvorming'
     url = 'https://api.openraadsinformatie.nl/v1/elastic/_search'
@@ -238,6 +335,26 @@ class OpenbesluitvormingScraperRunner(object):
 class OpenbesluitvormingDocumentScraperRunner(object):
     scrapers = [
         DocumentScraper
+    ]
+
+
+    def run(self, *args, **kwargs):
+        items = []
+        for scraper in self.scrapers:
+            k = scraper(**kwargs)
+            try:
+                k.items = []
+                k.run()
+                items += k.items
+            except Exception as e:
+                logging.error(e)
+                raise e
+        logging.info('Fetching resulted in %s items ...' % (len(items)))
+        return items
+
+class OpenbesluitvormingCountsScraperRunner(object):
+    scrapers = [
+        CountsScraper
     ]
 
 

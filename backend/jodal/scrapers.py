@@ -66,9 +66,10 @@ class BaseScraper(object):
         self.setup()
         result = self.fetch()
         # logging.info("Fetched %s items ..." % (len(result),))
-        for i in result:
-            t = self.transform(i)
-            self.load(t)
+        if result is not None:
+            for i in result:
+                t = self.transform(i)
+                self.load(t)
         self.teardown()
 
     def run(self):

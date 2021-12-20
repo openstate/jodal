@@ -26,7 +26,8 @@ from jodal.openspending import (
     OpenSpendingScraperRunner, OpenSpendingDocumentScraperRunner,
     OpenSpendingCacheScraperRunner)
 from jodal.poliflw import PoliflwScraperRunner
-from jodal.obv import OpenbesluitvormingScraperRunner
+from jodal.obv import (OpenbesluitvormingScraperRunner,
+    OpenbesluitvormingCountsScraperRunner)
 
 logging.basicConfig(
     format='%(asctime)s.%(msecs)s:%(name)s:%(thread)d:%(levelname)s:%(process)d:%(message)s',
@@ -184,6 +185,31 @@ def scrapers_obv(date_from, date_to, scroll, organizations):
     OpenbesluitvormingScraperRunner().run(**kwargs)
 
 
+@command('obv-counts')
+@click.option('-f', '--date-from', default=(datetime.now() - timedelta(days=30)))
+@click.option('-t', '--date-to', default=datetime.now())
+@click.option('-s', '--scroll', default=None)
+@click.option('-o', '--organizations', default=None)
+def scrapers_obv_counts(date_from, date_to, scroll, organizations):
+    config = load_config()
+    es = setup_elasticsearch(config)
+    try:
+        df = date_from.isoformat()
+    except AttributeError as e:
+        df = str(date_from)
+    try:
+        dt = date_to.isoformat()
+    except AttributeError as e:
+        dt = str(date_to)
+    kwargs = {
+        'config': config,
+        'date_from': df,
+        'date_to': dt,
+        'scroll': scroll,
+        'organizations': organizations
+    }
+    OpenbesluitvormingCountsScraperRunner().run(**kwargs)
+
 @command('put_templates')
 @click.option('--template_dir', default='./mappings/', help='Path to JSON file containing the template.')
 def es_put_template(template_dir):
@@ -221,6 +247,7 @@ scrapers.add_command(scrapers_openspendingdoc)
 scrapers.add_command(scrapers_openspendingcache)
 scrapers.add_command(scrapers_poliflw)
 scrapers.add_command(scrapers_obv)
+scrapers.add_command(scrapers_obv_counts)
 
 if __name__ == '__main__':
     cli()
