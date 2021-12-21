@@ -188,9 +188,9 @@ def scrapers_obv(date_from, date_to, scroll, organizations):
 @command('obv-counts')
 @click.option('-f', '--date-from', default=(datetime.now() - timedelta(days=30)))
 @click.option('-t', '--date-to', default=datetime.now())
-@click.option('-s', '--scroll', default=None)
+@click.option('-T', '--threshold', default=1000)
 @click.option('-o', '--organizations', default=None)
-def scrapers_obv_counts(date_from, date_to, scroll, organizations):
+def scrapers_obv_counts(date_from, date_to, threshold, organizations):
     config = load_config()
     es = setup_elasticsearch(config)
     try:
@@ -205,7 +205,7 @@ def scrapers_obv_counts(date_from, date_to, scroll, organizations):
         'config': config,
         'date_from': df,
         'date_to': dt,
-        'scroll': scroll,
+        'threshold': threshold,
         'organizations': organizations
     }
     OpenbesluitvormingCountsScraperRunner().run(**kwargs)

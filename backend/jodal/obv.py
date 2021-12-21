@@ -22,8 +22,8 @@ def _encode_uri_component(s):
      return quote(s, safe='~()*!.\'')
 
 class CountsScraper(MemoryMixin, BaseWebScraper):
-    url = 'https://api.openraadsinformatie.nl/v1/elastic/_search'
-    date_field = 'start_date'
+    url = 'https://api.openraadsinformatie.nl/v1/elastic/ori_*/_search'
+    date_field = 'was_generated_by.ended_at_time'
     payload = {
         "aggs": {
           "organizations": {
@@ -80,6 +80,7 @@ class CountsScraper(MemoryMixin, BaseWebScraper):
         self.config = kwargs['config']
         self.date_from = kwargs['date_from']
         self.date_to = kwargs['date_to']
+        self.threshold = kwargs['threshold']
 
         self.payload['query']['bool']['filter'] = []
         self.organizations = kwargs.get('organizations', None)
@@ -110,9 +111,9 @@ class CountsScraper(MemoryMixin, BaseWebScraper):
         #     self.locations = self._get_locations()
         # sleep(1)
         result = super(CountsScraper, self).fetch()
-        print(result)
+        # print(result)
         if result is not None:
-            return result.get('aggregations', {}).get('organizations', {}).get('buckets', [])
+            return [x for x in result.get('aggregations', {}).get('organizations', {}).get('buckets', []) if x.get('doc_count', 0) > self.threshold]
         else:
             return []
 
