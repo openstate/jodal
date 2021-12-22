@@ -3,7 +3,7 @@ import logging
 import csv
 import os.path
 import re
-from pprint import pformat
+from pprint import pformat, pprint
 import hashlib
 from copy import deepcopy
 from urllib.parse import urljoin, quote
@@ -24,12 +24,22 @@ def _encode_uri_component(s):
 class CountsScraper(MemoryMixin, BaseWebScraper):
     url = 'https://api.openraadsinformatie.nl/v1/elastic/ori_*/_search'
     date_field = 'was_generated_by.ended_at_time'
+    types = ["AgendaItem", "Meeting"]
+
     payload = {
         "aggs": {
           "organizations": {
             "terms": {
               "field": "has_organization_name.keyword",
               "size": 10000
+            },
+            "aggs": {
+                "date": {
+                    "date_histogram": {
+                        "field": "start_date",
+                        "interval": "month"
+                    }
+                }
             }
           }
         },
@@ -91,6 +101,8 @@ class CountsScraper(MemoryMixin, BaseWebScraper):
 
         self.payload['from'] = 0
         self.payload['query']['bool']['filter'].append(
+              {"terms": {"@type.keyword": self.types}})
+        self.payload['query']['bool']['filter'].append(
               {
                 "range": {
                     self.date_field: {
@@ -99,11 +111,19 @@ class CountsScraper(MemoryMixin, BaseWebScraper):
                     }
                 }
             })
+        # self.payload['query']['bool']['filter'].append(
+        #       {
+        #         "range": {
+        #             "start_date": {
+        #                 'to': str(self.date_from)
+        #             }
+        #         }
+        #     })
         logging.info('Scraper: fetch from %s dates %s to %s' % (
             self.organizations, self.date_from, self.date_to,))
 
     def transform(self, item):
-        print(item)
+        pprint(item)
         result = []
 
     def fetch(self):
@@ -111,9 +131,9 @@ class CountsScraper(MemoryMixin, BaseWebScraper):
         #     self.locations = self._get_locations()
         # sleep(1)
         result = super(CountsScraper, self).fetch()
-        # print(result)
+        #print(result)
         if result is not None:
-            return [x for x in result.get('aggregations', {}).get('organizations', {}).get('buckets', []) if x.get('doc_count', 0) > self.threshold]
+            return [x for x in result.get('aggregations', {}).get('organizations', {}).get('buckets', []) if (x.get('doc_count', 0) > self.threshold) and (len(x['date']['buckets']) > 1)]
         else:
             return []
 

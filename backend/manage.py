@@ -186,7 +186,7 @@ def scrapers_obv(date_from, date_to, scroll, organizations):
 
 
 @command('obv-counts')
-@click.option('-f', '--date-from', default=(datetime.now() - timedelta(days=30)))
+@click.option('-f', '--date-from', default=(datetime.now() - timedelta(days=1)))
 @click.option('-t', '--date-to', default=datetime.now())
 @click.option('-T', '--threshold', default=1000)
 @click.option('-o', '--organizations', default=None)
