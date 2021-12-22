@@ -123,8 +123,8 @@ class CountsScraper(MemoryMixin, BaseWebScraper):
             self.organizations, self.date_from, self.date_to,))
 
     def transform(self, item):
-        pprint(item)
-        result = []
+        #pprint(item)
+        return item['key']
 
     def fetch(self):
         # if self.locations is None:
@@ -390,6 +390,6 @@ class OpenbesluitvormingCountsScraperRunner(object):
             except Exception as e:
                 logging.error(e)
                 raise e
-        print(items)
+        print("\n".join(items))
         logging.info('Fetching resulted in %s items ...' % (len(items)))
         return items
