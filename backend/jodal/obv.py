@@ -390,5 +390,6 @@ class OpenbesluitvormingCountsScraperRunner(object):
             except Exception as e:
                 logging.error(e)
                 raise e
+        print(items)
         logging.info('Fetching resulted in %s items ...' % (len(items)))
         return items
