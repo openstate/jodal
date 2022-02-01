@@ -1,0 +1,57 @@
+# Scraper for the OCCRP web site.
+# The goal is not to download all HTML, but only PDFs & other documents
+# linked from the page as proof.
+name: decentrale_regelgeving
+
+# A title for display in the UI:
+description: "Decentrale Regelgeving"
+
+pipeline:
+  init:
+    # This first stage will get the ball rolling with a seed URL.
+    method: seed
+    params:
+      urls:
+        - https://lokaleregelgeving.overheid.nl/ZoekResultaat
+    handle:
+      pass: fetch
+
+  fetch:
+    # Download the seed page
+    method: fetch
+    params:
+      # These rules specify which pages should be scraped or included:
+      rules:
+        and:
+          - domain: lokaleregelgeving.overheid.nl
+          - or:
+            #- pattern: "https://lokaleregelgeving.overheid.nl/(CVDR|ZoekResultaat).*"
+            - pattern: "https://lokaleregelgeving.overheid.nl/CVDR\\d+/\\d+$"
+            - pattern: "https://lokaleregelgeving.overheid.nl/ZoekResultaat$"
+    handle:
+      pass: parse
+
+  parse:
+    # Parse the scraped pages to find if they contain additional links.
+    method: parse
+    params:
+      schema: Article
+      store:
+        and:
+          - mime_group: web
+      properties:
+        title: .//title/text()
+        author: Overheid
+        publishedAt: /html/body/div[4]/div[2]/div[2]/div/div/div[1]/div[1]/p/span/i/text()
+        description: .//section[@property="section-chapter"]/text()
+    handle:
+      store: store
+      # this makes it a recursive web crawler:
+      fetch: fetch
+
+  store:
+    # Store the crawled documents to a directory
+    # method: aleph_emit
+    method: directory
+    params:
+      path: /data/results

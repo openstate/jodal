@@ -1,0 +1,47 @@
+# Scraper for the OCCRP web site.
+# The goal is not to download all HTML, but only PDFs & other documents
+# linked from the page as proof.
+name: decentrale_regelgeving_xml
+
+# A title for display in the UI:
+description: "Decentrale Regelgeving XML"
+
+pipeline:
+  init:
+    # This first stage will get the ball rolling with a seed URL.
+    method: seed
+    params:
+      urls:
+        - https://zoekdienst.overheid.nl/sru/Search?version=1.2&operation=searchRetrieve&x-connection=cvdr&startRecord=1&maximumRecords=10&query=keyword=""
+    handle:
+      pass: fetch
+  fetch:
+    # Download the seed page
+    method: fetch
+    handle:
+      pass: crawl
+  crawl:
+    # Crawl the HTML of the page passed in to extract specific things.
+    method: decentrale_regelgeving.xml:crawl
+    handle:
+      # If the 'fetch' rule is invoked, re-trigger the fetch stage
+      fetch: fetch
+      # If the 'cleanup' rule is invoked, delete the downloaded page from archive
+      cleanup: cleanup
+      # Otherwise, pass data on to the store stage
+      pass: detail_fetch
+  detail_fetch:
+    # method fetch means making a http request for the urk
+    method: fetch
+    handle:
+      pass: detail_parse
+  detail_parse:
+    # this parses the text
+    method: decentrale_regelgeving.xml:detail_parse
+    handle:
+      pass: store
+  store:
+    # Store the crawled document as an ftm entity
+    method: aleph_emit_entity
+  cleanup:
+    method: cleanup_archive
