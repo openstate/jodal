@@ -53,7 +53,7 @@ def crawl(context, data):
             'modified_at': record.find(_prefix_tag('dcterms', 'modified', './/')).text,
             'published_at': record.find(_prefix_tag('dcterms', 'issued', './/')).text,
             'request_id': record.find(_prefix_tag('dcterms', 'identifier', './/')).text,
-            'mime_type': 'application/xhtml'
+            'mime_type': 'text/html'
             # "author": quote.find('.//small[@class="author"]').text_content(),
             # "tags": ", ".join(
             #     [tag.text_content() for tag in quote.findall('.//a[@class="tag"]')]
