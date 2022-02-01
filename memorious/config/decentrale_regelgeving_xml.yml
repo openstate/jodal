@@ -42,6 +42,7 @@ pipeline:
       pass: store
   store:
     # Store the crawled document as an ftm entity
-    method: aleph_emit_entity
+    # method: aleph_emit_entity
+    method: aleph_emit_document
   cleanup:
     method: cleanup_archive

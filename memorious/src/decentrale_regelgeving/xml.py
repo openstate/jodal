@@ -72,7 +72,7 @@ def detail_parse(context, data):
         page = response.html
         context.log.info('Getting text content of : %s', url)
         text_content = u''.join(page.xpath('.//text()'))
-        data['description'] = text_content
+        data['description'] = re.sub('\s+', ' ', text_content)
         context.log.info(data)
         context.emit(data=data)
 
