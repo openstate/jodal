@@ -45,7 +45,7 @@ def crawl(context, data):
         record_data = {
             #"content_hash":
             "title": record.find(_prefix_tag('dcterms', 'title', './/')).text,
-            "creator": '%s %s' % (
+            "author": '%s %s' % (
                 record.find(_prefix_tag('sru', 'organisatietype', './/')).text,
                 record.find(_prefix_tag('dcterms', 'creator', './/')).text,),
             "url": record.find(_prefix_tag('sru', 'publicatieurl_xhtml', './/')).text,

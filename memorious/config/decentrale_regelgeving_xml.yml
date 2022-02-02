@@ -30,6 +30,7 @@ pipeline:
       cleanup: cleanup
       # Otherwise, pass data on to the store stage
       pass: detail_fetch
+      # pass: store
   detail_fetch:
     # method fetch means making a http request for the urk
     method: fetch
