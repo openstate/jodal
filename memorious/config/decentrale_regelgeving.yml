@@ -12,43 +12,22 @@ pipeline:
     method: seed
     params:
       urls:
-        - https://lokaleregelgeving.overheid.nl/ZoekResultaat
+        - https://zoekdienst.overheid.nl/sru/Search?version=1.2&operation=searchRetrieve&x-connection=cvdr&startRecord=1&maximumRecords=10&query=keyword=""
     handle:
       pass: fetch
-
   fetch:
     # Download the seed page
     method: fetch
-    params:
-      # These rules specify which pages should be scraped or included:
-      rules:
-        and:
-          - domain: lokaleregelgeving.overheid.nl
-          - or:
-            #- pattern: "https://lokaleregelgeving.overheid.nl/(CVDR|ZoekResultaat).*"
-            - pattern: "https://lokaleregelgeving.overheid.nl/CVDR\\d+/\\d+$"
-            - pattern: "https://lokaleregelgeving.overheid.nl/ZoekResultaat$"
     handle:
-      pass: parse
-
-  parse:
-    # Parse the scraped pages to find if they contain additional links.
-    method: parse
-    params:
-      schema: Article
-      store:
-        and:
-          - mime_group: web
-      properties:
-        title: .//title/text()
-        author: Overheid
-        publishedAt: /html/body/div[4]/div[2]/div[2]/div/div/div[1]/div[1]/p/span/i/text()
-        description: .//section[@property="section-chapter"]/text()
+      pass: crawl
+  crawl:
+    # Crawl the HTML of the page passed in to extract specific things.
+    method: decentrale_regelgeving.xml:crawl_simple
     handle:
-      store: store
-      # this makes it a recursive web crawler:
+      # If the 'fetch' rule is invoked, re-trigger the fetch stage
       fetch: fetch
-
+      # Otherwise, pass data on to the store stage
+      pass: store
   store:
     # Store the crawled documents to a directory
     # method: aleph_emit
