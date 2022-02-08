@@ -9,7 +9,8 @@ def _prefix_tag(ns, tag, start='./'):
         'dcterms': 'http://purl.org/dc/terms/',
         'srw': 'http://www.loc.gov/zing/srw/',
         'overheidproduct': 'http://standaarden.overheid.nl/product/terms/',
-        'sru': 'http://standaarden.overheid.nl/sru'
+        'sru': 'http://standaarden.overheid.nl/sru',
+        'overheidrg': 'http://standaarden.overheid.nl/cvdr/terms/'
     }
     if ns in prefixes:
         return '%s{%s}%s' % (start, prefixes[ns], tag)
@@ -56,7 +57,9 @@ def crawl_simple(context, data):
             'mime_type': 'text/html',
             'countries': ["nl"],
             'languages': ["nl"],
-            'keywords': [r.text for r in record.findall(_prefix_tag('dcterms', 'subject', './/'))]
+            'keywords': [r.text for r in record.findall(_prefix_tag('dcterms', 'subject', './/'))],
+            'start_date': record.find(_prefix_tag('overheidrg', 'inwerkingtredingDatum', './/')).text,
+            'end_date': record.find(_prefix_tag('overheidrg', 'uitwerkingtredingDatum', './/')).text,
             # "author": quote.find('.//small[@class="author"]').text_content(),
             # "tags": ", ".join(
             #     [tag.text_content() for tag in quote.findall('.//a[@class="tag"]')]
