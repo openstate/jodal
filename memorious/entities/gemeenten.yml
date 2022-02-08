@@ -1,0 +1,11 @@
+gemeenten:
+  queries:
+  - csv_url: http://bit.ly/uk-mps-csv
+    entities:
+      gemeente:
+        schema: PublicBody
+        keys:
+        - GemeentecodeGM
+        properties:
+          name:
+            column: Gemeentenaam

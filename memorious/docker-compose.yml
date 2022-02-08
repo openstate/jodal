@@ -25,5 +25,6 @@ services:
       - "./build/data:/data"
       - "./config:/crawlers/config"
       - "./src:/crawlers/src"
+      - "./entities:/crawlers/entities"
     tmpfs:
       - "/tmp"
