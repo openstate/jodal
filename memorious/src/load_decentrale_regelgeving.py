@@ -22,9 +22,12 @@ data_path = '/data/results/%s' % (foreign_id)
 collection = api.load_collection_by_foreign_id(foreign_id)
 collection_id = collection.get('id')
 
-entities = api.stream_entities(collection, schema='PublicBody')
-for e in entities:
-    print(e)
+gemeenten = {}
+
+for i in api.stream_entities(collection, schema='PublicBody'):
+    print(i)
+    for n in i['properties']['name']:
+        gemeenten[n] = i
 
 for f in glob('%s/*.json' % (data_path,)):
     # print(f)
@@ -43,6 +46,9 @@ for f in glob('%s/*.json' % (data_path,)):
     result = api.ingest_upload(collection_id, Path(html_file), metadata)
     document_id = result.get('id')
     print(document_id)
+    cleaned_name = meta['author'].replace('Gemeente ', '')
+    if cleaned_name in gemeenten:
+        print(gemeenten[cleaned_name])
     # file_path = 'www.personadeinteres.org/uploads/example.pdf'
     # metadata = {'file_name': 'example.pdf'}
     # # Upload the document:
