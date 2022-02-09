@@ -66,8 +66,9 @@ for f in glob('%s/*.json' % (data_path,)):
     metadata = {
         'file_name': '%s.html' % (meta['id'],)
     }
+    meta.update(metadata)
     print(html_file)
-    result = api.ingest_upload(collection_id, Path(html_file), metadata)
+    result = api.ingest_upload(collection_id, Path(html_file), meta)
     document_id = result.get('id')
     print(document_id)
     cleaned_name = meta['author'].replace('Gemeente ', '')
