@@ -9,17 +9,6 @@ description: "Decentrale Regelgeving"
 pipeline:
   # This first stage will get the ball rolling with a seed URL.
   init:
-    method: seed
-    params:
-      urls:
-        - https://zoekdienst.overheid.nl/sru/Search?version=1.2&operation=searchRetrieve&x-connection=cvdr&startRecord=1&maximumRecords=10&query=keyword=""
-    handle:
-      pass: fetch_first
-  fetch_first:
-    method: fetch
-    handle:
-      pass: crawl_first
-  crawl_first:
     method: decentrale_regelgeving.xml:crawl_first
     handle:
       pass: fetch

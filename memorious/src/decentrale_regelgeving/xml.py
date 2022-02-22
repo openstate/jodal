@@ -1,4 +1,5 @@
 import re
+import datetime
 
 from urllib.parse import urljoin
 import datafreeze
@@ -18,16 +19,11 @@ def _prefix_tag(ns, tag, start='./'):
         return '%s%s' % (start, tag)
 
 def crawl_first(context, data):
-    # This stage comes after 'fetch' so the 'data' input contains an
-    # HTTPResponse object.
-    response = context.http.rehash(data)
-    url = response.url
-    page = response.xml
-    total_elem = int(page.find(_prefix_tag('srw', 'numberOfRecords')).text)
+    # https://zoekdienst.overheid.nl/sru/Search?version=1.2&operation=searchRetrieve&x-connection=cvdr&startRecord=1&maximumRecords=10&que|lessdified
     url = (
         'https://zoekdienst.overheid.nl/sru/Search?version=1.2&operation='
-        'searchRetrieve&x-connection=cvdr&startRecord=%s&maximumRecords=10&'
-        'query=keyword=""') % (total_elem - 10,)
+        'searchRetrieve&x-connection=cvdr&startRecord=1&maximumRecords=10&'
+        'query=modified>=%s') % (datetime.datetime.now().date().isoformat(),)
     context.emit(data={"url": url})
 
 def crawl_simple(context, data):
