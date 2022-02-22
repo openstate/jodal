@@ -17,6 +17,19 @@ def _prefix_tag(ns, tag, start='./'):
     else:
         return '%s%s' % (start, tag)
 
+def crawl_first(context, data):
+    # This stage comes after 'fetch' so the 'data' input contains an
+    # HTTPResponse object.
+    response = context.http.rehash(data)
+    url = response.url
+    page = response.xml
+    total_elem = int(page.find(_prefix_tag('srw', 'numberOfRecords')).text)
+    url = (
+        'https://zoekdienst.overheid.nl/sru/Search?version=1.2&operation='
+        'searchRetrieve&x-connection=cvdr&startRecord=%s&maximumRecords=10&'
+        'query=keyword=""') % (total_elem - 10,)
+    context.emit(data={"url": url})
+
 def crawl_simple(context, data):
     # This stage comes after 'fetch' so the 'data' input contains an
     # HTTPResponse object.
