@@ -23,6 +23,8 @@ pipeline:
   crawl:
     # Crawl the HTML of the page passed in to extract specific things.
     method: decentrale_regelgeving.xml:crawl_simple
+    params:
+      paging: true
     handle:
       # If the 'fetch' rule is invoked, re-trigger the fetch stage
       fetch: fetch

@@ -34,19 +34,22 @@ def crawl_simple(context, data):
     page = response.xml
     total_elem = page.find(_prefix_tag('srw', 'numberOfRecords'))
 
-    context.log.info(total_elem)
-    if total_elem is not None:
-        total_count = int(total_elem.text)
-        matches = re.search('&startRecord=(\d+)', url)
-        if matches is not None:
-            current_count = int(matches.group(1))
-            # if (current_count + 10) < total_count:
-            if (current_count + 10) < 30:  # total_count:
+    paging = context.params.get("paging")
+    if not paging:
+        context.log.info("Paging disabled")
+    else:
+        next_page = page.find(_prefix_tag('srw', 'nextRecordPosition'))
+        if next_page is not None:
+            next_count = int(next_page.text)
+            matches = re.search('&startRecord=(\d+)', url)
+            if matches is not None:
+                current_count = int(matches.group(1))
                 next_url = url.replace(
                     '&startRecord='+str(current_count),
-                    '&startRecord='+str(current_count+10))
+                    '&startRecord='+str(next_count))
                 context.log.info('Yielding url: %s', next_url)
                 context.emit(rule="fetch", data={"url": next_url})
+
     # Parse the rest of the page to extract structured data.
     context.log.info('Finding records: %s', _prefix_tag('srw', 'record', './/'))
     for record in page.findall(_prefix_tag('srw', 'record', './/')):
