@@ -5,6 +5,7 @@ name: decentrale_regelgeving
 
 # A title for display in the UI:
 description: "Decentrale Regelgeving"
+#delay: 2
 
 pipeline:
   init:
@@ -18,6 +19,8 @@ pipeline:
   fetch:
     # Download the seed page
     method: fetch
+    params:
+      http_rate_limit: 60
     handle:
       pass: crawl
   crawl:
