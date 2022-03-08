@@ -21,7 +21,7 @@ def load_meta(f):
         result = json.load(in_file)
     return result
 
-def create_link(doc_id, muni_id, start_date=None, end_date=None):
+def create_link(document_id, muni_id, start_date=None, end_date=None):
     # Create the link entity proxy:
     link_proxy = model.make_entity('UnknownLink')
 
@@ -49,7 +49,7 @@ def chunks(iterable, size=10):
 def main(argv):
     parser = argparse.ArgumentParser(description='Load data into Aleph')
     parser.add_argument('-f', '--foreign-id', default='decentrale_regelgeving', help='foreign id for Aleph')
-    parser.add_argument('-d', '--data-path', default='decentrale_regelgeving_recent', help='Path to the data files')
+    parser.add_argument('-d', '--data-path', default='decentrale_regelgeving', help='Path to the data files')
     parser.add_argument('-b', '--batch-size', default=1, type=int, help='Batch size for uploading to Aleph')
     parsed_args = parser.parse_args(argv[1:])
 
@@ -67,17 +67,14 @@ def main(argv):
     gemeenten = {}
 
     for i in api.stream_entities(collection, schema='PublicBody'):
-        print(i)
         for n in i['properties']['name']:
             gemeenten[n] = i
 
     document_links = []
     for f in glob('%s/*.json' % (data_path,)):
-        # print(f)
+        print(f)
         root, ext = splitext(f)
-        print(root, ext)
         meta = load_meta(f)
-        print(meta)
         if 'id' not in meta.keys():
             print("No id for crawled result, continuing")
             continue
@@ -86,13 +83,10 @@ def main(argv):
             'file_name': '%s.html' % (meta['id'],)
         }
         meta.update(metadata)
-        print(html_file)
         result = api.ingest_upload(collection_id, Path(html_file), meta)
         document_id = result.get('id')
-        print(document_id)
         cleaned_name = meta['author'].replace('Gemeente ', '')
         if cleaned_name in gemeenten:
-            print(gemeenten[cleaned_name])
             municipality_id = gemeenten[cleaned_name].get('id')
             if municipality_id is not None:
                 document_links.append(
@@ -108,11 +102,14 @@ def main(argv):
         # document_id = result.get('id')
     if len(document_links) > 0:
         # Turn the two proxies into JSON form:
+        batch_count = 0
         for chunk in chunks(document_links, parsed_args.batch_size):
             entities = [l.to_dict() for l in chunk]
             # You can also feed an iterator to write_entities if you
             # want to upload a very large
             api.write_entities(collection_id, entities)
+            batch_count += 1
+            print("Uploaded %s batches to Aleph" % (batch_count,))
 
     return 0
 
