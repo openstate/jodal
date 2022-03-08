@@ -1,7 +1,12 @@
+#!/usr/bin/env python3
+
+import sys
+import argparse
 from glob import glob
 from os.path import basename, splitext
 import json
 from pathlib import Path
+from pprint import pprint
 
 # Import alephclient:
 from alephclient.api import AlephAPI
@@ -35,62 +40,73 @@ def create_link(doc_id, muni_id, start_date=None, end_date=None):
         link_proxy.add('endDate', end_date)
     return link_proxy
 
-# By default, alephclient will read host and API key from the
-# environment. You can also pass both as an argument here:
-api = AlephAPI()
+def main(argv):
+    parser = argparse.ArgumentParser(description='Load data into aleph')
+    parser.add_argument('-f', '--foreign-id', default='decentrale_regelgeving')
+    parser.add_argument('-d', '--data-path', default='decentrale_regelgeving_recent')
+    parsed_args = parser.parse_args(argv[1:])
 
-# Get the collection (dataset)
-foreign_id = 'decentrale_regelgeving'
-data_path = '/data/results/%s' % (foreign_id)
-collection = api.load_collection_by_foreign_id(foreign_id)
-collection_id = collection.get('id')
+    # By default, alephclient will read host and API key from the
+    # environment. You can also pass both as an argument here:
+    api = AlephAPI()
 
-gemeenten = {}
+    # Get the collection (dataset)
+    data_path = parsed_args.data_path
+    foreign_id = parsed_args.foreign_id
 
-for i in api.stream_entities(collection, schema='PublicBody'):
-    print(i)
-    for n in i['properties']['name']:
-        gemeenten[n] = i
+    collection = api.load_collection_by_foreign_id(foreign_id)
+    collection_id = collection.get('id')
 
-document_links = []
-for f in glob('%s/*.json' % (data_path,)):
-    # print(f)
-    root, ext = splitext(f)
-    print(root, ext)
-    meta = load_meta(f)
-    print(meta)
-    if 'id' not in meta.keys():
-        print("No id for crawled result, continuing")
-        continue
-    html_file = '%s.data.html' % (root,)
-    metadata = {
-        'file_name': '%s.html' % (meta['id'],)
-    }
-    meta.update(metadata)
-    print(html_file)
-    result = api.ingest_upload(collection_id, Path(html_file), meta)
-    document_id = result.get('id')
-    print(document_id)
-    cleaned_name = meta['author'].replace('Gemeente ', '')
-    if cleaned_name in gemeenten:
-        print(gemeenten[cleaned_name])
-        municipality_id = gemeenten[cleaned_name].get('id')
-        if municipality_id is not None:
-            document_links.append(
-                create_link(
-                    document_id, municipality_id,
-                    meta.get('start_date'), meta.get('end_date')))
-    # file_path = 'www.personadeinteres.org/uploads/example.pdf'
-    # metadata = {'file_name': 'example.pdf'}
-    # # Upload the document:
-    # result = api.ingest_upload(collection_id, file_path, metadata)
-    #
-    # # Finally, we have an entity ID:
-    # document_id = result.get('id')
-if len(document_links) > 0:
-    # Turn the two proxies into JSON form:
-    entities = [l.to_dict() for l in document_links]
+    gemeenten = {}
 
-    # You can also feed an iterator to write_entities if you
-    # want to upload a very large
-    api.write_entities(collection_id, entities)
+    for i in api.stream_entities(collection, schema='PublicBody'):
+        print(i)
+        for n in i['properties']['name']:
+            gemeenten[n] = i
+
+    document_links = []
+    for f in glob('%s/*.json' % (data_path,)):
+        # print(f)
+        root, ext = splitext(f)
+        print(root, ext)
+        meta = load_meta(f)
+        print(meta)
+        if 'id' not in meta.keys():
+            print("No id for crawled result, continuing")
+            continue
+        html_file = '%s.data.html' % (root,)
+        metadata = {
+            'file_name': '%s.html' % (meta['id'],)
+        }
+        meta.update(metadata)
+        print(html_file)
+        result = api.ingest_upload(collection_id, Path(html_file), meta)
+        document_id = result.get('id')
+        print(document_id)
+        cleaned_name = meta['author'].replace('Gemeente ', '')
+        if cleaned_name in gemeenten:
+            print(gemeenten[cleaned_name])
+            municipality_id = gemeenten[cleaned_name].get('id')
+            if municipality_id is not None:
+                document_links.append(
+                    create_link(
+                        document_id, municipality_id,
+                        meta.get('start_date'), meta.get('end_date')))
+        # file_path = 'www.personadeinteres.org/uploads/example.pdf'
+        # metadata = {'file_name': 'example.pdf'}
+        # # Upload the document:
+        # result = api.ingest_upload(collection_id, file_path, metadata)
+        #
+        # # Finally, we have an entity ID:
+        # document_id = result.get('id')
+    if len(document_links) > 0:
+        # Turn the two proxies into JSON form:
+        entities = [l.to_dict() for l in document_links]
+
+        # You can also feed an iterator to write_entities if you
+        # want to upload a very large
+        api.write_entities(collection_id, entities)
+    return 0
+
+if __name__ == '__main__':
+    sys.exit(main(sys.argv))
