@@ -7,6 +7,7 @@ from os.path import basename, splitext
 import json
 from pathlib import Path
 from pprint import pprint
+from itertools import islice, chain
 
 # Import alephclient:
 from alephclient.api import AlephAPI
@@ -40,10 +41,16 @@ def create_link(doc_id, muni_id, start_date=None, end_date=None):
         link_proxy.add('endDate', end_date)
     return link_proxy
 
+def chunks(iterable, size=10):
+    iterator = iter(iterable)
+    for first in iterator:
+        yield chain([first], islice(iterator, size - 1))
+
 def main(argv):
-    parser = argparse.ArgumentParser(description='Load data into aleph')
-    parser.add_argument('-f', '--foreign-id', default='decentrale_regelgeving')
-    parser.add_argument('-d', '--data-path', default='decentrale_regelgeving_recent')
+    parser = argparse.ArgumentParser(description='Load data into Aleph')
+    parser.add_argument('-f', '--foreign-id', default='decentrale_regelgeving', help='foreign id for Aleph')
+    parser.add_argument('-d', '--data-path', default='decentrale_regelgeving_recent', help='Path to the data files')
+    parser.add_argument('-b', '--batch-size', default=1, type=int, help='Batch size for uploading to Aleph')
     parsed_args = parser.parse_args(argv[1:])
 
     # By default, alephclient will read host and API key from the
@@ -101,11 +108,12 @@ def main(argv):
         # document_id = result.get('id')
     if len(document_links) > 0:
         # Turn the two proxies into JSON form:
-        entities = [l.to_dict() for l in document_links]
+        for chunk in chunks(document_links, parsed_args.batch_size):
+            entities = [l.to_dict() for l in chunk]
+            # You can also feed an iterator to write_entities if you
+            # want to upload a very large
+            api.write_entities(collection_id, entities)
 
-        # You can also feed an iterator to write_entities if you
-        # want to upload a very large
-        api.write_entities(collection_id, entities)
     return 0
 
 if __name__ == '__main__':
