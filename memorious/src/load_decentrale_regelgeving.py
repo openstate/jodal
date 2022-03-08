@@ -8,6 +8,7 @@ import json
 from pathlib import Path
 from pprint import pprint
 from itertools import islice, chain
+from time import sleep
 
 # Import alephclient:
 from alephclient.api import AlephAPI
@@ -51,6 +52,7 @@ def main(argv):
     parser.add_argument('-f', '--foreign-id', default='decentrale_regelgeving', help='foreign id for Aleph')
     parser.add_argument('-d', '--data-path', default='decentrale_regelgeving', help='Path to the data files')
     parser.add_argument('-b', '--batch-size', default=1, type=int, help='Batch size for uploading to Aleph')
+    parser.add_argument('-s', '--sleep', default=0, type=int, help='Sleep time between batches')
     parsed_args = parser.parse_args(argv[1:])
 
     # By default, alephclient will read host and API key from the
@@ -110,6 +112,7 @@ def main(argv):
             api.write_entities(collection_id, entities)
             batch_count += 1
             print("Uploaded %s batches to Aleph" % (batch_count,))
+            sleep(parsed_args.sleep)
 
     return 0
 
