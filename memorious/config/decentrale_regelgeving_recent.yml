@@ -10,6 +10,8 @@ pipeline:
   # This first stage will get the ball rolling with a seed URL.
   init:
     method: decentrale_regelgeving.xml:crawl_first
+    # params:
+    #   from: 2022-03-01
     handle:
       pass: fetch
   fetch:
