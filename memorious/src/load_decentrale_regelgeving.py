@@ -104,7 +104,7 @@ def main(argv):
         # document_id = result.get('id')
         batch_count = 0
         if len(document_links) >= parsed_args.batch_size:
-            entities = [l.to_dict() for l in chunk]
+            entities = [l.to_dict() for l in document_links]
             # You can also feed an iterator to write_entities if you
             # want to upload a very large
             api.write_entities(collection_id, entities)
