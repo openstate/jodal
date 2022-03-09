@@ -102,16 +102,15 @@ def main(argv):
         #
         # # Finally, we have an entity ID:
         # document_id = result.get('id')
-    if len(document_links) > 0:
-        # Turn the two proxies into JSON form:
         batch_count = 0
-        for chunk in chunks(document_links, parsed_args.batch_size):
+        if len(document_links) >= parsed_args.batch_size:
             entities = [l.to_dict() for l in chunk]
             # You can also feed an iterator to write_entities if you
             # want to upload a very large
             api.write_entities(collection_id, entities)
             batch_count += 1
             print("Uploaded %s batches to Aleph" % (batch_count,))
+            document_links = []
             sleep(parsed_args.sleep)
 
     return 0
