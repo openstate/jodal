@@ -1,6 +1,6 @@
 # Memorious
 
-Run: `docker-compose up -d`
+Run: `(sudo) docker-compose up -d`
 
 Shell (om dingen in te kunnen doen): `docker-compose run --rm shell`
 
