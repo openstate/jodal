@@ -2,7 +2,7 @@
 
 Run: `docker-compose up -d`
 
-Shell (om dingen in te kunnen doen): `docker-compose run --rm shell
+Shell (om dingen in te kunnen doen): `docker-compose run --rm shell`
 
 Het alsgemene memorious commando is `memorious`
 
