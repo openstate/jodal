@@ -57,6 +57,7 @@ def crawl_simple(context, data):
     record_count = 0
     for record in page.findall(_prefix_tag('srw', 'record', './/')):
         #context.log.info('Found record! %s', record)
+        record_count += 1
         record_data = {
             #"content_hash":
             'id': record.find(_prefix_tag('dcterms', 'identifier', './/')).text,
@@ -85,7 +86,6 @@ def crawl_simple(context, data):
         # If 'rule' is not set, it defaults to 'pass', which triggers the
         # final 'store' stage.
         context.emit(data=record_data)
-        record_count += 1
     context.log.info('Extracted %s records' % (record_count,))
     #context.emit(rule="cleanup", data={"content_hash": response.content_hash})
     context.emit(data=data)
