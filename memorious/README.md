@@ -1,5 +1,9 @@
-# Memorious example project
+# Memorious
 
-This folder can be used as an example template of a memorious deployment.
-Copy it into it's own git repository as a starting point, then add your
-own crawlers and scrapers as needed.
+Run: `(sudo) docker-compose up -d`
+
+Shell (om dingen in te kunnen doen): `docker-compose run --rm shell`
+
+Het alsgemene memorious commando is `memorious`
+
+Documentatie is op https://memorious.readthedocs.io/en/latest/index.html
