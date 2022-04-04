@@ -86,6 +86,7 @@ def crawl_simple(context, data):
         # If 'rule' is not set, it defaults to 'pass', which triggers the
         # final 'store' stage.
         context.emit(data=record_data)
-    context.log.info('Extracted %s records' % (record_count,))
+    if not data.get('url', '').endswith('.html'):
+        context.log.info('Extracted %s records' % (record_count,))
     #context.emit(rule="cleanup", data={"content_hash": response.content_hash})
     context.emit(data=data)
