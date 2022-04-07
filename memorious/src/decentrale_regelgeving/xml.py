@@ -81,6 +81,7 @@ def crawl_simple(context, data):
             #     [tag.text_content() for tag in quote.findall('.//a[@class="tag"]')]
             # ),  # noqa
         }
+        context.log.info('Extracted ID: %s' % (record_data['id'],))
         context.log.info('Extracted URL: %s' % (record_data['url'],))
         #context.log.info('Parsed result: %s', record_data)
         context.emit(rule="fetch", data=record_data)
