@@ -4,6 +4,15 @@ import datetime
 from urllib.parse import urljoin
 import datafreeze
 
+from os.path import splitext
+
+def make_id_path(context, data):
+    if "file_name" in data:
+        root, ext = splitext(data["file_name"])
+        data["file_name"] = "%s%s" % (data["id"], ext)
+        context.log.info("File name is now %s" % (
+            data["file_name"],))
+    context.emit(data=data)
 
 def _prefix_tag(ns, tag, start='./'):
     prefixes = {
