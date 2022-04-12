@@ -2,6 +2,7 @@
 # The goal is not to download all HTML, but only PDFs & other documents
 # linked from the page as proof.
 name: decentrale_regelgeving_recent
+delay: 1
 
 # A title for display in the UI:
 description: "Decentrale Regelgeving"
@@ -30,10 +31,6 @@ pipeline:
       # If the 'fetch' rule is invoked, re-trigger the fetch stage
       fetch: fetch
       # Otherwise, pass data on to the store stage
-      pass: shorten
-  shorten:
-    method: decentrale_regelgeving.xml:make_id_path
-    handle:
       pass: store
   store:
     # Store the crawled documents to a directory

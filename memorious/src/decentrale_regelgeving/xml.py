@@ -6,14 +6,6 @@ import datafreeze
 
 from os.path import splitext
 
-def make_id_path(context, data):
-    if "file_name" in data:
-        root, ext = splitext(data["file_name"])
-        data["file_name"] = "%s%s" % (data["id"], ext)
-        context.log.info("File name is now %s" % (
-            data["file_name"],))
-    context.emit(data=data)
-
 def _prefix_tag(ns, tag, start='./'):
     prefixes = {
         'dcterms': 'http://purl.org/dc/terms/',
@@ -90,6 +82,9 @@ def crawl_simple(context, data):
             #     [tag.text_content() for tag in quote.findall('.//a[@class="tag"]')]
             # ),  # noqa
         }
+        if record_data['url'].endswith('.html'):
+            record_data['file_name'] = record_data['url'].split('/')[-1]
+
         context.log.info('Extracted ID: %s' % (record_data['id'],))
         context.log.info('Extracted URL: %s' % (record_data['url'],))
         #context.log.info('Parsed result: %s', record_data)
