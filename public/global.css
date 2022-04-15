@@ -373,6 +373,7 @@ h6 {
 	width: 18%;
 	float:left;
 	margin-right: 1em;
+	position: fixed;
 }
 
 .document-dialog-content-description {
