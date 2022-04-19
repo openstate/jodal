@@ -6,6 +6,8 @@ import datafreeze
 
 from os.path import splitext
 
+from memorious.operations.fetch import fetch
+
 def _prefix_tag(ns, tag, start='./'):
     prefixes = {
         'dcterms': 'http://purl.org/dc/terms/',
@@ -96,3 +98,12 @@ def crawl_simple(context, data):
         context.log.info('Extracted %s records' % (record_count,))
     #context.emit(rule="cleanup", data={"content_hash": response.content_hash})
     context.emit(data=data)
+
+def refetch(context, data):
+    response = context.http.rehash(data)
+    url = response.url
+    if response.status_code == 503:
+        context.log.warn("Refetch because of 503 error: %s" % (url,))
+        fetch(context, data)
+    else:
+        context.emit(data=data)

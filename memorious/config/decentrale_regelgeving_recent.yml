@@ -20,6 +20,11 @@ pipeline:
     method: fetch
     params:
       http_rate_limit: 60
+      emit_errors: true
+    handle:
+      pass: refetch
+  refetch:
+    method: decentrale_regelgeving.xml:refetch
     handle:
       pass: crawl
   crawl:
