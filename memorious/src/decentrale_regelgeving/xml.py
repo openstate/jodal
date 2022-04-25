@@ -40,7 +40,16 @@ def crawl_simple(context, data):
     # HTTPResponse object.
     response = context.http.rehash(data)
     url = response.url
-    page = response.xml
+    try:
+        page = response.xml
+    except Exception as e:
+        page = None
+
+    if page is None:
+        context.log.warning('Page was empty')
+        context.emit(data=data)
+        return
+
     total_elem = page.find(_prefix_tag('srw', 'numberOfRecords'))
 
     paging = context.params.get("paging")
