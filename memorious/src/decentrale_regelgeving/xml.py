@@ -25,11 +25,14 @@ def crawl_first(context, data):
     # https://zoekdienst.overheid.nl/sru/Search?version=1.2&operation=searchRetrieve&x-connection=cvdr&startRecord=1&maximumRecords=10&que|lessdified
     yesterday =  datetime.datetime.now().date()
     from_date = context.params.get('from', yesterday)
-    context.log.info('Crawling from: %s' % (from_date.isoformat(),))
+    to_date = context.params.get('to', yesterday)
+    context.log.info('Crawling from: %s to: %s' % (
+        from_date.isoformat(), to_date.isoformat(),))
     url = (
         'https://zoekdienst.overheid.nl/sru/Search?version=1.2&operation='
         'searchRetrieve&x-connection=cvdr&startRecord=1&maximumRecords=10&'
-        'query=modified>=%s') % (from_date.isoformat(),)
+        'query=issued>=%s AND issued<=%s') % (
+            from_date.isoformat(), to_date.isoformat(),)
     context.emit(data={"url": url})
 
 def crawl_simple(context, data):
