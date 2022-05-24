@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 
 import sys
+import os
+import os.path
 import argparse
 from glob import glob
 from os.path import basename, splitext
@@ -80,7 +82,10 @@ def main(argv):
         if 'id' not in meta.keys():
             print("No id for crawled result, continuing")
             continue
-        html_file = '%s.data.html' % (root,)
+        html_file = '%s/%s' % (data_path,meta['_file_name'],)
+        if not os.path.exists(html_file):
+            print("No html file (%s) for crawled result, continuing," % (html_file,))
+            continue
         metadata = {
             'file_name': '%s.html' % (meta['id'],)
         }
