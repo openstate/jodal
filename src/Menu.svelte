@@ -6,16 +6,16 @@
             <Title>Journalistiek Dashboard Lokaal - {testEnv}</Title>
           </Section>
           <Section align="end" toolbar>
-          <IconButton class="material-icons" aria-label="Hulp" title="Om hulp vragen" on:click={() => showHelpDialog()}>help</IconButton>
+          <IconButton id="btn-icon-help" class="material-icons" aria-label="Hulp" title="Om hulp vragen" on:click={() => showHelpDialog()}>help</IconButton>
           {#if $identity}
-            <IconButton class="material-icons" aria-label="Add a column" title="Zoekopdracht toevoegen" on:click={() => startAddColumn()}>add</IconButton>
-            <IconButton class="material-icons" aria-label="Account" title="Account informatie" on:click={() => showAccountDialog()}>face</IconButton>
-            <IconButton class="material-icons" aria-label="Logout" href="//api.jodal.nl/users/simple/logout" title="Uitloggen">login</IconButton>
+            <IconButton id="btn-icon-add-column" class="material-icons" aria-label="Add a column" title="Zoekopdracht toevoegen" on:click={() => startAddColumn()}>add</IconButton>
+            <IconButton id="btn-icon-account" class="material-icons" aria-label="Account" title="Account informatie" on:click={() => showAccountDialog()}>face</IconButton>
+            <IconButton id="btn-icon-logout" class="material-icons" aria-label="Logout" href="//api.jodal.nl/users/simple/logout" title="Uitloggen">login</IconButton>
           {:else}
             {#if !$isTesting}
-            <IconButton class="material-icons" aria-label="Login" href="//api.jodal.nl/users/simple/login" title="Inloggen">account_box</IconButton>
+            <IconButton id="btn-icon-login" class="material-icons" aria-label="Login" href="//api.jodal.nl/users/simple/login" title="Inloggen">account_box</IconButton>
             {:else}
-            <IconButton class="material-icons" aria-label="Add a column" title="Zoekopdracht toevoegen" on:click={() => startAddColumn()}>add</IconButton>
+            <IconButton id="btn-icon-add-column" class="material-icons" aria-label="Add a column" title="Zoekopdracht toevoegen" on:click={() => startAddColumn()}>add</IconButton>
             {/if}
           {/if}
           </Section>
