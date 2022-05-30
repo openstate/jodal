@@ -10,6 +10,9 @@ GIT_REPO = 'jodal'
 # Path of the directory
 DIR = '/home/projects/%s' % (GIT_REPO)
 
+# nginx container
+NGINX_CONTAINER = 'jodal_nginx_1'
+
 # Container used to compile the assets
 NODE_CONTAINER = 'jodal_node_1'
 
@@ -62,4 +65,4 @@ def deploy(c):
     # put elasticsearch mapings
     c.sudo('docker exec %s python manage.py elasticsearch put_templates' % (APP_CONTAINER))
     # Reload app
-    # c.run('cd %s && touch uwsgi-touch-reload' % (DIR))
+    c.sudo('docker exec %s nginx -s reload' % (NGINX_CONTAINER)) 
