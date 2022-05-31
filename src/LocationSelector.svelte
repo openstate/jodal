@@ -4,7 +4,6 @@
    {#if selectedLocations}
    <p class="locations-select-byline">Er zijn {selectedLocations.length} lokaties geselecteerd</p>
    {/if}
-   <Button align="begin" variant="outlined" on:click={() => selectAllLocations()}><Label>Alle lokaties</Label></Button>
    <Button align="end" variant="outlined" on:click={() => clearLocations()}><Label>Leeg maken</Label></Button>
 </div>
 
