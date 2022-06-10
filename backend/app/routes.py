@@ -10,9 +10,9 @@ from fusionauth.fusionauth_client import FusionAuthClient
 import pkce
 import requests
 
-from app import app, AppError
+from app import app, db, AppError
 from app.search import perform_query
-from app.models import Column
+from app.models import Column, UserData
 from app.downloads import prepare_download, perform_download
 from app.user import delete_user_data
 
@@ -138,6 +138,18 @@ def callback():
     fusionauth = OAuth2Session(client_id=app.config['CLIENT_ID'], token=token_dict)
     session['oauth_token'] = result['access_token']
     session['user'] = fusionauth.get(app.config['USERINFO_URL']).json()
+
+    test_cookie = request.cookies.get('jodal_abtest')
+    if test_cookie is not None:
+        user_id = session['user']['sub']
+        ud = UserData(
+            user_id=user_id,
+            key='abtest',
+            value=test_cookie
+        )
+        db.session.add(ud)
+        db.session.commit()
+
     # return redirect('/users/simple/me')
     return redirect(app.config['JODAL_URL'])
 

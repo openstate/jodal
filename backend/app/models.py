@@ -18,3 +18,10 @@ class Column(db.Model):
     sort_order = db.Column('sort_order', db.String(4), default='desc', nullable=False)
     date_start = db.Column('date_start', db.DateTime, nullable=True)
     date_end = db.Column('date_end', db.DateTime, nullable=True)
+
+class UserData(db.Model):
+    __tablename__ = 'user_data'
+    id = db.Column('id', db.Integer, primary_key=True)
+    user_id = db.Column('user_id', BinaryUUID())
+    key = db.Column('key', db.String(100), nullable=False)
+    value = db.Column('value', db.String(1024))
