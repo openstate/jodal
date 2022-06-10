@@ -59,6 +59,46 @@
 </section>
 </footer>
 
+<!-- A/B testing-->
+<script type="text/javascript">
+function getCookie(name) {
+    var dc = document.cookie;
+    var prefix = name + "=";
+    var begin = dc.indexOf("; " + prefix);
+    if (begin == -1) {
+        begin = dc.indexOf(prefix);
+        if (begin != 0) return null;
+    }
+    else
+    {
+        begin += 2;
+        var end = document.cookie.indexOf(";", begin);
+        if (end == -1) {
+        end = dc.length;
+        }
+    }
+    // because unescape has been deprecated, replaced with decodeURI
+    //return unescape(dc.substring(begin + prefix.length, end));
+    return decodeURI(dc.substring(begin + prefix.length, end));
+}
+
+// SHOULD ONLY ST COOKIE IF IT IS NOT THERE YET!
+var test_set_cookie = (getCookie('jodal_abtest') == null);
+var test_items = ["login" "try"];
+var test_item;
+if (test_set_cookie) {
+  test_item = test_items[Math.floor(Math.random()*test_items.length)];
+  var myDate = new Date();
+  myDate.setMonth(myDate.getMonth() + 12);
+  document.cookie = "jodal_abtest=" + test_item + ";expires=" + myDate
+                    + ";domain=.jodal.nl;path=/";
+} else {
+  test_item = getCookie('jodal_abtest');
+}
+console.log("A/B test is: " + test_item);
+</script>
+<!-- End A/B testing-->
+
 <!-- Matomo -->
 <script type="text/javascript">
   var _paq = window._paq = window._paq || [];
@@ -73,11 +113,16 @@
     _paq.push(['setTrackerUrl', u+'matomo.php']);
     _paq.push(['setSiteId', '5']);
     _paq.push(['setCustomDimension', 1, document.domain]);
+    // SHOULD ONLY ST COOKIE IF IT IS NOT THERE YET!
+    if (test_set_cookie) {
+      _paq.push(['setCustomDimension', 2, test_item]);
+    }
     var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
     g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
   })();
 </script>
 <!-- End Matomo Code -->
+
 
 </body>
 </html>
