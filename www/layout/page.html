@@ -92,8 +92,10 @@ if (test_set_cookie) {
   myDate.setMonth(myDate.getMonth() + 12);
   document.cookie = "jodal_abtest=" + test_item + ";expires=" + myDate
                     + ";domain=.jodal.nl;path=/";
+  console.log('A/B test cookie was set!');
 } else {
   test_item = getCookie('jodal_abtest');
+  console.log('A/B test cookie was previously set!');
 }
 console.log("A/B test is: " + test_item);
 </script>
