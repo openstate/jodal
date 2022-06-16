@@ -148,6 +148,17 @@ def callback():
             value=test_cookie
         )
         db.session.add(ud)
+        utm_params = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content' ,'utm_term']
+        for utm_param in utm_params:
+            utm_val = request.cookies.get('jodal_' + utm_param)
+            if utm_val is not None:
+                ud2 = UserData(
+                    user_id=user_id,
+                    key=utm_param,
+                    value=utm_val
+                )
+                db.session.add(ud2)
+        db.session.add(ud)
         db.session.commit()
 
     # return redirect('/users/simple/me')
