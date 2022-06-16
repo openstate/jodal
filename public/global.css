@@ -431,3 +431,9 @@ h6 {
 .multiSelectItem:nth-child(n+6) {
 	display: none !important;
 }
+
+#btn-register-test {
+	background: #8fd9e8 !important;
+	padding: 2px 8px !important;
+	color: #000 !important;
+}

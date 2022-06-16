@@ -6,6 +6,9 @@
             <Title>Journalistiek Dashboard Lokaal - {testEnv}</Title>
           </Section>
           <Section align="end" toolbar>
+          {#if $isTesting}
+          <Button id="btn-register-test" align="end" variant="outlined" href="//api.jodal.nl/users/simple/register"><Label>Registreren</Label></Button>
+          {/if}
           <IconButton id="btn-icon-help" class="material-icons" aria-label="Hulp" title="Om hulp vragen" on:click={() => showHelpDialog()}>help</IconButton>
           {#if $identity}
             <IconButton id="btn-icon-add-column" class="material-icons" aria-label="Add a column" title="Zoekopdracht toevoegen" on:click={() => startAddColumn()}>add</IconButton>
@@ -30,7 +33,9 @@
   import AddColumn, { startAddColumn } from './AddColumn.svelte';
   import TopAppBar, {Row, Section, Title} from '@smui/top-app-bar';
   import IconButton from '@smui/icon-button';
+  import Button from '@smui/button';
   import Checkbox from '@smui/checkbox';
+  import {Label} from '@smui/fab';
   import FormField from '@smui/form-field';
   import Account, { showAccountDialog } from './Account.svelte';
   import Help, {showHelpDialog } from './Help.svelte';
