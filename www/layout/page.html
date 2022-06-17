@@ -78,7 +78,7 @@ function getParam(name){
 }
 
 // SHOULD ONLY ST COOKIE IF IT IS NOT THERE YET!
-var test_set_cookie = (typeof(getParam('utm_source')) !== 'undefined') && (getCookie('jodal_abtest') == null);
+var test_set_cookie = (typeof(getParam('utm_source')) !== 'undefined') && (getCookie('jodal_abtest') == "");
 var test_items = ["login", "try"];
 var test_item;
 if (test_set_cookie) {
@@ -99,7 +99,7 @@ if (test_set_cookie) {
   })
 } else {
   test_item = getCookie('jodal_abtest');
-  if (test_item == null) {
+  if (test_item == "") {
     test_item = test_items[0];
   }
   console.log('A/B test cookie was previously set or utm cookie is not present!');
