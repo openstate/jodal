@@ -136,7 +136,7 @@ def scrapers_openspendingcache(date_from, date_to):
 
 
 @command('poliflw')
-@click.option('-f', '--date-from', default=(datetime.now() - timedelta(minutes=30)))
+@click.option('-f', '--date-from', default=(datetime.now() - timedelta(minutes=360)))
 @click.option('-t', '--date-to', default=datetime.now())
 @click.option('-s', '--scroll', default=None)
 def scrapers_poliflw(date_from, date_to, scroll):
@@ -160,7 +160,7 @@ def scrapers_poliflw(date_from, date_to, scroll):
 
 
 @command('obv')
-@click.option('-f', '--date-from', default=(datetime.now() - timedelta(minutes=30)))
+@click.option('-f', '--date-from', default=(datetime.now() - timedelta(minutes=360)))
 @click.option('-t', '--date-to', default=datetime.now())
 @click.option('-s', '--scroll', default=None)
 @click.option('-o', '--organizations', default=None)
