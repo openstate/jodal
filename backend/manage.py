@@ -161,7 +161,7 @@ def scrapers_poliflw(date_from, date_to, scroll):
 
 @command('obv')
 @click.option('-f', '--date-from', default=(datetime.now() - timedelta(minutes=360)))
-@click.option('-t', '--date-to', default=datetime.now() - timedelta(days=7))
+@click.option('-t', '--date-to', default=datetime.now() + timedelta(days=7))
 @click.option('-s', '--scroll', default=None)
 @click.option('-o', '--organizations', default=None)
 def scrapers_obv(date_from, date_to, scroll, organizations):
