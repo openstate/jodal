@@ -274,6 +274,10 @@ function handleQueryChange(e){
 		console.log('query change selected ids', selected_ids);
 		var selected = $locations.filter(l => selected_ids.indexOf(l.id) >= 0);
 		console.log('query change selected', selected);
+		var zero_source_counts = {};
+		$sources.forEach(function (s) {
+			zero_source_counts[s.short] = 0;
+		});
     var updInquiry = {
 			name: columnName,
       user_query: query,
@@ -281,7 +285,8 @@ function handleQueryChange(e){
       sort_order: orderWay,
       date_start: AdamStartDateValue ? AdamStartDateValue.toISOString() : null,
       date_end: AdamEndDateValue ? AdamEndDateValue.toISOString() : null,
-			locations: selected.map(function (l) { return l.id;})
+			locations: selected.map(function (l) { return l.id;}),
+			read_counts: zero_source_counts
     };
 		show_settings = !show_settings;
     updateInquiry(updInquiry);
@@ -329,12 +334,16 @@ function fetchFromSources(page, stable_param) {
     });
 
     var new_source_counts = {};
+		var new_per_source_counts = {};
 		var total_count = 0;
+		var total_new = 0;
     $sources.forEach(function (s) {
       new_source_counts[s.short] = 0;
     });
     original_response.aggregations.source.buckets.forEach(function (b) {
       new_source_counts[b.key] = b.doc_count;
+			new_per_source_counts[b.key] = (b.doc_count - inquiry.read_counts[b.key] )|| 0;
+			total_new += new_per_source_counts[b.key];
 			total_count += b.doc_count;
     });
     console.log('new counts:');
@@ -343,10 +352,13 @@ function fetchFromSources(page, stable_param) {
 		itemsLeft = (real_items.length < total_count);
     items_.set(real_items);
     source_counts.set(new_source_counts);
+		inquiry.read_counts = new_source_counts;
 
 		// update column counts here
-		console.log('updating read counts in column in db');
-		updateInquiry({read_counts: new_source_counts});
+		if (total_new > 0) {
+			console.log('updating read counts in column in db');
+			updateInquiry({read_counts: new_source_counts});
+		}
 
     loading = false;
   });
