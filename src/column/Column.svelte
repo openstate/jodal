@@ -343,6 +343,11 @@ function fetchFromSources(page, stable_param) {
 		itemsLeft = (real_items.length < total_count);
     items_.set(real_items);
     source_counts.set(new_source_counts);
+
+		// update column counts here
+		console.log('updating read counts in column in db');
+		updateInquiry({read_counts: new_source_counts});
+
     loading = false;
   });
 
