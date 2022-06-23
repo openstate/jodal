@@ -10,6 +10,7 @@ class Column(db.Model):
     locations = db.Column('locations', db.String(1024))
     user_query = db.Column('query', db.String(100))
     user_id = db.Column('user_id', BinaryUUID())
+    read_counts = db.Column('read_counts', db.Text())
     order = db.Column('order', db.Integer, nullable=False, default=0)
     src_poliflw = db.Column('src_poliflw', db.Boolean, default=True)
     src_openspending = db.Column('src_openspending', db.Boolean, default=True)

@@ -65,7 +65,7 @@ class ColumnResource(Resource):
         editable = [
             'name', 'locations', 'user_query', 'order', 'src_poliflw',
             'src_openspending', 'src_openbesluitvorming', 'sort', 'sort_order',
-            'date_start',  'date_end']
+            'date_start',  'date_end', 'read_counts']
         for f in editable:
             if f in request.json:
                 setattr(column, f, updated_column[f])
