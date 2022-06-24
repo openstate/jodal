@@ -350,6 +350,8 @@ function fetchFromSources(page, stable_param) {
     });
     console.log('new counts:');
     console.dir(new_source_counts);
+		console.log('total new counts:');
+    console.dir(total_new);
 
 		itemsLeft = (real_items.length < total_count);
     items_.set(real_items);
