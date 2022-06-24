@@ -54,6 +54,8 @@ let endDateValue = inquiry.date_start ? new Date(Date.parse(inquiry.date_end)) :
 let endDateFormattedValue = '';
 let columnName = inquiry.name;
 let itemsLeft = true;
+let total_new = 0;
+let old_total_new = 0;
 
 const startDateOptions = {
 	enableTime: false,
@@ -336,7 +338,7 @@ function fetchFromSources(page, stable_param) {
     var new_source_counts = {};
 		var new_per_source_counts = {};
 		var total_count = 0;
-		var total_new = 0;
+		total_new = 0;
     $sources.forEach(function (s) {
       new_source_counts[s.short] = 0;
     });
@@ -356,8 +358,11 @@ function fetchFromSources(page, stable_param) {
 
 		// update column counts here
 		if (total_new > 0) {
-			console.log('updating read counts in column in db');
+			console.log('updating read counts in column in db: new items : ' + total_new);
 			updateInquiry({read_counts: new_source_counts});
+			itemsLeft = true;
+			show_marker = true;
+			old_total_new = total_new;
 		}
 
     loading = false;
@@ -428,7 +433,7 @@ onDestroy(function () {
 
 </script>
 
-<svelte:window on:focus={getFocus} on:blur={loseFocus} />
+<svelte:window />
 
 {#if !hidden}
 <section class="column-section" out:fade>
@@ -522,7 +527,7 @@ onDestroy(function () {
     <p>Er werd nog niks gevonden dat aan je zoekopdracht voldeed.</p>
   {/if}
   {#if show_marker}
-    <Fab on:click={doGoToEntry} extended><Label>Nieuwe entries!</Label></Fab>
+    <Fab on:click={doGoToEntry} extended><Label>{old_total_new} Nieuwe resultaten!</Label></Fab>
   {/if}
   {#each $items as entry}
   	<Entry {...entry} column={column_id} entry={entry} />
