@@ -344,14 +344,14 @@ function fetchFromSources(page, stable_param) {
     });
     original_response.aggregations.source.buckets.forEach(function (b) {
       new_source_counts[b.key] = b.doc_count;
-			new_per_source_counts[b.key] = (b.doc_count - inquiry.read_counts[b.key] )|| 0;
+			var old_count = inquiry.read_counts[b.key] || 0;
+			new_per_source_counts[b.key] = Math.abs(old_count - b.doc_count);
 			total_new += new_per_source_counts[b.key];
 			total_count += b.doc_count;
     });
     console.log('new counts:');
     console.dir(new_source_counts);
-		console.log('total new counts:');
-    console.dir(total_new);
+		console.log('total new counts: ' + total_new);
 
 		itemsLeft = (real_items.length < total_count);
     items_.set(real_items);
