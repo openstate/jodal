@@ -11,6 +11,7 @@ from pathlib import Path
 from pprint import pprint
 from itertools import islice, chain
 from time import sleep
+import datetime
 
 # Import alephclient:
 from alephclient.api import AlephAPI
@@ -55,6 +56,8 @@ def main(argv):
     parser.add_argument('-d', '--data-path', default='decentrale_regelgeving', help='Path to the data files')
     parser.add_argument('-b', '--batch-size', default=1, type=int, help='Batch size for uploading to Aleph')
     parser.add_argument('-s', '--sleep', default=0, type=int, help='Sleep time between batches')
+    parser.add_argument('-m', '--modified', default=datetime.datetime.now().date(),
+        type=lambda s: datetime.datetime.strptime(s, '%Y-%m-%d'),)
     parsed_args = parser.parse_args(argv[1:])
 
     # By default, alephclient will read host and API key from the
@@ -82,6 +85,12 @@ def main(argv):
         if 'id' not in meta.keys():
             print("No id for crawled result, continuing")
             continue
+        if 'modified_at' in meta.keys():
+            mod_date = datetime.datetime.strptime(
+                meta['modified_at'].split('T')[0], '%Y-%m-%d')
+            if mod_date < parsed_args.modified:
+                print("Modification date was not in range")
+                continue
         html_file = '%s/%s' % (data_path,meta['_file_name'],)
         if not os.path.exists(html_file):
             print("No html file (%s) for crawled result, continuing," % (html_file,))
