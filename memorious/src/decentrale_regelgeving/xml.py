@@ -23,9 +23,10 @@ def _prefix_tag(ns, tag, start='./'):
 
 def crawl_first(context, data):
     # https://zoekdienst.overheid.nl/sru/Search?version=1.2&operation=searchRetrieve&x-connection=cvdr&startRecord=1&maximumRecords=10&que|lessdified
-    yesterday =  datetime.datetime.now().date()
+    today = datetime.datetime.now().date()
+    yesterday =  datetime.datetime.now().date() - datetime.timedelta(days=1)
     from_date = context.params.get('from', yesterday)
-    to_date = context.params.get('to', yesterday)
+    to_date = context.params.get('to', today)
     context.log.info('Crawling from: %s to: %s' % (
         from_date.isoformat(), to_date.isoformat(),))
     url = (
