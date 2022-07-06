@@ -56,7 +56,7 @@ def main(argv):
     parser.add_argument('-d', '--data-path', default='decentrale_regelgeving', help='Path to the data files')
     parser.add_argument('-b', '--batch-size', default=1, type=int, help='Batch size for uploading to Aleph')
     parser.add_argument('-s', '--sleep', default=0, type=int, help='Sleep time between batches')
-    parser.add_argument('-m', '--modified', default=datetime.datetime.now().date(),
+    parser.add_argument('-m', '--modified', default=datetime.datetime.now().date() - datetime.timedelta(days=1),
         type=lambda s: datetime.datetime.strptime(s, '%Y-%m-%d'),)
     parsed_args = parser.parse_args(argv[1:])
 
