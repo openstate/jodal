@@ -57,11 +57,48 @@ def perform_search(index_name=None):
     return results
 
 
+def convert_userinfo(user):
+    result = {
+        'applicationId': app.config['CLIENT_ID'],
+        'email': user['email'],
+        'email_verified': user['verified'],
+        'family_name': user['lastName'],
+        'given_name': user['firstName'],
+        'roles': [],
+        'sub': user['id']
+    }
+    return result
+
+
 @app.route("/")
 def index():
     term = "*"
     results = perform_query(term, "", 0)
     return jsonify(results)
+
+
+@app.route("/users/login", methods=["POST"])
+def api_login():
+
+    # Delete User For A Given ID
+    client = FusionAuthClient(app.config['API_KEY'], app.config['FA_INTERNAL_URL'])
+
+    client_response = client.login({
+        'applicationId': app.config['CLIENT_ID'],
+        'loginId': request.form['email'],
+        'password': request.form['password']
+    })
+    # result = resp.json()
+
+    if client_response.was_successful():
+        # return redirect('/users/simple/me')
+        session['oauth_token'] = client_response.success_response['token']
+        session['user'] = convert_userinfo(client_response.success_response['user'])
+
+        return redirect(app.config['JODAL_URL'])
+        # return jsonify(session['user'])
+    else:
+        return jsonify({"error": "Some kind of error: %s" % (client_response.error_response,)})
 
 
 @app.route("/users/simple/me")
