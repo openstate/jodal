@@ -288,3 +288,16 @@ footer section {
 	fill: #8fb7d1;
 	stroke: #8fb7d1;
 }
+
+form {
+	margin: 2em;
+}
+
+fieldset {
+	border: 0px none;
+}
+
+label {
+	width: 15em;
+	display: inline-block;
+}
