@@ -19,7 +19,7 @@
   {:else}
   <div class="start-explainer">
     <p>Je bent niet ingelogd. Klik op de &eacute;&eacute;n van de knoppen hieronder om in te loggen of een account aan te maken.</p>
-    <Button align="end" href="//api.jodal.nl/users/simple/login"><Label>Inloggen</Label></Button> of
+    <Button align="end" href="//www.jodal.nl/login/"><Label>Inloggen</Label></Button> of
     <Button align="end" href="//api.jodal.nl/users/simple/register"><Label>Registreren</Label></Button>
   </div>
   {/if}

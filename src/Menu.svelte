@@ -16,7 +16,7 @@
             <IconButton id="btn-icon-logout" class="material-icons" aria-label="Logout" href="//api.jodal.nl/users/simple/logout" title="Uitloggen">login</IconButton>
           {:else}
             {#if !$isTesting}
-            <IconButton id="btn-icon-login" class="material-icons" aria-label="Login" href="//api.jodal.nl/users/simple/login" title="Inloggen">account_box</IconButton>
+            <IconButton id="btn-icon-login" class="material-icons" aria-label="Login" href="//www.jodal.nl/login/" title="Inloggen">account_box</IconButton>
             {:else}
             <IconButton id="btn-icon-add-column" class="material-icons" aria-label="Add a column" title="Zoekopdracht toevoegen" on:click={() => startAddColumn()}>add</IconButton>
             {/if}

@@ -16,7 +16,7 @@
             </Item>
           {:else}
             {#if !$isTesting}
-            <Item href="//api.jodal.nl/users/simple/login">
+            <Item href="//www.jodal.nl/login/">
               <Graphic class="material-icons" aria-hidden="true">account_box</Graphic>
               <Text>Inloggen</Text>
             </Item>
