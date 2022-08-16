@@ -7,7 +7,7 @@
           </Section>
           <Section align="end" toolbar>
           {#if $isTesting}
-          <Button id="btn-register-test" align="end" variant="outlined" href="//api.jodal.nl/users/simple/register"><Label>Registreren</Label></Button>
+          <Button id="btn-register-test" align="end" variant="outlined" href="//api.jodal.nl//www.jodal.nl/register/"><Label>Registreren</Label></Button>
           {/if}
           <IconButton id="btn-icon-help" class="material-icons" aria-label="Hulp" title="Om hulp vragen" on:click={() => showHelpDialog()}>help</IconButton>
           {#if $identity}
