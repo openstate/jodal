@@ -20,6 +20,8 @@ NODE_CONTAINER = 'jodal_node_1'
 APP_CONTAINER = 'jodal_backend_1'
 # makesite container
 MAKESITE_CONTAINER = 'jodal_makesite_1'
+# API container
+API_CONTAINER = 'jodal_api-jodal_1'
 
 # Server name
 SERVER = 'fluorine'
@@ -64,5 +66,7 @@ def deploy(c):
 
     # put elasticsearch mapings
     c.sudo('docker exec %s python manage.py elasticsearch put_templates' % (APP_CONTAINER))
+    # reload api container
+    c.sudo("sh -c 'cd %s && docker-compose restart %s'" % (os.path.join(DIR, 'docker'), API_CONTAINER)) 
     # Reload app
     c.sudo('docker exec %s nginx -s reload' % (NGINX_CONTAINER)) 
