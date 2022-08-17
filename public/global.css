@@ -347,6 +347,7 @@ h6 {
 .start-explainer {
 	margin: 0 auto;
 	text-align: center;
+	display: inline-block;
 }
 
 .help-dialog .mdc-dialog__container {

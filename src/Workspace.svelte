@@ -7,11 +7,16 @@
   {/if}
   {#if $identity || $isTesting}
     <Message/>
+    {#if $isTesting}
+      <Interview/>
+    {/if}
     {#if $inquiries.length <= 0}
-    <div class="start-explainer">
+    <section class="column-section">
+    <div id="column-contents-new-inq" class="column-contents">
       <p>Je hebt nog geen zoekopdracht toegevoegd. Klik op de knop hieronder om er een toe te voegen.</p>
       <Button align="end" on:click={() => startAddColumn()}><Label>Zoekopdracht toevoegen</Label></Button>
     </div>
+    </section>
     {/if}
     {#each $ordered_inquiries as inq}
     	<Column inquiry={inq} />
@@ -33,7 +38,7 @@ import AddColumn, { startAddColumn } from './AddColumn.svelte';
 import Button from '@smui/button';
 import Fab, {Label, Icon} from '@smui/fab';
 import Message from './Message.svelte';
-
+import Interview from './Interview.svelte';
 
 let empty = ($inquiries.length <= 0);
 </script>
