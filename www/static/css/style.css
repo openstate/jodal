@@ -301,3 +301,14 @@ label {
 	width: 15em;
 	display: inline-block;
 }
+
+.quote {
+  margin: 0.5em;
+  background: #eee;
+  padding: 1em;
+  border-radius: 1em;
+}
+.quote figcaption,
+.quote blockquote {
+  margin: 1em;
+}
