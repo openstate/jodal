@@ -76,10 +76,9 @@ function getParam(name){
    if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
       return decodeURIComponent(name[1]);
 }
-
 // SHOULD ONLY ST COOKIE IF IT IS NOT THERE YET!
 var test_set_cookie = (typeof(getParam('utm_source')) !== 'undefined') && (getCookie('jodal_abtest') == "");
-var test_items = ["testimonials"]; //, "video"];
+var test_items = ["video", "testimonials"];
 var test_item;
 if (test_set_cookie) {
   test_item = test_items[Math.floor(Math.random()*test_items.length)];

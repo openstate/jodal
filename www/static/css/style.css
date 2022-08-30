@@ -311,4 +311,5 @@ label {
 .quote figcaption,
 .quote blockquote {
   margin: 1em;
+	text-align: left;
 }
