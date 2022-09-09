@@ -232,6 +232,11 @@ footer section {
 	color: white;
 }
 
+.btn-alternate {
+	color: rgb(166, 38, 137);
+	background: white;
+}
+
 .features {
   display: flex;
   flex-direction: row;
