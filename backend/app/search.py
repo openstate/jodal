@@ -1,12 +1,20 @@
 import logging
 
 from app import app, AppError, load_object
-
+from app.utils import html2text
 
 
 app_name = app.config['NAME_OF_APP']
 setup_es = load_object('%s.es.setup_elasticsearch' % (app_name,))
 es = setup_es(app.config[app_name])
+
+def clean_results(results):
+    if len(results.get('hits', {}).get('hits', [])) <= 0:
+        return results
+    for h in results['hits']['hits']:
+        h['description_clean'] = html2text(
+            h.get('_source', {}).get('description', ''))
+    return results
 
 def perform_query(term, filter_string, page, page_size, sort, index_name=None):
 
@@ -30,7 +38,7 @@ def perform_query(term, filter_string, page, page_size, sort, index_name=None):
     logging.info(query)
     result = es.search(index=index_name, body=query)
 
-    return result
+    return clean_results(result)
 
 
 def parse_filters(filters):
