@@ -244,6 +244,16 @@ footer section {
   align-items: baseline;
 }
 
+.main-explainer {
+	color: white;
+	background: rgb(166, 38, 137);
+	margin: 1em 0;
+}
+
+.main-explainer h2 {
+	color: white !important;
+}
+
 .feature {
   flex: 1 0 20%;
   text-align: center;
