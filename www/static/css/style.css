@@ -247,7 +247,7 @@ footer section {
 .main-explainer {
 	color: white;
 	background: rgb(166, 38, 137);
-	margin: 1em 0;
+	padding: 1em;
 }
 
 .main-explainer h2 {
@@ -267,6 +267,13 @@ footer section {
 	margin: 2rem auto 0 auto;
 	width: 80%;
 	max-width: 640px;
+}
+
+.img-square {
+	max-width: 90.0%;
+	min-width: 200px;
+	height: auto;
+	margin: 1rem;
 }
 
 .img-fluid-full {
