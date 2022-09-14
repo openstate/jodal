@@ -113,7 +113,7 @@ h6 {
 }
 
 main {
-  max-width: 760px;
+  max-width: 1200px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -257,6 +257,13 @@ footer section {
 	margin: 2rem auto 0 auto;
 	width: 80%;
 	max-width: 640px;
+}
+
+.img-fluid-full {
+	max-width: 100.0%;
+	min-width: 200px;
+	height: auto;
+	margin: 1rem;
 }
 
 .img-fluid {
