@@ -282,6 +282,7 @@ footer section {
 .img-fluid-full {
 	max-width: 90.0%;
 	min-width: 200px;
+	max-height: 220px;
 	height: auto;
 	margin: 1rem;
 }
