@@ -250,6 +250,9 @@ footer section {
 	padding: 1em;
 }
 
+.main-explainer p {
+	text-align: left;
+}
 .main-explainer h2 {
 	color: white !important;
 }

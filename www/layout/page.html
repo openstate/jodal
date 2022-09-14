@@ -79,8 +79,8 @@ function getParam(name){
 }
 // SHOULD ONLY ST COOKIE IF IT IS NOT THERE YET!
 var test_set_cookie = (typeof(getParam('utm_source')) !== 'undefined') && (getCookie('jodal_abtest') == "");
-//var test_items = ["video", "screenshots"];
-var test_items = ["screenshots"];
+var test_items = ["video", "screenshots"];
+//var test_items = ["screenshots"];
 var test_item;
 if (test_set_cookie) {
   test_item = test_items[Math.floor(Math.random()*test_items.length)];
