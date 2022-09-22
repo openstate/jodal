@@ -20,6 +20,17 @@ class Column(db.Model):
     date_start = db.Column('date_start', db.DateTime, nullable=True)
     date_end = db.Column('date_end', db.DateTime, nullable=True)
 
+
+class ColumnSource(db.Model):
+    __tablename__ = 'column_source'
+    id = db.Column('id', db.Integer, primary_key=True)
+    #column_id = db.Column('column_id', db.Integer, nullable=False)
+    column_id = db.Column(db.Integer, db.ForeignKey("column.id"))
+    column = db.relationship("Column", backref=db.backref("sources", lazy="dynamic"))
+    source = db.Column('source', db.String(100), nullable=False)
+    enabled = db.Column('enabled', db.Boolean, default=True)
+
+
 class UserData(db.Model):
     __tablename__ = 'user_data'
     id = db.Column('id', db.Integer, primary_key=True)

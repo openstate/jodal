@@ -5,7 +5,7 @@ import json
 from marshmallow import fields, ValidationError
 
 from app import ma
-from app.models import Column
+from app.models import Column, ColumnSource
 
 
 
@@ -42,17 +42,28 @@ class ReadCountsField(fields.Field):
         except ValueError as error:
             raise ValidationError("-") from error
 
+class ColumnSourceSchema(ma.Schema):
+    class Meta:
+        fields = (
+            "id", "column_id", "source", "enabled")
+        model = ColumnSource
+
+
 class ColumnSchema(ma.Schema):
     class Meta:
         fields = (
             "id", "user_id", "name", "locations", "user_query", "order",
             "src_poliflw", "src_openspending", "src_openbesluitvorming",
-            "sort", "sort_order", "date_start",  "date_end", "read_counts")
+            "sort", "sort_order", "date_start",  "date_end", "read_counts",
+            "sources")
         model = Column
     read_counts = ReadCountsField()
     locations = LocationsField()  # fields.Str()
     date_start = fields.DateTime(allow_none=True, default=None)
     date_end = fields.DateTime(allow_none=True, default=None)
+    sources = fields.Nested(ColumnSourceSchema(many=True, only=("id", "source", "enabled")))
 
 column_schema = ColumnSchema()
 columns_schema = ColumnSchema(many=True)
+column_source_schema = ColumnSourceSchema()
+column_sources_schema = ColumnSourceSchema(many=True)
