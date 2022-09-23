@@ -15,6 +15,7 @@ class Column(db.Model):
     src_poliflw = db.Column('src_poliflw', db.Boolean, default=True)
     src_openspending = db.Column('src_openspending', db.Boolean, default=True)
     src_openbesluitvorming = db.Column('src_openbesluitvorming', db.Boolean, default=True)
+    src_cvdr = db.Column('src_cvdr', db.Boolean, default=True)
     sort = db.Column('sort', db.String(16), default='published', nullable=False)
     sort_order = db.Column('sort_order', db.String(4), default='desc', nullable=False)
     date_start = db.Column('date_start', db.DateTime, nullable=True)
