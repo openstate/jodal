@@ -6,7 +6,7 @@ import flask_restful
 from flask_restful import Resource
 
 from app import db
-from app.models import Column
+from app.models import Column, ColumnSource
 from app.schemas import (column_schema, columns_schema)
 
 def authenticate(func):
