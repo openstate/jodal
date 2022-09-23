@@ -54,14 +54,13 @@ class ColumnSchema(ma.Schema):
         fields = (
             "id", "user_id", "name", "locations", "user_query", "order",
             "src_poliflw", "src_openspending", "src_openbesluitvorming",
-            "sort", "sort_order", "date_start",  "date_end", "read_counts",
-            "sources")
+            "src_cvdr", "sort", "sort_order", "date_start",  "date_end",
+            "read_counts")
         model = Column
     read_counts = ReadCountsField()
     locations = LocationsField()  # fields.Str()
     date_start = fields.DateTime(allow_none=True, default=None)
     date_end = fields.DateTime(allow_none=True, default=None)
-    sources = fields.Nested(ColumnSourceSchema(many=True, only=("id", "source", "enabled")))
 
 column_schema = ColumnSchema()
 columns_schema = ColumnSchema(many=True)

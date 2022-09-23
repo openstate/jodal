@@ -18,11 +18,7 @@ depends_on = None
 sources = ['poliflw','openspending', 'openbesluitvorming']
 
 def upgrade():
-    for s in sources:
-        fld = 'src_%s' % (s,)
-        op.execute(
-            'INSERT INTO `column_source` (column_id, source, enabled) SELECT id, "%s", src_%s FROM `column`;' % (s,s,))
-
+    pass
 
 def downgrade():
-    op.execute('DELETE FROM `column_source`;')
+    pass
