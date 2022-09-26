@@ -505,7 +505,7 @@ onDestroy(function () {
       <div class="column-counts-source" class:column-counts-source-disabled={!inquiry['src_' + s.short]}>
         <Button on:click={() => handleSourceButtonClick(s.short)}>
           <Label>
-            <img src="/images/sources/{ s.short }.svg" alt="{ s.name }" title="{s.name}" class="source-logo"><span title="{$source_counts[s.short] || 0}">{human_readable_numer($source_counts[s.short] || 0)}</span>
+            <img src="/images/sources/{ s.short }.svg" alt="{ s.name }" title="{s.name}: {human_readable_numer($source_counts[s.short] || 0)}" class="source-logo">
           </Label>
         </Button>
       </div>
