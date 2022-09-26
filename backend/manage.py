@@ -28,6 +28,7 @@ from jodal.openspending import (
 from jodal.poliflw import PoliflwScraperRunner
 from jodal.obv import (OpenbesluitvormingScraperRunner,
     OpenbesluitvormingCountsScraperRunner)
+from jodal.cvdr import CVDRScraperRunner
 
 logging.basicConfig(
     format='%(asctime)s.%(msecs)s:%(name)s:%(thread)d:%(levelname)s:%(process)d:%(message)s',
@@ -210,6 +211,28 @@ def scrapers_obv_counts(date_from, date_to, threshold, organizations):
     }
     OpenbesluitvormingCountsScraperRunner().run(**kwargs)
 
+
+@command('cvdr')
+@click.option('-f', '--date-from', default=(datetime.now() - timedelta(minutes=360)))
+@click.option('-t', '--date-to', default=datetime.now())
+def scrapers_cvdr(date_from, date_to, scroll):
+    config = load_config()
+    es = setup_elasticsearch(config)
+    try:
+        df = date_from.isoformat()
+    except AttributeError as e:
+        df = str(date_from)
+    try:
+        dt = date_to.isoformat()
+    except AttributeError as e:
+        dt = str(date_to)
+    kwargs = {
+        'config': config,
+        'date_from': df,
+        'date_to': dt
+    }
+    CVDRScraperRunner().run(**kwargs)
+
 @command('put_templates')
 @click.option('--template_dir', default='./mappings/', help='Path to JSON file containing the template.')
 def es_put_template(template_dir):
@@ -241,6 +264,7 @@ def es_put_template(template_dir):
 # Register commands explicitly with groups, so we can easily use the docstring
 # wrapper
 elasticsearch.add_command(es_put_template)
+
 scrapers.add_command(scrapers_locations)
 scrapers.add_command(scrapers_openspending)
 scrapers.add_command(scrapers_openspendingdoc)
@@ -248,6 +272,7 @@ scrapers.add_command(scrapers_openspendingcache)
 scrapers.add_command(scrapers_poliflw)
 scrapers.add_command(scrapers_obv)
 scrapers.add_command(scrapers_obv_counts)
+scrapers.add_command(scrapers_cvdr)
 
 if __name__ == '__main__':
     cli()
