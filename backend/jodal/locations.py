@@ -126,12 +126,33 @@ class OpenBesluitvormingLocationScraper(MemoryMixin, BaseLocationScraper):
         })
 
 
+class CVDRLocationScraper(MemoryMixin, BaseLocationScraper):
+    name = 'cvdr'
+    url = 'https://aleph.openstate.eu/api/2/search?filter%3Aschemata=PublicBody&filter%3Acollection_id=7&limit=10000'
+
+    def _sanatize_name(self, name):
+        output = re.sub('^\s*\-?\s*', '', name)
+        return output[0].capitalize() + output[1:]
+
+    def fetch(self):
+        response = super(CVDRLocationScraper, self).fetch()
+        return response['results']
+
+    def transform(self, item):
+        name = self._sanatize_name(item['properties']['name'][0])
+        return super(CVDRLocationScraper, self).transform({
+            'name': name,
+            'id': item['id'],
+            'source': self.name
+        })
+
 class LocationsScraperRunner(object):
     scrapers = [
         PoliFlwLocationScraper,
         OpenspendingCountyLocationScraper,
         OpenspendingProvinceLocationScraper,
-        OpenBesluitvormingLocationScraper
+        OpenBesluitvormingLocationScraper,
+        CVDRLocationScraper
     ]
 
     def read_renames(self):
