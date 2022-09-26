@@ -215,7 +215,7 @@ def scrapers_obv_counts(date_from, date_to, threshold, organizations):
 @command('cvdr')
 @click.option('-f', '--date-from', default=(datetime.now() - timedelta(minutes=360)))
 @click.option('-t', '--date-to', default=datetime.now())
-def scrapers_cvdr(date_from, date_to, scroll):
+def scrapers_cvdr(date_from, date_to):
     config = load_config()
     es = setup_elasticsearch(config)
     try:

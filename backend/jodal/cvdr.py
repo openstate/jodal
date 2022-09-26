@@ -23,7 +23,7 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
     name = 'cvdr'
     method = 'get'
     url = 'https://aleph.openstate.eu/api/2/search'
-    payload = {
+    params = {
         'filter:schemata': 'Thing',
         'filter:collection_id': '7',
         "offset": 0,
@@ -39,8 +39,8 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
         self.date_from = kwargs['date_from']
         self.date_to = kwargs['date_to']
         self.cvdr_locations = None
-        logging.info('Scraper: fetch from %s to %s, scroll time %s' % (
-            self.date_from, self.date_to, self.scroll,))
+        logging.info('Scraper: fetch from %s to %s' % (
+            self.date_from, self.date_to,))
 
     def _get_cvdr_locations(self):
         result = {}
@@ -55,17 +55,18 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
 
     def next(self):
         if len(self.result_json.get('next')) > 0:
-            self.payload['from'] += 10
+            self.params['offset'] += 10
             return True
 
     def fetch(self):
         if self.cvdr_locations is None:
-            self.cvdr_locations = self._get_poliflw_locations()
+            self.cvdr_locations = self._get_cvdr_locations()
         sleep(1)
-        self.payload['dates'] = str(self.date_from)
+        self.params['dates'] = str(self.date_from)
         #self.payload['filters']['date']['to'] = str(self.date_to)
         result = super(DocumentsScraper, self).fetch()
         if result is not None:
+            logging.info(result)
             logging.info(
                 'Scraper: in total %s results' % (result['total'],))
             return result.get('results', [])
@@ -91,7 +92,7 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
                     'id': h_id.hexdigest(),
                     'identifier': r_uri,
                     'url': item['links']['ui'],
-                    'location': self.poliflw_locations[name],
+                    'location': self.cvdr_locations[name],
                     'title': props.get('title', [''])[0].strip(),
                     'description': item.get('bodyHtml', [''])[0],
                     'created': item.get('createdAt', [None])[0],
