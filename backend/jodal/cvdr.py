@@ -38,6 +38,7 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
         self.config = kwargs['config']
         self.date_from = kwargs['date_from']
         self.date_to = kwargs['date_to']
+        self.date_field = kwargs['date_field']
         self.cvdr_locations = None
         logging.info('Scraper: fetch from %s to %s' % (
             self.date_from, self.date_to,))
@@ -54,7 +55,8 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
         return result
 
     def next(self):
-        if len(self.result_json.get('next')) > 0:
+        next_link = self.result_json.get('next')
+        if (next_link is not None) and (len(next_link) > 0):
             self.params['offset'] += 10
             return True
 
@@ -62,7 +64,7 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
         if self.cvdr_locations is None:
             self.cvdr_locations = self._get_cvdr_locations()
         sleep(1)
-        self.params['dates'] = str(self.date_from)
+        self.params['filter:' + self.date_field] = str(self.date_from)
         #self.payload['filters']['date']['to'] = str(self.date_to)
         result = super(DocumentsScraper, self).fetch()
         if result is not None:
