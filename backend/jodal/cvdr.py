@@ -71,7 +71,7 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
             #logging.info(result)
             results = result.get('results', [])
             logging.info(
-                'Scraper: in total %s(%s) results' % (
+                'Scraper: in total %s(%s) results before bulk' % (
                     result['total'], len(results),))
             return results
         else:
