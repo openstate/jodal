@@ -87,7 +87,11 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
             item_id = item.get('id', None) or item.get('meta', {}).get('_id', None)
             data = {}
             name = props.get('author', ['-'])[0].replace('Gemeente ', '').replace('(L)','(L.)').strip()
-            if name in self.cvdr_locations:
+            if name not in self.cvdr_locations:
+                logging.info(
+                    'Scraper: cvdr author [%s] (%s) was not found in locations' % (
+                        name, props.get('author'),))
+            else:
                 r = {
                     '_id': h_id.hexdigest(),
                     '_index': 'jodal_documents',
