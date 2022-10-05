@@ -27,7 +27,7 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
         'filter:schemata': 'Thing',
         'filter:collection_id': '7',
         "offset": 0,
-        "limit": 10
+        "limit": 100
     }
     headers = {
         'Content-type': 'application/json'
@@ -68,10 +68,12 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
         #self.payload['filters']['date']['to'] = str(self.date_to)
         result = super(DocumentsScraper, self).fetch()
         if result is not None:
-            logging.info(result)
+            #logging.info(result)
+            results = result.get('results', [])
             logging.info(
-                'Scraper: in total %s results' % (result['total'],))
-            return result.get('results', [])
+                'Scraper: in total %s(%s) results' % (
+                    result['total'], len(results),))
+            return results
         else:
             return []
 
