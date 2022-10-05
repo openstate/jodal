@@ -90,10 +90,10 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
             data = {}
             name = props.get('author', ['-'])[0].strip()
             name_replacements = {
-                'Gemeente ', '',
-                '(L)' => '(L.)',
-                '(NH)' => '(NH.)',
-                '(Utr)' => ''
+                'Gemeente ': '',
+                '(L)': '(L.)',
+                '(NH)': '(NH.)',
+                '(Utr)': ''
             }
             for k,v in name_replacements.items():
                 name = re.sub('\s+', ' ', name.replace(k, v).strip())
