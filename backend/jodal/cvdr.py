@@ -56,8 +56,8 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
 
     def next(self):
         next_link = self.result_json.get('next')
-        if (next_link is not None) and (len(next_link) > 0):
-            self.params['offset'] += 10
+        if (next_link is not None) and (next_link.strip() != ''):
+            self.params['offset'] += self.params['limit']
             return True
 
     def fetch(self):

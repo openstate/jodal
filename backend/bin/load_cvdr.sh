@@ -7,6 +7,6 @@ do
   do
     CVDR_DAY=`date -d "$y-01-01 $i days" +%Y-%m-%d;`
     ./manage.py scrapers cvdr -f "$CVDR_DAY" -t "$CVDR_DAY" -w dates
-    sleep 1
+    sleep $3
   done;
 done;
