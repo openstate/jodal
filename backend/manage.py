@@ -215,7 +215,7 @@ def scrapers_obv_counts(date_from, date_to, threshold, organizations):
 @command('cvdr')
 @click.option('-f', '--date-from', default=(datetime.now() - timedelta(minutes=360)))
 @click.option('-t', '--date-to', default=datetime.now())
-@click.option('-w', '--date-field', default='created_at')  # created_at, updated_at, dates
+@click.option('-w', '--date-field', default='dates')  # created_at, updated_at, dates
 def scrapers_cvdr(date_from, date_to, date_field):
     config = load_config()
     es = setup_elasticsearch(config)
