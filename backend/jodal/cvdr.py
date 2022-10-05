@@ -88,7 +88,15 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
             h_id.update(r_uri.encode('utf-8'))
             item_id = item.get('id', None) or item.get('meta', {}).get('_id', None)
             data = {}
-            name = props.get('author', ['-'])[0].replace('Gemeente ', '').replace('(L)','(L.)').strip()
+            name = props.get('author', ['-'])[0].strip()
+            name_replacements = {
+                'Gemeente ', '',
+                '(L)' => '(L.)',
+                '(NH)' => '(NH.)',
+                '(Utr)' => ''
+            }
+            for k,v in name_replacements.items():
+                name = re.sub('\s+', ' ', name.replace(k, v).strip())
             if name not in self.cvdr_locations:
                 logging.info(
                     'Scraper: cvdr author [%s] (%s) was not found in locations' % (
