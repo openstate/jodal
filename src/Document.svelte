@@ -33,7 +33,7 @@
       { @html $description }
       {/if}
 
-      {#if ($item.source == 'poliflw' || $item.source == 'openbesluitvorming' || $tem.source == "cvdr") && (typeof($item._id) !== 'undefined')}
+      {#if ($item.source == 'poliflw' || $item.source == 'openbesluitvorming' || $item.source == "cvdr") && (typeof($item._id) !== 'undefined')}
         <h4>Downloaden als:</h4>
         {#each export_formats[$item.source] as fmt}
           <a href="//api.jodal.nl/documents/download/{$item.source}/{$item._id}?format={fmt}" target="_blank" class="mdc-button document-download-button">
