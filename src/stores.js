@@ -24,10 +24,10 @@ export const sources = readable([
     short: 'openspending',
     name: 'Openspending'
   },
-  // {
-  //   short: 'cvdr',
-  //   name: 'Lokale wet- en regelgeving'
-  // }
+  {
+    short: 'cvdr',
+    name: 'Lokale wet- en regelgeving'
+  }
 ]);
 
 export const inquiries = writable([
