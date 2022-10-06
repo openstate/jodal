@@ -154,9 +154,9 @@ h6 {
 	display: grid;
 	grid-gap: 16px;
 	padding: 0 4px;
-	grid-template-columns: repeat(auto-fill,minmax(80px,1fr));
+	grid-template-columns: repeat(auto-fill,minmax(60px,1fr));
 	grid-auto-flow: column;
-	grid-auto-columns: minmax(80px,1fr);
+	grid-auto-columns: minmax(60px,1fr);
 	overflow-x: auto;
 }
 
