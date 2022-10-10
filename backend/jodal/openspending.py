@@ -377,11 +377,18 @@ class DocumentIdsScraper(BaseOpenSpendingScraper):
         'Content-type': 'application/json'
     }
 
+    configurable_params = {
+        'date_from': 'created_at__gt',
+        'date_to':'created_at__lt',
+        'year': 'year__exact',
+        'period': 'period__exact'
+    }
+
     def __init__(self, *args, **kwargs):
         super(DocumentIdsScraper, self).__init__(*args, **kwargs)
         self.config = kwargs['config']
-        self.date_from = kwargs['date_from']
-        self.date_to = kwargs['date_to']
+        for k, v in self.configurable_params.items():
+            setattr(self, k, kwargs.get(k))
         logging.info('Scraper: fetch from %s to %s' % (self.date_from, self.date_to,))
 
     def next(self):
@@ -392,9 +399,11 @@ class DocumentIdsScraper(BaseOpenSpendingScraper):
 
     def fetch(self):
         sleep(2)
-        for cparam, dparam in {'created_at__gt': 'date_from', 'created_at__lt': 'date_to'}.items():
+        for dparam, cparam in self.configurable_params.items():
             if cparam not in self.url:
-                self.url += '&' + cparam + '=' + getattr(self, dparam)
+                v = getattr(self, dparam)
+                if v is not None:
+                    self.url += '&' + cparam + '=' + getattr(self, dparam)
         result = super(DocumentIdsScraper, self).fetch()
         logging.info(
             'Scraper: in total %s results' % (result['meta']['total_count'],))
