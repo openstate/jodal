@@ -117,7 +117,9 @@ def scrapers_openspending(date_from, date_to):
 @command('openspendingcache')
 @click.option('-f', '--date-from', default=(date.today() - timedelta(days=1)))
 @click.option('-t', '--date-to', default=datetime.now())
-def scrapers_openspendingcache(date_from, date_to):
+@click.option('-y', '--year', default=None)
+@click.option('-p', '--period', default='0')
+def scrapers_openspendingcache(date_from, date_to, year, period):
     config = load_config()
     es = setup_elasticsearch(config)
     try:
@@ -128,10 +130,16 @@ def scrapers_openspendingcache(date_from, date_to):
         dt = date_to.isoformat()
     except AttributeError as e:
         dt = str(date_to)
+    # year takes precendence
+    if year is not None:
+        df = None
+        dt = None
     kwargs = {
         'config': config,
         'date_from': df,
-        'date_to': dt
+        'date_to': dt,
+        'year': year,
+        'period': period
     }
     OpenSpendingCacheScraperRunner().run(**kwargs)
 
