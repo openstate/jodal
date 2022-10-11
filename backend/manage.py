@@ -83,12 +83,14 @@ def scrapers_locations():
 
 @command('openspendingdoc')
 @click.option('-d', '--document-id')
-def scrapers_openspendingdoc(document_id):
+@click.option('--verbose', '-v', is_flag=True, default=False, help="More.")
+def scrapers_openspendingdoc(document_id, verbose):
     config = load_config()
     es = setup_elasticsearch(config)
     kwargs = {
         'config': config,
-        'document_id': document_id
+        'document_id': document_id,
+        'verbose': verbose
     }
     OpenSpendingDocumentScraperRunner().run(**kwargs)
 

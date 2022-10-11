@@ -278,6 +278,7 @@ class DocumentScraper(BaseOpenSpendingScraper):
         super(DocumentScraper, self).__init__(*args, **kwargs)
         self.config = kwargs['config']
         self.document_id = kwargs['document_id']
+        self.verbose = kwargs['verbose']
         logging.info('Fetching document %s' % (self.document_id,))
 
     def next(self):
@@ -304,6 +305,8 @@ class DocumentScraper(BaseOpenSpendingScraper):
             'naam': item['title'],
             'bedrag': item['data']['value']
         }
+        if self.verbose:
+            result['locatie_code'] = self.result_json['government']['code']
         return result
 
     def transform(self, item):
@@ -366,6 +369,7 @@ class DocumentScraper(BaseOpenSpendingScraper):
                         self._convert_aggregation_item(a) for a in aggregation.items]
 
         # logging.info(pformat(result))
+        output = result
         return result
 
 
@@ -481,4 +485,5 @@ class OpenSpendingDocumentScraperRunner(object):
                 logging.error(e)
                 raise e
         logging.info('Fetching resulted in %s items ...' % (len(items)))
+        logging.info(pformat(items))
         return items
