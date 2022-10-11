@@ -485,5 +485,6 @@ class OpenSpendingDocumentScraperRunner(object):
                 logging.error(e)
                 raise e
         logging.info('Fetching resulted in %s items ...' % (len(items)))
-        logging.info(pformat(items))
+        #logging.info(pformat(items))
+        print(json.dumps(items))
         return items
