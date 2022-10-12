@@ -21,6 +21,7 @@ from jodal.scrapers import (
 def openspending_compare_run(kwargs):
     logging.info(format(kwargs))
     year_mapping = {}
+    muni_mapping = {}
     for p in glob(os.path.join(kwargs['path'], '*.json')):
         logging.info(p)
         entries = []
@@ -35,3 +36,26 @@ def openspending_compare_run(kwargs):
             year_mapping[loc][year] = p
         except LookupError as e:
             year_mapping[loc] = {year: p}
+        muni_mapping[loc] = entries[0]['locatie']
+    logging.info(pformat(year_mapping))
+    for l in muni_mapping.keys():
+        difference = {}
+        for y, p in year_mapping[l].items():
+            entries = []
+            with open(p, 'r') as in_file:
+                entries = json.load(in_file)
+            if len(entries) <= 0:
+                logging.warning('%s was empty!' % (p,))
+                continue
+            for e in entries:
+                key = '%s-%s-%s' % (e['soort'], e['type'], e['code'])
+                if y == 2022:
+                    try:
+                        difference[key] = e['bedrag'] - difference[key] 
+                    except KeyError as e:
+                        pass  # no coparison for this function or category
+                else:
+                    difference[key] = e['bedrag']
+        if y == 2022:
+            logging.info(l)
+            logging.info(pformat(difference))
