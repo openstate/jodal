@@ -10,6 +10,7 @@ from urllib.parse import urljoin
 from time import sleep
 import locale
 from glob import glob
+from collections import OrderedDict
 
 import requests
 
@@ -40,6 +41,7 @@ def openspending_compare_run(kwargs):
     logging.info(pformat(year_mapping))
     for l in muni_mapping.keys():
         difference = {}
+        amounts = {}
         for y, p in year_mapping[l].items():
             entries = []
             with open(p, 'r') as in_file:
@@ -47,15 +49,23 @@ def openspending_compare_run(kwargs):
             if len(entries) <= 0:
                 logging.warning('%s was empty!' % (p,))
                 continue
+            amounts[y] = sorted(entries, key=lambda i: i['bedrag'])
             for e in entries:
+                if e['soort'].lower() != 'lasten':
+                    continue
+                if e['type'].lower() != 'functie':
+                    continue
                 key = '%s-%s-%s' % (e['soort'], e['type'], e['code'])
                 if y == 2022:
                     try:
-                        difference[key] = e['bedrag'] - difference[key] 
+                        difference[key] = e['bedrag'] - difference[key]
                     except KeyError as e:
                         pass  # no coparison for this function or category
                 else:
                     difference[key] = e['bedrag']
         if y == 2022:
             logging.info(l)
-            logging.info(pformat(difference))
+            sorted_difference = OrderedDict(
+                sorted(difference.items(), key=lambda item: item[1]))
+            logging.info(pformat(sorted_difference))
+            logging.info(pformat(amounts[y]))
