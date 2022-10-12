@@ -25,6 +25,7 @@ from jodal.locations import LocationsScraperRunner
 from jodal.openspending import (
     OpenSpendingScraperRunner, OpenSpendingDocumentScraperRunner,
     OpenSpendingCacheScraperRunner)
+from jodal.openspending_compare import openspending_compare_run
 from jodal.poliflw import PoliflwScraperRunner
 from jodal.obv import (OpenbesluitvormingScraperRunner,
     OpenbesluitvormingCountsScraperRunner)
@@ -72,6 +73,10 @@ def elasticsearch():
 def scrapers():
     """Manage scrapers"""
 
+
+@cli.group()
+def openspending():
+    """Manage openspending stuff"""
 
 @command('locations')
 def scrapers_locations():
@@ -144,6 +149,17 @@ def scrapers_openspendingcache(date_from, date_to, year, period):
         'period': period
     }
     OpenSpendingCacheScraperRunner().run(**kwargs)
+
+
+@command('compare')
+@click.option('-p', '--path', default='./2021-2022-comparison')
+def openspending_openspendingcompare(path):
+    config = load_config()
+    kwargs = {
+        'config': config,
+        'path': path
+    }
+    openspending_compare_run(kwargs)
 
 
 @command('poliflw')
@@ -276,6 +292,8 @@ def es_put_template(template_dir):
 # Register commands explicitly with groups, so we can easily use the docstring
 # wrapper
 elasticsearch.add_command(es_put_template)
+
+openspending.add_command(openspending_openspendingcompare)
 
 scrapers.add_command(scrapers_locations)
 scrapers.add_command(scrapers_openspending)
