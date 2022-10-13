@@ -23,6 +23,10 @@ def openspending_compare_run(kwargs):
     logging.info(format(kwargs))
     year_mapping = {}
     muni_mapping = {}
+    gov_slugs = {}
+    municipalities = requests.get('https://www.openspending.nl/api/v1/governments/?limit=10000').json()
+    for m in municipalities['objects']:
+        gov_slugs[m['code']] = m['slug']
     for p in glob(os.path.join(kwargs['path'], '*.json')):
         logging.info(p)
         entries = []
@@ -67,5 +71,8 @@ def openspending_compare_run(kwargs):
             logging.info(l)
             sorted_difference = OrderedDict(
                 sorted(difference.items(), key=lambda item: item[1]))
-            logging.info(pformat(sorted_difference))
-            logging.info(pformat(amounts[y]))
+            #logging.info(pformat(sorted_difference))
+            #logging.info(pformat(amounts[y]))
+            logging.info(
+                'https://openspending.nl/%s/begroting/2022-0/lasten/hoofdfuncties/vergelijk/%s/begroting/2021-0/' % (
+                    gov_slugs[l], gov_slugs[l],))
