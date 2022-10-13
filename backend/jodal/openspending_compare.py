@@ -19,14 +19,16 @@ from jodal.scrapers import (
     MemoryMixin, ElasticsearchMixin, ElasticsearchBulkMixin, BaseScraper,
     BaseWebScraper)
 
-def openspending_compare_run(kwargs):
-    logging.info(format(kwargs))
-    year_mapping = {}
-    muni_mapping = {}
+def get_municipalities():
     gov_slugs = {}
     municipalities = requests.get('https://www.openspending.nl/api/v1/governments/?limit=10000').json()
     for m in municipalities['objects']:
         gov_slugs[m['code']] = m['slug']
+    return gov_slugs
+
+def get_year_and_municipalities_mappings():
+    year_mapping = {}
+    muni_mapping = {}
     for p in glob(os.path.join(kwargs['path'], '*.json')):
         logging.info(p)
         entries = []
@@ -42,7 +44,15 @@ def openspending_compare_run(kwargs):
         except LookupError as e:
             year_mapping[loc] = {year: p}
         muni_mapping[loc] = entries[0]['locatie']
-    logging.info(pformat(year_mapping))
+    return year_mapping, muni_mapping
+
+def openspending_compare_run(kwargs):
+    logging.info(format(kwargs))
+    year_mapping = {}
+    muni_mapping = {}
+    gov_slugs = get_municipalities()
+    year_mapping, muni_mapping = get_year_and_municipalities_mappings()
+
     for l in muni_mapping.keys():
         difference = {}
         amounts = {}
