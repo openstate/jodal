@@ -239,18 +239,18 @@ def scrapers_obv_counts(date_from, date_to, threshold, organizations):
 
 
 @command('cvdr')
-@click.option('-f', '--date-from', default=(datetime.now() - timedelta(minutes=360)))
+@click.option('-f', '--date-from', default=(datetime.now() - timedelta(days=1)))
 @click.option('-t', '--date-to', default=datetime.now())
 @click.option('-w', '--date-field', default='dates')  # created_at, updated_at, dates
 def scrapers_cvdr(date_from, date_to, date_field):
     config = load_config()
     es = setup_elasticsearch(config)
     try:
-        df = date_from.isoformat()
+        df = date_from.isoformat()[0:19]
     except AttributeError as e:
         df = str(date_from)
     try:
-        dt = date_to.isoformat()
+        dt = date_to.isoformat()[0:19]
     except AttributeError as e:
         dt = str(date_to)
     kwargs = {
