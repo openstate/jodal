@@ -46,6 +46,15 @@ def get_year_and_municipalities_mappings():
         muni_mapping[loc] = entries[0]['locatie']
     return year_mapping, muni_mapping
 
+def tmpl(template_path, context):
+    content = ''
+    with open(template_path, 'r') as in_file:
+        content = in_file.read()
+    for k, v in context.items():
+        print(v)
+        content = content.replace('{%s}' % (k,), v)
+    return content
+
 def openspending_compare_run(kwargs):
     logging.info(format(kwargs))
     year_mapping = {}
