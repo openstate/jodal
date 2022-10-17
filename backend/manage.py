@@ -153,11 +153,15 @@ def scrapers_openspendingcache(date_from, date_to, year, period):
 
 @command('compare')
 @click.option('-p', '--path', default='./2021-2022-comparison')
-def openspending_openspendingcompare(path):
+@click.option('-t', '--templates', default='./2021-2022-templates')
+@click.option('-o', '--output', default='./2021-2022-articles')
+def openspending_openspendingcompare(path, templates, output):
     config = load_config()
     kwargs = {
         'config': config,
-        'path': path
+        'path': path,
+        'templates': templates,
+        'output': output
     }
     openspending_compare_run(kwargs)
 
