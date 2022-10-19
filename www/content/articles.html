@@ -1,5 +1,9 @@
 <!-- title: Articles -->
 <h1>Gemeentebegroting 2023</h1>
+<form>
+  <select id="select-gm-1" name="gm1">
+  </select>
+</form>
 <p>De gemeentebegroting voor 2023 is behandeld en aangenomen. Via de website van de
 gemeente [invulveld gemeentenaam] kunt u deze begroting inzien. Ook al lijken de
 begrotingen van verschillende gemeenten veel op elkaar, iedere gemeente besteedt het
@@ -44,6 +48,12 @@ fetch('/2022-articles/details.json')
         }
       });
     });
+    gmCompareApp.gm_names.sort().forEach(function (g) {
+      var e = document.createElement('option');
+      e.append(g);
+      e.attributes["value"] = gmCompareApp.gm[g];
+      document.getElementById('select-gm-1').append(e);
+    })
     //console.log(gmCompareApp.gm);
   });
 </script>
