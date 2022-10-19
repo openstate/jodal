@@ -1,0 +1,49 @@
+<!-- title: Articles -->
+<h1>Gemeentebegroting 2023</h1>
+<p>De gemeentebegroting voor 2023 is behandeld en aangenomen. Via de website van de
+gemeente [invulveld gemeentenaam] kunt u deze begroting inzien. Ook al lijken de
+begrotingen van verschillende gemeenten veel op elkaar, iedere gemeente besteedt het
+totale budget op een ander manier. Dit heeft vooral te maken met de diversiteit van de
+omgeving en samenleving. Waar de ene gemeente meer aandacht heeft voor orde en
+veiligheid, reserveert een andere gemeente meer budget voor het realiseren van groen. In
+dit artikel kunt u de budgetten en belastingen van verschillende gemeenten met elkaar
+vergelijken.</p>
+<h2>Inkomen vanuit het Rijk</h2>
+<p>Ongeveer 60% van het totale inkomen van de gemeente komt vanuit het Rijk. Er is een
+aanzienlijk verschil in het bedrag wat verschillende gemeenten ontvangen. Het aantal
+inwoners, jongeren, senioren en uitkeringsgerechtigden zijn onder andere belangrijke
+factoren voor het bepalen van dit budget. In dit artikel kunt u de begroting van het jaar 2022
+van twee verschillende gemeenten met elkaar vergelijken.</p>
+
+<script type="text/javascript">
+console.log('articles test!');
+
+var gmCompareApp = window.gmCompareApp || {
+  gm: {},
+  gm_names: [],
+  gm_docs: {}
+};
+window.gmCompareApp = gmCompareApp;
+
+fetch('/2022-articles/details.json')
+  .then((response) => response.json())
+  .then(function(data) {
+    //console.log(data);
+    data.forEach(function (k) {
+      k.forEach(function (i) {
+        if ((i.id !== null) && i.id.startsWith("GM")) {
+          if (typeof(gmCompareApp.gm[i.id]) == 'undefined') {
+            gmCompareApp.gm[i.loc] = i.id;
+            gmCompareApp.gm_names.push(i.loc);
+          }
+          if (typeof(gmCompareApp.gm_docs[i.id]) == 'undefined') {
+            gmCompareApp.gm_docs[i.id] = [i.fn];
+          } else {
+            gmCompareApp.gm_docs[i.id].push(i.fn);
+          }
+        }
+      });
+    });
+    //console.log(gmCompareApp.gm);
+  });
+</script>

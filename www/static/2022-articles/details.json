@@ -1,0 +1,4608 @@
+[
+  [
+    {
+      "fn": "35579.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "35923.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "35924.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "35925.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "35926.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "35927.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "35928.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "35929.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "35930.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "35931.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "35932.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "35933.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "35934.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "35935.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "35936.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "35937.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "36729.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "36730.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "36731.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "36732.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "36733.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "36734.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "36735.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "36736.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "36737.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "36738.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "36739.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "36740.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "36741.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "36742.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "36743.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    },
+    {
+      "fn": "36744.json",
+      "loc": null,
+      "id": null,
+      "year": null,
+      "period": null
+    }
+  ],
+  [
+    {
+      "fn": "35582.json",
+      "loc": "Groningen (gemeente)",
+      "id": "GM0014",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35589.json",
+      "loc": "Almere",
+      "id": "GM0034",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35597.json",
+      "loc": "Stadskanaal",
+      "id": "GM0037",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35603.json",
+      "loc": "Veendam",
+      "id": "GM0047",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35609.json",
+      "loc": "Zeewolde",
+      "id": "GM0050",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35617.json",
+      "loc": "Achtkarspelen",
+      "id": "GM0059",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35624.json",
+      "loc": "Ameland",
+      "id": "GM0060",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35631.json",
+      "loc": "Harlingen",
+      "id": "GM0072",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35636.json",
+      "loc": "Heerenveen",
+      "id": "GM0074",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35641.json",
+      "loc": "Leeuwarden",
+      "id": "GM0080",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35648.json",
+      "loc": "Ooststellingwerf",
+      "id": "GM0085",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35656.json",
+      "loc": "Opsterland",
+      "id": "GM0086",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35658.json",
+      "loc": "Schiermonnikoog",
+      "id": "GM0088",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35667.json",
+      "loc": "Smallingerland",
+      "id": "GM0090",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35673.json",
+      "loc": "Terschelling",
+      "id": "GM0093",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35583.json",
+      "loc": "Vlieland",
+      "id": "GM0096",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35590.json",
+      "loc": "Weststellingwerf",
+      "id": "GM0098",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35596.json",
+      "loc": "Assen",
+      "id": "GM0106",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35602.json",
+      "loc": "Coevorden",
+      "id": "GM0109",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35607.json",
+      "loc": "Emmen",
+      "id": "GM0114",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35613.json",
+      "loc": "Hoogeveen",
+      "id": "GM0118",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35619.json",
+      "loc": "Meppel",
+      "id": "GM0119",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35625.json",
+      "loc": "Almelo",
+      "id": "GM0141",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35630.json",
+      "loc": "Borne",
+      "id": "GM0147",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35635.json",
+      "loc": "Dalfsen",
+      "id": "GM0148",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35643.json",
+      "loc": "Deventer",
+      "id": "GM0150",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35649.json",
+      "loc": "Enschede",
+      "id": "GM0153",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35655.json",
+      "loc": "Haaksbergen",
+      "id": "GM0158",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35662.json",
+      "loc": "Hardenberg",
+      "id": "GM0160",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35668.json",
+      "loc": "Hellendoorn",
+      "id": "GM0163",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35584.json",
+      "loc": "Hengelo (Overijssel)",
+      "id": "GM0164",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35593.json",
+      "loc": "Kampen",
+      "id": "GM0166",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35598.json",
+      "loc": "Losser",
+      "id": "GM0168",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35605.json",
+      "loc": "Noordoostpolder",
+      "id": "GM0171",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35610.json",
+      "loc": "Oldenzaal",
+      "id": "GM0173",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35618.json",
+      "loc": "Ommen",
+      "id": "GM0175",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35622.json",
+      "loc": "Raalte",
+      "id": "GM0177",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35629.json",
+      "loc": "Staphorst",
+      "id": "GM0180",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35637.json",
+      "loc": "Tubbergen",
+      "id": "GM0183",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35644.json",
+      "loc": "Urk",
+      "id": "GM0184",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35650.json",
+      "loc": "Wierden",
+      "id": "GM0189",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35654.json",
+      "loc": "Zwolle",
+      "id": "GM0193",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35659.json",
+      "loc": "Aalten",
+      "id": "GM0197",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35666.json",
+      "loc": "Apeldoorn",
+      "id": "GM0200",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35672.json",
+      "loc": "Arnhem",
+      "id": "GM0202",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35585.json",
+      "loc": "Barneveld",
+      "id": "GM0203",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35591.json",
+      "loc": "Beuningen",
+      "id": "GM0209",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35595.json",
+      "loc": "Brummen",
+      "id": "GM0213",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35601.json",
+      "loc": "Buren",
+      "id": "GM0214",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35608.json",
+      "loc": "Culemborg",
+      "id": "GM0216",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35614.json",
+      "loc": "Doesburg",
+      "id": "GM0221",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35620.json",
+      "loc": "Doetinchem",
+      "id": "GM0222",
+      "year": 2022,
+      "period": 0
+    },
+    {
+      "fn": "36747.json",
+      "loc": "Doetinchem",
+      "id": "GM0222",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "35626.json",
+      "loc": "Druten",
+      "id": "GM0225",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35632.json",
+      "loc": "Duiven",
+      "id": "GM0226",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35638.json",
+      "loc": "Ede",
+      "id": "GM0228",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35642.json",
+      "loc": "Elburg",
+      "id": "GM0230",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35647.json",
+      "loc": "Epe",
+      "id": "GM0232",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35652.json",
+      "loc": "Ermelo",
+      "id": "GM0233",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35661.json",
+      "loc": "Harderwijk",
+      "id": "GM0243",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35664.json",
+      "loc": "Hattem",
+      "id": "GM0244",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35586.json",
+      "loc": "Heerde",
+      "id": "GM0246",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35588.json",
+      "loc": "Heumen",
+      "id": "GM0252",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35594.json",
+      "loc": "Lochem",
+      "id": "GM0262",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35600.json",
+      "loc": "Maasdriel",
+      "id": "GM0263",
+      "year": 2022,
+      "period": 0
+    },
+    {
+      "fn": "36746.json",
+      "loc": "Maasdriel",
+      "id": "GM0263",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "35606.json",
+      "loc": "Nijkerk",
+      "id": "GM0267",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35612.json",
+      "loc": "Nijmegen",
+      "id": "GM0268",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35616.json",
+      "loc": "Oldebroek",
+      "id": "GM0269",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35623.json",
+      "loc": "Putten",
+      "id": "GM0273",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35628.json",
+      "loc": "Renkum",
+      "id": "GM0274",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35633.json",
+      "loc": "Rheden",
+      "id": "GM0275",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35639.json",
+      "loc": "Rozendaal",
+      "id": "GM0277",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35646.json",
+      "loc": "Scherpenzeel",
+      "id": "GM0279",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35651.json",
+      "loc": "Tiel",
+      "id": "GM0281",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35660.json",
+      "loc": "Voorst",
+      "id": "GM0285",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35665.json",
+      "loc": "Wageningen",
+      "id": "GM0289",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35587.json",
+      "loc": "Westervoort",
+      "id": "GM0293",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35592.json",
+      "loc": "Winterswijk",
+      "id": "GM0294",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35599.json",
+      "loc": "Wijchen",
+      "id": "GM0296",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35604.json",
+      "loc": "Zaltbommel",
+      "id": "GM0297",
+      "year": 2022,
+      "period": 0
+    },
+    {
+      "fn": "36745.json",
+      "loc": "Zaltbommel",
+      "id": "GM0297",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "35611.json",
+      "loc": "Zevenaar",
+      "id": "GM0299",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35615.json",
+      "loc": "Zutphen",
+      "id": "GM0301",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35621.json",
+      "loc": "Nunspeet",
+      "id": "GM0302",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35627.json",
+      "loc": "Dronten",
+      "id": "GM0303",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35634.json",
+      "loc": "Amersfoort",
+      "id": "GM0307",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35640.json",
+      "loc": "Baarn",
+      "id": "GM0308",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35645.json",
+      "loc": "De Bilt",
+      "id": "GM0310",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35653.json",
+      "loc": "Bunnik",
+      "id": "GM0312",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35657.json",
+      "loc": "Bunschoten",
+      "id": "GM0313",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35663.json",
+      "loc": "Eemnes",
+      "id": "GM0317",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35669.json",
+      "loc": "Houten",
+      "id": "GM0321",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35670.json",
+      "loc": "Leusden",
+      "id": "GM0327",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35675.json",
+      "loc": "Lopik",
+      "id": "GM0331",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35681.json",
+      "loc": "Montfoort",
+      "id": "GM0335",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35689.json",
+      "loc": "Renswoude",
+      "id": "GM0339",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35693.json",
+      "loc": "Rhenen",
+      "id": "GM0340",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35699.json",
+      "loc": "Soest",
+      "id": "GM0342",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35705.json",
+      "loc": "Utrecht (gemeente)",
+      "id": "GM0344",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35711.json",
+      "loc": "Veenendaal",
+      "id": "GM0345",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35717.json",
+      "loc": "Woudenberg",
+      "id": "GM0351",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35722.json",
+      "loc": "Wijk bij Duurstede",
+      "id": "GM0352",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35729.json",
+      "loc": "IJsselstein",
+      "id": "GM0353",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35734.json",
+      "loc": "Zeist",
+      "id": "GM0355",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35741.json",
+      "loc": "Nieuwegein",
+      "id": "GM0356",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35746.json",
+      "loc": "Aalsmeer",
+      "id": "GM0358",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35752.json",
+      "loc": "Alkmaar",
+      "id": "GM0361",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35671.json",
+      "loc": "Amstelveen",
+      "id": "GM0362",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35677.json",
+      "loc": "Amsterdam",
+      "id": "GM0363",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35686.json",
+      "loc": "Bergen (Noord-Holland)",
+      "id": "GM0373",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35691.json",
+      "loc": "Beverwijk",
+      "id": "GM0375",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35697.json",
+      "loc": "Blaricum",
+      "id": "GM0376",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35703.json",
+      "loc": "Bloemendaal",
+      "id": "GM0377",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35709.json",
+      "loc": "Castricum",
+      "id": "GM0383",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35714.json",
+      "loc": "Diemen",
+      "id": "GM0384",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35720.json",
+      "loc": "Edam-Volendam",
+      "id": "GM0385",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35726.json",
+      "loc": "Enkhuizen",
+      "id": "GM0388",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35732.json",
+      "loc": "Haarlem",
+      "id": "GM0392",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35738.json",
+      "loc": "Haarlemmermeer",
+      "id": "GM0394",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35744.json",
+      "loc": "Heemskerk",
+      "id": "GM0396",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35750.json",
+      "loc": "Heemstede",
+      "id": "GM0397",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35756.json",
+      "loc": "Heiloo",
+      "id": "GM0399",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35674.json",
+      "loc": "Den Helder",
+      "id": "GM0400",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35678.json",
+      "loc": "Hilversum",
+      "id": "GM0402",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35684.json",
+      "loc": "Hoorn",
+      "id": "GM0405",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35690.json",
+      "loc": "Huizen",
+      "id": "GM0406",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35696.json",
+      "loc": "Landsmeer",
+      "id": "GM0415",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35700.json",
+      "loc": "Laren (Noord-Holland)",
+      "id": "GM0417",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35710.json",
+      "loc": "Medemblik",
+      "id": "GM0420",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35716.json",
+      "loc": "Oostzaan",
+      "id": "GM0431",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35723.json",
+      "loc": "Opmeer",
+      "id": "GM0432",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35728.json",
+      "loc": "Ouder-Amstel",
+      "id": "GM0437",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35735.json",
+      "loc": "Purmerend",
+      "id": "GM0439",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35740.json",
+      "loc": "Schagen",
+      "id": "GM0441",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35747.json",
+      "loc": "Texel",
+      "id": "GM0448",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35753.json",
+      "loc": "Uitgeest",
+      "id": "GM0450",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35758.json",
+      "loc": "Uithoorn",
+      "id": "GM0451",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35676.json",
+      "loc": "Velsen",
+      "id": "GM0453",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35682.json",
+      "loc": "Weesp",
+      "id": "GM0457",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35688.json",
+      "loc": "Zandvoort",
+      "id": "GM0473",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35695.json",
+      "loc": "Zaanstad",
+      "id": "GM0479",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35702.json",
+      "loc": "Alblasserdam",
+      "id": "GM0482",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35706.json",
+      "loc": "Alphen aan den Rijn",
+      "id": "GM0484",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35712.json",
+      "loc": "Barendrecht",
+      "id": "GM0489",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35718.json",
+      "loc": "Drechterland",
+      "id": "GM0498",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35724.json",
+      "loc": "Brielle",
+      "id": "GM0501",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35730.json",
+      "loc": "Capelle aan den IJssel",
+      "id": "GM0502",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35737.json",
+      "loc": "Delft",
+      "id": "GM0503",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35743.json",
+      "loc": "Dordrecht",
+      "id": "GM0505",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35749.json",
+      "loc": "Gorinchem",
+      "id": "GM0512",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35754.json",
+      "loc": "Gouda",
+      "id": "GM0513",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35760.json",
+      "loc": "Den Haag (gemeente)",
+      "id": "GM0518",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35679.json",
+      "loc": "Hardinxveld-Giessendam",
+      "id": "GM0523",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35683.json",
+      "loc": "Hellevoetsluis",
+      "id": "GM0530",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35687.json",
+      "loc": "Hendrik-Ido-Ambacht",
+      "id": "GM0531",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35694.json",
+      "loc": "Stede Broec",
+      "id": "GM0532",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35701.json",
+      "loc": "Hillegom",
+      "id": "GM0534",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35707.json",
+      "loc": "Katwijk",
+      "id": "GM0537",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35715.json",
+      "loc": "Krimpen aan den IJssel",
+      "id": "GM0542",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35721.json",
+      "loc": "Leiden",
+      "id": "GM0546",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35727.json",
+      "loc": "Leiderdorp",
+      "id": "GM0547",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35733.json",
+      "loc": "Lisse",
+      "id": "GM0553",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35739.json",
+      "loc": "Maassluis",
+      "id": "GM0556",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35745.json",
+      "loc": "Nieuwkoop",
+      "id": "GM0569",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35751.json",
+      "loc": "Noordwijk",
+      "id": "GM0575",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35757.json",
+      "loc": "Oegstgeest",
+      "id": "GM0579",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35763.json",
+      "loc": "Oudewater",
+      "id": "GM0589",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35680.json",
+      "loc": "Papendrecht",
+      "id": "GM0590",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35685.json",
+      "loc": "Ridderkerk",
+      "id": "GM0597",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35692.json",
+      "loc": "Rotterdam",
+      "id": "GM0599",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35698.json",
+      "loc": "Rijswijk (Zuid-Holland)",
+      "id": "GM0603",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35704.json",
+      "loc": "Schiedam",
+      "id": "GM0606",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35708.json",
+      "loc": "Sliedrecht",
+      "id": "GM0610",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35713.json",
+      "loc": "Albrandswaard",
+      "id": "GM0613",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35719.json",
+      "loc": "Westvoorne",
+      "id": "GM0614",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35725.json",
+      "loc": "Vlaardingen",
+      "id": "GM0622",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35731.json",
+      "loc": "Voorschoten",
+      "id": "GM0626",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35736.json",
+      "loc": "Waddinxveen",
+      "id": "GM0627",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35742.json",
+      "loc": "Wassenaar",
+      "id": "GM0629",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35748.json",
+      "loc": "Woerden",
+      "id": "GM0632",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35755.json",
+      "loc": "Zoetermeer",
+      "id": "GM0637",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35761.json",
+      "loc": "Zoeterwoude",
+      "id": "GM0638",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35759.json",
+      "loc": "Zwijndrecht",
+      "id": "GM0642",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35765.json",
+      "loc": "Borsele",
+      "id": "GM0654",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35771.json",
+      "loc": "Goes",
+      "id": "GM0664",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35777.json",
+      "loc": "West Maas en Waal",
+      "id": "GM0668",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35783.json",
+      "loc": "Hulst",
+      "id": "GM0677",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35791.json",
+      "loc": "Kapelle",
+      "id": "GM0678",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35796.json",
+      "loc": "Middelburg (Zeeland)",
+      "id": "GM0687",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35802.json",
+      "loc": "Reimerswaal",
+      "id": "GM0703",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35809.json",
+      "loc": "Terneuzen",
+      "id": "GM0715",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35814.json",
+      "loc": "Tholen",
+      "id": "GM0716",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35819.json",
+      "loc": "Veere",
+      "id": "GM0717",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35827.json",
+      "loc": "Vlissingen",
+      "id": "GM0718",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35834.json",
+      "loc": "De Ronde Venen",
+      "id": "GM0736",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35838.json",
+      "loc": "Tytsjerksteradiel",
+      "id": "GM0737",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35844.json",
+      "loc": "Asten",
+      "id": "GM0743",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35762.json",
+      "loc": "Baarle-Nassau",
+      "id": "GM0744",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35770.json",
+      "loc": "Bergen op Zoom",
+      "id": "GM0748",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35776.json",
+      "loc": "Best",
+      "id": "GM0753",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35781.json",
+      "loc": "Boekel",
+      "id": "GM0755",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35787.json",
+      "loc": "Boxtel",
+      "id": "GM0757",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35794.json",
+      "loc": "Breda",
+      "id": "GM0758",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35800.json",
+      "loc": "Deurne",
+      "id": "GM0762",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35805.json",
+      "loc": "Pekela",
+      "id": "GM0765",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35815.json",
+      "loc": "Dongen",
+      "id": "GM0766",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35820.json",
+      "loc": "Eersel",
+      "id": "GM0770",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35825.json",
+      "loc": "Eindhoven",
+      "id": "GM0772",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35830.json",
+      "loc": "Etten-Leur",
+      "id": "GM0777",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35836.json",
+      "loc": "Geertruidenberg",
+      "id": "GM0779",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35842.json",
+      "loc": "Gilze en Rijen",
+      "id": "GM0784",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35850.json",
+      "loc": "Goirle",
+      "id": "GM0785",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35764.json",
+      "loc": "Helmond",
+      "id": "GM0794",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35768.json",
+      "loc": "Den Bosch",
+      "id": "GM0796",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35775.json",
+      "loc": "Heusden",
+      "id": "GM0797",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35782.json",
+      "loc": "Hilvarenbeek",
+      "id": "GM0798",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35788.json",
+      "loc": "Loon op Zand",
+      "id": "GM0809",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35793.json",
+      "loc": "Nuenen, Gerwen en Nederwetten",
+      "id": "GM0820",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35798.json",
+      "loc": "Oirschot",
+      "id": "GM0823",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35804.json",
+      "loc": "Oisterwijk",
+      "id": "GM0824",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35810.json",
+      "loc": "Oosterhout",
+      "id": "GM0826",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35816.json",
+      "loc": "Oss",
+      "id": "GM0828",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35822.json",
+      "loc": "Rucphen",
+      "id": "GM0840",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35828.json",
+      "loc": "Sint-Michielsgestel",
+      "id": "GM0845",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35832.json",
+      "loc": "Someren",
+      "id": "GM0847",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35839.json",
+      "loc": "Son en Breugel",
+      "id": "GM0848",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35846.json",
+      "loc": "Steenbergen",
+      "id": "GM0851",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35766.json",
+      "loc": "Waterland",
+      "id": "GM0852",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35773.json",
+      "loc": "Tilburg",
+      "id": "GM0855",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35779.json",
+      "loc": "Valkenswaard",
+      "id": "GM0858",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35785.json",
+      "loc": "Veldhoven",
+      "id": "GM0861",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35790.json",
+      "loc": "Vught",
+      "id": "GM0865",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35797.json",
+      "loc": "Waalre",
+      "id": "GM0866",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35803.json",
+      "loc": "Waalwijk",
+      "id": "GM0867",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35807.json",
+      "loc": "Woensdrecht",
+      "id": "GM0873",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35811.json",
+      "loc": "Zundert",
+      "id": "GM0879",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35817.json",
+      "loc": "Wormerland",
+      "id": "GM0880",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35824.json",
+      "loc": "Landgraaf",
+      "id": "GM0882",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35829.json",
+      "loc": "Beek (Limburg)",
+      "id": "GM0888",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35835.json",
+      "loc": "Beesel",
+      "id": "GM0889",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35841.json",
+      "loc": "Bergen (Limburg)",
+      "id": "GM0893",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35847.json",
+      "loc": "Brunssum",
+      "id": "GM0899",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35767.json",
+      "loc": "Gennep",
+      "id": "GM0907",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35772.json",
+      "loc": "Heerlen",
+      "id": "GM0917",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35778.json",
+      "loc": "Kerkrade",
+      "id": "GM0928",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35784.json",
+      "loc": "Maastricht",
+      "id": "GM0935",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35789.json",
+      "loc": "Meerssen",
+      "id": "GM0938",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35795.json",
+      "loc": "Mook en Middelaar",
+      "id": "GM0944",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35799.json",
+      "loc": "Nederweert",
+      "id": "GM0946",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35808.json",
+      "loc": "Roermond",
+      "id": "GM0957",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35812.json",
+      "loc": "Simpelveld",
+      "id": "GM0965",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35818.json",
+      "loc": "Stein (Limburg)",
+      "id": "GM0971",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35823.json",
+      "loc": "Vaals",
+      "id": "GM0981",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35831.json",
+      "loc": "Venlo",
+      "id": "GM0983",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35837.json",
+      "loc": "Venray",
+      "id": "GM0984",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35843.json",
+      "loc": "Voerendaal",
+      "id": "GM0986",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35849.json",
+      "loc": "Weert",
+      "id": "GM0988",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35769.json",
+      "loc": "Valkenburg aan de Geul",
+      "id": "GM0994",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35774.json",
+      "loc": "Lelystad",
+      "id": "GM0995",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35780.json",
+      "loc": "Horst aan de Maas",
+      "id": "GM1507",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35786.json",
+      "loc": "Oude IJsselstreek",
+      "id": "GM1509",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35792.json",
+      "loc": "Teylingen",
+      "id": "GM1525",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35801.json",
+      "loc": "Utrechtse Heuvelrug",
+      "id": "GM1581",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35806.json",
+      "loc": "Oost Gelre",
+      "id": "GM1586",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35813.json",
+      "loc": "Koggenland",
+      "id": "GM1598",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35821.json",
+      "loc": "Lansingerland",
+      "id": "GM1621",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35826.json",
+      "loc": "Leudal",
+      "id": "GM1640",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35833.json",
+      "loc": "Maasgouw",
+      "id": "GM1641",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35840.json",
+      "loc": "Gemert-Bakel",
+      "id": "GM1652",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35845.json",
+      "loc": "Halderberge",
+      "id": "GM1655",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35851.json",
+      "loc": "Heeze-Leende",
+      "id": "GM1658",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35856.json",
+      "loc": "Laarbeek",
+      "id": "GM1659",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35848.json",
+      "loc": "Reusel-De Mierden",
+      "id": "GM1667",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35854.json",
+      "loc": "Roerdalen",
+      "id": "GM1669",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35859.json",
+      "loc": "Roosendaal",
+      "id": "GM1674",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35866.json",
+      "loc": "Schouwen-Duiveland",
+      "id": "GM1676",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35870.json",
+      "loc": "Aa en Hunze",
+      "id": "GM1680",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35876.json",
+      "loc": "Borger-Odoorn",
+      "id": "GM1681",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35881.json",
+      "loc": "De Wolden",
+      "id": "GM1690",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35888.json",
+      "loc": "Noord-Beveland",
+      "id": "GM1695",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35892.json",
+      "loc": "Wijdemeren",
+      "id": "GM1696",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35899.json",
+      "loc": "Noordenveld",
+      "id": "GM1699",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35904.json",
+      "loc": "Twenterand",
+      "id": "GM1700",
+      "year": 2022,
+      "period": 0
+    },
+    {
+      "fn": "36748.json",
+      "loc": "Twenterand",
+      "id": "GM1700",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "35908.json",
+      "loc": "Westerveld",
+      "id": "GM1701",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35911.json",
+      "loc": "Lingewaard",
+      "id": "GM1705",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35915.json",
+      "loc": "Cranendonck",
+      "id": "GM1706",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35919.json",
+      "loc": "Steenwijkerland",
+      "id": "GM1708",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35852.json",
+      "loc": "Moerdijk",
+      "id": "GM1709",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35858.json",
+      "loc": "Echt-Susteren",
+      "id": "GM1711",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35863.json",
+      "loc": "Sluis",
+      "id": "GM1714",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35867.json",
+      "loc": "Drimmelen",
+      "id": "GM1719",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35872.json",
+      "loc": "Bernheze",
+      "id": "GM1721",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35877.json",
+      "loc": "Alphen-Chaam",
+      "id": "GM1723",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35882.json",
+      "loc": "Bergeijk",
+      "id": "GM1724",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35887.json",
+      "loc": "Bladel",
+      "id": "GM1728",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35894.json",
+      "loc": "Gulpen-Wittem",
+      "id": "GM1729",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35897.json",
+      "loc": "Tynaarlo",
+      "id": "GM1730",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "36749.json",
+      "loc": "Midden-Drenthe",
+      "id": "GM1731",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "35902.json",
+      "loc": "Overbetuwe",
+      "id": "GM1734",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35907.json",
+      "loc": "Hof van Twente",
+      "id": "GM1735",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35912.json",
+      "loc": "Neder-Betuwe",
+      "id": "GM1740",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35916.json",
+      "loc": "Rijssen-Holten",
+      "id": "GM1742",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35920.json",
+      "loc": "Geldrop-Mierlo",
+      "id": "GM1771",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35853.json",
+      "loc": "Olst-Wijhe",
+      "id": "GM1773",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35860.json",
+      "loc": "Dinkelland",
+      "id": "GM1774",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35864.json",
+      "loc": "Westland",
+      "id": "GM1783",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35869.json",
+      "loc": "Midden-Delfland",
+      "id": "GM1842",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35874.json",
+      "loc": "Berkelland",
+      "id": "GM1859",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35879.json",
+      "loc": "Bronckhorst",
+      "id": "GM1876",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35884.json",
+      "loc": "Sittard-Geleen",
+      "id": "GM1883",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35889.json",
+      "loc": "Kaag en Braassem",
+      "id": "GM1884",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35893.json",
+      "loc": "Dantumadiel",
+      "id": "GM1891",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35896.json",
+      "loc": "Zuidplas",
+      "id": "GM1892",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35901.json",
+      "loc": "Peel en Maas",
+      "id": "GM1894",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35906.json",
+      "loc": "Oldambt",
+      "id": "GM1895",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35910.json",
+      "loc": "Zwartewaterland",
+      "id": "GM1896",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35914.json",
+      "loc": "Súdwest-Fryslân",
+      "id": "GM1900",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35918.json",
+      "loc": "Bodegraven-Reeuwijk",
+      "id": "GM1901",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35855.json",
+      "loc": "Eijsden-Margraten",
+      "id": "GM1903",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35861.json",
+      "loc": "Stichtse Vecht",
+      "id": "GM1904",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35865.json",
+      "loc": "Hollands Kroon",
+      "id": "GM1911",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35871.json",
+      "loc": "Leidschendam-Voorburg",
+      "id": "GM1916",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35878.json",
+      "loc": "Goeree-Overflakkee",
+      "id": "GM1924",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35883.json",
+      "loc": "Pijnacker-Nootdorp",
+      "id": "GM1926",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35885.json",
+      "loc": "Nissewaard",
+      "id": "GM1930",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35891.json",
+      "loc": "Krimpenerwaard",
+      "id": "GM1931",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35898.json",
+      "loc": "De Fryske Marren",
+      "id": "GM1940",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35903.json",
+      "loc": "Gooise Meren",
+      "id": "GM1942",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35909.json",
+      "loc": "Berg en Dal",
+      "id": "GM1945",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35913.json",
+      "loc": "Meierijstad",
+      "id": "GM1948",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35917.json",
+      "loc": "Waadhoeke",
+      "id": "GM1949",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35921.json",
+      "loc": "Westerwolde",
+      "id": "GM1950",
+      "year": 2022,
+      "period": 0
+    },
+    {
+      "fn": "36750.json",
+      "loc": "Westerwolde",
+      "id": "GM1950",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "35922.json",
+      "loc": "Midden-Groningen",
+      "id": "GM1952",
+      "year": 2022,
+      "period": 0
+    },
+    {
+      "fn": "36752.json",
+      "loc": "Midden-Groningen",
+      "id": "GM1952",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "35857.json",
+      "loc": "Beekdaelen",
+      "id": "GM1954",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35862.json",
+      "loc": "Montferland",
+      "id": "GM1955",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35868.json",
+      "loc": "Altena",
+      "id": "GM1959",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35873.json",
+      "loc": "West Betuwe",
+      "id": "GM1960",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35875.json",
+      "loc": "Vijfheerenlanden",
+      "id": "GM1961",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35880.json",
+      "loc": "Hoeksche Waard",
+      "id": "GM1963",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35886.json",
+      "loc": "Het Hogeland",
+      "id": "GM1966",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35890.json",
+      "loc": "Westerkwartier",
+      "id": "GM1969",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35895.json",
+      "loc": "Noardeast-Fryslân",
+      "id": "GM1970",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35900.json",
+      "loc": "Molenlanden",
+      "id": "GM1978",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35905.json",
+      "loc": "Eemsdelta",
+      "id": "GM1979",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "36751.json",
+      "loc": "Maashorst",
+      "id": "GM1991",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36753.json",
+      "loc": "Vervoerregio Amsterdam",
+      "id": "GR0001",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36759.json",
+      "loc": "Veiligheidsregio IJsselland",
+      "id": "GR0003",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36762.json",
+      "loc": "Regio Twente",
+      "id": "GR0005",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36770.json",
+      "loc": "Regio Zuid-Holland Zuid",
+      "id": "GR0030",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36773.json",
+      "loc": "Veiligheidsregio Haaglanden",
+      "id": "GR0044",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36776.json",
+      "loc": "Veiligheidsregio Brabant-Noord",
+      "id": "GR0066",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36754.json",
+      "loc": "Samenwerkingsverband Welzijnzorg Oosterschelde Regio",
+      "id": "GR0137",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36766.json",
+      "loc": "Sallcon GR",
+      "id": "GR0244",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36771.json",
+      "loc": "Rwa Bedrijven",
+      "id": "GR0258",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36775.json",
+      "loc": "Tomingroep",
+      "id": "GR0262",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36758.json",
+      "loc": "IJmond Werkt!",
+      "id": "GR0264",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36764.json",
+      "loc": "Werkvoorzieningsschap Zuid- Kennemerland",
+      "id": "GR0267",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36768.json",
+      "loc": "Werkvoorzieningsschap Kust- Duin- en Bollenstreek",
+      "id": "GR0269",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36760.json",
+      "loc": "Werkvoorzieningschap De Dommel  (WSD)",
+      "id": "GR0292",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36765.json",
+      "loc": "Emco-Groep",
+      "id": "GR0293",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36755.json",
+      "loc": "GR Reinigingsdienst Waardlanden",
+      "id": "GR0333",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36761.json",
+      "loc": "GGD Hollands Noorden",
+      "id": "GR0340",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36767.json",
+      "loc": "GGD Zeeland",
+      "id": "GR0346",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36774.json",
+      "loc": "Reinigingsdiensten RD4",
+      "id": "GR0412",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36777.json",
+      "loc": "Gem. Reg. Samenwerkingsverband Noord-Nederland",
+      "id": "GR0425",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36756.json",
+      "loc": "Dienst Sociale Zaken En Werkgel. Noardwest Fryslan",
+      "id": "GR0435",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36757.json",
+      "loc": "GGD Zaanstreek-Waterland",
+      "id": "GR0436",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36763.json",
+      "loc": "GGD Hart voor Brabant",
+      "id": "GR0442",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36769.json",
+      "loc": "GGD Midden-Nederland",
+      "id": "GR0444",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36772.json",
+      "loc": "Werkvoorzieningsschap Fryslân-West",
+      "id": "GR0446",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36778.json",
+      "loc": "Avalex Regionaal Reinigingsbedrijf",
+      "id": "GR0447",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36779.json",
+      "loc": "Veiligheidsregio Fryslân",
+      "id": "GR0460",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36783.json",
+      "loc": "Intergem. Sociale Dienst Bollenstreek",
+      "id": "GR0461",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36784.json",
+      "loc": "Westrom",
+      "id": "GR0472",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36787.json",
+      "loc": "GGD Drenthe",
+      "id": "GR0474",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36790.json",
+      "loc": "Veiligheids- en Gezondheidsregio Gelderland-Midden",
+      "id": "GR0476",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36796.json",
+      "loc": "GROGZ West Brabant",
+      "id": "GR0485",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36780.json",
+      "loc": "Openbaar Lichaam Ferm Werk",
+      "id": "GR0496",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36785.json",
+      "loc": "Reinigingsbedrijf Midden Nederland",
+      "id": "GR0505",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36788.json",
+      "loc": "Diamantgroep",
+      "id": "GR0506",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36791.json",
+      "loc": "Werkvoorzieningsschap Regio Eindhoven (ERGON)",
+      "id": "GR0510",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36797.json",
+      "loc": "Werkvoorzieningschap Noordoost-Brabant",
+      "id": "GR0511",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36684.json",
+      "loc": "GGD Zuid Limburg",
+      "id": "GR0520",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36690.json",
+      "loc": "Omnibuzz",
+      "id": "GR0521",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36786.json",
+      "loc": "Regionale Dienst Openbare Gezondheidszorg Hollands Midden (RDOG)",
+      "id": "GR0522",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36795.json",
+      "loc": "GR Promen",
+      "id": "GR0539",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36687.json",
+      "loc": "GR De Betho",
+      "id": "GR0540",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36800.json",
+      "loc": "Werkvoorzieningsschap Oostelijk Zuid-Limburg",
+      "id": "GR0542",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36694.json",
+      "loc": "ROG Nieuwe Waterweg Noord",
+      "id": "GR0551",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36686.json",
+      "loc": "Gemeentelijke Gezondheidsdienst Noord- en Oost-Gelderland",
+      "id": "GR0558",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36789.json",
+      "loc": "OV-Bureau Groningen Drenthe",
+      "id": "GR0587",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36792.json",
+      "loc": "Veiligheidsregio Utrecht",
+      "id": "GR0588",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36693.json",
+      "loc": "ISD Brunssum Onderbanken Landgraaf (ISD BOL)",
+      "id": "GR0615",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36681.json",
+      "loc": "Veiligheidsregio Drenthe",
+      "id": "GR0616",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36781.json",
+      "loc": "Veiligheidsregio Rotterdam-Rijnmond",
+      "id": "GR0617",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36685.json",
+      "loc": "Veiligheidsregio Zeeland",
+      "id": "GR0619",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36691.json",
+      "loc": "ISD Aa en Hunze Assen Tynaarlo",
+      "id": "GR0620",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36682.json",
+      "loc": "Gemeenschappelijke Regeling De Drechtsteden",
+      "id": "GR0621",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36793.json",
+      "loc": "Veiligheidsregio Zaanstreek-Waterland",
+      "id": "GR0624",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36798.json",
+      "loc": "Veiligheidsregio Amsterdam Amstelland",
+      "id": "GR0636",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36689.json",
+      "loc": "Veiligheidsregio Gooi en Vechtstreek",
+      "id": "GR0637",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36782.json",
+      "loc": "Veiligheidsregio Flevoland",
+      "id": "GR0638",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36695.json",
+      "loc": "Veiligheidsregio Zuidoost-Brabant",
+      "id": "GR0639",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36683.json",
+      "loc": "Veiligheidsregio Kennemerland",
+      "id": "GR0640",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36688.json",
+      "loc": "Sociale Dienst Oost Achterhoek",
+      "id": "GR0645",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36794.json",
+      "loc": "Het Waterschapshuis",
+      "id": "GR0652",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36692.json",
+      "loc": "Veiligheidsregio Zuid-Holland Zuid",
+      "id": "GR0660",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36799.json",
+      "loc": "Omgevingsdienst Zuid-Holland Zuid",
+      "id": "GR0669",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36801.json",
+      "loc": "GGD IJsselland",
+      "id": "GR0670",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36805.json",
+      "loc": "Veiligheidsregio Hollands Midden",
+      "id": "GR0676",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36696.json",
+      "loc": "Veiligheidsregio Twente",
+      "id": "GR0679",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36701.json",
+      "loc": "Werk-/Leerbedrijf NoardEast Fryslân (NEF)",
+      "id": "GR0681",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36814.json",
+      "loc": "GR Regio West-Brabant",
+      "id": "GR0684",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36708.json",
+      "loc": "Servicepunt71",
+      "id": "GR0691",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36697.json",
+      "loc": "Baanbrekers",
+      "id": "GR0695",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36802.json",
+      "loc": "AQUON",
+      "id": "GR0698",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36704.json",
+      "loc": "Omgevingsdienst Haaglanden",
+      "id": "GR0700",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36709.json",
+      "loc": "Waddenfonds",
+      "id": "GR0702",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36810.json",
+      "loc": "Orionis Walcheren",
+      "id": "GR0703",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36698.json",
+      "loc": "Noaberkracht Dinkelland Tubbergen",
+      "id": "GR0705",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36707.json",
+      "loc": "Veiligheidsregio Zuid-Limburg",
+      "id": "GR0706",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36711.json",
+      "loc": "RAV Brabant Midden-West-Noord",
+      "id": "GR0708",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36803.json",
+      "loc": "RDWI Kromme Rijn Heuvelrug",
+      "id": "GR0710",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36806.json",
+      "loc": "Omgevingsdienst Midden en West-Brabant",
+      "id": "GR0712",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36699.json",
+      "loc": "Omgevingsdienst Midden-Holland",
+      "id": "GR0713",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36703.json",
+      "loc": "Werkorganisatie Duivenvoorde",
+      "id": "GR0714",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36710.json",
+      "loc": "GB Lococensus-Tricijn (GBLT)",
+      "id": "GR0717",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36817.json",
+      "loc": "Werk en Inkomen Lekstroom (WIL)",
+      "id": "GR0719",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36820.json",
+      "loc": "GGD Gelderland-Zuid",
+      "id": "GR0720",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36804.json",
+      "loc": "BEL COMBINATIE",
+      "id": "GR0756",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36807.json",
+      "loc": "Omgevingsdienst Noordzeekanaalgebied",
+      "id": "GR0789",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36808.json",
+      "loc": "Omgevingsdienst Zuidoost-Brabant",
+      "id": "GR0790",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36812.json",
+      "loc": "Gemeenschappelijke Regeling Cure",
+      "id": "GR0791",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36700.json",
+      "loc": "GR Meerinzicht",
+      "id": "GR0822",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36816.json",
+      "loc": "GR Veiligheid & Gezondheidsregio Groningen",
+      "id": "GR0823",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36819.json",
+      "loc": "GR Publieke Gezondheid & Zorg Groningen ",
+      "id": "GR0824",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36705.json",
+      "loc": "BAR-ORGANISATIE",
+      "id": "GR0828",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36713.json",
+      "loc": "Gemeenschappelijke Regeling IJsselgemeenten",
+      "id": "GR0829",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36809.json",
+      "loc": "Metropoolregio Rotterdam Den Haag",
+      "id": "GR0830",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36813.json",
+      "loc": "Samenwerkingsorganisatie De Wolden Hoogeveen",
+      "id": "GR0832",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36815.json",
+      "loc": "SED organisatie",
+      "id": "GR0833",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36702.json",
+      "loc": "Gemeenschappelijke Regeling Hart van Brabant",
+      "id": "GR0835",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36706.json",
+      "loc": "MGR Rijk van Nijmegen",
+      "id": "GR0840",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36714.json",
+      "loc": "Gemeenschappelijke Regeling Jeugdhulp Rijnmond",
+      "id": "GR0842",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36712.json",
+      "loc": "Gemeenschappelijke Regeling Werkmaatschappij 8KTD",
+      "id": "GR0845",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36718.json",
+      "loc": "GR Werkplein Hart van West-Brabant",
+      "id": "GR0846",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36811.json",
+      "loc": "Stroomopwaarts MVS",
+      "id": "GR0851",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36724.json",
+      "loc": "GR samenwerking Boxtel-Sint Michielsgestel \"De Meierij\"",
+      "id": "GR0853",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36715.json",
+      "loc": "ABG-organisatie",
+      "id": "GR0854",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36818.json",
+      "loc": "Gemeenschappelijke Regeling Werkzaak Rivierenland",
+      "id": "GR0855",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36720.json",
+      "loc": "Gemeenschappelijke Regeling Avres",
+      "id": "GR0857",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36821.json",
+      "loc": "AVRI",
+      "id": "GR0861",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36823.json",
+      "loc": "Uitvoeringsorganisatie Laborijn",
+      "id": "GR0862",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36725.json",
+      "loc": "Senzer",
+      "id": "GR0863",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36716.json",
+      "loc": "Werkorganisatie HLT Samen",
+      "id": "GR0866",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36721.json",
+      "loc": "Werkorganisatie Buch",
+      "id": "GR0874",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36726.json",
+      "loc": "Modulaire Gemeenschappelijke Regeling Sociaal Domein Centraal Gelderland",
+      "id": "GR0882",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36717.json",
+      "loc": "Intergemeentelijke Uitvoeringsorganisatie \"de Connectie\" (IGUO)",
+      "id": "GR0889",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36822.json",
+      "loc": "Samenwerking sociaal domein Baarn, Bunschoten en Soest",
+      "id": "GR0893",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36824.json",
+      "loc": "Het Participatiebedrijf (Werkom)",
+      "id": "GR0895",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36723.json",
+      "loc": "1Stroom",
+      "id": "GR0896",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36827.json",
+      "loc": "Werkorganisatie Druten-Wijchen",
+      "id": "GR0897",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36829.json",
+      "loc": "Lucrato",
+      "id": "GR0899",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36831.json",
+      "loc": "GGD en Veilig Thuis Haaglanden",
+      "id": "GR0903",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36728.json",
+      "loc": "Bedrijfsvoeringsorganisatie Doelgroepenvervoer Arnhem Nijmegen",
+      "id": "GR0905",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36719.json",
+      "loc": "Veiligheidsregio en Gemeentelijke Gezondheidsdienst Limburg-Noord",
+      "id": "GR0907",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36825.json",
+      "loc": "Gemeentelijke Gezondheidsdienst Flevoland",
+      "id": "GR0910",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36826.json",
+      "loc": "Stark",
+      "id": "GR1041",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36828.json",
+      "loc": "Afeer",
+      "id": "GR1048",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36830.json",
+      "loc": "Participatiebedrijf Kempenplus",
+      "id": "GR1055",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36722.json",
+      "loc": "Gemeenschappelijke Regeling Participatiebedrijf Wsw",
+      "id": "GR1060",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "36727.json",
+      "loc": "Gemeenschappelijke Regeling SW Fryslân",
+      "id": "GR1061",
+      "year": 2022,
+      "period": 1
+    }
+  ],
+  [
+    {
+      "fn": "35567.json",
+      "loc": "Provincie Groningen",
+      "id": "PV20",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35569.json",
+      "loc": "Provincie Friesland",
+      "id": "PV21",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35568.json",
+      "loc": "Provincie Drenthe",
+      "id": "PV22",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35570.json",
+      "loc": "Provincie Overijssel",
+      "id": "PV23",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35572.json",
+      "loc": "Provincie Flevoland",
+      "id": "PV24",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35571.json",
+      "loc": "Provincie Gelderland",
+      "id": "PV25",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35573.json",
+      "loc": "Provincie Utrecht",
+      "id": "PV26",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35574.json",
+      "loc": "Provincie Noord-Holland",
+      "id": "PV27",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35575.json",
+      "loc": "Provincie Zuid-Holland",
+      "id": "PV28",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35576.json",
+      "loc": "Provincie Zeeland",
+      "id": "PV29",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35577.json",
+      "loc": "Provincie Noord-Brabant",
+      "id": "PV30",
+      "year": 2022,
+      "period": 0
+    }
+  ],
+  [
+    {
+      "fn": "35578.json",
+      "loc": "Provincie Limburg",
+      "id": "PV31",
+      "year": 2022,
+      "period": 0
+    }
+  ]
+]
