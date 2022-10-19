@@ -39,6 +39,15 @@ def get_year_and_municipalities_mappings(kwargs):
             continue
         loc = entries[0]['locatie_code']
         year = entries[0]['jaar']
+        period = entries[0]['periode']
+        if str(year) == str(kwargs['year1']):
+            if str(period) != str(kwargs['period1']):
+                continue
+        elif str(year) == str(kwargs['year2']):
+            if str(period) != str(kwargs['period2']):
+                continue
+        else:
+            continue
         try:
             year_mapping[loc][year] = p
         except LookupError as e:
@@ -94,8 +103,20 @@ def openspending_compare_run(kwargs):
                 continue
             #logging.info(pformat(sorted_difference))
             #logging.info(pformat(amounts[y]))
-            lnk = 'https://openspending.nl/%s/begroting/2022-0/lasten/hoofdfuncties/vergelijk/%s/begroting/2021-0/' % (
-                gov_slugs[l], gov_slugs[l],)
+            y1 = kwargs['year1']
+            p1 = kwargs['period1']
+            if str(p1) == '0':
+                k1 = 'begroting'
+            else:
+                k1 = 'realisatie'
+            y2 = kwargs['year2']
+            p2 = kwargs['period2']
+            if str(p2) == '0':
+                k2 = 'begroting'
+            else:
+                k2 = 'realisatie'
+            lnk = 'https://openspending.nl/%s/%s/%s-%s/lasten/hoofdfuncties/vergelijk/%s/%s/%s-%s/' % (
+                gov_slugs[l], k1, y1, p1, gov_slugs[l], k2, y2, p2,)
             logging.info(lnk)
             biggest_gainer, biggest_gainer_amount = list(sorted_difference.items())[-1]
             hp =  [(a['naam'], a['bedrag'],) for a in amounts[y] if (a['type'] == 'Functie') and (a['soort'] == 'lasten')][0]
