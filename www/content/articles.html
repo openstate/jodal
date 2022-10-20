@@ -2,7 +2,9 @@
 <h1>Gemeentebegroting 2023</h1>
 <form>
   <select id="select-gm-1" name="gm1">
-  </select>
+  </select>  vergelijken met
+  <select id="select-gm-2" name="gm2">
+  </select>  vergelijken met
 </form>
 <p>De gemeentebegroting voor 2023 is behandeld en aangenomen. Via de website van de
 gemeente [invulveld gemeentenaam] kunt u deze begroting inzien. Ook al lijken de
@@ -29,31 +31,58 @@ var gmCompareApp = window.gmCompareApp || {
 };
 window.gmCompareApp = gmCompareApp;
 
-fetch('/2022-articles/details.json')
-  .then((response) => response.json())
-  .then(function(data) {
-    //console.log(data);
-    data.forEach(function (k) {
-      k.forEach(function (i) {
-        if ((i.id !== null) && i.id.startsWith("GM")) {
-          if (typeof(gmCompareApp.gm[i.id]) == 'undefined') {
-            gmCompareApp.gm[i.loc] = i.id;
-            gmCompareApp.gm_names.push(i.loc);
-          }
-          if (typeof(gmCompareApp.gm_docs[i.id]) == 'undefined') {
-            gmCompareApp.gm_docs[i.id] = [i.fn];
-          } else {
-            gmCompareApp.gm_docs[i.id].push(i.fn);
-          }
-        }
-      });
-    });
-    gmCompareApp.gm_names.sort().forEach(function (g) {
-      var e = document.createElement('option');
-      e.append(g);
-      e.attributes["value"] = gmCompareApp.gm[g];
-      document.getElementById('select-gm-1').append(e);
-    })
-    //console.log(gmCompareApp.gm);
+gmCompareApp.handleDropDown = function(e) {
+  console.log('Selection was changed!: ');
+  console.dir(e);
+};
+
+gmCompareApp.initDropDowns = function(q) {
+  const selectElement = document.querySelector(q);
+
+  selectElement.addEventListener('change', (event) => {
+    gmCompareApp.handleDropDown(event);
   });
+};
+
+gmCompareApp.initData = function() {
+  fetch('/2022-articles/details.json')
+    .then((response) => response.json())
+    .then(function(data) {
+      //console.log(data);
+      data.forEach(function (k) {
+        k.forEach(function (i) {
+          if ((i.id !== null) && i.id.startsWith("GM")) {
+            if (typeof(gmCompareApp.gm[i.id]) === 'undefined') {
+              gmCompareApp.gm[i.loc] = i.id;
+              gmCompareApp.gm_names.push(i.loc);
+            }
+            if (typeof(gmCompareApp.gm_docs[i.id]) === 'undefined') {
+              gmCompareApp.gm_docs[i.id] = [i.fn];
+            } else {
+              gmCompareApp.gm_docs[i.id].push(i.fn);
+            }
+          }
+        });
+      });
+      gmCompareApp.gm_names.sort().forEach(function (g) {
+        function makeOption(g) {
+          var e = document.createElement('option');
+          e.append(g);
+          e.attributes["value"] = gmCompareApp.gm[g];
+          return e;
+        }
+        document.getElementById('select-gm-1').append(makeOption(g));
+        document.getElementById('select-gm-2').append(makeOption(g));
+      })
+      //console.log(gmCompareApp.gm);
+    });
+};
+
+gmCompareApp.init = function() {
+  gmCompareApp.initData();
+  gmCompareApp.initDropDowns('#select-gm-1');
+  gmCompareApp.initDropDowns('#select-gm-2');
+};
+
+gmCompareApp.init();
 </script>

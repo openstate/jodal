@@ -106,7 +106,10 @@ if (test_set_cookie) {
   console.log('A/B test cookie was previously set or utm cookie is not present!');
 }
 console.log("A/B test is: " + test_item);
-document.getElementById('btn-' + test_item).style.display = 'block';
+var btnElem = document.getElementById('btn-' + test_item);
+if (btnElem) {
+  btnElem.style.display = 'block';
+}
   var _paq = window._paq = window._paq || [];
   /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
   _paq.push(["setDocumentTitle", document.domain + "/" + document.title]);
