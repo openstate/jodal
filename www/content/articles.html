@@ -65,7 +65,8 @@ gmCompareApp.initData = function() {
           }
         });
       });
-      gmCompareApp.gm_names.sort().forEach(function (g) {
+      let gmUnique = [...new Set(gmCompareApp.gm_names.sort())];
+      gmUnique.forEach(function (g) {
         function makeOption(g) {
           var e = document.createElement('option');
           e.append(g);
