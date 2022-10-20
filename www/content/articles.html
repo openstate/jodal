@@ -32,7 +32,8 @@ var gmCompareApp = window.gmCompareApp || {
 window.gmCompareApp = gmCompareApp;
 
 gmCompareApp.handleDropDown = function(e) {
-  console.log('Selection was changed!: ');
+  var selectedGm = e.target.options[e.target.selectedIndex].value;
+  console.log('Selection was changed!: ' + selectedGm);
   console.dir(e);
 };
 
