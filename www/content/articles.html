@@ -95,7 +95,8 @@ console.log('articles test!');
 var gmCompareApp = window.gmCompareApp || {
   gm: {},
   gm_names: [],
-  gm_docs: {}
+  gm_docs: {},
+  gm_selected: {}
 };
 window.gmCompareApp = gmCompareApp;
 
@@ -121,14 +122,21 @@ gmCompareApp.getData = function(fn) {
     then((response) => response.json())
     .then(function (data) {
         console.log('Got data for ' + fn);
-        gmCompareApp.fillData(data, 2022, 0, 'baten', 1);
+        var data_id = data[0]['locatie_code'];
+        if (gmCompareApp.gm_selected['select-gm-1'] == data_id) {
+          gmCompareApp.fillData(data, 2022, 0, 'baten', 1);
+        } else {
+          gmCompareApp.fillData(data, 2022, 0, 'baten', 2);          
+        }
     });
 };
 
 gmCompareApp.handleDropDown = function(e) {
+  console.log('select used' + e.target.id);
   var selectedGm = e.target.options[e.target.selectedIndex].value;
   if (selectedGm != '-') {
     var selectedId = gmCompareApp.gm[selectedGm];
+    gmCompareApp.gm_selected[e.target.id] = selectedId;
     console.log('Selection was changed!: ' + selectedGm);
     console.log("Should download these now:");
     console.log(gmCompareApp.gm_docs[selectedId]);
