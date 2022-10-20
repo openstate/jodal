@@ -31,10 +31,23 @@ var gmCompareApp = window.gmCompareApp || {
 };
 window.gmCompareApp = gmCompareApp;
 
+gmCompareApp.getData = function(fn) {
+  fetch('/2022-articles/' + fn).
+    then((response) => response.json())
+    .then(function (data) {
+        console.log('Got data for ' + fn);
+    });
+};
+
 gmCompareApp.handleDropDown = function(e) {
   var selectedGm = e.target.options[e.target.selectedIndex].value;
+  var selectedId = gmCompareApp.gm[selectedGm];
   console.log('Selection was changed!: ' + selectedGm);
-  console.dir(e);
+  console.log("Should download these now:");
+  console.log(gmCompareApp.gm_docs[selectedId]);
+  gmCompareApp.gm_docs[selectedId].forEach(function (d) {
+    gmCompareApp.getData(d);
+  });
 };
 
 gmCompareApp.initDropDowns = function(q) {
