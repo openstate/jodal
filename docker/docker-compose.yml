@@ -48,6 +48,14 @@ services:
       - ../www/:/opt/jodal
     networks:
       - jodal
+  makesite-pdd:
+    build:
+      context: ../www-pdd
+      dockerfile: Dockerfile
+    volumes:
+      - ../www-pdd/:/opt/jodal
+    networks:
+      - jodal
   backend:
     build:
       context: ../backend
