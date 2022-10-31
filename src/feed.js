@@ -14,6 +14,7 @@ export function fetch_feed(feed, callback) {
         link: el.querySelector("link").innerHTML,
         guid: el.querySelector("guid").innerHTML,
         description: el.querySelector("description").innerHTML,
+        content: el.querySelector("*|encoded").innerHTML,
         date: el.querySelector("pubDate").innerHTML
       };
       parsed.items.push(result);

@@ -360,6 +360,10 @@ h6 {
 	height: 90%;
 }
 
+.help-dialog .container p {
+	white-space: normal;
+}
+
 .document-dialog .mdc-dialog__container {
 	width: 100%;
 }
