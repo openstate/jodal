@@ -16,7 +16,7 @@ body {
 }
 
 a {
-	color: #A62689;
+	color: #de0050;
 }
 
 a:hover {
@@ -37,7 +37,7 @@ h1 {
 h2 {
 	font-size: 30px;
 	line-height: 40px;
-	color: #A62689;
+	color: #de0050;
 }
 
 h3 {
@@ -59,7 +59,7 @@ h5 {
 h6 {
 	font-size: 30px;
 	line-height: 40px;
-	color: #A62689;
+	color: #de0050;
 }
 
 @media (max-width: 768px) {
@@ -155,6 +155,7 @@ header {
 	justify-content: center;
 	align-items: center;
 	margin-top: 4rem;
+	margin-bottom: 4rem;
 }
 
 header h1 {
@@ -231,7 +232,7 @@ footer section {
 }
 
 .btn-default {
-	background: rgb(166, 38, 137);
+	background: #62b334;
 	color: white;
 }
 
