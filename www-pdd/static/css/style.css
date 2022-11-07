@@ -2,14 +2,14 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,700;1,700&display=swap" rel="stylesheet">
 */
 
-@import "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:ital,wght@0,300;0,400;0,700;1,700&display=swap";
+@import "https://fonts.googleapis.com/css2?family=DM+Sans,wght@0,300;0,400;0,700;1,700&display=swap";
 
 html, body {
 }
 
 body {
-	color: #2E1E3D;
-	font-family: 'IBM Plex Sans Condensed', sans-serif;
+	color: #161317;
+	font-family: 'DM Sans', sans-serif;
 	font-size: 18px;
 	line-height: 28px;
   margin: 0;
@@ -112,6 +112,10 @@ h6 {
   }
 }
 
+h1 img {
+	max-height: 4rem;
+}
+
 main {
   max-width: 1200px;
   margin: 0 auto;
@@ -142,7 +146,6 @@ main p {
 
 header {
   text-align: center;
-  background: rgb(166, 38, 137);
 
 	display: flex;
 	position: relative;
@@ -151,27 +154,27 @@ header {
 	height: 64px;
 	justify-content: center;
 	align-items: center;
+	margin-top: 4rem;
 }
 
 header h1 {
   margin: 0;
-  color: #ffffff;
-  	font-family: Roboto,sans-serif;
-  	-moz-osx-font-smoothing: grayscale;
-  	-webkit-font-smoothing: antialiased;
-  	font-size: 1.25rem;
-    font-style: normal;
-  	line-height: 2rem;
-  	font-weight: 500;
-  	letter-spacing: .0125em;
-  	text-decoration: inherit;
-  	text-transform: inherit;
-  	padding-left: 20px;
-  	padding-right: 0;
-  	text-overflow: ellipsis;
-  	white-space: nowrap;
-  	overflow: hidden;
-  	z-index: 1;
+	font-family: Roboto,sans-serif;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-font-smoothing: antialiased;
+	font-size: 4rem;
+  font-style: normal;
+	line-height: 4rem;
+	font-weight: 500;
+	letter-spacing: .0125em;
+	text-decoration: inherit;
+	text-transform: inherit;
+	padding-left: 20px;
+	padding-right: 0;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	z-index: 1;
 }
 
 footer {
