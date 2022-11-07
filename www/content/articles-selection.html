@@ -39,6 +39,11 @@
   </thead>
   <tbody>
     <tr>
+      <td></td>
+      <td class="select-gm-1-naam" style="text-align: right;"></td>
+      <td class="select-gm-2-naam" style="text-align: right;"></td>
+    </tr>
+    <tr>
       <td><strong>Totale inkomsten</strong></td>
       <td class="gm-1-baten-totaal" style="text-align: right;"></td>
       <td class="gm-2-baten-totaal" style="text-align: right;"></td>
@@ -94,10 +99,9 @@
       <td class="gm-2-baten-9" style="text-align: right;"></td>
     </tr>
     <tr>
-      <td></td>
-      <td class="show-gm-1" style="text-align: right;">
-      </td>
-      <td class="show-gm-2" style="text-align: right;">
+      <td><br><br><br></td>
+      <td class="select-gm-1-naam" style="text-align: right;"></td>
+      <td class="select-gm-2-naam" style="text-align: right;"></td>
     </tr>
     <tr>
       <td><strong>Totale uitgaven</strong></td>
@@ -237,6 +241,10 @@ gmCompareApp.getData = function(fn) {
 gmCompareApp.handleDropDown = function(e) {
   console.log('select used' + e.target.id);
   var selectedGm = e.target.options[e.target.selectedIndex].value;
+  var elems = document.getElementsByClassName(e.target.id + '-naam');
+  for (let i = 0; i < elems.length; i++) {
+    elems[i].textContent = selectedGm;
+  }
   if (selectedGm != '-') {
     var selectedId = gmCompareApp.gm[selectedGm];
     gmCompareApp.gm_selected[e.target.id] = selectedId;
