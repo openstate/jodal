@@ -237,8 +237,13 @@ footer section {
 }
 
 .btn-alternate {
-	color: rgb(166, 38, 137);
+	color: #de0050;
 	background: white;
+}
+
+.btn-alternate:hover {
+	color: white;
+	background: #de0050;
 }
 
 .features {
