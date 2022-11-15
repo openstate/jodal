@@ -147,15 +147,20 @@ main p {
 header {
   text-align: center;
 
-	display: flex;
+	display: block;
 	position: relative;
 	box-sizing: border-box;
 	width: 100%;
-	height: 64px;
 	justify-content: center;
 	align-items: center;
-	margin-top: 4rem;
-	margin-bottom: 4rem;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+}
+
+header img {
+	max-width: 10%;
+	display: block;
+	margin: 0 auto;
 }
 
 header h1 {
@@ -170,11 +175,6 @@ header h1 {
 	letter-spacing: .0125em;
 	text-decoration: inherit;
 	text-transform: inherit;
-	padding-left: 20px;
-	padding-right: 0;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-	overflow: hidden;
 	z-index: 1;
 }
 
@@ -244,6 +244,11 @@ footer section {
 .btn-alternate:hover {
 	color: white;
 	background: #de0050;
+}
+
+#btn-alternate-login {
+	margin: 1em;
+	text-align: center;
 }
 
 .features {
