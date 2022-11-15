@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Journalistiek Dashboard Lokaal - {testEnv} ({runEnv})</title>
+  <title>Journalistiek Dashboard Lokaal</title>
 </svelte:head>
 
 <div class="app-container">

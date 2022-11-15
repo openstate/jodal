@@ -34,6 +34,7 @@ import Button, { Label } from '@smui/button';
 
 import { fetch_feed } from './feed.js';
 import { getCookie, setCookie } from './cookies.js';
+import { isTesting } from './stores.js';
 
 let showMsg = false;
 let open;
@@ -67,7 +68,7 @@ function fetch_updates() {
     title = feed.items[0].title;
     link = feed.items[0].link;
     content = feed.items[0].content.replace('<![CDATA[', '').replace(']]>', '');
-    showMsg = (oldlink != link);
+    showMsg = !$isTesting && (oldlink != link);
     if (showMsg) {
       msg.open();
     }
