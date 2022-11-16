@@ -1,8 +1,4 @@
-/*
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,700;1,700&display=swap" rel="stylesheet">
-*/
-
-@import "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Condensed:ital,wght@0,300;0,400;0,700;1,700&display=swap";
+@import "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap";
 
 html {
 	overflow-y: auto;
@@ -10,7 +6,7 @@ html {
 
 body {
 	color: #2E1E3D;
-	font-family: 'IBM Plex Sans Condensed', sans-serif;
+	font-family: 'DM Sans', sans-serif;
 	font-size: 18px;
 	line-height: 28px;
 	margin: 0;
