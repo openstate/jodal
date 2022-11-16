@@ -3,7 +3,7 @@
         <Row>
           <Section>
             <IconButton class="material-icons"  on:click={() => drawerOpen.update(n => !n)}>menu</IconButton>
-            <Title>Journalistiek Dashboard Lokaal</Title>
+            <Title>Politiek Data Dashboard</Title>
           </Section>
           <Section align="end" toolbar>
           {#if $isTesting}

@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Journalistiek Dashboard Lokaal</title>
+  <title>Politiek Data Dashboard</title>
 </svelte:head>
 
 <div class="app-container">
