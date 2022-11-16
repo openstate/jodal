@@ -2,7 +2,7 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,700;1,700&display=swap" rel="stylesheet">
 */
 
-@import "https://fonts.googleapis.com/css2?family=DM+Sans,wght@0,300;0,400;0,700;1,700&display=swap";
+@import "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap";
 
 html, body {
 }
@@ -165,7 +165,6 @@ header img {
 
 header h1 {
   margin: 0;
-	font-family: Roboto,sans-serif;
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-font-smoothing: antialiased;
 	font-size: 4rem;
@@ -204,7 +203,6 @@ footer section {
   --mdc-ripple-fg-scale: 1.9698291453315258;
   --mdc-ripple-fg-translate-start: 50.13330078125px, -8.5px;
   --mdc-ripple-fg-translate-end: 20.46666717529297px, -11.5px;
-  font-family: Roboto,sans-serif;
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
   font-size: .875rem;
