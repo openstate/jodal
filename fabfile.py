@@ -20,6 +20,7 @@ NODE_CONTAINER = 'jodal_node_1'
 APP_CONTAINER = 'jodal_backend_1'
 # makesite container
 MAKESITE_CONTAINER = 'jodal_makesite_1'
+MAKESITE2_CONTAINER = 'jodal_makesite-pdd_1'
 # API container
 API_CONTAINER = 'jodal_api-jodal_1'
 
@@ -47,6 +48,7 @@ def deploy(c):
 
     # compile web landing page
     c.sudo("docker exec %s ./makesite.py" % (MAKESITE_CONTAINER,))
+    c.sudo("docker exec %s ./makesite.py" % (MAKESITE2_CONTAINER,))
     # Compile assets
     output = c.sudo(
         'docker inspect --format="{{.State.Status}}" %s' % (NODE_CONTAINER)
@@ -67,6 +69,6 @@ def deploy(c):
     # put elasticsearch mapings
     c.sudo('docker exec %s python manage.py elasticsearch put_templates' % (APP_CONTAINER))
     # reload api container
-    c.sudo("sh -c 'cd %s && docker-compose restart %s'" % (os.path.join(DIR, 'docker'), API_CONTAINER)) 
+    c.sudo("sh -c 'cd %s && docker-compose restart %s'" % (os.path.join(DIR, 'docker'), API_CONTAINER))
     # Reload app
-    c.sudo('docker exec %s nginx -s reload' % (NGINX_CONTAINER)) 
+    c.sudo('docker exec %s nginx -s reload' % (NGINX_CONTAINER))
