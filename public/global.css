@@ -14,8 +14,12 @@ body {
 	overflow: hidden;
 }
 
+header {
+	background: #0c537b !important;
+}
+
 a {
-	color: #A62689;
+	color: #006be8;
 }
 
 a:hover {
@@ -36,7 +40,7 @@ h1 {
 h2 {
 	font-size: 30px;
 	line-height: 40px;
-	color: #A62689;
+/*	color: #A62689;*/
 }
 
 h3 {
@@ -282,6 +286,7 @@ h6 {
 	width: 95%;
 	display: inline-block;
 	text-decoration: none;
+	color: inherit !important;
 }
 
 .entry-title h4 a:hover {
