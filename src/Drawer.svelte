@@ -4,19 +4,19 @@
       <Drawer variant="modal" bind:this={myDrawer2} bind:open={myDrawer2Open} on:MDCDrawer:closed={() => drawerOpen.update(n => false)}>
         <Content>
           <List>
-          <Item href="//www.jodal.nl/privacy/">
+          <Item href="//www.{domainName}/privacy/">
             <Graphic class="material-icons" aria-hidden="true">privacy_tip</Graphic>
             <Text>Privacy</Text>
           </Item>
           <Separator/>
           {#if $identity}
-            <Item href="//api.jodal.nl/users/simple/logout">
+            <Item href="//{apiDomainName}/users/simple/logout">
               <Graphic class="material-icons" aria-hidden="true">login</Graphic>
               <Text>Uitloggen</Text>
             </Item>
           {:else}
             {#if !$isTesting}
-            <Item href="//www.jodal.nl/login/">
+            <Item href="//www.{domainName}/login/">
               <Graphic class="material-icons" aria-hidden="true">account_box</Graphic>
               <Text>Inloggen</Text>
             </Item>
@@ -36,7 +36,7 @@
   import Button, {Label} from '@smui/button';
   import List, {Item, Text, Graphic, Separator, Subheader} from '@smui/list';
   import H6 from '@smui/common/H6.svelte';
-  import { drawerOpen, identity, isTesting } from './stores.js';
+  import { drawerOpen, identity, isTesting, apiDomainName, domainName } from './stores.js';
 
   let clicked = 'nothing yet';
   let myDrawer;

@@ -5,7 +5,7 @@ import Button from '@smui/button';
 import IconButton from '@smui/icon-button';
 import Textfield from '@smui/textfield'
 import { writable, get, derived } from 'svelte/store';
-import { sources, locations, inquiries, fetchingEnabled, removeInquiry, isTesting } from '../stores.js';
+import { sources, locations, inquiries, fetchingEnabled, removeInquiry, isTesting, apiDomainName } from '../stores.js';
 import { fetchSource } from '../sources.js';
 import Checkbox from '@smui/checkbox';
 import FormField from '@smui/form-field';
@@ -218,7 +218,7 @@ function update(obj, upd/*, …*/) {
 
 function updateInquiry(updatedFields) {
 	if (!get(isTesting)) {
-	  var url = window.location.protocol + '//api.jodal.nl/columns/' + inquiry.id;
+	  var url = window.location.protocol + '//' + apiDomainName + '/columns/' + inquiry.id;
 		console.log('query change update fields:', update(inquiry, updatedFields));
 	  fetch(
 	    url, {

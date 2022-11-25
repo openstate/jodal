@@ -24,15 +24,15 @@
   {:else}
   <div class="start-explainer">
     <p>Je bent niet ingelogd. Klik op de &eacute;&eacute;n van de knoppen hieronder om in te loggen of een account aan te maken.</p>
-    <Button align="end" href="//www.jodal.nl/login/"><Label>Inloggen</Label></Button> of
-    <Button align="end" href="//api.jodal.nl//www.jodal.nl/register/"><Label>Registreren</Label></Button>
+    <Button align="end" href="//www.{domainName}/login/"><Label>Inloggen</Label></Button> of
+    <Button align="end" href="//www.{domainName}/register/"><Label>Registreren</Label></Button>
   </div>
   {/if}
   </div>
 </div>
 
 <script>
-import { ordered_inquiries, inquiries, identity, isTesting } from './stores.js';
+import { ordered_inquiries, inquiries, identity, isTesting, apiDomainName, domainName } from './stores.js';
 import Column from './column/Column.svelte';
 import AddColumn, { startAddColumn } from './AddColumn.svelte';
 import Button from '@smui/button';

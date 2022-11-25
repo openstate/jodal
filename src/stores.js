@@ -67,7 +67,7 @@ export function addInquiry(settings) {
     console.dir(column_def_update);
     _addInquiry(column_def_update);
   } else {
-    var url = window.location.protocol + '//api.jodal.nl/columns';
+    var url = window.location.protocol + '//' + apiDomainName + '/columns';
     return fetch(
       url, {
         method: "POST",
@@ -99,7 +99,7 @@ function _addInquiry(data) {
 
 export function removeInquiry(column_id) {
   if (!get(isTesting)) {
-    var url = window.location.protocol + '//api.jodal.nl/columns/' + column_id;
+    var url = window.location.protocol + '//' + apiDomainName + '/columns/' + column_id;
     return fetch(
       url, {
         method: "DELETE",

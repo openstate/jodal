@@ -1,12 +1,12 @@
 <script>
 import { onMount, onDestroy } from 'svelte';
 import { get } from 'svelte/store';
-import { identity, inquiries, locations, id2locations, fetchingEnabled, isTesting } from './stores.js';
+import { identity, inquiries, locations, id2locations, fetchingEnabled, isTesting, apiDomainName } from './stores.js';
 
 onMount(function () {
   async function fetchColumns() {
     if (!get(isTesting)) {
-      var url = window.location.protocol + '//api.jodal.nl/columns';
+      var url = window.location.protocol + '//' + apiDomainName + '/columns';
       return fetch(
         url, {credentials: "include", cache: 'no-cache'}).then(
           response => response.json()
@@ -23,7 +23,7 @@ onMount(function () {
   }
   async function fetchIdentity() {
     if (!get(isTesting)) {
-      var url = window.location.protocol + '//api.jodal.nl/users/simple/me';
+      var url = window.location.protocol + '//' + apiDomainName + '/users/simple/me';
       return fetch(
         url, {credentials: "include", cache: 'no-cache'}).then(
           response => response.json()
@@ -39,7 +39,7 @@ onMount(function () {
     }
   };
   async function fetchLocations() {
-    return fetch(window.location.protocol + '//api.jodal.nl/locations/search?limit=500&sort=name.keyword:asc')
+    return fetch(window.location.protocol + '//' + apiDomainName + '/locations/search?limit=500&sort=name.keyword:asc')
       .then(r => r.json())
       .then(data => {
         console.log('got locations data:')

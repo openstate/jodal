@@ -11,7 +11,7 @@
       variant="unelevated"
       on:click={function () {
           if (confirm('Weet je zeker dat je je account wilt verwijderen? Dit kan niet meer ongedaan maken.')) {
-            window.location = window.location.protocol + '//api.jodal.nl/users/delete';
+            window.location = window.location.protocol + '//' + apiDomainName + '/users/delete';
           }
       }}
     >
@@ -32,7 +32,7 @@
 <script>
   import Dialog, { Title, Content, Actions, InitialFocus } from '@smui/dialog';
   import Button, { Label } from '@smui/button';
-  import { identity } from './stores.js';
+  import { identity, apiDomainName } from './stores.js';
 
   let open;
   let response = 'Nothing yet.';

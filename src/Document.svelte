@@ -25,7 +25,7 @@
         {/if}
         <h4>Downloaden als:</h4>
         {#each export_formats[$item.source] as fmt}
-          <a href="//api.jodal.nl/documents/download/{$item.source}/{$item.data.label.document_id}?format={fmt}" target="_blank" class="mdc-button document-download-button">
+          <a href="//{apiDomainName}/documents/download/{$item.source}/{$item.data.label.document_id}?format={fmt}" target="_blank" class="mdc-button document-download-button">
             <Label>{fmt}</Label>
           </a>
         {/each}
@@ -36,7 +36,7 @@
       {#if ($item.source == 'poliflw' || $item.source == 'openbesluitvorming' || $item.source == 'cvdr') && (typeof($item._id) !== 'undefined')}
         <h4>Downloaden als:</h4>
         {#each export_formats[$item.source] as fmt}
-          <a href="//api.jodal.nl/documents/download/{$item.source}/{$item._id}?format={fmt}" target="_blank" class="mdc-button document-download-button">
+          <a href="//{apiDomainName}/documents/download/{$item.source}/{$item._id}?format={fmt}" target="_blank" class="mdc-button document-download-button">
             <Label>{fmt}</Label>
           </a>
         {/each}
@@ -68,8 +68,7 @@
   import Dialog, { Title, Content, Actions, InitialFocus } from '@smui/dialog';
   import Button, { Group, GroupItem, Label, Icon } from '@smui/button';
   import { writable, get, derived } from 'svelte/store';
-  import { identity } from './stores.js';
-
+  import { identity, apiDomainName } from './stores.js';
   let converting = false;
   let open;
   let response = 'Nothing yet.';
@@ -94,7 +93,7 @@
 
   async function getOpenspendingData() {
     console.log('getting spreadsheet data:')
-    var url = "//api.jodal.nl/documents/download/" + $item.source + '/' + $item.data.openspending_document_id + '?format=json';
+    var url = "//" + apiDomainName + "/documents/download/" + $item.source + '/' + $item.data.openspending_document_id + '?format=json';
     return fetch(url)
       .then(r => r.json())
       .then(data => {
