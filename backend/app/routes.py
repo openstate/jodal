@@ -99,6 +99,24 @@ def api_login():
     else:
         return jsonify({"error": "Some kind of error: %s" % (client_response.error_response,)})
 
+@app.route("/users/forgot-password", methods=["POST"])
+def api_forgot():
+
+    # Delete User For A Given ID
+    client = FusionAuthClient(app.config['API_KEY'], app.config['FA_INTERNAL_URL'])
+
+    client_response = client.forgot_password({
+        'applicationId': app.config['CLIENT_ID'],
+        'loginId': request.form['email']
+    })
+    # result = resp.json()
+
+    if client_response.was_successful():
+        return redirect(app.config['JODAL_URL'])
+        # return jsonify(session['user'])
+    else:
+        return jsonify({"error": "Some kind of error: %s" % (client_response.error_response,)})
+
 
 @app.route("/users/register", methods=["POST"])
 def api_register():
