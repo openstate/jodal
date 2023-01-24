@@ -2,21 +2,21 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,700;1,700&display=swap" rel="stylesheet">
 */
 
-@import "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap";
+@import "https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap";
 
 html, body {
 }
 
 body {
 	color: #161317;
-	font-family: 'DM Sans', sans-serif;
+	font-family: 'Roboto', sans-serif;
 	font-size: 18px;
 	line-height: 28px;
   margin: 0;
 }
 
 a {
-	color: #de0050;
+	color: #A01848;
 }
 
 a:hover {
@@ -37,7 +37,7 @@ h1 {
 h2 {
 	font-size: 30px;
 	line-height: 40px;
-	color: #de0050;
+	color: #A01848;
 }
 
 h3 {
@@ -59,7 +59,7 @@ h5 {
 h6 {
 	font-size: 30px;
 	line-height: 40px;
-	color: #de0050;
+	color: #A01848;
 }
 
 @media (max-width: 768px) {
@@ -230,18 +230,18 @@ footer section {
 }
 
 .btn-default {
-	background: #62b334;
+	background: #18A070;
 	color: white;
 }
 
 .btn-alternate {
-	color: #de0050;
+	color: #A01848;
 	background: white;
 }
 
 .btn-alternate:hover {
 	color: white;
-	background: #de0050;
+	background: #A01848;
 }
 
 #btn-alternate-login {
