@@ -169,7 +169,7 @@ header img {
 }
 
 header h1 {
-  margin: 0;
+  margin: 0.5em 0;
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-font-smoothing: antialiased;
 	font-size: 4rem;
