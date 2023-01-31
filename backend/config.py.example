@@ -10,7 +10,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config(object):
-    SECRET_KEY = 'DitIsJodal'
+    SECRET_KEY = 'DitIsOpen Datadashboard'
     NAME_OF_APP = 'jodal'
     # where the jodal instance lives
     JODAL_URL = 'http://localhost/'

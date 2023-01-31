@@ -26,11 +26,11 @@ Then you can go to `http://app.jodal.nl` preferably in a private window, because
 
 # deployment
 
-Jodal uses Fabric for deployment. Run `fab deploy`.
+Open Datadashboard uses Fabric for deployment. Run `fab deploy`.
 
 # migrations
 
-Jodal uses [alembic](https://alembic.sqlalchemy.org/en/latest/index.html) for migrations
+Open Datadashboard uses [alembic](https://alembic.sqlalchemy.org/en/latest/index.html) for migrations
 
 ## migrate all up to the latest
 
@@ -46,7 +46,7 @@ Jodal uses [alembic](https://alembic.sqlalchemy.org/en/latest/index.html) for mi
 
 # adding data
 
-Jodal runs several scrapers, in the `jodal_backend_1` container. Run the floowing steps to get started:
+Open Datadashboard runs several scrapers, in the `jodal_backend_1` container. Run the floowing steps to get started:
 
 1. `docker exec jodal_backend_1 ./mana ge.py scrapers locations`
 2. `docker exec jodal_backend_1 ./mana ge.py scrapers openspending -f 2021-01-01`

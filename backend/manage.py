@@ -61,7 +61,7 @@ def _create_path(path):
 @click.group()
 @click.version_option()
 def cli():
-    """Jodal"""
+    """Open Datadashboard"""
 
 
 @cli.group()
