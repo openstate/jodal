@@ -2,7 +2,7 @@
   <div class="columns">
   {#if $isTesting}
     <div class="message message-warning">
-      <span>Hier kun je Open Datadashboard uitproberen! De zoekopdrachten zullen niet worden opgeslagen.</span>
+      <span>Hier kun je Open Overheidsdata uitproberen! De zoekopdrachten zullen niet worden opgeslagen.</span>
     </div>
   {/if}
   {#if $identity || $isTesting}

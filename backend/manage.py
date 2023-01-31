@@ -61,7 +61,7 @@ def _create_path(path):
 @click.group()
 @click.version_option()
 def cli():
-    """Open Datadashboard"""
+    """Open Overheidsdata"""
 
 
 @cli.group()

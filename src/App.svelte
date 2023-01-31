@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Open Datadashboard</title>
+  <title>Open Overheidsdata</title>
 </svelte:head>
 
 <div class="app-container">
