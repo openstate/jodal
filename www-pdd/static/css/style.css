@@ -198,6 +198,19 @@ footer section {
   padding: 2rem;
 }
 
+.backgroundwrapper .byline {
+		height: 8em;
+		width: 31%;
+		font-size: 45px;
+		line-height: 50px;
+		background: #ffffff;
+		color: #A01848;
+		border: 1px solid;
+		border-radius: 50%;
+		padding: 1em;
+		text-align: center;
+}
+
 .actions {
   text-align: center;
 	margin: 2em 0;
