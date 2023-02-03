@@ -8,6 +8,7 @@ html, body {
 }
 
 body {
+	background: #DCEBEC;
 	color: #161317;
 	font-family: 'Roboto', sans-serif;
 	font-size: 18px;
@@ -118,7 +119,7 @@ h6 {
 }
 
 h1 img {
-	max-height: 4rem;
+	max-height: 12rem;
 }
 
 main {
@@ -163,7 +164,6 @@ header {
 }
 
 header img {
-	max-width: 10%;
 	display: block;
 	margin: 0 auto;
 }
