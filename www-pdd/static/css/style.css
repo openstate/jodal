@@ -88,6 +88,12 @@ h6 {
 }
 
 @media (max-width: 768px) {
+	.backgroundwrapper .byline {
+		width: 50%;
+		font-size: 20px;
+		line-height: 25px;
+	}
+
 	h1 {
 		font-size: 60px;
 		line-height: 65px;
@@ -126,12 +132,32 @@ h6 {
 }
 
 @media(max-width:1080px){
+	.backgroundwrapper {
+		padding: 10em 0;
+	}
+
+	.backgroundwrapper .byline {
+		font-size: 35px;
+		line-height: 40px;
+		width: 40%;
+	}
+
   .footer-icons {
      grid-template-columns: repeat(6, 1fr) !important;
   }
 }
 
 @media(max-width:540px){
+	.backgroundwrapper {
+		padding: 8em 0;
+	}
+
+	.backgroundwrapper .byline {
+		font-size: 15px;
+		line-height: 20px;
+		width: 31%;
+	}
+
   .footer-icons {
      grid-template-columns: repeat(3, 1fr) !important;
   }
