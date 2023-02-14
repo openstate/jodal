@@ -198,6 +198,10 @@ footer section {
   padding: 2rem;
 }
 
+.backgroundwarpper {
+background: url(/ood/background.svg) no-repeat;
+}
+
 .backgroundwrapper .byline {
 		height: 8em;
 		width: 31%;
