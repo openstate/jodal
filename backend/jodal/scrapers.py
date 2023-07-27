@@ -41,8 +41,8 @@ class ElasticsearchBulkMixin(MemoryMixin, ElasticsearchMixin):
 
 class BinoasMixin(object):
     def load(self, item):
-        logging.info('Should upload item to binoas now!')
-        logging.info(item)
+        logging.info('Should upload item %s to binoas now!' % (item['_id'],))
+        #logging.info(item)
 
 class BaseScraper(object):
     def __init__(self, *arg, **kwargs):
@@ -93,7 +93,22 @@ class ElasticSearchScraper(BaseScraper):
 
     def fetch(self):
         self.es = setup_elasticsearch(self.config)
-        result = self.es.search(index='jodal_documents')
+        result = self.es.search(index='jodal_documents', body={
+            'query': {
+                'bool': {
+                    'must_not': {
+                        'term': {
+                            'source': 'openspending'
+                        }
+                    }
+                }
+            },
+            'sort': [
+                {
+                    'modified': {"order": "desc"}
+                }
+            ]
+        })
         logging.info(result)
         return result.get('hits', {}).get('hits', [])
 
