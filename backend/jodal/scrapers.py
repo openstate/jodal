@@ -1,10 +1,25 @@
 import json
 import logging
+import datetime
 
 import requests
 from elasticsearch.helpers import bulk
 from jodal.es import setup_elasticsearch
 
+
+class DatetimeJSONEncoder(json.JSONEncoder):
+    """
+    JSONEncoder that can handle ``datetime.datetime``, ``datetime.date`` and
+    ``datetime.timedelta`` objects.
+    """
+    def default(self, o):
+        if isinstance(o, datetime.datetime) or isinstance(o, datetime.date):
+            return o.isoformat()
+        elif isinstance(o, datetime.timedelta):
+            return (datetime.datetime.min + o).time().isoformat()
+        else:
+            return super(DatetimeJSONEncoder, self).default(o)
+json_encoder = DatetimeJSONEncoder()
 
 class MemoryMixin(object):
     def load(self, item):
@@ -43,6 +58,23 @@ class BinoasMixin(object):
     def load(self, item):
         logging.info('Should upload item %s to binoas now!' % (item['_id'],))
         #logging.info(item)
+        url = 'http://binoas.openstate.eu/posts/new'
+        #url = 'http://binoas_app-binoas_1:5000/posts/new'
+        r = {}
+        resp = None
+        logging.info('sending to binoas: ' + str(item))
+        try:
+            resp = requests.post(
+                url, data=json_encoder.encode({
+                    'application': 'ood',
+                    'payload': item}))
+            r = resp.json()
+        except Exception as e:
+            logging.exception('Unexpected binoas enrichment error: %s'
+                          % (str(e),))
+            # logging.exception(resp.content)
+            # logging.exception(item)
+        logging.info('binoas result: ' + str(r))
 
 class BaseScraper(object):
     def __init__(self, *arg, **kwargs):
