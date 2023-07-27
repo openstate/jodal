@@ -30,7 +30,10 @@ from jodal.poliflw import PoliflwScraperRunner
 from jodal.obv import (OpenbesluitvormingScraperRunner,
     OpenbesluitvormingCountsScraperRunner)
 from jodal.cvdr import CVDRScraperRunner
-from jodal.scrapers import ElasticSearchScraper
+from jodal.scrapers import ElasticSearchScraper, BinoasMixin
+
+class BinoasUploader(BinoasMixin, ElasticSearchScraper):
+    pass
 
 logging.basicConfig(
     format='%(asctime)s.%(msecs)s:%(name)s:%(thread)d:%(levelname)s:%(process)d:%(message)s',
@@ -87,7 +90,7 @@ def scrapers_elasticsearch():
     kwargs = {
         'config': config
     }
-    ElasticSearchScraper(**kwargs).run()
+    BinoasUploader(**kwargs).run()
 
 
 @command('locations')
