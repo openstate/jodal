@@ -62,12 +62,12 @@ class BinoasMixin(object):
         #url = 'http://binoas_app-binoas_1:5000/posts/new'
         r = {}
         resp = None
-        logging.info('sending to binoas: ' + str(item))
+        logging.info('sending to binoas: ' + str(item['_source']))
         try:
             resp = requests.post(
                 url, data=json_encoder.encode({
                     'application': 'ood',
-                    'payload': item}))
+                    'payload': item['_source']}))
             r = resp.json()
         except Exception as e:
             logging.exception('Unexpected binoas enrichment error: %s'
