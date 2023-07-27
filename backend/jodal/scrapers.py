@@ -96,6 +96,13 @@ class ElasticSearchScraper(BaseScraper):
         result = self.es.search(index='jodal_documents', body={
             'query': {
                 'bool': {
+                    'filter': [
+                        {
+                            'range':{
+                                'modified': {'gte': 'now-5y'}
+                            }
+                        }
+                    ],
                     'must_not': {
                         'term': {
                             'source': 'openspending'
