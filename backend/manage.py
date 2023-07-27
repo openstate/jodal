@@ -30,6 +30,7 @@ from jodal.poliflw import PoliflwScraperRunner
 from jodal.obv import (OpenbesluitvormingScraperRunner,
     OpenbesluitvormingCountsScraperRunner)
 from jodal.cvdr import CVDRScraperRunner
+from jodal.scrapers import ElasticSearchScraper
 
 logging.basicConfig(
     format='%(asctime)s.%(msecs)s:%(name)s:%(thread)d:%(levelname)s:%(process)d:%(message)s',
@@ -77,6 +78,17 @@ def scrapers():
 @cli.group()
 def openspending():
     """Manage openspending stuff"""
+
+
+@command('elasticsearch')
+def scrapers_elasticsearch():
+    config = load_config()
+    es = setup_elasticsearch(config)
+    kwargs = {
+        'config': config
+    }
+    ElasticSearchScraper(**kwargs).run()
+
 
 @command('locations')
 def scrapers_locations():
@@ -315,6 +327,7 @@ scrapers.add_command(scrapers_poliflw)
 scrapers.add_command(scrapers_obv)
 scrapers.add_command(scrapers_obv_counts)
 scrapers.add_command(scrapers_cvdr)
+scrapers.add_command(scrapers_elasticsearch)
 
 if __name__ == '__main__':
     cli()

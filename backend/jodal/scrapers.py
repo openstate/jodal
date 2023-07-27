@@ -78,6 +78,12 @@ class BaseScraper(object):
             self.run_for_page()
             another_one = self.next()
 
+class ElasticSearchScraper(BaseScraper):
+    def __init__(self, *args, **kwargs):
+        super(ElasticSearchScraper, self).__init__(*args, **kwargs)
+        self.config = kwargs['config']
+        logging.info('Elasticsearch scraper started')
+
 class BaseWebScraper(BaseScraper):
     def fetch(self):
         try:
