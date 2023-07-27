@@ -131,7 +131,8 @@ class ElasticSearchScraper(BaseScraper):
                     'filter': [
                         {
                             'range':{
-                                'modified': {'gte': 'now-5y'}
+                                'modified': {'gte': 'now-5m'}
+                                #'modified': {'gte': 'now-5y'}
                             }
                         }
                     ],
