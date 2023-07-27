@@ -131,7 +131,7 @@ class ElasticSearchScraper(BaseScraper):
                     'filter': [
                         {
                             'range':{
-                                'modified': {'gte': 'now-5m'}
+                                'modified': {'gte': 'now-2m', 'lte': 'now'}
                                 #'modified': {'gte': 'now-5y'}
                             }
                         }
@@ -147,7 +147,8 @@ class ElasticSearchScraper(BaseScraper):
                 {
                     'modified': {"order": "desc"}
                 }
-            ]
+            ],
+            'size': 100
         })
         logging.info(result)
         return result.get('hits', {}).get('hits', [])
