@@ -5,7 +5,7 @@
             <Title>Toevoegen</Title>
           </Section>
           <Section align="end" toolbar>
-          Locaties
+          <LocationSelector bind:selectedLocations />
           <IconButton id="btn-icon-add-column" class="material-icons" aria-label="Add a column" title="Zoekopdracht toevoegen" on:click={() => startAddColumn()}>add</IconButton>
           </Section>
         </Row>
@@ -25,10 +25,13 @@
   import FormField from '@smui/form-field';
   import Account, { showAccountDialog } from './Account.svelte';
   import Help, {showHelpDialog } from './Help.svelte';
+  import LocationSelector from './LocationSelector.svelte';
 
   let prominent = false;
   let dense = false;
   let secondaryColor = false;
+  let selectedLocations;
+
 </script>
 
 <style>
