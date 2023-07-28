@@ -34,7 +34,7 @@ let item_ids = {};
 let empty = false;
 let query = inquiry.user_query;
 let column_id = inquiry.id;
-let show_settings = false;
+let show_settings = true;
 let show_marker = false;
 let scroll_marker;
 let virtual_list;
