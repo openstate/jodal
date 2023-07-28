@@ -235,11 +235,11 @@ h6 {
 }
 
 .column-section {
+	margin: 0 auto !important;
 	position: relative;
 	overflow: hidden;
 	width: 320px;
 	height: 100%;
-	display: inline-block;
 	margin: 0 4px;
 }
 
