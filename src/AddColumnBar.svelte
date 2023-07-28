@@ -5,7 +5,7 @@
             <Title>Toevoegen</Title>
           </Section>
           <Section align="end" toolbar>
-          <LocationSelector bind:selectedLocations />
+          <LocationSelector bind:selectedLocations showEmptyButton={false}/>
           <IconButton id="btn-icon-add-column" class="material-icons" aria-label="Add a column" title="Zoekopdracht toevoegen" on:click={() => startAddColumn()}>add</IconButton>
           </Section>
         </Row>
@@ -23,15 +23,20 @@
   import Checkbox from '@smui/checkbox';
   import {Label} from '@smui/fab';
   import FormField from '@smui/form-field';
+  import Textfield from '@smui/textfield';
   import Account, { showAccountDialog } from './Account.svelte';
   import Help, {showHelpDialog } from './Help.svelte';
   import LocationSelector from './LocationSelector.svelte';
 
   let prominent = false;
   let dense = false;
-  let secondaryColor = false;
+  let secondaryColor = true; // false;
   let selectedLocations;
+  let newQuery;
 
+  function handleQueryChange(e){
+      console.log('new query change should be handled!:');
+  }
 </script>
 
 <style>

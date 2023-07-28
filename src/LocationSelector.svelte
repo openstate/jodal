@@ -4,7 +4,9 @@
    {#if selectedLocations}
    <p class="locations-select-byline">Er zijn {selectedLocations.length} lokaties geselecteerd</p>
    {/if}
+   {#if showEmptyButton}
    <Button align="end" variant="outlined" on:click={() => clearLocations()}><Label>Leeg maken</Label></Button>
+   {/if}
 </div>
 
 <script>
@@ -17,6 +19,7 @@
   import Fab, {Label, Icon} from '@smui/fab';
 
   export let selectedLocations;
+  export let showEmptyButton = true;
 
   function selectAllLocations() {
     console.log('all locations button clicked!');
