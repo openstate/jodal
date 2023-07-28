@@ -20,6 +20,7 @@ import Flatpickr from '../Flatpickr.svelte';
 import { Dutch } from "flatpickr/dist/l10n/nl.js"
 import FloatingLabel from '@smui/floating-label';
 import LocationSelector from '../LocationSelector.svelte';
+import ColumnSelector from '../ColumnSelector.svelte';
 
 export let inquiry;
 
@@ -34,7 +35,7 @@ let item_ids = {};
 let empty = false;
 let query = inquiry.user_query;
 let column_id = inquiry.id;
-let show_settings = true;
+let show_settings = false;
 let show_marker = false;
 let scroll_marker;
 let virtual_list;
@@ -525,6 +526,7 @@ onDestroy(function () {
   </div>
   {/if}
   <div id="column-contents-{column_id}" class="column-contents">
+	<ColumnSelector />
   {#if !loading && ($items.length <= 0)}
     <p>Er werd nog niks gevonden dat aan je zoekopdracht voldeed.</p>
   {/if}
