@@ -34,12 +34,14 @@ export const sources = readable([
   }
 ]);
 
+export const selected_inquiry_id = writable(null);
 export const inquiries = writable([
 //  {name: 'Amsterdam', locations:["GM0363"], user_query: "*", order: 0},
 //  {name: 'Groningen', locations:["GM0014"], user_query: "*", order: 1}
 ]);
 
 export const ordered_inquiries = derived(inquiries, $inquiries => [...$inquiries].sort((a,b) => (a.order > b.order) ? 1 : ((b.order > a.order) ? -1 : 0)));
+export const selected_inquiry = derived(inquiries, $inquiries => [...$inquiries].filter(i => i.id == $selected_inquiry_id));
 
 export function addInquiry(settings) {
   var inqs = get(inquiries);
