@@ -6,6 +6,7 @@
           </Section>
           <Section align="end" toolbar>
           Locaties
+          <IconButton id="btn-icon-add-column" class="material-icons" aria-label="Add a column" title="Zoekopdracht toevoegen" on:click={() => startAddColumn()}>add</IconButton>
           </Section>
         </Row>
       </TopAppBar>
