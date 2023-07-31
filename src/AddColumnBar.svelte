@@ -1,19 +1,20 @@
-<section>
-      <TopAppBar variant="static" {prominent} {dense} color={secondaryColor ? 'secondary' : 'primary'}>
-        <Row>
-          <Section>
-            <Title>Toevoegen</Title>
-          </Section>
-          <Section align="end" toolbar>
-          <LocationSelector bind:selectedLocations showEmptyButton={false}/>
-          <IconButton id="btn-icon-add-column" class="material-icons" aria-label="Add a column" title="Zoekopdracht toevoegen" on:click={() => startAddColumn()}>add</IconButton>
-          </Section>
-        </Row>
-      </TopAppBar>
-</section>
-<Account/>
-<AddColumn/>
-<Help/>
+<div class="sub-toolbar flexy">
+  <div>
+    <Textfield>
+      <Input bind:value={newQuery} id="column-query" aria-controls="helper-text-column-query" aria-describedby="helper-text-column-query" />
+      <FloatingLabel for="input-column-name">Zoekopdracht</FloatingLabel>
+      <LineRipple />
+      <IconButton align="end" class="material-icons" aria-label="Hulp bij een zoekopdracht maken" alt="Hulp bij een zoekopdracht maken" on:click={() => showSearchHelpDialog()}>info</IconButton>
+    </Textfield>
+    <HelperText id="helper-text-column-name">De zoekopdracht</HelperText>
+  </div>
+  <div>
+    <LocationSelector bind:selectedLocations showEmptyButton={false}/>
+  </div>
+  <div>
+    <IconButton id="btn-icon-add-column" class="material-icons" aria-label="Add a column" title="Zoekopdracht toevoegen" on:click={() => startAddColumn()}>add</IconButton>
+  </div>
+</div>
 <script>
   import { drawerOpen,fetchingEnabled, identity, isTesting, apiDomainName, domainName } from './stores.js';
   import AddColumn, { startAddColumn } from './AddColumn.svelte';
@@ -23,10 +24,14 @@
   import Checkbox from '@smui/checkbox';
   import {Label} from '@smui/fab';
   import FormField from '@smui/form-field';
-  import Textfield from '@smui/textfield';
+  import Textfield, {Input, Textarea} from '@smui/textfield';
+  import FloatingLabel from '@smui/floating-label';
+  import LineRipple from '@smui/line-ripple';
+  import HelperText from '@smui/textfield/helper-text/index';
   import Account, { showAccountDialog } from './Account.svelte';
   import Help, {showHelpDialog } from './Help.svelte';
   import LocationSelector from './LocationSelector.svelte';
+  import { showSearchHelpDialog } from './SearchHelp.svelte';
 
   let prominent = false;
   let dense = false;
