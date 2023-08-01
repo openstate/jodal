@@ -18,7 +18,7 @@
   </div>
 </div>
 <script>
-  import { drawerOpen,fetchingEnabled, identity, isTesting, apiDomainName, domainName } from './stores.js';
+  import { drawerOpen,fetchingEnabled, identity, isTesting, apiDomainName, domainName, selected_inquiry, selected_inquiry_id } from './stores.js';
   import AddColumn, { startAddColumn } from './AddColumn.svelte';
   import TopAppBar, {Row, Section, Title} from '@smui/top-app-bar';
   import IconButton from '@smui/icon-button';
@@ -40,6 +40,8 @@
   let secondaryColor = true; // false;
   let selectedLocations;
   let newQuery;
+
+  $: newQuery = $selected_inquiry.length > 0 ? $selected_inquiry[0].user_query : '';
 
   function handleQueryChange(e){
       console.log('new query change should be handled!:');
