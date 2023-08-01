@@ -120,13 +120,11 @@ h6 {
 }
 
 .workspace {
-/*
 	position: absolute;
-	top: 0;
+	top: 64px;
 	left: 0;
 	right: 0;
 	bottom: 0;
-*/
 	background-color: #e1e8ed;
 	z-index: -1;
 	overflow: visible;
