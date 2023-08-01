@@ -4,7 +4,6 @@
 
 <div class="app-container">
 <Menu/>
-<AddColumnBar/>
 <Drawer/>
 <Workspace/>
 <Fetcher/>
@@ -19,7 +18,6 @@
   import Fetcher from './Fetcher.svelte';
   import Document from './Document.svelte';
   import SearchHelp from './SearchHelp.svelte';
-  import AddColumnBar from './AddColumnBar.svelte';
   import { isTesting } from './stores.js';
   const runEnv = runEnvironment.env.isProd ? 'Production' : 'Dev';
   $: testEnv = $isTesting ? 'Test' : 'Beta';

@@ -50,8 +50,9 @@ export function addInquiry(settings) {
     ...settings,
     order: (max_order + 1)
   };
+  var isSampleColumn = true;
 
-  if (get(isTesting)) {
+  if (isSampleColumn) {
     var column_def_update = {
       ...column_def,
       id: max_order + 1,
@@ -59,7 +60,8 @@ export function addInquiry(settings) {
       date_start: null,
       sort: "published",
       sort_order: "desc",
-      user_id: "x"
+      user_id: "x",
+      read_counts: {}
     };
     get(sources).forEach(function (s) {
       column_def_update['src_' + s.short] = true;
@@ -95,7 +97,8 @@ function _addInquiry(data) {
   inqs.push(data);
   inquiries.set(inqs);
   setTimeout(function() {
-    document.getElementById('column-' + data.id).scrollIntoView();
+    selected_inquiry_id.set(data.id);
+    //document.getElementById('column-' + data.id).scrollIntoView();
   }, 100);
 }
 

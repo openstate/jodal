@@ -17,8 +17,8 @@ onMount(function () {
               //console.dir(data);
               inquiries.set(data);
               if (get(selected_inquiry_id) === null) {
-                console.log('set selected column to : ' + data[0].id);
-                selected_inquiry_id.set(data[0].id);
+                //console.log('set selected column to : ' + data[0].id);
+                //selected_inquiry_id.set(data[0].id);
               }
             }
           }

@@ -46,6 +46,7 @@
   function doAddInquiry() {
     if (typeof(selectedLocations) == 'undefined') {
       alert('Selecteer 1 of meerdere lokaties om een zoekopdracht aan te maken');
+      return;
     }
     console.dir('selected locations:');
     console.log(selectedLocations);
@@ -63,11 +64,11 @@
     console.dir(selected);
 
     // TODO: maybe we should do this async?
-    // addInquiry({
-    //   name: name,
-    //   locations: selected_ids,
-    //   user_query: query
-    // });
+    addInquiry({
+      name: name,
+      locations: selected_ids,
+      user_query: newQuery
+    });
   }
 
   function handleQueryChange(e){
