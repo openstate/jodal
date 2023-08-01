@@ -13,12 +13,12 @@
       <LocationSelector bind:selectedLocations showEmptyButton={false}/>
     </div>
     <div>
-      <IconButton id="btn-icon-add-column" class="material-icons" aria-label="Add a column" title="Zoekopdracht toevoegen" on:click={() => startAddColumn()}>add</IconButton>
+      <IconButton id="btn-icon-add-column" class="material-icons" aria-label="Add a column" title="Zoekopdracht toevoegen" on:click={() => handleQueryChange()}>add</IconButton>
     </div>
   </div>
 </div>
 <script>
-  import { drawerOpen,fetchingEnabled, identity, isTesting, apiDomainName, domainName, selected_inquiry, selected_inquiry_id } from './stores.js';
+  import { addInquiry, locations, selectable_locations, id2locations, drawerOpen,fetchingEnabled, identity, isTesting, apiDomainName, domainName, selected_inquiry, selected_inquiry_id } from './stores.js';
   import AddColumn, { startAddColumn } from './AddColumn.svelte';
   import TopAppBar, {Row, Section, Title} from '@smui/top-app-bar';
   import IconButton from '@smui/icon-button';
@@ -43,8 +43,36 @@
 
   // $: newQuery = $selected_inquiry.length > 0 ? $selected_inquiry[0].user_query : '';
 
+  function doAddInquiry() {
+    if (typeof(selectedLocations) == 'undefined') {
+      alert('Selecteer 1 of meerdere lokaties om een zoekopdracht aan te maken');
+    }
+    console.dir('selected locations:');
+    console.log(selectedLocations);
+    var selected_ids = selectedLocations.map(function (l) { return l.value; });
+    var selected_names = selectedLocations.map(function (l) { return l.label; })
+    var selected = $locations.filter(l => selected_ids.indexOf(l.id) >= 0);
+    if (name == '') {
+      name = selected_names.join(", ");
+    }
+    if (newQuery == '') {
+      newQuery = "*"
+    }
+    console.log('adding name:' + name);
+    console.log('adding selected : ');
+    console.dir(selected);
+
+    // TODO: maybe we should do this async?
+    // addInquiry({
+    //   name: name,
+    //   locations: selected_ids,
+    //   user_query: query
+    // });
+  }
+
   function handleQueryChange(e){
       console.log('new query change should be handled!:');
+      doAddInquiry();
   }
 </script>
 
