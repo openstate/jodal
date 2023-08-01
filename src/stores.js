@@ -50,9 +50,10 @@ export function addInquiry(settings) {
     ...settings,
     order: (max_order + 1)
   };
-  var isSampleColumn = true;
+  var hasIdentity = get(identity);
+  console.log('should we add column for real? ', hasIdentity);
 
-  if (isSampleColumn) {
+  if (!hasIdentity) {
     var column_def_update = {
       ...column_def,
       id: max_order + 1,
