@@ -41,7 +41,7 @@
   let selectedLocations;
   let newQuery;
 
-  $: newQuery = $selected_inquiry.length > 0 ? $selected_inquiry[0].user_query : '';
+  // $: newQuery = $selected_inquiry.length > 0 ? $selected_inquiry[0].user_query : '';
 
   function handleQueryChange(e){
       console.log('new query change should be handled!:');

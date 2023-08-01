@@ -526,7 +526,6 @@ onDestroy(function () {
   </div>
   {/if}
   <div id="column-contents-{column_id}" class="column-contents">
-	<ColumnSelector />
   {#if !loading && ($items.length <= 0)}
     <p>Er werd nog niks gevonden dat aan je zoekopdracht voldeed.</p>
   {/if}
