@@ -39,7 +39,7 @@
   let dense = false;
   let secondaryColor = true; // false;
   let selectedLocations;
-  let newQuery;
+  let newQuery = "windmolens";
 
   // $: newQuery = $selected_inquiry.length > 0 ? $selected_inquiry[0].user_query : '';
 
