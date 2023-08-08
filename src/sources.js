@@ -8,7 +8,11 @@ export function fetchSource(query, sources, location_ids, date_start, date_end, 
 function fetchFromApi(query, sources, location_ids, date_start, date_end, sort_field, sort_order, stable, page, callback) {
   console.log('Should fetch locations ' + location_ids + ' using openspending now!');
   // 'http://api.jodal.nl/documents/search?query=*&filter=location.keyword:GM0777|GM0632&sort=published:desc'
-  var api_filter = '&filter=source.keyword:' + encodeURIComponent(sources.join(",")) + '|location.keyword:'+ location_ids.join(",")
+  var api_filter = '&filter=source.keyword:' + encodeURIComponent(sources.join(","));
+  var add_location = (location_ids.length != 1) || (location_ids[0] != '*');
+  if (add_location) {
+    api_filter += '|location.keyword:'+ location_ids.join(",");
+  }
   if (stable !== null) {
     api_filter += "|published_to:" + encodeURIComponent(stable);
   }

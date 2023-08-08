@@ -267,8 +267,20 @@ class LocationsScraperRunner(object):
 
     def run(self):
         items = []
+        all_item = {
+            'name': 'Alle gemeenten',
+            'id': '*',
+            'kind': 'municipality',
+            'source': 'cbs',
+            'sources': []
+        }
         for scraper in self.scrapers:
             k = scraper()
+            all_item['sources'].append({
+                'name': all_item['name'],
+                'id': all_item['id'],
+                'source': k.name
+            })
             try:
                 k.items = []
                 k.run()
@@ -277,7 +289,7 @@ class LocationsScraperRunner(object):
                 logging.error(e)
                 raise e
         logging.info('Fetching resulted in %s items ...' % (len(items)))
-        locations = self.aggregate(items)
+        locations = [all_item] + list(self.aggregate(items))
         es = setup_elasticsearch()
         for l in locations:
             l['_id'] = l['id']
