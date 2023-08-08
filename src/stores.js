@@ -34,12 +34,14 @@ export const sources = readable([
   }
 ]);
 
+export const selected_inquiry_id = writable(null);
 export const inquiries = writable([
 //  {name: 'Amsterdam', locations:["GM0363"], user_query: "*", order: 0},
 //  {name: 'Groningen', locations:["GM0014"], user_query: "*", order: 1}
 ]);
 
 export const ordered_inquiries = derived(inquiries, $inquiries => [...$inquiries].sort((a,b) => (a.order > b.order) ? 1 : ((b.order > a.order) ? -1 : 0)));
+export const selected_inquiry = derived([inquiries, selected_inquiry_id], ([$inquiries, $selected_inquiry_id]) => [...$inquiries].filter(i => (i.id == $selected_inquiry_id)));
 
 export function addInquiry(settings) {
   var inqs = get(inquiries);
@@ -48,8 +50,10 @@ export function addInquiry(settings) {
     ...settings,
     order: (max_order + 1)
   };
+  var hasIdentity = get(identity);
+  console.log('should we add column for real? ', hasIdentity);
 
-  if (get(isTesting)) {
+  if (!hasIdentity) {
     var column_def_update = {
       ...column_def,
       id: max_order + 1,
@@ -57,7 +61,8 @@ export function addInquiry(settings) {
       date_start: null,
       sort: "published",
       sort_order: "desc",
-      user_id: "x"
+      user_id: "x",
+      read_counts: {}
     };
     get(sources).forEach(function (s) {
       column_def_update['src_' + s.short] = true;
@@ -93,7 +98,8 @@ function _addInquiry(data) {
   inqs.push(data);
   inquiries.set(inqs);
   setTimeout(function() {
-    document.getElementById('column-' + data.id).scrollIntoView();
+    selected_inquiry_id.set(data.id);
+    //document.getElementById('column-' + data.id).scrollIntoView();
   }, 100);
 }
 

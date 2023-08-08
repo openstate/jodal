@@ -10,8 +10,10 @@ body {
 	font-size: 18px;
 	line-height: 28px;
 	margin: 0;
+/*
 	height: 100%;
 	overflow: hidden;
+*/
 }
 
 header {
@@ -103,35 +105,41 @@ h6 {
 }
 
 .app-container {
+/*
 	position: absolute;
 	top: 0;
 	left: 0;
 	bottom: 0;
 	right: 0;
 	min-width: 320px;
+	*/
 	overflow: hidden;
+/*
 	z-index: -1;
+*/
 }
 
 .workspace {
 	position: absolute;
-	top: 0;
+	top: 64px;
 	left: 0;
 	right: 0;
 	bottom: 0;
 	background-color: #e1e8ed;
 	z-index: -1;
-	overflow: visile;
+	overflow: visible;
 }
 
 .columns {
+/*
 	position: absolute;
-	top: 64px;
+	top: 128px;
 	left: 0;
 	bottom: 0;
 	right: 0;
 	bottom: 0;
 	overflow: auto hidden;
+*/
 	white-space:nowrap;
 }
 
@@ -235,20 +243,25 @@ h6 {
 }
 
 .column-section {
+	/*
+	margin: 0 auto !important;
 	position: relative;
 	overflow: hidden;
 	width: 320px;
 	height: 100%;
-	display: inline-block;
+	*/
 	margin: 0 4px;
 }
 
 .column {
+	/*
 	position: absolute;
 	top: 0;
 	left: 0;
 	bottom: 0;
-	width: 100%;
+	width: 100%;*/
+	width: 80%;
+	margin: 0 auto;
 	background: white;
 }
 

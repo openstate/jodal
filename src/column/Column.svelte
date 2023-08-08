@@ -20,6 +20,7 @@ import Flatpickr from '../Flatpickr.svelte';
 import { Dutch } from "flatpickr/dist/l10n/nl.js"
 import FloatingLabel from '@smui/floating-label';
 import LocationSelector from '../LocationSelector.svelte';
+import ColumnSelector from '../ColumnSelector.svelte';
 
 export let inquiry;
 

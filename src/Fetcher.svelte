@@ -1,7 +1,7 @@
 <script>
 import { onMount, onDestroy } from 'svelte';
 import { get } from 'svelte/store';
-import { identity, inquiries, locations, id2locations, fetchingEnabled, isTesting, apiDomainName } from './stores.js';
+import { identity, inquiries, locations, id2locations, fetchingEnabled, isTesting, apiDomainName, selected_inquiry_id } from './stores.js';
 
 onMount(function () {
   async function fetchColumns() {
@@ -16,6 +16,10 @@ onMount(function () {
               console.log('Got columns:');
               //console.dir(data);
               inquiries.set(data);
+              if (get(selected_inquiry_id) === null) {
+                //console.log('set selected column to : ' + data[0].id);
+                //selected_inquiry_id.set(data[0].id);
+              }
             }
           }
         );
