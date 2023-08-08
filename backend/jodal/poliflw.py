@@ -25,7 +25,7 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
     url = 'https://api.poliflw.nl/v0/search'
     payload = {
         'filters': {
-            'date': {
+            'processing_started': {
                 'from': "2021-01-01",
                 'to': '2021-01-01'
             }
@@ -73,8 +73,8 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
         if self.poliflw_locations is None:
             self.poliflw_locations = self._get_poliflw_locations()
         sleep(1)
-        self.payload['filters']['date']['from'] = str(self.date_from)
-        self.payload['filters']['date']['to'] = str(self.date_to)
+        self.payload['filters']['processing_started']['from'] = str(self.date_from)
+        self.payload['filters']['processing_started']['to'] = str(self.date_to)
         result = super(DocumentsScraper, self).fetch()
         if result is not None:
             logging.info(
