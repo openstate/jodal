@@ -18,7 +18,7 @@
   import Button from '@smui/button';
   import Fab, {Label, Icon} from '@smui/fab';
 
-  export let selectedLocations;
+  export let selectedLocations = ['*'];
   export let showEmptyButton = true;
 
   function selectAllLocations() {
