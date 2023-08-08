@@ -8,9 +8,6 @@
   {/if}
   {#if $identity || $isTesting}
     <Message/>
-    {#if $isTesting}
-      <Interview/>
-    {/if}
     {#if $inquiries.length <= 0}
     <section class="column-section">
     <div id="column-contents-new-inq" class="column-contents">

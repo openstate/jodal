@@ -5,8 +5,9 @@ export const domainName = 'jodal.nl';
 export const apiDomainName = 'api.' + domainName;
 export const testDomainName = 'test.' + domainName;
 
-export const isTesting = readable((window.location.hostname == testDomainName));
+//export const isTesting = readable((window.location.hostname == testDomainName));
 export const identity = writable(false);
+export const isTesting = derived(identity, $identity => !$identity);
 
 export const fetchingEnabled = writable(false);
 
@@ -98,6 +99,7 @@ function _addInquiry(data) {
   inqs.push(data);
   inquiries.set(inqs);
   setTimeout(function() {
+    console.log('Setting active column to ' + data.id);
     selected_inquiry_id.set(data.id);
     //document.getElementById('column-' + data.id).scrollIntoView();
   }, 100);
