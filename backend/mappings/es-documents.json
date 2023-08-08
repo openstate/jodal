@@ -83,7 +83,10 @@
             "modified": {
               "type": "date"
             },
-            "pubished": {
+            "published": {
+              "type": "date"
+            },
+            "processed": {
               "type": "date"
             },
             "source": {

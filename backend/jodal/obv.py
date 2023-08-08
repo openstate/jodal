@@ -10,6 +10,7 @@ from urllib.parse import urljoin, quote
 from time import sleep
 import locale
 import urllib
+import datetime
 
 import requests
 
@@ -313,6 +314,7 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
                         'created': sitem[self.date_field],
                         'modified': sitem[self.date_field],
                         'published': sitem[self.date_field],
+                        'processed': datetime.datetime.now().isoformat(),
                         'source': self.name,
                         'type': self.obv_types[sitem['@type']],
                         'data': data

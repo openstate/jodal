@@ -9,6 +9,7 @@ from copy import deepcopy
 from urllib.parse import urljoin
 from time import sleep
 import locale
+import datetime
 
 import requests
 
@@ -107,6 +108,7 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
                     'created': item['date'],
                     'modified': item['date'],
                     'published': item['date'],
+                    'processed': datetime.datetime.now().isoformat(),
                     'source': self.name,
                     'type': 'Bericht',
                     'data': data

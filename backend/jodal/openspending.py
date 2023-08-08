@@ -9,6 +9,7 @@ from copy import deepcopy
 from urllib.parse import urljoin
 from time import sleep
 import locale
+import datetime
 
 import requests
 
@@ -154,6 +155,7 @@ class AggregationsScraper(BaseOpenSpendingScraper):
                         'created': self.item['created'],
                         'modified': self.item['modified'],
                         'published': self.item['published'],
+                        'processed': datetime.datetime.now().isoformat(),
                         'source': self.name,
                         'type': [
                             self.direction2openspending[self.params['direction']],
