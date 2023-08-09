@@ -76,6 +76,13 @@ def index():
     return jsonify(results)
 
 
+@app.route("/subscriptions/new", methods=["POST"])
+@decode_json_post_data
+def subscriptions_new():
+    logging.info(request.data)
+    return jsonify(dict(request.data))
+
+
 @app.route("/users/login", methods=["POST"])
 def api_login():
 
