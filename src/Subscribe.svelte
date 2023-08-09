@@ -42,7 +42,7 @@
   <Button
     default
     use={[InitialFocus]}
-    on:click={() => (response = 'It will be glorious.')}
+    on:click={() => (subscriptionNew(user_query, selected_ids, ood_sources, description, email, frequency))}
   >
     <Label>Abboneer</Label>
   </Button>
@@ -63,6 +63,7 @@
   import Select, {Option} from '@smui/select';
   import { get } from 'svelte/store';
   import { identity, selected_inquiry, selected_inquiry_id, sources } from './stores.js';
+  import {subscriptionNew } from './binoas.js';
 
   let open;
   let response = 'Nothing yet.';

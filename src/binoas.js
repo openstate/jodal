@@ -97,5 +97,3 @@ export function subscriptionNew(user_query, locations, sources, description, ema
       }
     );
   }
-
-}
