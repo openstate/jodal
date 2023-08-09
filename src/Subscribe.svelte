@@ -6,6 +6,10 @@
 >
   <Title id="default-focus-title">Abboneer</Title>
   <Content id="default-focus-content">
+  <div>
+    <Label>beschrijving</Label>
+    {description}
+  </div>
     <div>
       <Label>zoekopdracht</Label>
       {user_query}
@@ -67,8 +71,9 @@
   let user_query = '';
   let selected_ids = [];
   let ood_sources = [];
+  let description = '';
   $: if ($identity) { email=$identity.email }
-  $: if ($selected_inquiry_id) { user_query = $selected_inquiry[0].user_query; selected_ids = $selected_inquiry[0].locations; ood_sources = $sources.map((l) => l.short).filter((l) => $selected_inquiry[0]['src_' + l]) }
+  $: if ($selected_inquiry_id) {description = $selected_inquiry[0].name; user_query = $selected_inquiry[0].user_query; selected_ids = $selected_inquiry[0].locations; ood_sources = $sources.map((l) => l.short).filter((l) => $selected_inquiry[0]['src_' + l]) }
 </script>
 
 <script context="module">
