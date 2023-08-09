@@ -73,12 +73,13 @@ function buildSubscriptionQuery(sources, locations, user_query) {
 
 export function subscriptionNew(user_query, locations, sources, description, email, frequency) {
   var url = window.location.protocol + '//' + binoasDomain + '/subscriptions/new';
+  var sub_query = buildSubscriptionQuery(sources, locations, user_query);
   var binoas_def = {
     'application': 'ood',
     'email': email,
     'frequency': frequency,
     'description': description,
-    'query': {}
+    'query': sub_query.query
   };
   return fetch(
     url, {
