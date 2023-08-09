@@ -9,6 +9,7 @@
 <Fetcher/>
 <Document/>
 <SearchHelp/>
+<Subscribe/>
 </div>
 
 <script>
@@ -18,6 +19,7 @@
   import Fetcher from './Fetcher.svelte';
   import Document from './Document.svelte';
   import SearchHelp from './SearchHelp.svelte';
+  import Subscribe from './Subscribe.svelte';
   import { isTesting } from './stores.js';
   const runEnv = runEnvironment.env.isProd ? 'Production' : 'Dev';
   $: testEnv = $isTesting ? 'Test' : 'Beta';

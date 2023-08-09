@@ -15,6 +15,9 @@
     <div>
       <IconButton id="btn-icon-add-column" class="material-icons" aria-label="Add a column" title="Zoekopdracht toevoegen" on:click={() => handleQueryChange()}>add</IconButton>
     </div>
+    <div>
+      <Button on:click={() => showSubscribeDialog()}>Abboneer</Button>
+    </div>
   </div>
 </div>
 <script>
@@ -34,7 +37,7 @@
   import Help, {showHelpDialog } from './Help.svelte';
   import LocationSelector from './LocationSelector.svelte';
   import { showSearchHelpDialog } from './SearchHelp.svelte';
-
+  import { showSubscribeDialog } from './Subscribe.svelte';
   let prominent = false;
   let dense = false;
   let secondaryColor = true; // false;
