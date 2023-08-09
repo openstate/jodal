@@ -1,11 +1,6 @@
 <div class="workspace" id="workspace">
   <div class="columns">
   <AddColumnBar/>
-  {#if $isTesting}
-    <div class="message message-warning">
-      <span>Hier kun je Open Overheidsdata uitproberen! De zoekopdrachten zullen niet worden opgeslagen.</span>
-    </div>
-  {/if}
   {#if $identity || $isTesting}
     <Message/>
     {#each $ordered_inquiries as inq}

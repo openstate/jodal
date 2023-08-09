@@ -83,7 +83,7 @@
       doAddInquiry();
   }
 
-  $: if ($isTesting && $fetchingEnabled && ($inquiries.length <= 0)) { doAddInquiry()}
+  $: if ($fetchingEnabled && ($inquiries.length <= 0)) { doAddInquiry()}
 </script>
 
 <style>

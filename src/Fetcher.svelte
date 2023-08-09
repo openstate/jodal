@@ -15,7 +15,7 @@ onMount(function () {
             if ((typeof(data) === 'object') && (data.length)) {
               console.log('Got columns:');
               //console.dir(data);
-              inquiries.set(data);
+              //inquiries.set(data);
               if (get(selected_inquiry_id) === null) {
                 //console.log('set selected column to : ' + data[0].id);
                 //selected_inquiry_id.set(data[0].id);
