@@ -364,7 +364,7 @@ function fetchFromSources(page, stable_param) {
 			console.log('updating read counts in column in db: new items : ' + total_new);
 			updateInquiry({read_counts: new_source_counts});
 			itemsLeft = true;
-			show_marker = true;
+			show_marker = false; //true;
 			old_total_new = total_new;
 		}
 
