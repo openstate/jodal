@@ -7,6 +7,14 @@
   <Title id="default-focus-title">Abboneer</Title>
   <Content id="default-focus-content">
     <div>
+      <Label>zoekopdracht</Label>
+      {user_query}
+    </div>
+    <div>
+      <Label>Gemeenten</Label>
+      {selected_ids}
+    </div>
+    <div>
       <Label>E-mail</Label>
       <Textfield>
         <Input bind:value={email} id="subscribe-email" />
@@ -40,20 +48,23 @@
   import FloatingLabel from '@smui/floating-label';
   import LineRipple from '@smui/line-ripple';
   import Select, {Option} from '@smui/select';
-  import { identity } from './stores.js';
+  import { get } from 'svelte/store';
+  import { identity, selected_inquiry, selected_inquiry_id } from './stores.js';
 
   let open;
   let response = 'Nothing yet.';
   let email = '';
   let frequency = 'direct';
-
+  let user_query = '';
+  let selected_ids = [];
   $: if ($identity) { email=$identity.email }
+  $: if ($selected_inquiry_id) { user_query = $selected_inquiry[0].user_query; selected_ids = $selected_inquiry[0].locations; }
 </script>
 
 <script context="module">
   let subscribeDialog;
 
-	export function showSubscribeDialog() {
+	export function showSubscribeDialog(q,i) {
     subscribeDialog.open();
 	}
 </script>

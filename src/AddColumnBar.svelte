@@ -16,7 +16,7 @@
       <IconButton id="btn-icon-add-column" class="material-icons" aria-label="Add a column" title="Zoekopdracht toevoegen" on:click={() => handleQueryChange()}>add</IconButton>
     </div>
     <div>
-      <Button on:click={() => showSubscribeDialog()}>Abboneer</Button>
+      <Button on:click={() => showSubscribeDialog($selected_inquiry.user_query, $selected_inquiry.locations)}>Abboneer</Button>
     </div>
   </div>
 </div>
