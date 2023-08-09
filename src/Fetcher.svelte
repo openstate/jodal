@@ -26,7 +26,8 @@ onMount(function () {
     }
   }
   async function fetchIdentity() {
-    if (!get(isTesting)) {
+    var shouldCheck = true; //!get(isTesting);
+    if (shouldCheck) {
       var url = window.location.protocol + '//' + apiDomainName + '/users/simple/me';
       return fetch(
         url, {credentials: "include", cache: 'no-cache'}).then(
@@ -37,6 +38,8 @@ onMount(function () {
               console.log('Got identity:');
               //console.dir(data);
               identity.set(data);
+              console.log('Setting if testing');
+              isTesting.set(typeof(data) !== 'object');
             }
           }
         );

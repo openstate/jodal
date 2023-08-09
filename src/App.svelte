@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Open Overheidsdata</title>
+  <title>Open Overheidsdata {testEnv}</title>
 </svelte:head>
 
 <div class="app-container">

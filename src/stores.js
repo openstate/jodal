@@ -7,7 +7,7 @@ export const testDomainName = 'test.' + domainName;
 
 //export const isTesting = readable((window.location.hostname == testDomainName));
 export const identity = writable(false);
-export const isTesting = derived(identity, $identity => !$identity);
+export const isTesting = writable(true);
 
 export const fetchingEnabled = writable(false);
 
@@ -51,7 +51,7 @@ export function addInquiry(settings) {
     ...settings,
     order: (max_order + 1)
   };
-  var hasIdentity = get(identity);
+  var hasIdentity = false; //get(identity);
   console.log('should we add column for real? ', hasIdentity);
 
   if (!hasIdentity) {
@@ -106,7 +106,8 @@ function _addInquiry(data) {
 }
 
 export function removeInquiry(column_id) {
-  if (!get(isTesting)) {
+  var hasIdentity = false;
+  if (hasIdentity) {
     var url = window.location.protocol + '//' + apiDomainName + '/columns/' + column_id;
     return fetch(
       url, {
@@ -124,5 +125,12 @@ export function removeInquiry(column_id) {
           // inquiries.set(inqs);
         }
       );
+  } else {
+    var inqs = get(inquiries);
+    inqs.forEach(function (i) {
+      if (i.id == column_id) {
+        i.hidden = true;
+      }
+    })
   }
 }

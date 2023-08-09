@@ -15,11 +15,7 @@
             <IconButton id="btn-icon-account" class="material-icons" aria-label="Account" title="Account informatie" on:click={() => showAccountDialog()}>face</IconButton>
             <IconButton id="btn-icon-logout" class="material-icons" aria-label="Logout" href="//{apiDomainName}/users/simple/logout" title="Uitloggen">login</IconButton>
           {:else}
-            {#if !$isTesting}
             <IconButton id="btn-icon-login" class="material-icons" aria-label="Login" href="//www.{domainName}/login/" title="Inloggen">account_box</IconButton>
-            {:else}
-            <IconButton id="btn-icon-add-column" class="material-icons" aria-label="Add a column" title="Zoekopdracht toevoegen" on:click={() => startAddColumn()}>add</IconButton>
-            {/if}
           {/if}
           </Section>
         </Row>

@@ -18,7 +18,7 @@
   </div>
 </div>
 <script>
-  import { addInquiry, locations, selectable_locations, id2locations, drawerOpen,fetchingEnabled, identity, isTesting, apiDomainName, domainName, selected_inquiry, selected_inquiry_id } from './stores.js';
+  import { addInquiry, removeInquiry, inquiries, locations, selectable_locations, id2locations, drawerOpen,fetchingEnabled, identity, isTesting, apiDomainName, domainName, selected_inquiry, selected_inquiry_id } from './stores.js';
   import AddColumn, { startAddColumn } from './AddColumn.svelte';
   import TopAppBar, {Row, Section, Title} from '@smui/top-app-bar';
   import IconButton from '@smui/icon-button';
@@ -53,28 +53,37 @@
     var selected_ids = selectedLocations.map(function (l) { return l.value; });
     var selected_names = selectedLocations.map(function (l) { return l.label; })
     var selected = $locations.filter(l => selected_ids.indexOf(l.id) >= 0);
-    if (name == '') {
-      name = selected_names.join(", ");
+    name = selected_names.join(", ");
+    if (name == '*') {
+      name = 'Alle gemeenten';
     }
     if (newQuery == '') {
       newQuery = "*"
+    }
+    if (name.indexOf(' ' + newQuery) < 0) {
+      name = name + ' ' + newQuery;
     }
     console.log('adding name:' + name);
     console.log('adding selected : ');
     console.dir(selected);
 
+    var oldColumnId = $selected_inquiry_id;
     // TODO: maybe we should do this async?
     addInquiry({
       name: name,
       locations: selected_ids,
       user_query: newQuery
     });
+
+    removeInquiry(oldColumnId);
   }
 
   function handleQueryChange(e){
       console.log('new query change should be handled!:');
       doAddInquiry();
   }
+
+  $: if ($isTesting && $fetchingEnabled && ($inquiries.length <= 0)) { doAddInquiry()}
 </script>
 
 <style>
