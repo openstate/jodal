@@ -1,4 +1,4 @@
-export const binoasDomain = 'binoas.openstate.eu';
+export const binoasDomain = 'api.jodal.nl';
 
 function buildSubscriptionQuery(sources, locations, user_query) {
   var sources_part = [{"match_all": {}}];

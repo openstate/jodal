@@ -80,7 +80,11 @@ def index():
 @decode_json_post_data
 def subscriptions_new():
     logging.info(request.data)
-    return jsonify(dict(request.data))
+    resp = requests.post(
+        url='http://binoas.openstate.eu/subscriptions/new',
+        data=dict(request.data)
+    )
+    return jsonify(resp.json())
 
 
 @app.route("/users/login", methods=["POST"])
