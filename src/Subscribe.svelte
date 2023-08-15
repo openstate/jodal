@@ -31,7 +31,7 @@
     <div>
       <Label>Frequentie</Label>
       <Select bind:value={frequency}>
-        <Option value="direct" selected={frequency == ''}>Onmiddelijk</Option>
+        <Option value="" selected={frequency == ''}>Onmiddelijk</Option>
         <Option value="hourly" selected={frequency == '1h'}>Elk uur</Option>
         <Option value="daily" selected={frequency == '24h'}>Elke dag</Option>
         <Option value="weekly" selected={frequency == '168h'}>Elke week</Option>

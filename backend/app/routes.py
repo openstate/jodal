@@ -82,10 +82,21 @@ def subscriptions_new():
     logging.info(request.data)
     resp = requests.post(
         url='http://binoas.openstate.eu/subscriptions/new',
-        data=dict(request.data)
+        json=dict(request.data)
     )
     return jsonify(resp.json())
 
+@app.route("/subscriptions/new", methods=["GET"])
+def subscriptions_delete():
+    logging.info(request.data)
+    resp = requests.delete(
+        url='http://binoas.openstate.eu/subscriptions/delete',
+        params={
+            'query_id': request.args.get('query_id', ''),
+            'user_id': request.args.get('user_id', '')
+        }
+    )
+    return jsonify(resp.json())
 
 @app.route("/users/login", methods=["POST"])
 def api_login():

@@ -1,6 +1,7 @@
 export const binoasDomain = 'api.jodal.nl';
 
 function buildSubscriptionQuery(sources, locations, user_query) {
+  var clauses = [];
   var sources_part = [{"match_all": {}}];
   if (sources.langth > 0) {
     sources_part = [
@@ -15,8 +16,19 @@ function buildSubscriptionQuery(sources, locations, user_query) {
         }
       }
     ];
+    clauses.push({
+      "nested": {
+        "path": "data",
+        "query": {
+          "bool": {
+            "must": sources_part
+          }
+        }
+      }
+    });
   }
   var locations_part = [{"match_all":{}}];
+  // TODO: uhhh
   if (locations.length > 1) {
     locations_part = [
       {
@@ -30,42 +42,28 @@ function buildSubscriptionQuery(sources, locations, user_query) {
         }
       }
     ];
+    clauses.push({
+        "nested": {
+          "path": "data",
+          "query": {
+            "bool": {
+              "must": locations_part
+            }
+          }
+        }
+    });
   }
+  clauses.push({
+      "simple_query_string": {
+        "fields": ["title","description"],
+        "query": user_query,
+        "default_operator": "and"
+      }
+  });
   return {
     "query": {
       "bool": {
-        "must": [
-          {
-            "nested": {
-              "path": "data",
-              "query": {
-                "bool": {
-                  "must": sources_part
-                }
-              }
-            }
-          },
-
-
-          {
-            "nested": {
-              "path": "data",
-              "query": {
-                "bool": {
-                  "must": locations_part
-                }
-              }
-            }
-          },
-
-          {
-            "simple_query_string": {
-              "fields": ["title","description"],
-              "query": user_query,
-              "default_operator": "and"
-            }
-          }
-        ]
+        "must": clauses
       }
     }
   };
@@ -79,8 +77,9 @@ export function subscriptionNew(user_query, locations, sources, description, ema
     'email': email,
     'frequency': frequency,
     'description': description,
-    'query': sub_query.query
+    'query': {"query": sub_query.query}
   };
+  console.log('sending binoas subscription request:', binoas_def)
   return fetch(
     url, {
       method: "POST",
