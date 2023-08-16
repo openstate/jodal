@@ -120,9 +120,10 @@
      align-items: start;
      justify-content: space-around;
   }
+  /*
   .sub-toolbar>div {
     margin: 30px;
-  }
+  }*/
   .sub-toolbar .bordered {
       height: 56px;
       border: 1px solid black;
