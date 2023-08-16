@@ -8,7 +8,7 @@ body {
 	background:white;
 	color: #000000;
 	font-family: 'Neue Haas Grotesk Text', sans-serif;
-	font-size: 18px;
+	font-size: 16px;
 	line-height: 32px;
 	margin: 0;
 /*
@@ -347,10 +347,6 @@ h6 {
 	height: 20px;
 }
 
-#add-column-content input {
-	width: 452px;
-}
-
 .loading {
 	background: url("/images/loading.svg") no-repeat;
 	width: 32px;
@@ -458,4 +454,14 @@ h6 {
 }
 
 .multi-select-input {
+}
+
+.mdc-text-field__input {
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+	line-height: 1rem !important;
+	height: auto !important;
+}
+
+input {
 }

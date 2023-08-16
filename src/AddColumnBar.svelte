@@ -5,7 +5,7 @@
         <Input bind:value={newQuery} id="column-query" aria-controls="helper-text-column-query" aria-describedby="helper-text-column-query" on:change={() => handleQueryChange()} on:blur={() => handleQueryChange()} on:keyup={() => handleWithTypeTimer()} />
       </Textfield>
     </div>
-    <div style="max-wdith: 50%;">
+    <div style="max-wdith: 50% !important;">
       <LocationSelector bind:selectedLocations showEmptyButton={false}/>
     </div>
   </div>
@@ -113,8 +113,12 @@
   .flexy {
     display: flex;
     flex-wrap: wrap;
+    align-items: first baseline;
   }
   .sub-toolbar>div {
     margin: 30px;
+  }
+  .sub-toolbar .flexy div {
+      margin: 10px;
   }
 </style>
