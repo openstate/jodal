@@ -2,7 +2,7 @@
   <div class="flexy">
     <div>
       <Textfield>
-        <Input bind:value={newQuery} id="column-query" aria-controls="helper-text-column-query" aria-describedby="helper-text-column-query" />
+        <Input bind:value={newQuery} id="column-query" aria-controls="helper-text-column-query" aria-describedby="helper-text-column-query" on:change={() => handleQueryChange()} on:blur={() => handleQueryChange()}/>
         <FloatingLabel for="input-column-name">Zoekopdracht</FloatingLabel>
         <LineRipple />
         <IconButton align="end" class="material-icons" aria-label="Hulp bij een zoekopdracht maken" alt="Hulp bij een zoekopdracht maken" on:click={() => showSearchHelpDialog()}>info</IconButton>
@@ -12,11 +12,13 @@
     <div>
       <LocationSelector bind:selectedLocations showEmptyButton={false}/>
     </div>
-    <div>
-      <IconButton id="btn-icon-add-column" class="material-icons" aria-label="Add a column" title="Zoekopdracht toevoegen" on:click={() => handleQueryChange()}>add</IconButton>
-    </div>
+  </div>
+  <div class="flexy">
     <div>
       <Button on:click={() => showSubscribeDialog($selected_inquiry.user_query, $selected_inquiry.locations)}>Abboneer</Button>
+    </div>
+    <div>
+    <a href="#">Meer opties</a>
     </div>
   </div>
 </div>
