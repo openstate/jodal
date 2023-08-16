@@ -11,6 +11,7 @@ import pkce
 import requests
 
 from app import app, db, AppError
+from app.fa import setup_fa
 from app.search import perform_query
 from app.models import Column, UserData
 from app.downloads import prepare_download, perform_download
@@ -79,14 +80,37 @@ def index():
 @app.route("/subscriptions/new", methods=["POST"])
 @decode_json_post_data
 def subscriptions_new():
+    email = request.data.get('email', None)
+    # Delete User For A Given ID
+    client = setup_fa()
+
+    if email is None:
+        return jsonify({'error': 'Empty email'})
+
     logging.info(request.data)
     resp = requests.post(
         url='http://binoas.openstate.eu/subscriptions/new',
         json=dict(request.data)
     )
+
+    client_resp = fa.retrieve_user_by_email(email)
+    if not client_resp.was_successful():
+        client_response = client.register({
+            'sendSetPasswordEmail': True,
+            'registration': {
+                'applicationId': app.config['CLIENT_ID'],
+            },
+            'user': {
+                'email': email
+            }
+        })
+        # result = resp.json()
+
+        if not client_response.was_successful():
+            return jsonify(client_response.error_response)
     return jsonify(resp.json())
 
-@app.route("/subscriptions/new", methods=["GET"])
+@app.route("/subscriptions/delete", methods=["GET"])
 def subscriptions_delete():
     logging.info(request.data)
     resp = requests.delete(
@@ -102,7 +126,7 @@ def subscriptions_delete():
 def api_login():
 
     # Delete User For A Given ID
-    client = FusionAuthClient(app.config['API_KEY'], app.config['FA_INTERNAL_URL'])
+    client = setup_fa()
 
     client_response = client.login({
         'applicationId': app.config['CLIENT_ID'],
@@ -125,7 +149,7 @@ def api_login():
 def api_forgot():
 
     # Delete User For A Given ID
-    client = FusionAuthClient(app.config['API_KEY'], app.config['FA_INTERNAL_URL'])
+    client = setup_fa()
 
     client_response = client.forgot_password({
         'applicationId': app.config['CLIENT_ID'],
@@ -144,7 +168,7 @@ def api_forgot():
 def api_register():
 
     # Delete User For A Given ID
-    client = FusionAuthClient(app.config['API_KEY'], app.config['FA_INTERNAL_URL'])
+    client = setup_fa()
 
     client_response = client.register({
         'registration': {
@@ -197,7 +221,7 @@ def login():
     return redirect(authorization_url+'&code_challenge='+code_challenge+'&code_challenge_method=S256')
 
 
-@app.route("//www.jodal.nl/register/", methods=["GET"])
+@app.route("/user/simple/register/", methods=["GET"])
 def register():
     code_verifier, code_challenge = pkce.generate_pkce_pair()
     fusionauth = OAuth2Session(app.config['CLIENT_ID'], redirect_uri=app.config['REDIRECT_URI'])
@@ -282,7 +306,7 @@ def do_delete():
     delete_user_data(user['sub'])
 
     # Delete User For A Given ID
-    client = FusionAuthClient(app.config['API_KEY'], app.config['FA_INTERNAL_URL'])
+    client = setup_fa()
     client_response =client.delete_user(user['sub'])
     if client_response.was_successful():
         session.clear()
