@@ -93,7 +93,7 @@ def subscriptions_new():
         json=dict(request.data)
     )
 
-    client_resp = fa.retrieve_user_by_email(email)
+    client_resp = client.retrieve_user_by_email(email)
     if not client_resp.was_successful():
         client_response = client.register({
             'sendSetPasswordEmail': True,
@@ -115,7 +115,7 @@ def subscriptions_delete():
     logging.info(request.data)
     resp = requests.delete(
         url='http://binoas.openstate.eu/subscriptions/delete',
-        params={
+        json={
             'query_id': request.args.get('query_id', ''),
             'user_id': request.args.get('user_id', '')
         }
