@@ -44,11 +44,13 @@
   let secondaryColor = true; // false;
   let selectedLocations;
   let newQuery = "windmolens";
+  let oldQuery = newQuery;
+  let oldSelectedLocations = selectedLocations;
   let email;
   let typeTimer = null;
 
   // $: newQuery = $selected_inquiry.length > 0 ? $selected_inquiry[0].user_query : '';
-
+  $: if (selectedLocations != oldSelectedLocations) { handleQueryChange() }
   function handleWithTypeTimer() {
       if (typeof(typeTimer) !== 'object') {
         clearTimeout(typeTimer);
@@ -98,6 +100,8 @@
   function handleQueryChange(e){
       console.log('new query change should be handled!:');
       doAddInquiry();
+      oldQuery = newQuery;
+      oldSelectedLocations = selectedLocations;
   }
 
   $: if ($fetchingEnabled && ($inquiries.length <= 0)) { doAddInquiry()}
