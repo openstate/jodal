@@ -1,19 +1,17 @@
 <div class="sub-toolbar">
   <div class="flexy">
-    <div>
+    <div class="bordered">
       <Textfield>
         <Input bind:value={newQuery} id="column-query" aria-controls="helper-text-column-query" aria-describedby="helper-text-column-query" on:change={() => handleQueryChange()} on:blur={() => handleQueryChange()} on:keyup={() => handleWithTypeTimer()} />
       </Textfield>
     </div>
-    <div style="max-wdith: 50% !important;">
+    <div class="bordered">
       <LocationSelector bind:selectedLocations showEmptyButton={false}/>
     </div>
   </div>
   <div class="flexy">
     <div>
-      <Textfield>
-        <Input bind:value={email} id="subscribe-email" />
-      </Textfield>
+      <input bind:value={email} id="subscribe-email" />
     </div>
     <div>
       <Button on:click={() => showSubscribeDialog($selected_inquiry.user_query, $selected_inquiry.locations)}>Abboneer</Button>
@@ -108,17 +106,24 @@
 <style>
   .sub-toolbar {
     margin: 0 auto;
-    width: fit-content;
+    width: 100%;
+    border-radius: 5px;
+    background: #FFF;
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.15);
   }
   .flexy {
     display: flex;
     flex-wrap: wrap;
-    align-items: first baseline;
+    align-items: start;
   }
   .sub-toolbar>div {
     margin: 30px;
   }
-  .sub-toolbar .flexy div {
+  .sub-toolbar .bordered {
       margin: 10px;
+      height: 56px;
+      border: 1px solid black;
+      border-radius: 5px;
+      max-width: 50%;
   }
 </style>

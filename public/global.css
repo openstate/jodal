@@ -141,6 +141,8 @@ h6 {
 	overflow: auto hidden;
 */
 	white-space:nowrap;
+	width: 60%;
+	margin: 0 auto;
 }
 
 .column-title {
@@ -260,7 +262,6 @@ h6 {
 	left: 0;
 	bottom: 0;
 	width: 100%;*/
-	width: 60%;
 	margin: 0 auto;
 	background: white;
 }
