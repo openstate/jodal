@@ -9,7 +9,7 @@ body {
 	color: #000000;
 	font-family: 'Neue Haas Grotesk Text', sans-serif;
 	font-size: 18px;
-	line-height: 28px;
+	line-height: 32px;
 	margin: 0;
 /*
 	height: 100%;
@@ -455,4 +455,7 @@ h6 {
 	background: #8fd9e8 !important;
 	padding: 2px 8px !important;
 	color: #000 !important;
+}
+
+.multi-select-input {
 }

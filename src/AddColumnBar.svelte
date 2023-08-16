@@ -3,17 +3,18 @@
     <div>
       <Textfield>
         <Input bind:value={newQuery} id="column-query" aria-controls="helper-text-column-query" aria-describedby="helper-text-column-query" on:change={() => handleQueryChange()} on:blur={() => handleQueryChange()} on:keyup={() => handleWithTypeTimer()} />
-        <FloatingLabel for="input-column-name">Zoekopdracht</FloatingLabel>
-        <LineRipple />
-        <IconButton align="end" class="material-icons" aria-label="Hulp bij een zoekopdracht maken" alt="Hulp bij een zoekopdracht maken" on:click={() => showSearchHelpDialog()}>info</IconButton>
       </Textfield>
-      <HelperText id="helper-text-column-name">De zoekopdracht</HelperText>
     </div>
-    <div>
+    <div style="max-wdith: 50%;">
       <LocationSelector bind:selectedLocations showEmptyButton={false}/>
     </div>
   </div>
   <div class="flexy">
+    <div>
+      <Textfield>
+        <Input bind:value={email} id="subscribe-email" />
+      </Textfield>
+    </div>
     <div>
       <Button on:click={() => showSubscribeDialog($selected_inquiry.user_query, $selected_inquiry.locations)}>Abboneer</Button>
     </div>
@@ -45,6 +46,7 @@
   let secondaryColor = true; // false;
   let selectedLocations;
   let newQuery = "windmolens";
+  let email;
   let typeTimer = null;
 
   // $: newQuery = $selected_inquiry.length > 0 ? $selected_inquiry[0].user_query : '';
@@ -111,5 +113,8 @@
   .flexy {
     display: flex;
     flex-wrap: wrap;
+  }
+  .sub-toolbar>div {
+    margin: 30px;
   }
 </style>
