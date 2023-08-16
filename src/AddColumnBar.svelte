@@ -1,11 +1,11 @@
 <div class="sub-toolbar">
   <div class="flexy">
-    <div class="bordered">
+    <div class="bordered" style="width: 55%;">
       <Textfield>
         <Input bind:value={newQuery} id="column-query" aria-controls="helper-text-column-query" aria-describedby="helper-text-column-query" on:change={() => handleQueryChange()} on:blur={() => handleQueryChange()} on:keyup={() => handleWithTypeTimer()} />
       </Textfield>
     </div>
-    <div class="bordered">
+    <div class="bordered" style="width: 40%;">
       <LocationSelector bind:selectedLocations showEmptyButton={false}/>
     </div>
   </div>
@@ -116,9 +116,10 @@
     box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.15);
   }
   .flexy {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: start;
+     display: flex;
+     flex-flow: row wrap;
+     align-items: start;
+     justify-content: space-around;
   }
   .sub-toolbar>div {
     margin: 30px;
@@ -128,6 +129,5 @@
       height: 56px;
       border: 1px solid black;
       border-radius: 5px;
-      max-width: 50%;
   }
 </style>
