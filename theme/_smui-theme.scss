@@ -1,3 +1,14 @@
 :root {
-  --mdc-theme-primary:  #006be8;
+  --mdc-theme-primary:  white;
+}
+
+.mdc-button {
+}
+
+.mdc-button:not(:disabled) {
+  background: #49A700;
+  padding: 18px 20px;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
 }
