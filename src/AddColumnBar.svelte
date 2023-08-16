@@ -2,7 +2,7 @@
   <div class="flexy">
     <div>
       <Textfield>
-        <Input bind:value={newQuery} id="column-query" aria-controls="helper-text-column-query" aria-describedby="helper-text-column-query" on:change={() => handleQueryChange()} on:blur={() => handleQueryChange()}/>
+        <Input bind:value={newQuery} id="column-query" aria-controls="helper-text-column-query" aria-describedby="helper-text-column-query" on:change={() => handleQueryChange()} on:blur={() => handleQueryChange()} on:keyup={() => handleWithTypeTimer()} />
         <FloatingLabel for="input-column-name">Zoekopdracht</FloatingLabel>
         <LineRipple />
         <IconButton align="end" class="material-icons" aria-label="Hulp bij een zoekopdracht maken" alt="Hulp bij een zoekopdracht maken" on:click={() => showSearchHelpDialog()}>info</IconButton>
@@ -45,8 +45,20 @@
   let secondaryColor = true; // false;
   let selectedLocations;
   let newQuery = "windmolens";
+  let typeTimer = null;
 
   // $: newQuery = $selected_inquiry.length > 0 ? $selected_inquiry[0].user_query : '';
+
+  function handleWithTypeTimer() {
+      if (typeof(typeTimer) !== 'object') {
+        clearTimeout(typeTimer);
+        typeTimer = null;
+      }
+      typeTimer = setTimeout(function () {
+        handleQueryChange();
+        typeTimer = null;
+      }, 200);
+  }
 
   function doAddInquiry() {
     if (typeof(selectedLocations) == 'undefined') {
