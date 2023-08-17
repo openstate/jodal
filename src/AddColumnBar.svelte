@@ -16,11 +16,21 @@
       <Button class="subscribe-button" on:click={() => showSubscribeDialog($selected_inquiry.user_query, $selected_inquiry.locations)}>Maak alert aan</Button>
     </div>
     <div class="cell">
-    <a href="#">Meer opties
+    <a href="#" on:click={() => toggleAdvancedOptions()}>Meer opties
     </a>
-    <Icon class="material-icons expand-more">expand_more</Icon>
+    <Icon class="material-icons expand-more">{advancedChevron}</Icon>
     </div>
   </div>
+  {#if showAdvancedOptions}
+  <div class="flexy flexy-alt"  transition:slide="{{ duration: 500 }}">
+    <div class="cell">
+    bronnen
+    </div>
+    <div class="cell">
+    frequentie
+    </div>
+  </div>
+  {/if}
 </div>
 <script>
   import { addInquiry, removeInquiry, inquiries, locations, selectable_locations, id2locations, drawerOpen,fetchingEnabled, identity, isTesting, apiDomainName, domainName, selected_inquiry, selected_inquiry_id } from './stores.js';
@@ -41,6 +51,8 @@
   import LocationSelector from './LocationSelector.svelte';
   import { showSearchHelpDialog } from './SearchHelp.svelte';
   import { showSubscribeDialog } from './Subscribe.svelte';
+  import { fade, slide } from 'svelte/transition';
+
   let prominent = false;
   let dense = false;
   let secondaryColor = true; // false;
@@ -50,9 +62,12 @@
   let oldSelectedLocations = selectedLocations;
   let email;
   let typeTimer = null;
-
+  let showAdvancedOptions = false;
+  let advancedChevron = "expand_more";
   // $: newQuery = $selected_inquiry.length > 0 ? $selected_inquiry[0].user_query : '';
   $: if (selectedLocations != oldSelectedLocations) { handleQueryChange() }
+
+
   function handleWithTypeTimer() {
       if (typeof(typeTimer) !== 'object') {
         clearTimeout(typeTimer);
@@ -62,6 +77,16 @@
         handleQueryChange();
         typeTimer = null;
       }, 200);
+  }
+
+  function toggleAdvancedOptions() {
+    console.log('advanced options!');
+    showAdvancedOptions = !showAdvancedOptions;
+    if (showAdvancedOptions) {
+      advancedChevron = "expand_less";
+    } else {
+      advancedChevron = "expand_more";
+    }
   }
 
   function doAddInquiry() {
