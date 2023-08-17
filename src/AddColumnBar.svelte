@@ -1,20 +1,21 @@
 <div class="sub-toolbar">
   <div class="flexy">
-    <div class="bordered" style="width: 55%;">
+    <div class="cell bordered">
+      <Icon class="material-icons">search</Icon>
       <input  bind:value={newQuery} id="column-query" aria-controls="helper-text-column-query" aria-describedby="helper-text-column-query" on:change={() => handleQueryChange()} on:blur={() => handleQueryChange()} on:keyup={() => handleWithTypeTimer()} />
     </div>
-    <div class="bordered" style="width: 40%;">
+    <div class="cell bordered">
       <LocationSelector bind:selectedLocations showEmptyButton={false}/>
     </div>
   </div>
-  <div class="flexy">
-    <div>
+  <div class="flexy flexy-alt">
+    <div class="cell">
       <input bind:value={email} id="subscribe-email" />
     </div>
-    <div>
+    <div class="cell">
       <Button on:click={() => showSubscribeDialog($selected_inquiry.user_query, $selected_inquiry.locations)}>Abboneer</Button>
     </div>
-    <div>
+    <div class="cell">
     <a href="#">Meer opties</a>
     </div>
   </div>
@@ -26,7 +27,8 @@
   import IconButton from '@smui/icon-button';
   import Button from '@smui/button';
   import Checkbox from '@smui/checkbox';
-  import {Label} from '@smui/fab';
+  import Fab, {Label} from '@smui/fab';
+  import { Icon} from '@smui/common';
   import FormField from '@smui/form-field';
   import Textfield, {Input, Textarea} from '@smui/textfield';
   import FloatingLabel from '@smui/floating-label';
@@ -112,24 +114,30 @@
     border-radius: 5px;
     background: #FFF;
     box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.15);
-    padding: 30px;
   }
   .flexy {
      display: flex;
      flex-flow: row wrap;
      align-items: start;
      justify-content: space-around;
+     padding: 30px;
+  }
+  .flexy-alt {
+    background: #F9F9FA;
   }
   /*
   .sub-toolbar>div {
     margin: 30px;
   }*/
-  .sub-toolbar .bordered {
+  .bordered {
+    border: 1px solid black;
+    border-radius: 5px;
+  }
+  .cell {
       height: 56px;
-      border: 1px solid black;
-      border-radius: 5px;
-      padding: 10px;
+      margin: 0 15px;
       align-items: center;
-      display: grid;
+      flex: 1 auto;
+      display: flex;
   }
 </style>

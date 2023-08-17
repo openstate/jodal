@@ -455,7 +455,14 @@ h6 {
 }
 
 .multi-select-input {
+	display: flex;
+	align-items: center;
 }
+
+.multi-select-input > .material-icons {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 
 .mdc-text-field__input {
 	padding-top: 0 !important;
@@ -465,4 +472,15 @@ h6 {
 }
 
 input {
+	border: 0px none;
+	font-size: 16px !important;
 }
+
+.selectContainer {
+	border: 0px none !important;
+}
+
+.cell > .material-icons {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
