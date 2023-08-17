@@ -24,11 +24,11 @@
   {#if showAdvancedOptions}
   <div class="flexy flexy-alt"  transition:slide="{{ duration: 500 }}">
     <div class="cell">
-    <fieldset>
     {#each $sources as s}
-      <input type="checkbox" name="source" value="{s.short}"><label>{s.name}</label>
+      <div>
+      <input type="checkbox" id="source-checkbox-{s.short}" name="source"  bind:group={checkedLocations} value="{s.short}"><label for="source-checkbox-{s.short}">{s.name}</label>
+      </div>
     {/each}
-    </fieldset>
     </div>
     <div class="cell">
       <select bind:value={frequency}>
@@ -75,6 +75,9 @@
   let showAdvancedOptions = false;
   let advancedChevron = "expand_more";
   let frequency = "";
+  let group = 1;
+  let checkedLocations = $sources.map(function (s) { return s.short;});
+
   // $: newQuery = $selected_inquiry.length > 0 ? $selected_inquiry[0].user_query : '';
   $: if (selectedLocations != oldSelectedLocations) { handleQueryChange() }
 
