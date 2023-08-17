@@ -1,22 +1,24 @@
 <div class="sub-toolbar">
   <div class="flexy">
-    <div class="cell bordered">
+    <div class="cell cell-auto-flex bordered">
       <Icon class="material-icons">search</Icon>
       <input  bind:value={newQuery} id="column-query" aria-controls="helper-text-column-query" aria-describedby="helper-text-column-query" on:change={() => handleQueryChange()} on:blur={() => handleQueryChange()} on:keyup={() => handleWithTypeTimer()} />
     </div>
-    <div class="cell bordered">
+    <div class="cell cell-auto-flex bordered">
       <LocationSelector bind:selectedLocations showEmptyButton={false}/>
     </div>
   </div>
   <div class="flexy flexy-alt">
-    <div class="cell">
-      <input bind:value={email} id="subscribe-email" />
+    <div class="cell bordered margined">
+      <input bind:value={email} id="subscribe-email" placeholder="E-mail" />
     </div>
     <div class="cell">
-      <Button on:click={() => showSubscribeDialog($selected_inquiry.user_query, $selected_inquiry.locations)}>Abboneer</Button>
+      <Button class="subscribe-button" on:click={() => showSubscribeDialog($selected_inquiry.user_query, $selected_inquiry.locations)}>Maak alert aan</Button>
     </div>
     <div class="cell">
-    <a href="#">Meer opties</a>
+    <a href="#">Meer opties
+    </a>
+    <Icon class="material-icons expand-more">expand_more</Icon>
     </div>
   </div>
 </div>
@@ -124,20 +126,27 @@
   }
   .flexy-alt {
     background: #F9F9FA;
+    justify-content: flex-end;
   }
   /*
   .sub-toolbar>div {
     margin: 30px;
   }*/
+  .margined input {
+    margin: 0 10px;
+  }
   .bordered {
     border: 1px solid black;
     border-radius: 5px;
+    background: white;
+  }
+  .cell-auto-flex {
+    flex: 1 auto;
   }
   .cell {
       height: 56px;
       margin: 0 15px;
       align-items: center;
-      flex: 1 auto;
       display: flex;
   }
 </style>

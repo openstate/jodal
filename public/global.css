@@ -484,3 +484,12 @@ input {
     margin-left: 10px;
     margin-right: 10px;
   }
+
+
+	  .subscribe-button {
+	    height: 56px !important;
+	  }
+
+.expand-more {
+	color: #006be8;
+}
