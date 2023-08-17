@@ -27,7 +27,12 @@
     bronnen
     </div>
     <div class="cell">
-    frequentie
+      <select bind:value={frequency}>
+        <option value="" selected={frequency == ''}>Onmiddelijk</option>
+        <option value="hourly" selected={frequency == '1h'}>Elk uur</option>
+        <option value="daily" selected={frequency == '24h'}>Elke dag</option>
+        <option value="weekly" selected={frequency == '168h'}>Elke week</option>
+      </select>
     </div>
   </div>
   {/if}
@@ -52,6 +57,7 @@
   import { showSearchHelpDialog } from './SearchHelp.svelte';
   import { showSubscribeDialog } from './Subscribe.svelte';
   import { fade, slide } from 'svelte/transition';
+  import Select, {Option} from '@smui/select';
 
   let prominent = false;
   let dense = false;
@@ -64,6 +70,7 @@
   let typeTimer = null;
   let showAdvancedOptions = false;
   let advancedChevron = "expand_more";
+  let frequency = "";
   // $: newQuery = $selected_inquiry.length > 0 ? $selected_inquiry[0].user_query : '';
   $: if (selectedLocations != oldSelectedLocations) { handleQueryChange() }
 
