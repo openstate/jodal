@@ -24,7 +24,11 @@
   {#if showAdvancedOptions}
   <div class="flexy flexy-alt"  transition:slide="{{ duration: 500 }}">
     <div class="cell">
-    bronnen
+    <fieldset>
+    {#each $sources as s}
+      <input type="checkbox" name="source" value="{s.short}"><label>{s.name}</label>
+    {/each}
+    </fieldset>
     </div>
     <div class="cell">
       <select bind:value={frequency}>
@@ -38,7 +42,7 @@
   {/if}
 </div>
 <script>
-  import { addInquiry, removeInquiry, inquiries, locations, selectable_locations, id2locations, drawerOpen,fetchingEnabled, identity, isTesting, apiDomainName, domainName, selected_inquiry, selected_inquiry_id } from './stores.js';
+  import { addInquiry, removeInquiry, inquiries, locations, selectable_locations, id2locations, sources, drawerOpen,fetchingEnabled, identity, isTesting, apiDomainName, domainName, selected_inquiry, selected_inquiry_id } from './stores.js';
   import AddColumn, { startAddColumn } from './AddColumn.svelte';
   import TopAppBar, {Row, Section, Title} from '@smui/top-app-bar';
   import IconButton from '@smui/icon-button';
