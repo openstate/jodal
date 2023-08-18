@@ -39,36 +39,9 @@ $: time_since = timeDisplay(cur_date);
       { title }
       </a>
     </h4>
+    <div class="entry-date">{time_since}</div>
   </div>
   {/if}
-  <div class="entry-contents">
-    <a href="#entry_{column}{key}" class="entry-contents-link" {title}>
-    { @html highlight }
-    </a>
-  </div>
-  <div class="entry-byline">
-    <ul>
-    <li>
-      <date title="{ date }">{ time_since }</date>
-    </li>
-    <li class="last">
-    <strong>{ location }</strong>
-    </li>
-    </ul>
-    <ul>
-      <li class="first">
-        <div class="source-link">
-          <img src="/images/sources/{ source }.svg" alt="{ source }" class="source-logo">
-        </div>
-      </li>
-      <li class="last">
-        { type }
-      </li>
-    </ul>
-  </div>
-  <div class="entry-actions">
-
-  </div>
 </div>
 
 

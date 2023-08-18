@@ -442,8 +442,7 @@ onDestroy(function () {
 <section class="column-section" out:fade>
 <div id="column-{column_id}" class="column">
   <div class="column-title">
-    <h2>{ inquiry.name }</h2>
-    <IconButton align="end" class="material-icons" aria-label="Instellingen" alt="Instellingen" on:click={() => doSomething()}>tune</IconButton>
+    <h2>Preview resultaten</h2>
   </div>
   {#if show_settings}
   <div class="column-settings" class:active={show_settings} transition:slide="{{ duration: 500 }}">
@@ -500,7 +499,6 @@ onDestroy(function () {
       <Button align="end" variant="outlined" on:click={() => removeColumn()}><Label>Verwijderen</Label></Button>
     </div>
   </div>
-  {/if}
   <div class="column-counts">
     {#each $sources as s}
       <div class="column-counts-source" class:column-counts-source-disabled={!inquiry['src_' + s.short]}>
@@ -512,6 +510,7 @@ onDestroy(function () {
       </div>
     {/each}
   </div>
+	{/if}
   {#if startDateValue || endDateValue}
   <div class="column-counts column-dates">
     {#if inquiry.date_start && inquiry.date_end}

@@ -288,6 +288,12 @@ h6 {
 	cursor: pointer;
 }
 
+.entry-title {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
 .entry-title h4 {
 	margin-top: 4px;
 	margin-bottom: 12px;
