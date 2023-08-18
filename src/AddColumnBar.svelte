@@ -33,9 +33,9 @@
     <div class="cell">
       <select bind:value={frequency}>
         <option value="" selected={frequency == ''}>Onmiddelijk</option>
-        <option value="hourly" selected={frequency == '1h'}>Elk uur</option>
-        <option value="daily" selected={frequency == '24h'}>Elke dag</option>
-        <option value="weekly" selected={frequency == '168h'}>Elke week</option>
+        <option value="1h" selected={frequency == '1h'}>Elk uur</option>
+        <option value="24h" selected={frequency == '24h'}>Elke dag</option>
+        <option value="168h" selected={frequency == '168h'}>Elke week</option>
       </select>
     </div>
   </div>
@@ -87,7 +87,14 @@
 
 
   function handleSubscription() {
-    subscriptionNew(newQuery, selectedLocations, checkedSources, description, email, frequency);
+    var selectedLocationIds = selectedLocations.map((l) => l.value).filter((l) => l != "*");
+    var selectedSources = checkedSources;
+    if (checkedSources.length == $sources.length) {
+      selectedSources = [];
+    }
+    console.log('subscription selected locations:', selectedLocationIds);
+    console.log('subscription selected sources', selectedSources);
+    subscriptionNew(newQuery, selectedLocationIds, selectedSources, description, email, frequency);
   }
 
   function handleWithTypeTimer() {

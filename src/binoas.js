@@ -3,7 +3,7 @@ export const binoasDomain = 'api.jodal.nl';
 function buildSubscriptionQuery(sources, locations, user_query) {
   var clauses = [];
   var sources_part = [{"match_all": {}}];
-  if (sources.langth > 0) {
+  if (sources.length > 0) {
     sources_part = [
       {
         "term": {
@@ -29,7 +29,7 @@ function buildSubscriptionQuery(sources, locations, user_query) {
   }
   var locations_part = [{"match_all":{}}];
   // TODO: uhhh
-  if (locations.length > 1) {
+  if (locations.length > 0) {
     locations_part = [
       {
         "term": {
@@ -79,20 +79,20 @@ export function subscriptionNew(user_query, locations, sources, description, ema
     'description': description,
     'query': {"query": sub_query.query}
   };
-  console.log('sending binoas subscription request:', binoas_def)
-  // return fetch(
-  //   url, {
-  //     method: "POST",
-  //     credentials: "include",
-  //     body: JSON.stringify(binoas_def),
-  //     headers: {
-  //       'Content-Type': 'application/json'
-  //     }
-  //   }).then(
-  //     response => response.json()
-  //   ).then(
-  //     function (data) {
-  //       console.log(data);
-  //     }
-  //   );
+  console.log('sending binoas subscription request:', binoas_def);
+  return fetch(
+    url, {
+      method: "POST",
+      credentials: "include",
+      body: JSON.stringify(binoas_def),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(
+      response => response.json()
+    ).then(
+      function (data) {
+        console.log(data);
+      }
+    );
   }
