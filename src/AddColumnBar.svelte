@@ -13,7 +13,7 @@
       <input bind:value={email} id="subscribe-email" placeholder="E-mail" />
     </div>
     <div class="cell">
-      <Button class="subscribe-button" on:click={() => showSubscribeDialog($selected_inquiry.user_query, $selected_inquiry.locations)}>Maak alert aan</Button>
+      <Button class="subscribe-button" on:click={() => handleSubscription()}>Maak alert aan</Button>
     </div>
     <div class="cell">
     <a href="#" on:click={() => toggleAdvancedOptions()}>Meer opties
@@ -26,7 +26,7 @@
     <div class="cell">
     {#each $sources as s}
       <div>
-      <input type="checkbox" id="source-checkbox-{s.short}" name="source"  bind:group={checkedLocations} value="{s.short}"><label for="source-checkbox-{s.short}">{s.name}</label>
+      <input type="checkbox" id="source-checkbox-{s.short}" name="source"  bind:group={checkedSources} value="{s.short}"><label for="source-checkbox-{s.short}">{s.name}</label>
       </div>
     {/each}
     </div>
@@ -77,7 +77,7 @@
   let advancedChevron = "expand_more";
   let frequency = "";
   let group = 1;
-  let checkedLocations = $sources.map(function (s) { return s.short;});
+  let checkedSources = $sources.map(function (s) { return s.short;});
   let description = '';
 
   // $: newQuery = $selected_inquiry.length > 0 ? $selected_inquiry[0].user_query : '';
@@ -85,6 +85,10 @@
   $: if ($identity) { email=$identity.email }
   $: if ($selected_inquiry_id) {description = $selected_inquiry[0].name }
 
+
+  function handleSubscription() {
+    subscriptionNew(newQuery, selectedLocations, checkedSources, description, email, frequency);
+  }
 
   function handleWithTypeTimer() {
       if (typeof(typeTimer) !== 'object') {

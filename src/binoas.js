@@ -80,19 +80,19 @@ export function subscriptionNew(user_query, locations, sources, description, ema
     'query': {"query": sub_query.query}
   };
   console.log('sending binoas subscription request:', binoas_def)
-  return fetch(
-    url, {
-      method: "POST",
-      credentials: "include",
-      body: JSON.stringify(binoas_def),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    }).then(
-      response => response.json()
-    ).then(
-      function (data) {
-        console.log(data);
-      }
-    );
+  // return fetch(
+  //   url, {
+  //     method: "POST",
+  //     credentials: "include",
+  //     body: JSON.stringify(binoas_def),
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     }
+  //   }).then(
+  //     response => response.json()
+  //   ).then(
+  //     function (data) {
+  //       console.log(data);
+  //     }
+  //   );
   }
