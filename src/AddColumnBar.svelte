@@ -62,6 +62,7 @@
   import { showSubscribeDialog } from './Subscribe.svelte';
   import { fade, slide } from 'svelte/transition';
   import Select, {Option} from '@smui/select';
+  import {subscriptionNew } from './binoas.js';
 
   let prominent = false;
   let dense = false;
@@ -77,9 +78,12 @@
   let frequency = "";
   let group = 1;
   let checkedLocations = $sources.map(function (s) { return s.short;});
+  let description = '';
 
   // $: newQuery = $selected_inquiry.length > 0 ? $selected_inquiry[0].user_query : '';
   $: if (selectedLocations != oldSelectedLocations) { handleQueryChange() }
+  $: if ($identity) { email=$identity.email }
+  $: if ($selected_inquiry_id) {description = $selected_inquiry[0].name }
 
 
   function handleWithTypeTimer() {
