@@ -282,9 +282,6 @@ h6 {
 }
 
 .entry {
-	border-bottom: 1px solid #c0c0c0;
-	margin-left: 4px;
-	margin-right: 4px;
 	cursor: pointer;
 }
 
@@ -294,16 +291,13 @@ h6 {
 	justify-content: space-between;
 }
 
-.entry-title h4 {
-	margin-top: 4px;
-	margin-bottom: 12px;
-}
-
-.entry-title h4 a {
+.entry-title a {
 	white-space: nowrap;
  	overflow: hidden;
  	text-overflow: ellipsis;
-	width: 95%;
+	font-size: 16px;
+	font-weight: 400;
+	line-height: 32px;
 	display: inline-block;
 	text-decoration: none;
 	color: inherit !important;
