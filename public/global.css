@@ -146,12 +146,11 @@ h6 {
 }
 
 .column-title {
-	text-align: center;
+	text-align: left;
 	margin: 2px;
 }
 
-.column-title h2 {
-	float: left;
+.column-title h4 {
 	margin: 0;
 }
 
@@ -295,6 +294,7 @@ h6 {
 	white-space: nowrap;
  	overflow: hidden;
  	text-overflow: ellipsis;
+	max-width: 95%;
 	font-size: 16px;
 	font-weight: 400;
 	line-height: 32px;

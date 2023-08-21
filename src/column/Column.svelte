@@ -442,7 +442,7 @@ onDestroy(function () {
 <section class="column-section" out:fade>
 <div id="column-{column_id}" class="column">
   <div class="column-title">
-    <h2>Preview resultaten</h2>
+    <h4>Preview resultaten</h4>
   </div>
   {#if show_settings}
   <div class="column-settings" class:active={show_settings} transition:slide="{{ duration: 500 }}">
