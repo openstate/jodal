@@ -319,7 +319,7 @@ function fetchFromSources(page, stable_param) {
       console.log('Source ' + s.short + ' not fetched because not selected.');
     }
   });
-  console.log('fetching ' + selected_sources + ' now ...');
+  console.log('fetching selected ' + selected_sources + ' now ...', inquiry);
 
   fetchSource(inquiry.user_query, selected_sources, column_locations, inquiry.date_start, inquiry.date_end, inquiry.sort, inquiry.sort_order, real_stable, real_page, function (fetched_items, original_response) {
     console.log('should set items now!');

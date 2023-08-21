@@ -26,7 +26,7 @@
     <div class="cell">
     {#each $sources as s}
       <div>
-      <input type="checkbox" id="source-checkbox-{s.short}" name="source"  bind:group={checkedSources} value="{s.short}"><label for="source-checkbox-{s.short}">{s.name}</label>
+      <input type="checkbox" id="source-checkbox-{s.short}" name="source"  bind:group={checkedSources} value="{s.short}" on:change={() => handleQueryChange()}><label for="source-checkbox-{s.short}">{s.name}</label>
       </div>
     {/each}
     </div>
@@ -144,11 +144,17 @@
 
     var oldColumnId = $selected_inquiry_id;
     // TODO: maybe we should do this async?
-    addInquiry({
+    var col_def = {
       name: name,
       locations: selected_ids,
       user_query: newQuery
+    };
+    console.log('checked : ', checkedSources);
+    $sources.forEach(function (s) {
+      col_def['src_' + s.short] = (checkedSources.indexOf(s.short) >= 0);
     });
+    console.log('checked col def:', col_def);
+    addInquiry(col_def);
 
     removeInquiry(oldColumnId);
   }

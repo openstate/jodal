@@ -66,7 +66,9 @@ export function addInquiry(settings) {
       read_counts: {}
     };
     get(sources).forEach(function (s) {
-      column_def_update['src_' + s.short] = true;
+      if (typeof(column_def_update['src_' + s.short]) === 'udefined') {
+        column_def_update['src_' + s.short] = true;
+      }
     });
 
     console.log('Anonymous column data:');
