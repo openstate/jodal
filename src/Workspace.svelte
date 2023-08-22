@@ -35,6 +35,14 @@ let empty = ($inquiries.length <= 0);
   text-align: center;
 }
 
+@media (max-width: 438px) {
+	.workspace-header {
+		margin-top: 60px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+}
+
 .workspace-header p {
   color: #5E5E5E;
 }

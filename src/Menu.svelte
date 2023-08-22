@@ -57,6 +57,22 @@
   color: #767676;
   margin-left: 30px;
 }
+
+@media (max-width: 438px) {
+	.logo-description {
+    font-size: 16px;
+    line-height: 20px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+  .menu-container a {
+    font-size: 16px !important;
+    line-height: 20px !important;
+    margin: 0 15px !important;
+  }
+}
+
   .flexy {
     display: flex;
     flex-wrap: wrap;
