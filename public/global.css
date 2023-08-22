@@ -138,7 +138,6 @@ h6 {
 	bottom: 0;
 	overflow: auto hidden;
 */
-	white-space:nowrap;
 	width: 60%;
 	margin: 0 auto;
 }
@@ -211,15 +210,11 @@ h6 {
 
 .column-contents {
 	border-top: 1px solid #f1f1f1;
-	min-height: 200px;
-	height: calc(100vh - 9em);
-	overflow-y: scroll;
-	overflow-x: hidden;
 	margin: 2px;
 	clear: both;
 	white-space: normal;
-	font-size: 14px;
-	line-height: 18px;
+	font-size: 16px;
+	line-height: 32px;
 }
 
 .column-contents button {
@@ -289,10 +284,10 @@ h6 {
 }
 
 .entry-title a {
-	white-space: nowrap;
+	white-space: normal;
  	overflow: hidden;
  	text-overflow: ellipsis;
-	max-width: 95%;
+	max-width: 86%;
 	font-size: 16px;
 	font-weight: 400;
 	line-height: 32px;
@@ -335,6 +330,9 @@ h6 {
 	padding-right: 0;
 }
 
+.entry-date {
+	text-align: right;
+}
 .source-link {
 	float: left;
 	display: block;

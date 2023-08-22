@@ -182,7 +182,6 @@
      flex-flow: row wrap;
      align-items: start;
      justify-content: space-around;
-     padding: 30px;
   }
   .flexy-alt {
     background: #F9F9FA;
@@ -205,7 +204,7 @@
   }
   .cell {
       height: 56px;
-      margin: 0 15px;
+      margin: 30px 15px;
       align-items: center;
       display: flex;
   }

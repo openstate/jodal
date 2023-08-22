@@ -22,7 +22,7 @@ function timeDisplay(timeStamp) {
   var day = tsDate.getDate();
   var month = tsDate.toDateString().match(/ [a-zA-Z]*/)[0].replace(" ", "");
   var year = " " + tsDate.getFullYear();
-  return day + " " + month + year  + " " + tsDate.toLocaleTimeString('nl-NL').slice(0,5);
+  return day + " " + month + year; //  + " " + tsDate.toLocaleTimeString('nl-NL').slice(0,5);
 }
 
 let cur_date = Date.parse(date);
