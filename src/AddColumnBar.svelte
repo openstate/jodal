@@ -27,7 +27,7 @@
     <h4>Bronnen</h4>
     <div class="flexy">
     {#each $sources as s}
-      <div>
+      <div class="checkbox-source">
       <input type="checkbox" id="source-checkbox-{s.short}" name="source"  bind:group={checkedSources} value="{s.short}" on:change={() => handleQueryChange()}><label for="source-checkbox-{s.short}">{s.name}</label>
       </div>
     {/each}
@@ -215,7 +215,18 @@
       align-items: center;
       display: flex;
   }
+
+  .checkbox-source {
+    margin-left: 15px;
+  }
+  @media (min-width: 675px) {
+
   .cell-col {
     flex-direction: column;
   }
+
+  .cell select {
+    margin-top: 4px;
+  }
+}
 </style>
