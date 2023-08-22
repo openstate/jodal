@@ -22,17 +22,21 @@
     </div>
   </div>
   {#if showAdvancedOptions}
-  <div class="flexy flexy-alt"  transition:slide="{{ duration: 500 }}">
-    <div class="cell">
+  <div class="flexy flexy-alt flexy-alt2"  transition:slide="{{ duration: 500 }}">
+    <div class="cell cell-col">
+    <h4>Bronnen</h4>
+    <div class="flexy">
     {#each $sources as s}
       <div>
       <input type="checkbox" id="source-checkbox-{s.short}" name="source"  bind:group={checkedSources} value="{s.short}" on:change={() => handleQueryChange()}><label for="source-checkbox-{s.short}">{s.name}</label>
       </div>
     {/each}
     </div>
-    <div class="cell">
+    </div>
+    <div class="cell cell-col">
+      <h4>Frequentie</h4>
       <select bind:value={frequency}>
-        <option value="" selected={frequency == ''}>Onmiddelijk</option>
+        <option value="" selected={frequency == ''}>Direct</option>
         <option value="1h" selected={frequency == '1h'}>Elk uur</option>
         <option value="24h" selected={frequency == '24h'}>Elke dag</option>
         <option value="168h" selected={frequency == '168h'}>Elke week</option>
@@ -187,6 +191,9 @@
     background: #F9F9FA;
     justify-content: flex-end;
   }
+  .flexy-alt2 {
+    padding-bottom: 30px;
+  }
   /*
   .sub-toolbar>div {
     margin: 30px;
@@ -207,5 +214,8 @@
       margin: 30px 15px;
       align-items: center;
       display: flex;
+  }
+  .cell-col {
+    flex-direction: column;
   }
 </style>
