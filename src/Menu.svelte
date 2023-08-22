@@ -4,9 +4,6 @@
     <p class="logo-description">alle overheidsdata — monitor, filter, stuur door.</p>
   </div>
   <div class="menu-container menu-part">
-    {#if $isTesting}
-    <Button id="btn-register2" align="end" variant="outlined" href="//www.{domainName}/register/"><Label>Registreren</Label></Button>
-    {/if}
     <IconButton id="btn-icon-help" class="material-icons" aria-label="Hulp" title="Om hulp vragen" on:click={() => showHelpDialog()}>help</IconButton>
     {#if $identity}
       <IconButton id="btn-icon-add-column" class="material-icons" aria-label="Add a column" title="Zoekopdracht toevoegen" on:click={() => startAddColumn()}>add</IconButton>

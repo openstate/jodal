@@ -31,6 +31,7 @@ let empty = ($inquiries.length <= 0);
 
 <style>
 .workspace-header {
+  margin-top: 90px;
   text-align: center;
 }
 
