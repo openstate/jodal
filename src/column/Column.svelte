@@ -536,7 +536,7 @@ onDestroy(function () {
   {/each}
   {#if !loading && itemsLeft}
   <div id="more-page-link" class="entry entry-paging">
-    <Button variant="outlined" on:click={() => doNextPage()}><Label>Meer resultaten</Label></Button>
+    <a href="#" on:click={() => doNextPage()}>Meer resultaten</a>
   </div>
   {/if}
   {#if loading}

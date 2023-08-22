@@ -116,9 +116,6 @@ h6 {
 	bottom: 0;
 	right: 0;
 	min-width: 320px;
-	*/
-	overflow: hidden;
-/*
 	z-index: -1;
 */
 }
@@ -265,12 +262,14 @@ h6 {
 .entry-paging {
 	border-bottom: 0px none !important;
 	margin-top: 12px;
-	height: 150px;
+	text-align: center;
 }
 
-.entry-paging button {
-	display: block;
-	position: relative;
+.entry-paging a {
+		color: #000;
+		text-decoration: underline;
+		text-align: center;
+		font-weight: 500;
 }
 
 .entry {

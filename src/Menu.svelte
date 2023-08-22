@@ -4,6 +4,8 @@
     <p class="logo-description">alle overheidsdata — monitor, filter, stuur door.</p>
   </div>
   <div class="menu-container menu-part">
+    <a href="#p/bronnen">Bronnen</a>
+    <a href="#p/over-ons">Over Ons</a>
     <IconButton id="btn-icon-help" class="material-icons" aria-label="Hulp" title="Om hulp vragen" on:click={() => showHelpDialog()}>help</IconButton>
     {#if $identity}
       <IconButton id="btn-icon-add-column" class="material-icons" aria-label="Add a column" title="Zoekopdracht toevoegen" on:click={() => startAddColumn()}>add</IconButton>
@@ -76,5 +78,15 @@
     height: 0;
     flex-grow: 1;
     overflow: auto;
+  }
+
+  .menu-container a {
+    color: #A3A3A3;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    margin: 30px;
+    text-decoration: none;
   }
 </style>
