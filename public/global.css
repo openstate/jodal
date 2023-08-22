@@ -33,11 +33,10 @@ a:visited {
 }
 
 h1 {
-	font-size: 64px;
-	line-height: 69px;
-	font-style: italic;
-	font-weight: 400;
-	letter-spacing: .02em;
+	font-size: 30px;
+	line-height: 36px;
+	font-weight: 700;
+	margin: 0;
 }
 
 h2 {

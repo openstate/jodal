@@ -1,5 +1,9 @@
 <div class="workspace" id="workspace">
   <div class="columns">
+  <div class="workspace-header">
+    <h1>Alerts</h1>
+    <p>Scan alle nieuwe overheidsdocumenten en ontvang de belangrijkste in je e-mail.</p>
+  </div>
   <AddColumnBar/>
   {#if $identity || $isTesting}
     <Message/>
@@ -26,4 +30,11 @@ let empty = ($inquiries.length <= 0);
 </script>
 
 <style>
+.workspace-header {
+  text-align: center;
+}
+
+.workspace-header p {
+  color: #5E5E5E;
+}
 </style>
