@@ -18,9 +18,12 @@ body {
 }
 
 header {
-	background: #0c537b !important;
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	align-items: center;
+	height: 90px;
 }
-
 a {
 	color: #006be8;
 }
@@ -120,11 +123,6 @@ h6 {
 }
 
 .workspace {
-	position: absolute;
-	top: 64px;
-	left: 0;
-	right: 0;
-	bottom: 0;
 	z-index: -1;
 	overflow: visible;
 }

@@ -1,26 +1,22 @@
-<section>
-      <TopAppBar variant="static" {prominent} {dense} color={secondaryColor ? 'secondary' : 'primary'}>
-        <Row>
-          <Section>
-            <IconButton class="material-icons"  on:click={() => drawerOpen.update(n => !n)}>menu</IconButton>
-            <Title>Open Overheidsdata</Title>
-          </Section>
-          <Section align="end" toolbar>
-          {#if $isTesting}
-          <Button id="btn-register2" align="end" variant="outlined" href="//www.{domainName}/register/"><Label>Registreren</Label></Button>
-          {/if}
-          <IconButton id="btn-icon-help" class="material-icons" aria-label="Hulp" title="Om hulp vragen" on:click={() => showHelpDialog()}>help</IconButton>
-          {#if $identity}
-            <IconButton id="btn-icon-add-column" class="material-icons" aria-label="Add a column" title="Zoekopdracht toevoegen" on:click={() => startAddColumn()}>add</IconButton>
-            <IconButton id="btn-icon-account" class="material-icons" aria-label="Account" title="Account informatie" on:click={() => showAccountDialog()}>face</IconButton>
-            <IconButton id="btn-icon-logout" class="material-icons" aria-label="Logout" href="//{apiDomainName}/users/simple/logout" title="Uitloggen">login</IconButton>
-          {:else}
-            <IconButton id="btn-icon-login" class="material-icons" aria-label="Login" href="//www.{domainName}/login/" title="Inloggen">account_box</IconButton>
-          {/if}
-          </Section>
-        </Row>
-      </TopAppBar>
-</section>
+<header>
+  <div class="logo-container menu-part">
+    <h1>De bron</h1>
+    <p class="logo-description">alle overheidsdata — monitor, filter, stuur door.</p>
+  </div>
+  <div class="menu-container menu-part">
+    {#if $isTesting}
+    <Button id="btn-register2" align="end" variant="outlined" href="//www.{domainName}/register/"><Label>Registreren</Label></Button>
+    {/if}
+    <IconButton id="btn-icon-help" class="material-icons" aria-label="Hulp" title="Om hulp vragen" on:click={() => showHelpDialog()}>help</IconButton>
+    {#if $identity}
+      <IconButton id="btn-icon-add-column" class="material-icons" aria-label="Add a column" title="Zoekopdracht toevoegen" on:click={() => startAddColumn()}>add</IconButton>
+      <IconButton id="btn-icon-account" class="material-icons" aria-label="Account" title="Account informatie" on:click={() => showAccountDialog()}>face</IconButton>
+      <IconButton id="btn-icon-logout" class="material-icons" aria-label="Logout" href="//{apiDomainName}/users/simple/logout" title="Uitloggen">login</IconButton>
+    {:else}
+      <IconButton id="btn-icon-login" class="material-icons" aria-label="Login" href="//www.{domainName}/login/" title="Inloggen">account_box</IconButton>
+    {/if}
+  </div>
+</header>
 <Account/>
 <AddColumn/>
 <Help/>
@@ -55,24 +51,24 @@
 </script>
 
 <style>
-  .top-app-bar-container, .top-app-bar-iframe {
-    max-width: 480px;
-    min-width: 480px;
-    height: 320px;
-    border: 1px solid rgba(0,0,0,.1);
-    margin: 0 18px 18px 0;
-  }
-
-  .top-app-bar-container {
-    overflow: auto;
-    display: inline-block;
-  }
-
+.logo-description {
+  font-size: 17px;
+  line-height:48px;
+  font-weight: 400;
+  color: #767676;
+  margin-left: 30px;
+}
   .flexy {
     display: flex;
     flex-wrap: wrap;
   }
 
+  .menu-part {
+  	display: flex;
+  	flex-flow: row wrap;
+  	justify-content: space-between;
+  	align-items: center;
+  }
   .flexor {
     display: inline-flex;
     flex-direction: column;
