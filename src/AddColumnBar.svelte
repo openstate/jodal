@@ -25,7 +25,7 @@
   <div class="flexy flexy-alt flexy-alt2"  transition:slide="{{ duration: 500 }}">
     <div class="cell cell-col">
     <h4>Bronnen</h4>
-    <div class="flexy">
+    <div class="flexy flexy-start">
     {#each $sources as s}
       <div class="checkbox-source">
       <input type="checkbox" id="source-checkbox-{s.short}" name="source"  bind:group={checkedSources} value="{s.short}" on:change={() => handleQueryChange()}><label for="source-checkbox-{s.short}">{s.name}</label>
@@ -186,6 +186,9 @@
      flex-flow: row wrap;
      align-items: start;
      justify-content: space-around;
+  }
+  .flexy-start {
+    justify-content: flex-start !important;
   }
   .flexy-alt {
     background: #F9F9FA;
