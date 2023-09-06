@@ -493,3 +493,13 @@ input {
 .expand-more {
 	color: #006be8;
 }
+
+.menu-link {
+	color: #A3A3A3;
+	font-size: 20px;
+	font-style: normal;
+	font-weight: 500;
+	line-height: normal;
+	margin: 30px;
+	text-decoration: none;
+}
