@@ -109,6 +109,7 @@ services:
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms512m -Xmx512m -Dlog4j2.formatMsgNoLookups=true"
       - xpack.monitoring.enabled=false
+      - 'path.repo=/opt/elasticsearch/backups'
     ulimits:
       memlock:
         soft: -1
@@ -117,10 +118,13 @@ services:
       - IPC_LOCK
     volumes:
       - esdata:/usr/share/elasticsearch/data
+      - ../backups/elasticsearch:/opt/elasticsearch/backups
     restart: always
     networks:
       - jodal
 volumes:
+  esbackups:
+    driver: local
   esdata:
     driver: local
   jodal-mysql-volume:

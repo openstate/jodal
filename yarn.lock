@@ -1718,6 +1718,11 @@ find-up@^3.0.0:
   dependencies:
     locate-path "^3.0.0"
 
+flatpickr@^4.5.2:
+  version "4.6.9"
+  resolved "https://registry.yarnpkg.com/flatpickr/-/flatpickr-4.6.9.tgz#9a13383e8a6814bda5d232eae3fcdccb97dc1499"
+  integrity sha512-F0azNNi8foVWKSF+8X+ZJzz8r9sE1G4hl06RyceIaLvyltKvDl6vqk9Lm/6AUUCi5HWaIjiUbk7UpeE/fOXOpw==
+
 focus-trap@^5.0.0:
   version "5.1.0"
   resolved "https://registry.yarnpkg.com/focus-trap/-/focus-trap-5.1.0.tgz#64a0bfabd95c382103397dbc96bfef3a3cf8e5ad"
@@ -3644,6 +3649,13 @@ supports-color@^7.0.0, supports-color@^7.1.0:
   dependencies:
     has-flag "^4.0.0"
 
+svelte-flatpickr@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/svelte-flatpickr/-/svelte-flatpickr-3.2.0.tgz#7af5455670aa1836db1c286f5c827d9bae7df74c"
+  integrity sha512-4JsPP7xFBPpvGNiFxfbYjv+SrGoGSRMvEdY7c+wHz37PM33NLE+IUmz7FQRNaHyVelmrTyAHPY1CNrI7cmTPhA==
+  dependencies:
+    flatpickr "^4.5.2"
+
 svelte-material-ui@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/svelte-material-ui/-/svelte-material-ui-1.1.0.tgz#9b4beb4f4724ab4ced8291525631c5d07389fb87"
@@ -3680,6 +3692,11 @@ svelte-material-ui@^1.0.0:
     "@smui/tab-scroller" "1.1.0"
     "@smui/textfield" "1.1.0"
     "@smui/top-app-bar" "1.1.0"
+
+svelte-routing@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/svelte-routing/-/svelte-routing-2.3.0.tgz#9fcd99b1a6ac87099c2bb73d5335b4e47802e73a"
+  integrity sha512-M4KY7YrJ9txzn1ssLUa0dfkAxg7IuNpYMMspm/KoQKh/pHMGpCTAMn1q+gSxyUZNGDX1pq12fF2VRUq4+gBfxA==
 
 svelte-select@^3.16.1:
   version "3.16.1"

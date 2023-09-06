@@ -55,7 +55,22 @@ class ElasticsearchBulkMixin(MemoryMixin, ElasticsearchMixin):
         self.items = []
 
 class BinoasMixin(object):
+    def exists(self, item_id):
+        try:
+            resp = requests.post('http://binoas.openstate.eu/posts/exists', data=json_encoder.encode({
+              'application': 'ood',
+              'ids': [item_id]
+            }))
+            r = resp.json()
+            return (item_id in r['existing'])
+        except Exception as e:
+            return False
+
     def load(self, item):
+        if self.exists(item['_id']):
+            logging.info('Skipping item %s because it already exists' % (item['_id'],))
+            return
+
         logging.info('Should upload item %s to binoas now!' % (item['_id'],))
         #logging.info(item)
         url = 'http://binoas.openstate.eu/posts/new'
@@ -133,6 +148,11 @@ class ElasticSearchScraper(BaseScraper):
                             'range':{
                                 'processed': {'gte': 'now-2m', 'lte': 'now'}
                                 #'modified': {'gte': 'now-5y'}
+                            }
+                        },
+                        {
+                            'range':{
+                                'published': {'gte': 'now-1d', 'lte': 'now'}
                             }
                         }
                     ],
