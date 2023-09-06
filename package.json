@@ -4,7 +4,7 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
-    "start": "sirv public -s"
+    "start": "sirv public -s --host"
   },
   "devDependencies": {
     "@material/typography": "^3.1.0",
