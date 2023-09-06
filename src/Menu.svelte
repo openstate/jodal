@@ -4,8 +4,8 @@
     <p class="logo-description">alle overheidsdata — monitor, filter, stuur door.</p>
   </div>
   <div class="menu-container menu-part">
-    <a href="#p/bronnen">Bronnen</a>
-    <a href="#p/over-ons">Over Ons</a>
+    <Link to="bronnen">Bronnen</Link>
+    <Link to="over">Over Ons</Link>
     <IconButton id="btn-icon-help" class="material-icons" aria-label="Hulp" title="Om hulp vragen" on:click={() => showHelpDialog()}>help</IconButton>
     {#if $identity}
       <IconButton id="btn-icon-add-column" class="material-icons" aria-label="Add a column" title="Zoekopdracht toevoegen" on:click={() => startAddColumn()}>add</IconButton>
@@ -21,6 +21,7 @@
 <Help/>
 <script>
   import { drawerOpen,fetchingEnabled, identity, isTesting, apiDomainName, domainName } from './stores.js';
+  import { Link } from "svelte-routing";
   import AddColumn, { startAddColumn } from './AddColumn.svelte';
   import TopAppBar, {Row, Section, Title} from '@smui/top-app-bar';
   import IconButton from '@smui/icon-button';

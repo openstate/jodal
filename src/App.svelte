@@ -4,20 +4,24 @@
 
 <Router url="{url}">
 <div class="app-container">
+<Menu/>
+<Drawer/>
 <Route path="/">
-  <Menu/>
-  <Drawer/>
   <Workspace/>
   <Fetcher/>
   <Document/>
   <SearchHelp/>
   <Subscribe/>
 </Route>
+<Route path="bronnen" component="{Bronnen}" />
+<Route path="over" component="{Over}" />
 </div>
 </Router>
 
 <script>
   import { Router, Route, Link } from "svelte-routing";
+  import Bronnen from "./pages/Bronnen.svelte";
+  import Over from "./pages/Over.svelte";
   export let url = ""; //This property is necessary declare to avoid ignore the Router
 
 
