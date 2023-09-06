@@ -2,17 +2,25 @@
   <title>Open Overheidsdata {testEnv}</title>
 </svelte:head>
 
+<Router url="{url}">
 <div class="app-container">
-<Menu/>
-<Drawer/>
-<Workspace/>
-<Fetcher/>
-<Document/>
-<SearchHelp/>
-<Subscribe/>
+<Route path="/">
+  <Menu/>
+  <Drawer/>
+  <Workspace/>
+  <Fetcher/>
+  <Document/>
+  <SearchHelp/>
+  <Subscribe/>
+</Route>
 </div>
+</Router>
 
 <script>
+  import { Router, Route, Link } from "svelte-routing";
+  export let url = ""; //This property is necessary declare to avoid ignore the Router
+
+
 	import Menu from './Menu.svelte';
 	import Drawer from './Drawer.svelte';
   import Workspace from './Workspace.svelte';
