@@ -107,6 +107,11 @@ function _addInquiry(data) {
   }, 100);
 }
 
+export function fetchDocument(doc_id) {
+  return fetch(window.location.protocol + '//' + apiDomainName + '/documents/search?query=id:'+doc_id)
+    .then(r => r.json())
+}
+
 export function removeInquiry(column_id) {
   var hasIdentity = false;
   if (hasIdentity) {
