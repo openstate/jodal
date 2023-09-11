@@ -1,6 +1,6 @@
 <header>
   <div class="logo-container menu-part">
-    <h1>De bron</h1>
+    <h1>Bron</h1>
     <p class="logo-description">alle overheidsdata — monitor, filter, stuur door.</p>
   </div>
   <div class="menu-container menu-part">
