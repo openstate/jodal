@@ -130,11 +130,9 @@
 
   function doAddInquiry() {
     if (typeof(selectedLocations) == 'undefined') {
-      alert('Selecteer 1 of meerdere lokaties om een zoekopdracht aan te maken');
-      return;
+      selectedLocations = [{'value': '*', 'label': 'Alle gemeenten'}];
     }
-    console.dir('selected locations:');
-    console.log(selectedLocations);
+    console.dir('selected locations:', selectedLocations);
     var selected_ids = selectedLocations.map(function (l) { return l.value; });
     var selected_names = selectedLocations.map(function (l) { return l.label; })
     var selected = $locations.filter(l => selected_ids.indexOf(l.id) >= 0);

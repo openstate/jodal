@@ -22,6 +22,9 @@
   export let showEmptyButton = true;
   export let showNumberOfSelectedLocations = false;
 
+  function handleSelect(details) {
+    console.log('locations select:', details);
+  }
   function selectAllLocations() {
     console.log('all locations button clicked!');
     selectedLocations = $selectable_locations;
