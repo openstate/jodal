@@ -1,3 +1,7 @@
+<Modal>
+  <div slot="modalTitle">Melding</div>
+  <div slot="modalContent">Het aanmelden is gelukt. Je krijgt ook een mailtje hierover in je mailbox.</div>
+</Modal>
 <div class="sub-toolbar">
   <div class="flexy">
     <div class="cell cell-auto-flex bordered">
@@ -64,6 +68,7 @@
   import LocationSelector from './LocationSelector.svelte';
   import { showSearchHelpDialog } from './SearchHelp.svelte';
   import { showSubscribeDialog } from './Subscribe.svelte';
+  import Modal, {showModalDialog } from './Modal.svelte';
   import { fade, slide } from 'svelte/transition';
   import Select, {Option} from '@smui/select';
   import {subscriptionNew } from './binoas.js';
@@ -99,6 +104,7 @@
     console.log('subscription selected locations:', selectedLocationIds);
     console.log('subscription selected sources', selectedSources);
     subscriptionNew(newQuery, selectedLocationIds, selectedSources, description, email, frequency);
+    showModalDialog();
   }
 
   function handleWithTypeTimer() {
