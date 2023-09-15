@@ -40,7 +40,7 @@ services:
       - ../:/opt/app
     restart: always
     # Use this to keep the container running
-    tty: true
+    command: npm run start
   makesite:
     build:
       context: ../www

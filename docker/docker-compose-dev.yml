@@ -16,3 +16,4 @@ services:
       FUSIONAUTH_APP_URL: http://users.jodal.nl
   node:
     restart: "no"
+    command: npm run dev
