@@ -4,7 +4,9 @@
   </div>
   <div class="logo-container menu-part">
     <h1>Bron</h1>
-    <p class="logo-description">alle overheidsdata — monitor, filter, stuur door.</p>
+  </div>
+  <div class="menu-part">
+    <p class="logo-description"><span>alle overheidsdata</span><span> — </span><span>monitor, filter, stuur door.</span></p>
   </div>
   <div class="menu-container menu-part">
     <Link class="menu-link" to="bronnen">Bronnen</Link>
@@ -60,6 +62,11 @@
   font-weight: 400;
   color: #767676;
   margin-left: 30px;
+  text-align: left;
+}
+
+.logo-description san {
+  display: inline;
 }
 
 @media (max-width: 950px) {
@@ -68,6 +75,11 @@
 	}
 }
 
+@media (max-width: 556px) {
+  .logo-description {
+    text-align: center;
+  }
+}
 @media (max-width: 438px) {
 	.logo-description {
     font-size: 16px;
@@ -81,6 +93,12 @@
     line-height: 20px !important;
     margin: 0 15px !important;
   }
+}
+
+@media (max-width: 412px) {
+    .logo-description span {
+      display: inline-block;
+    }
 }
 
   .flexy {

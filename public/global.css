@@ -74,7 +74,7 @@ h6 {
 	max-height:20px;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 950px) {
 	.columns {
 		width: 98% !important;
 	}
