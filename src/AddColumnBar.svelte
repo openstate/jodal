@@ -226,6 +226,18 @@
   .checkbox-source {
     margin-left: 15px;
   }
+
+  @media (max-width: 890px) {
+    .cell {
+      margin: 10px 5px;
+    }
+    .sub-toolbar {
+      margin: 10px auto 10px auto;
+    }
+    .flexy-alt2 {
+      padding-bottom: 10px;
+    }
+  }
   @media (min-width: 675px) {
 
   .cell-col {
