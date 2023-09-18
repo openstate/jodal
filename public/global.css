@@ -279,6 +279,8 @@ h6 {
 
 .entry {
 	cursor: pointer;
+	border-bottom: 1px solid #ccc;
+	margin-botom: 2px;
 }
 
 .entry-title {
