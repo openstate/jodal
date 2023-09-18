@@ -35,9 +35,17 @@ let empty = ($inquiries.length <= 0);
   text-align: center;
 }
 
-@media (max-width: 438px) {
+@media (max-width: 950px) {
 	.workspace-header {
 		margin-top: 60px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+}
+
+@media (max-width: 438px) {
+	.workspace-header {
+		margin-top: 30px;
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
