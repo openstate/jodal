@@ -1,4 +1,7 @@
 <header>
+  <div class="menu-hamburger menu-part">
+    <IconButton class="material-icons"  on:click={() => drawerOpen.update(n => !n)}>menu</IconButton>
+  </div>
   <div class="logo-container menu-part">
     <h1>Bron</h1>
     <p class="logo-description">alle overheidsdata — monitor, filter, stuur door.</p>
@@ -57,6 +60,12 @@
   font-weight: 400;
   color: #767676;
   margin-left: 30px;
+}
+
+@media (max-width: 950px) {
+	.menu-container {
+		display: none !important;
+	}
 }
 
 @media (max-width: 438px) {
