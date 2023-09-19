@@ -131,6 +131,10 @@
   function doAddInquiry() {
     if (typeof(selectedLocations) == 'undefined') {
       selectedLocations = [{'value': '*', 'label': 'Alle gemeenten'}];
+    } else {
+      if (selectedLocations.length > 1) {
+        selectedLocations = selectedLocations.filter(function (l) { return (l.value != '*');})
+      }
     }
     console.dir('selected locations:', selectedLocations);
     var selected_ids = selectedLocations.map(function (l) { return l.value; });
