@@ -382,21 +382,24 @@ h6 {
 }
 
 .document-dialog .mdc-dialog__surface {
-  max-width: 80% !important;
-	min-width: 80% !important;
-	height: 90%;
+  max-width: 90% !important;
+	min-width: 90% !important;
+	max-height: 90%;
 }
 
 .document-dialog-content-tools {
+	display: none;
+	/*
 	width: 18%;
 	float:left;
 	margin-right: 1em;
-	position: fixed;
+	position: fixed;*/
 }
 
 .document-dialog-content-description {
+/*
 	width: 74%;
-	float: right;
+	float: right;*/
 	border-left: 1px solid #ccc;
 	padding: 1em;
 }
