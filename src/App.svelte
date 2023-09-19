@@ -15,6 +15,7 @@
 <Route path="bronnen" component="{Bronnen}" />
 <Route path="over" component="{Over}" />
 <Route path="/d/:id" component={Doc} />
+<Route path="/r/:id" component={Redirect} />
 </div>
 </Router>
 <Document/>
@@ -23,7 +24,8 @@
   import { Router, Route, Link } from "svelte-routing";
   import Bronnen from "./pages/Bronnen.svelte";
   import Over from "./pages/Over.svelte";
-  import Doc from './Doc.svelte'
+  import Doc from './Doc.svelte';
+  import Redirect from './Redirect.svelte';
   export let url = ""; //This property is necessary declare to avoid ignore the Router
 
 
