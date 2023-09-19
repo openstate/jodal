@@ -84,7 +84,7 @@
   let typeTimer = null;
   let showAdvancedOptions = false;
   let advancedChevron = "expand_more";
-  let frequency = "";
+  let frequency = "24h";
   let group = 1;
   let checkedSources = $sources.map(function (s) { return s.short;});
   let description = '';
