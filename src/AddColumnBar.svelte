@@ -221,7 +221,7 @@
     flex: 1 auto;
   }
   .cell {
-      height: 56px;
+      min-height: 56px;
       margin: 30px 15px;
       align-items: center;
       display: flex;
