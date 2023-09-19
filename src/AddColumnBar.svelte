@@ -14,7 +14,7 @@
   </div>
   <div class="flexy flexy-alt">
     <div class="cell bordered margined">
-      <input bind:value={email} id="subscribe-email" placeholder="E-mail" />
+      <input bind:value={email} id="subscribe-email" type="email" placeholder="E-mail" required />
     </div>
     <div class="cell">
       <Button class="subscribe-button" on:click={() => handleSubscription()}>Maak alert aan</Button>
