@@ -1,6 +1,6 @@
 <Modal>
   <div slot="modalTitle">Melding</div>
-  <div slot="modalContent">Het aanmelden is gelukt. Je krijgt ook een mailtje hierover in je mailbox.</div>
+  <div slot="modalContent">{modalMsg}</div>
 </Modal>
 <div class="sub-toolbar">
   <div class="flexy">
@@ -88,6 +88,8 @@
   let group = 1;
   let checkedSources = $sources.map(function (s) { return s.short;});
   let description = '';
+  let defaultModalMsg = 'Het aanmelden is gelukt. Je krijgt ook een mailtje hierover in je mailbox.';
+  let modalMsg = defaultModalMsg;
 
   // $: newQuery = $selected_inquiry.length > 0 ? $selected_inquiry[0].user_query : '';
   $: if (selectedLocations != oldSelectedLocations) { handleQueryChange() }
@@ -103,8 +105,16 @@
     }
     console.log('subscription selected locations:', selectedLocationIds);
     console.log('subscription selected sources', selectedSources);
-    subscriptionNew(newQuery, selectedLocationIds, selectedSources, description, email, frequency);
-    showModalDialog();
+    subscriptionNew(newQuery, selectedLocationIds, selectedSources, description, email, frequency).then(
+    function (data) {
+      console.log(data);
+      if (typeof(data.error) !== 'undefined') {
+        modalMsg = 'Er ging iets mis met het aanmaken van de alert. Probeer het later nog een keer.'
+      } else {
+        modalMsg = defaultModalMsg;
+      }
+      showModalDialog();
+    });
   }
 
   function handleWithTypeTimer() {

@@ -90,9 +90,5 @@ export function subscriptionNew(user_query, locations, sources, description, ema
       }
     }).then(
       response => response.json()
-    ).then(
-      function (data) {
-        console.log(data);
-      }
     );
   }
