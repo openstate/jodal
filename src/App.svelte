@@ -16,6 +16,8 @@
 <Route path="over" component="{Over}" />
 <Route path="/d/:id" component={Doc} />
 <Route path="/r/:id" component={Redirect} />
+<Route path="/u/:user_id/:query_id" component={Unsubscribe} />
+
 </div>
 </Router>
 <Document/>
@@ -26,6 +28,8 @@
   import Over from "./pages/Over.svelte";
   import Doc from './Doc.svelte';
   import Redirect from './Redirect.svelte';
+  import Unsubscribe from './Unsubscribe.svelte';
+
   export let url = ""; //This property is necessary declare to avoid ignore the Router
 
 

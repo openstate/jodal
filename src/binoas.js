@@ -94,18 +94,12 @@ export function subscriptionNew(user_query, locations, sources, description, ema
   }
 
   export function subscriptionDelete(user_id, query_id) {
-    var url = window.location.protocol + '//' + binoasDomain + '/subscriptions/delete';
-    var sub_query = buildSubscriptionQuery(sources, locations, user_query);
-    var binoas_def = {
-      'user_id': user_id,
-      'query_id': query_id
-    };
-    console.log('sending binoas subscription removal request:', binoas_def);
+    var url = window.location.protocol + '//' + binoasDomain + '/subscriptions/delete?';
+    url += 'user_id=' + user_id + '&query_id=' + query_id;
     return fetch(
       url, {
-        method: "DELETE",
+        method: "GET",
         credentials: "include",
-        body: JSON.stringify(binoas_def),
         headers: {
           'Content-Type': 'application/json'
         }

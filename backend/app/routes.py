@@ -112,7 +112,7 @@ def subscriptions_new():
 
 @app.route("/subscriptions/delete", methods=["GET"])
 def subscriptions_delete():
-    logging.info(request.data)
+    logging.info(request.args)
     resp = requests.delete(
         url='http://binoas.openstate.eu/subscriptions/delete',
         json={
@@ -120,7 +120,11 @@ def subscriptions_delete():
             'user_id': request.args.get('user_id', '')
         }
     )
-    return jsonify(resp.json())
+    try:
+        result = resp.json()
+    except Exception as e:
+        result = {'error': 'Er ging iets verkeerd', 'status': 'error'}
+    return jsonify(result)
 
 @app.route("/users/login", methods=["POST"])
 def api_login():
