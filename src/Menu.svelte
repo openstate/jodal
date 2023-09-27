@@ -3,7 +3,7 @@
     <IconButton class="material-icons"  on:click={() => drawerOpen.update(n => !n)}>menu</IconButton>
   </div>
   <div class="logo-container menu-part">
-    <h1>Bron</h1>
+    <a href="/"><img src="/images/bron-logo.svg" alt="Bron logo" /></a>
   </div>
   <div class="menu-part">
     <p class="logo-description"><span>alle overheidsdata</span><span> — </span><span>monitor, filter, stuur door.</span></p>
@@ -56,6 +56,11 @@
 </script>
 
 <style>
+.logo-container img {
+  width: 190px;
+  height: 40px;
+}
+
 .logo-description {
   font-size: 17px;
   line-height:48px;
