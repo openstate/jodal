@@ -80,6 +80,12 @@
 	}
 }
 
+@media (max-width: 676px) {
+  .logo-container {
+    margin-top: 10px;
+    margin-right: 10px;
+  }
+}
 @media (max-width: 556px) {
   .logo-description {
     text-align: center;
