@@ -18,7 +18,7 @@
       <input bind:value={email} id="subscribe-email" type="email" placeholder="E-mail" required />
     </div>
     <div class="cell">
-      <Button class="subscribe-button" on:click={() => handleSubscription()}>Maak alert aan</Button>
+      <Button class="subscribe-button" on:click={(e) => handleSubscription(e)}>Maak alert aan</Button>
     </div>
     <div class="cell">
     <a href="#" on:click={() => toggleAdvancedOptions()}>Meer opties
@@ -99,7 +99,8 @@
   $: if ($selected_inquiry_id) {description = $selected_inquiry[0].name }
 
 
-  function handleSubscription() {
+  function handleSubscription(e) {
+    e.preventDefault();
     var selectedLocationIds = selectedLocations.map((l) => l.value).filter((l) => l != "*");
     var selectedSources = checkedSources;
     if (checkedSources.length == $sources.length) {
@@ -107,7 +108,10 @@
     }
     console.log('subscription selected locations:', selectedLocationIds);
     console.log('subscription selected sources', selectedSources);
-    if (document.getElementById('subscribe-email').validity.valid) {
+    const emailRegex = new RegExp(/^[A-Za-z0-9_!#$%&'*+\/=?`{|}~^.-]+@[A-Za-z0-9.-]+\.[A-Za-z0-9.-]+$/, "gm");
+    const isValidEmail = emailRegex.test(email);
+    console.log('Valid email: ' + email, isValidEmail);
+    if (document.getElementById('subscribe-email').validity.valid && isValidEmail) {
       subscriptionNew(newQuery, selectedLocationIds, selectedSources, description, email, frequency).then(
       function (data) {
         console.log(data);
