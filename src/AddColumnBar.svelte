@@ -2,6 +2,7 @@
   <div slot="modalTitle">Melding</div>
   <div slot="modalContent">{modalMsg}</div>
 </Modal>
+<form>
 <div class="sub-toolbar">
   <div class="flexy">
     <div class="cell cell-auto-flex bordered">
@@ -49,6 +50,7 @@
   </div>
   {/if}
 </div>
+</form>
 <script>
   import { addInquiry, removeInquiry, inquiries, locations, selectable_locations, id2locations, sources, drawerOpen,fetchingEnabled, identity, isTesting, apiDomainName, domainName, selected_inquiry, selected_inquiry_id } from './stores.js';
   import AddColumn, { startAddColumn } from './AddColumn.svelte';
@@ -105,16 +107,21 @@
     }
     console.log('subscription selected locations:', selectedLocationIds);
     console.log('subscription selected sources', selectedSources);
-    subscriptionNew(newQuery, selectedLocationIds, selectedSources, description, email, frequency).then(
-    function (data) {
-      console.log(data);
-      if (typeof(data.error) !== 'undefined') {
-        modalMsg = 'Er ging iets mis met het aanmaken van de alert. Probeer het later nog een keer.'
-      } else {
-        modalMsg = defaultModalMsg;
-      }
+    if (document.getElementById('subscribe-email').validity.valid) {
+      subscriptionNew(newQuery, selectedLocationIds, selectedSources, description, email, frequency).then(
+      function (data) {
+        console.log(data);
+        if (typeof(data.error) !== 'undefined') {
+          modalMsg = 'Er ging iets mis met het aanmaken van de alert. Probeer het later nog een keer.'
+        } else {
+          modalMsg = defaultModalMsg;
+        }
+        showModalDialog();
+      });
+    } else {
+      modalMsg = 'Er is geen valide e-mail adres ingevuld. Probeer het opnieuw.';
       showModalDialog();
-    });
+    }
   }
 
   function handleWithTypeTimer() {
