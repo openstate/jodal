@@ -54,6 +54,7 @@
     </div>
     <div class="cell">
       <Button class="subscribe-button" on:click={(e) => handleSubscription(e)}>Maak alert aan</Button>
+      <p class="input-help">Afmelden kan met &eacute;&eacute;n klik.</p>
     </div>
   </div>
 </div>
