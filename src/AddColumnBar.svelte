@@ -8,7 +8,7 @@
     <div class="cell cell-auto-flex">
       <Label class="input-label">Zoekopdracht</Label>
       <div class="flexy">
-        <input  bind:value={newQuery} id="column-query" aria-controls="helper-text-column-query" aria-describedby="helper-text-column-query" on:change={() => handleQueryChange()} on:blur={() => handleQueryChange()} on:keyup={() => handleWithTypeTimer()} />
+        <input  class="input-full-width" bind:value={newQuery} id="column-query" aria-controls="helper-text-column-query" aria-describedby="helper-text-column-query" on:change={() => handleQueryChange()} on:blur={() => handleQueryChange()} on:keyup={() => handleWithTypeTimer()} />
         <p class="input-help">Bijvoorbeeld: windmolens | parken  | windenergie | subsidie</p>
       </div>
     </div>
@@ -209,6 +209,10 @@
 </script>
 
 <style>
+.input-full-width {
+  width: 100%;
+}
+
 .input-frequency {
   line-height: 32px;
   height: 56px;
@@ -228,7 +232,6 @@
 }
 input {
 	border: 1px solid black;
-	width: 100%;
 	border-radius: 5px;
 	line-height: 32px;
 	height: 54px;
@@ -274,7 +277,7 @@ input {
   }
   .cell {
       min-height: 56px;
-      margin: 30px 15px;
+      margin: 10px 15px;
       align-items: center;
   /*    display: flex;*/
   }
@@ -301,7 +304,7 @@ input {
   }
 
   .cell select {
-    margin-top: 4px;
+    margin-top: 0px;
   }
 }
 </style>
