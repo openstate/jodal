@@ -17,6 +17,7 @@
     <div class="cell cell-auto-flex">
       <Label class="input-label">Zoekgebied</Label>
       <LocationSelector bind:selectedLocations showEmptyButton={false}/>
+      <p class="input-help">Selecteer gemeenten of provincies waarin je wilt zoeken.</p>      
     </div>
   </div>
   <div class="flexy flexy-alt">
