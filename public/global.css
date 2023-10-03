@@ -453,9 +453,10 @@ h6 {
 }
 
 /* hide when too much locations selected */
+/*
 .multiSelectItem:nth-child(n+6) {
 	display: none !important;
-}
+}*/
 
 #btn-register-test {
 	background: #8fd9e8 !important;
