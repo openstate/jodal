@@ -22,23 +22,8 @@
   </div>
   <div class="flexy flexy-alt">
     <div class="cell">
-      <input class="input-full-height" bind:value={email} id="subscribe-email" type="email" placeholder="E-mail" required />
-    </div>
-    <div class="cell">
-      <select class="input-frequency" bind:value={frequency}>
-        <option value="" selected={frequency == ''}>Direct</option>
-        <option value="1h" selected={frequency == '1h'}>Elk uur</option>
-        <option value="24h" selected={frequency == '24h'}>Elke dag</option>
-        <option value="168h" selected={frequency == '168h'}>Elke week</option>
-      </select>
-    </div>
-    <div class="cell">
-      <Button class="subscribe-button" on:click={(e) => handleSubscription(e)}>Maak alert aan</Button>
-    </div>
-    <div class="cell">
-    <a href="#" on:click={() => toggleAdvancedOptions()}>Meer opties
-    </a>
-    <Icon class="material-icons expand-more">{advancedChevron}</Icon>
+      <a href="#" on:click={() => toggleAdvancedOptions()}>Meer opties</a>
+      <Icon class="material-icons expand-more">{advancedChevron}</Icon>
     </div>
   </div>
   {#if showAdvancedOptions}
@@ -55,6 +40,22 @@
     </div>
   </div>
   {/if}
+  <div class="flexy flexy-alt">
+    <div class="cell">
+      <input class="input-full-height" bind:value={email} id="subscribe-email" type="email" placeholder="E-mail" required />
+    </div>
+    <div class="cell">
+      <select class="input-frequency" bind:value={frequency}>
+        <option value="" selected={frequency == ''}>Direct</option>
+        <option value="1h" selected={frequency == '1h'}>Elk uur</option>
+        <option value="24h" selected={frequency == '24h'}>Elke dag</option>
+        <option value="168h" selected={frequency == '168h'}>Elke week</option>
+      </select>
+    </div>
+    <div class="cell">
+      <Button class="subscribe-button" on:click={(e) => handleSubscription(e)}>Maak alert aan</Button>
+    </div>
+  </div>
 </div>
 </form>
 <script>
