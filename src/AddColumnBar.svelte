@@ -6,13 +6,13 @@
 <div class="sub-toolbar">
   <div class="flexy">
     <div class="cell cell-auto-flex">
-      <Label>Zoekopdracht</Label>
+      <Label class="input-label">Zoekopdracht</Label>
       <input  bind:value={newQuery} id="column-query" aria-controls="helper-text-column-query" aria-describedby="helper-text-column-query" on:change={() => handleQueryChange()} on:blur={() => handleQueryChange()} on:keyup={() => handleWithTypeTimer()} />
     </div>
   </div>
   <div class="flexy">
     <div class="cell cell-auto-flex">
-      <Label>Zoekgebied</Label>
+      <Label class="input-label">Zoekgebied</Label>
       <LocationSelector bind:selectedLocations showEmptyButton={false}/>
     </div>
   </div>
@@ -212,6 +212,7 @@ input {
 	border-radius: 5px;
 	line-height: 32px;
 	height: 56px;
+  padding: 0 10px;
 }
   .sub-toolbar {
     margin: 30px auto 30px auto;
@@ -255,7 +256,7 @@ input {
       min-height: 56px;
       margin: 30px 15px;
       align-items: center;
-      display: flex;
+  /*    display: flex;*/
   }
 
   .checkbox-source {

@@ -448,6 +448,10 @@ h6 {
 	line-height: 26px;
 }
 
+.input-label {
+  font-weight: 700;
+}
+
 /* hide when too much locations selected */
 .multiSelectItem:nth-child(n+6) {
 	display: none !important;
