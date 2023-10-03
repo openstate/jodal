@@ -6,8 +6,12 @@
 }
 
 .mdc-button:not(:disabled) {
-  background: #49A700;
-  padding: 18px 20px;
+  color: white;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  background: #52BB00;
+  padding: 17px 20px;
   border-radius: 5px;
   justify-content: center;
   align-items: center;
