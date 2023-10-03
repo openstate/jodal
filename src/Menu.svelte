@@ -78,6 +78,18 @@
 	.menu-container {
 		display: none !important;
 	}
+
+}
+
+@media (min-width: 950px) {
+	.menu-hamburger {
+		display: none !important;
+	}
+
+  .logo-container {
+    margin-left: 10px;
+  }
+
 }
 
 @media (max-width: 676px) {
