@@ -9,6 +9,7 @@
       <Label class="input-label">Zoekopdracht</Label>
       <div class="flexy">
         <input  bind:value={newQuery} id="column-query" aria-controls="helper-text-column-query" aria-describedby="helper-text-column-query" on:change={() => handleQueryChange()} on:blur={() => handleQueryChange()} on:keyup={() => handleWithTypeTimer()} />
+        <p class="input-help">Bijvoorbeeld: windmolens | parken  | windenergie | subsidie</p>
       </div>
     </div>
   </div>
@@ -208,6 +209,13 @@
 </script>
 
 <style>
+.input-help {
+  font-size: 13px;
+  text-align: right;
+  width: 100%;
+  margin: 0;
+  color: #A3A3A3;
+}
 input {
 	border: 1px solid black;
 	width: 100%;
