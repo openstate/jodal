@@ -19,7 +19,7 @@
     </div>
   </div>
   <div class="flexy flexy-alt">
-    <div class="cell margined">
+    <div class="cell">
       <input bind:value={email} id="subscribe-email" type="email" placeholder="E-mail" required />
     </div>
     <div class="cell">
