@@ -5,16 +5,19 @@
 <form>
 <div class="sub-toolbar">
   <div class="flexy">
-    <div class="cell cell-auto-flex bordered">
-      <Icon class="material-icons">search</Icon>
+    <div class="cell cell-auto-flex">
+      <Label>Zoekopdracht</Label>
       <input  bind:value={newQuery} id="column-query" aria-controls="helper-text-column-query" aria-describedby="helper-text-column-query" on:change={() => handleQueryChange()} on:blur={() => handleQueryChange()} on:keyup={() => handleWithTypeTimer()} />
     </div>
-    <div class="cell cell-auto-flex bordered">
+  </div>
+  <div class="flexy">
+    <div class="cell cell-auto-flex">
+      <Label>Zoekgebied</Label>
       <LocationSelector bind:selectedLocations showEmptyButton={false}/>
     </div>
   </div>
   <div class="flexy flexy-alt">
-    <div class="cell bordered margined">
+    <div class="cell margined">
       <input bind:value={email} id="subscribe-email" type="email" placeholder="E-mail" required />
     </div>
     <div class="cell">
@@ -203,6 +206,13 @@
 </script>
 
 <style>
+input {
+	border: 1px solid black;
+	width: 100%;
+	border-radius: 5px;
+	line-height: 32px;
+	height: 56px;
+}
   .sub-toolbar {
     margin: 30px auto 30px auto;
     width: 100%;

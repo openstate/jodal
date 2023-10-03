@@ -123,7 +123,7 @@ def subscriptions_delete():
     try:
         result = resp.json()
     except Exception as e:
-        result = {'error': 'Er ging iets verkeerd', 'status': 'error', 'msg': str(resp.content}
+        result = {'error': 'Er ging iets verkeerd', 'status': 'error', 'msg': str(resp.content)}
     return jsonify(result)
 
 @app.route("/users/login", methods=["POST"])
