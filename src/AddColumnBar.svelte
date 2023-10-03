@@ -17,12 +17,20 @@
     <div class="cell cell-auto-flex">
       <Label class="input-label">Zoekgebied</Label>
       <LocationSelector bind:selectedLocations showEmptyButton={false}/>
-      <p class="input-help">Selecteer gemeenten of provincies waarin je wilt zoeken.</p>      
+      <p class="input-help">Selecteer gemeenten of provincies waarin je wilt zoeken.</p>
     </div>
   </div>
   <div class="flexy flexy-alt">
     <div class="cell">
       <input bind:value={email} id="subscribe-email" type="email" placeholder="E-mail" required />
+    </div>
+    <div class="cell">
+      <select class="input-frequency" bind:value={frequency}>
+        <option value="" selected={frequency == ''}>Direct</option>
+        <option value="1h" selected={frequency == '1h'}>Elk uur</option>
+        <option value="24h" selected={frequency == '24h'}>Elke dag</option>
+        <option value="168h" selected={frequency == '168h'}>Elke week</option>
+      </select>
     </div>
     <div class="cell">
       <Button class="subscribe-button" on:click={(e) => handleSubscription(e)}>Maak alert aan</Button>
@@ -44,15 +52,6 @@
       </div>
     {/each}
     </div>
-    </div>
-    <div class="cell cell-col">
-      <h4>Frequentie</h4>
-      <select bind:value={frequency}>
-        <option value="" selected={frequency == ''}>Direct</option>
-        <option value="1h" selected={frequency == '1h'}>Elk uur</option>
-        <option value="24h" selected={frequency == '24h'}>Elke dag</option>
-        <option value="168h" selected={frequency == '168h'}>Elke week</option>
-      </select>
     </div>
   </div>
   {/if}
@@ -210,6 +209,16 @@
 </script>
 
 <style>
+.input-frequency {
+  line-height: 32px;
+  height: 56px;
+  margin: 0;
+  padding: 0 10px;
+  background: white;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+
 .input-help {
   font-size: 13px;
   text-align: right;
@@ -222,7 +231,7 @@ input {
 	width: 100%;
 	border-radius: 5px;
 	line-height: 32px;
-	height: 56px;
+	height: 54px;
   padding: 0 10px;
 }
   .sub-toolbar {
