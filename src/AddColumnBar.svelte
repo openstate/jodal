@@ -8,7 +8,7 @@
     <div class="cell cell-auto-flex">
       <Label class="input-label">Zoekopdracht</Label>
       <div class="flexy">
-        <input  class="input-full-width input-full-height" bind:value={newQuery} id="column-query" aria-controls="helper-text-column-query" aria-describedby="helper-text-column-query" on:change={() => handleQueryChange()} on:blur={() => handleQueryChange()} on:keyup={() => handleWithTypeTimer()} />
+        <input  class="input-full-width input-full-height" bind:value={newQuery} id="column-query" aria-controls="helper-text-column-query" aria-describedby="helper-text-column-query" on:change={() => handleQueryChange()} on:focus={() => isEditFieldActive = true } on:blur={() => handleQueryChange()} on:keyup={() => handleWithTypeTimer()} />
         <p class="input-help">Bijvoorbeeld: windmolens | parken  | windenergie | subsidie</p>
       </div>
     </div>
@@ -100,6 +100,7 @@
   let description = '';
   let defaultModalMsg = 'Het aanmelden is gelukt. Je krijgt ook een mailtje hierover in je mailbox.';
   let modalMsg = defaultModalMsg;
+  let isEditFieldActive = false;
 
   // $: newQuery = $selected_inquiry.length > 0 ? $selected_inquiry[0].user_query : '';
   $: if (selectedLocations != oldSelectedLocations) { handleQueryChange() }
@@ -108,6 +109,7 @@
 
 
   function handleSubscription(e) {
+    console.log('subscription event: ', e);
     e.preventDefault();
     var selectedLocationIds = selectedLocations.map((l) => l.value).filter((l) => l != "*");
     var selectedSources = checkedSources;
@@ -131,8 +133,10 @@
         showModalDialog();
       });
     } else {
-      modalMsg = 'Er is geen valide e-mail adres ingevuld. Probeer het opnieuw.';
-      showModalDialog();
+      if (e.explicitOriginalTarget.id != 'column-query') {
+        modalMsg = 'Er is geen valide e-mail adres ingevuld. Probeer het opnieuw.';
+        showModalDialog();
+      }
     }
   }
 
