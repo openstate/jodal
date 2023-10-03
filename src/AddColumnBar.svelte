@@ -7,7 +7,9 @@
   <div class="flexy">
     <div class="cell cell-auto-flex">
       <Label class="input-label">Zoekopdracht</Label>
-      <input  bind:value={newQuery} id="column-query" aria-controls="helper-text-column-query" aria-describedby="helper-text-column-query" on:change={() => handleQueryChange()} on:blur={() => handleQueryChange()} on:keyup={() => handleWithTypeTimer()} />
+      <div class="flexy">
+        <input  bind:value={newQuery} id="column-query" aria-controls="helper-text-column-query" aria-describedby="helper-text-column-query" on:change={() => handleQueryChange()} on:blur={() => handleQueryChange()} on:keyup={() => handleWithTypeTimer()} />
+      </div>
     </div>
   </div>
   <div class="flexy">
