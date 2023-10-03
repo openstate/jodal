@@ -5,7 +5,7 @@
   <div class="logo-container menu-part">
     <a href="/"><img src="/images/bron-logo.svg" alt="Bron logo" /></a>
   </div>
-  <div class="menu-part">
+  <div class="menu-part logo-description-container">
     <p class="logo-description"><span>alle overheidsdata</span><span> — </span><span>monitor, filter, stuur door.</span></p>
   </div>
   <div class="menu-container menu-part">
@@ -79,6 +79,12 @@
 		display: none !important;
 	}
 
+}
+
+@media (min-width: 1025px) {
+  .logo-description-container {
+    flex: 1;
+  }
 }
 
 @media (min-width: 950px) {
