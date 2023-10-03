@@ -8,7 +8,7 @@
     <div class="cell cell-auto-flex">
       <Label class="input-label">Zoekopdracht</Label>
       <div class="flexy">
-        <input  class="input-full-width" bind:value={newQuery} id="column-query" aria-controls="helper-text-column-query" aria-describedby="helper-text-column-query" on:change={() => handleQueryChange()} on:blur={() => handleQueryChange()} on:keyup={() => handleWithTypeTimer()} />
+        <input  class="input-full-width input-full-height" bind:value={newQuery} id="column-query" aria-controls="helper-text-column-query" aria-describedby="helper-text-column-query" on:change={() => handleQueryChange()} on:blur={() => handleQueryChange()} on:keyup={() => handleWithTypeTimer()} />
         <p class="input-help">Bijvoorbeeld: windmolens | parken  | windenergie | subsidie</p>
       </div>
     </div>
@@ -22,7 +22,7 @@
   </div>
   <div class="flexy flexy-alt">
     <div class="cell">
-      <input bind:value={email} id="subscribe-email" type="email" placeholder="E-mail" required />
+      <input class="input-full-height" bind:value={email} id="subscribe-email" type="email" placeholder="E-mail" required />
     </div>
     <div class="cell">
       <select class="input-frequency" bind:value={frequency}>
@@ -209,6 +209,10 @@
 </script>
 
 <style>
+.input-full-height {
+  height: 54px;
+}
+
 .input-full-width {
   width: 100%;
 }
@@ -234,7 +238,6 @@ input {
 	border: 1px solid black;
 	border-radius: 5px;
 	line-height: 32px;
-	height: 54px;
   padding: 0 10px;
 }
   .sub-toolbar {
