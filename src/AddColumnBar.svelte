@@ -234,11 +234,12 @@
 }
 
 .input-help {
-  font-size: 13px;
+  font-size: 12px;
+  font-weight: 500;
   text-align: right;
   width: 100%;
   margin: 0;
-  color: #A3A3A3;
+  color: #5E5E5E;
 }
 input {
 	border: 1px solid black;
