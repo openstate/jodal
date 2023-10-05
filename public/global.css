@@ -46,6 +46,8 @@ h1 {
 	line-height: 36px;
 	font-weight: 700;
 	margin: 0;
+	text-align: center;
+	font-weight: 700;
 }
 
 h2 {
@@ -344,6 +346,7 @@ h6 {
 
 .entry-date {
 	text-align: right;
+	color: #5E5E5E;
 }
 .source-link {
 	float: left;
@@ -521,10 +524,10 @@ input {
 }
 
 .menu-link {
-	color: #A3A3A3;
+	color: #5E5E5E;
+	font-weight: 600;
 	font-size: 20px;
 	font-style: normal;
-	font-weight: 500;
 	line-height: normal;
 	margin: 30px;
 	text-decoration: none;

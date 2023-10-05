@@ -53,5 +53,7 @@ let empty = ($inquiries.length <= 0);
 
 .workspace-header p {
   color: #5E5E5E;
+  text-align: center;
+  font-size: 18px;
 }
 </style>
