@@ -1,5 +1,9 @@
 
-@import “https://use.typekit.net/etz7bgt.css”;
+:root { font-family: 'Inter', sans-serif; }
+@supports (font-variation-settings: normal) {
+  :root { font-family: 'Inter var', sans-serif; }
+}
+
 html {
 	overflow-y: auto;
 }
@@ -7,7 +11,7 @@ html {
 body {
 	background:white;
 	color: #000000;
-	font-family: 'Neue Haas Grotesk Text', sans-serif;
+	font-family: 'Inter', sans-serif;
 	font-size: 16px;
 	line-height: 32px;
 	margin: 0;
