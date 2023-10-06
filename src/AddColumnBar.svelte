@@ -40,7 +40,7 @@
     </div>
   </div>
   {/if}
-  <div class="flexy flexy-alt">
+  <div class="flexy flexy-alt flexy-submit">
     <div class="cell">
       <input class="input-full-height" bind:value={email} id="subscribe-email" type="email" placeholder="E-mail" required />
     </div>
@@ -248,10 +248,11 @@ input {
   padding: 0 10px;
 }
   .sub-toolbar {
+    padding: 30px;
     margin: 30px auto 30px auto;
-    width: 100%;
+    /*width: 100%;*/
     border-radius: 5px;
-    background: #FFF;
+    background: #F9F9FA;
     box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.15);
   }
   .flexy {
@@ -304,12 +305,17 @@ input {
     margin-left: 15px;
   }
 
+.cell-noright {
+  margin-right: 0 !important;
+}
+
   @media (max-width: 890px) {
     .cell {
       margin: 5px 5px;
     }
     .sub-toolbar {
       margin: 10px auto 10px auto;
+      padding: 10px;
     }
     .flexy-alt2 {
       padding-bottom: 10px;
@@ -324,5 +330,6 @@ input {
   .cell select {
     margin-top: 0px;
   }
+
 }
 </style>
