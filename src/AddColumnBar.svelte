@@ -269,6 +269,10 @@ input {
   }
   .flexy-alt2 {
     padding-bottom: 30px;
+    min-height: 39px;
+  }
+  .flexy-alt .cell {
+    min-height: 39px !important;
   }
   /*
   .sub-toolbar>div {
@@ -287,18 +291,21 @@ input {
   }
   .cell {
       min-height: 56px;
-      margin: 10px 15px;
+      margin: 5px 30px;
       align-items: center;
   /*    display: flex;*/
   }
 
+.flexy-alt .cell {
+  margin: 5px 10px;
+}
   .checkbox-source {
     margin-left: 15px;
   }
 
   @media (max-width: 890px) {
     .cell {
-      margin: 10px 5px;
+      margin: 5px 5px;
     }
     .sub-toolbar {
       margin: 10px auto 10px auto;
