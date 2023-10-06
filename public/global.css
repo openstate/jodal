@@ -31,6 +31,19 @@ header {
 	height: 85px;
 	border-bottom: 1px solid #959595;
 }
+
+@media (max-width: 440px) {
+	header {
+		height: 75px;
+	}
+}
+
+@media (max-width: 374px) {
+	h1 {
+		margin-top: 10px !important;
+	}
+}
+
 a {
 	color: #006be8;
 }
