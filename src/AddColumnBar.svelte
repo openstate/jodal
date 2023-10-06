@@ -259,6 +259,7 @@ input {
      flex-flow: row wrap;
      align-items: start;
      justify-content: space-around;
+     background: #F9F9FA;
   }
   .flexy-start {
     justify-content: flex-start !important;

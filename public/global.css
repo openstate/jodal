@@ -521,6 +521,7 @@ input {
 
 .selectContainer {
 	border: 0px none !important;
+	padding: 10px;
 }
 
 .cell > .material-icons {
@@ -545,4 +546,10 @@ input {
 	line-height: normal;
 	margin: 30px;
 	text-decoration: none;
+}
+
+.multiSelectItem {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	margin-right: 5px;
 }
