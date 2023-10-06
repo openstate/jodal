@@ -11,6 +11,7 @@
   <div class="menu-container menu-part">
     <Link class="menu-link" to="bronnen">Bronnen</Link>
     <Link class="menu-link" to="over">Over Ons</Link>
+    <!--
     <IconButton id="btn-icon-help" class="material-icons" aria-label="Hulp" title="Om hulp vragen" on:click={() => showHelpDialog()}>help</IconButton>
     {#if $identity}
       <IconButton id="btn-icon-add-column" class="material-icons" aria-label="Add a column" title="Zoekopdracht toevoegen" on:click={() => startAddColumn()}>add</IconButton>
@@ -19,6 +20,7 @@
     {:else}
       <IconButton id="btn-icon-login" class="material-icons" aria-label="Login" href="//www.{domainName}/login/" title="Inloggen">account_box</IconButton>
     {/if}
+    -->
   </div>
 </header>
 <Account/>
@@ -93,7 +95,7 @@
 	}
 
   .logo-container {
-    margin-left: 10px;
+    margin-left: 30px;
   }
 
 }
