@@ -41,19 +41,19 @@
   </div>
   {/if}
   <div class="flexy flexy-alt flexy-submit">
-    <div class="cell">
-      <input class="input-full-height no-margin" bind:value={email} id="subscribe-email" type="email" placeholder="E-mail" required />
+    <div class="cell cell-auto-flex flexy">
+      <input class="input-full-height input-full-width no-margin" bind:value={email} id="subscribe-email" type="email" placeholder="E-mail" required />
     </div>
-    <div class="cell">
-      <select class="input-frequency" bind:value={frequency}>
+    <div class="cell cell-auto-flex flexy">
+      <select class="input-frequency input-full-width" bind:value={frequency}>
         <option value="" selected={frequency == ''}>Direct</option>
         <option value="1h" selected={frequency == '1h'}>Elk uur</option>
         <option value="24h" selected={frequency == '24h'}>Elke dag</option>
         <option value="168h" selected={frequency == '168h'}>Elke week</option>
       </select>
     </div>
-    <div class="cell">
-      <Button class="subscribe-button" on:click={(e) => handleSubscription(e)}>Maak alert aan</Button>
+    <div class="cell cell-auto-flex flexy">
+      <Button class="subscribe-button input-full-width" style="width: 100%" on:click={(e) => handleSubscription(e)}>Maak alert aan</Button>
       <p class="input-help">Afmelden kan met &eacute;&eacute;n klik.</p>
     </div>
   </div>
@@ -220,7 +220,7 @@
 }
 
 .input-full-width {
-  width: 100%;
+  width: 100% !important;
 }
 
 .input-frequency {
