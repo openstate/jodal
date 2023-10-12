@@ -7,7 +7,7 @@
   <div class="flexy">
     <div class="cell cell-auto-flex">
       <Label class="input-label">Zoekopdracht</Label>
-      <div class="flexy">
+      <div class="flexy no-gap">
         <input  class="input-full-width input-full-height" bind:value={newQuery} id="column-query" aria-controls="helper-text-column-query" aria-describedby="helper-text-column-query" on:change={() => handleQueryChange()} on:focus={() => isEditFieldActive = true } on:blur={() => handleQueryChange()} on:keyup={() => handleWithTypeTimer()} />
         <p class="input-help">Bijvoorbeeld: windmolens | parken  | windenergie | subsidie</p>
       </div>
@@ -250,6 +250,9 @@ input {
 }
 .no-margin {
   margin: 0 !important
+}
+.no-gap {
+  gap: 0 !important;
 }
   .sub-toolbar {
     padding: 30px 20px;
