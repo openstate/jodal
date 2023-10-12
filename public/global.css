@@ -534,6 +534,7 @@ input {
 
 	  .subscribe-button {
 	    height: 56px !important;
+      margin-bottom: 10px;
 	  }
 
 .expand-more {

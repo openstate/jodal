@@ -263,6 +263,7 @@ input {
   .flexy {
      display: flex;
      flex-flow: row wrap;
+     gap: 20px;
      align-items: start;
      justify-content: space-around;
      background: #F9F9FA;
