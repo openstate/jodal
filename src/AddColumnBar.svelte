@@ -249,7 +249,7 @@ input {
   margin: 10px 0;
 }
   .sub-toolbar {
-    padding: 30px;
+    padding: 30px 20px;
     margin: 30px auto 65px auto;
     /*width: 100%;*/
     border-radius: 5px;
@@ -263,7 +263,13 @@ input {
      align-items: start;
      justify-content: space-around;
      background: #F9F9FA;
+     margin-bottom: 20px;
   }
+
+.flexy:last-child {
+  margin-bottom: 0px !important;
+}
+
   .flexy-start {
     justify-content: flex-start !important;
   }
@@ -295,14 +301,11 @@ input {
   }
   .cell {
       min-height: 56px;
-      margin: 5px 30px;
+      /*margin: 5px 30px;*/
       align-items: center;
   /*    display: flex;*/
   }
 
-.flexy-alt .cell {
-  margin: 5px 10px;
-}
   .checkbox-source {
     margin-left: 15px;
   }
