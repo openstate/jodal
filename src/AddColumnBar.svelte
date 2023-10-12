@@ -42,7 +42,7 @@
   {/if}
   <div class="flexy flexy-alt flexy-submit">
     <div class="cell">
-      <input class="input-full-height" bind:value={email} id="subscribe-email" type="email" placeholder="E-mail" required />
+      <input class="input-full-height no-margin" bind:value={email} id="subscribe-email" type="email" placeholder="E-mail" required />
     </div>
     <div class="cell">
       <select class="input-frequency" bind:value={frequency}>
@@ -247,6 +247,9 @@ input {
 	line-height: 32px;
   padding: 0 10px;
   margin: 10px 0;
+}
+.no-margin {
+  margin: 0 !important
 }
   .sub-toolbar {
     padding: 30px 20px;
