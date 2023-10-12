@@ -311,6 +311,9 @@ input {
       /*margin: 5px 30px;*/
       align-items: center;
   /*    display: flex;*/
+/*
+  flex: 1 auto;
+*/
   }
 
   .checkbox-source {
