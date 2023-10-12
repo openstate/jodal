@@ -474,6 +474,7 @@ h6 {
 .input-label {
 	font-size: 13px;
   font-weight: 700;
+  line-height: 16px !important;
 }
 
 /* hide when too much locations selected */
@@ -496,6 +497,7 @@ h6 {
 	border: 1px solid black;
 	border-radius: 5px;
 	background: white;
+  margin: 10px 0;
 }
 
 .selectContainer {

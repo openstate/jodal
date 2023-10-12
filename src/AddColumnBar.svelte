@@ -246,6 +246,7 @@ input {
 	border-radius: 5px;
 	line-height: 32px;
   padding: 0 10px;
+  margin: 10px 0;
 }
   .sub-toolbar {
     padding: 30px;
@@ -254,6 +255,7 @@ input {
     border-radius: 5px;
     background: #F9F9FA;
     box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.15);
+    line-height: 16px;
   }
   .flexy {
      display: flex;
