@@ -77,7 +77,7 @@ h3 {
 
 h4 {
 	font-size: 16px;
-	line-height: 20px;
+	line-height: 24px;
 }
 
 h5 {
@@ -172,7 +172,7 @@ h6 {
 }
 
 .column-title h4 {
-	margin: 0;
+	margin: 0 0 19px 0;
 }
 
 .column-title button {
@@ -234,11 +234,11 @@ h6 {
 
 .column-contents {
 	border-top: 1px solid #f1f1f1;
-	margin: 2px;
 	clear: both;
 	white-space: normal;
 	font-size: 16px;
 	line-height: 32px;
+  padding-top: 22px;
 }
 
 .column-contents button {
@@ -267,8 +267,8 @@ h6 {
 	overflow: hidden;
 	width: 320px;
 	height: 100%;
-	*/
 	margin: 0 4px;
+  */
 }
 
 .column {

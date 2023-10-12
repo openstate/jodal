@@ -249,7 +249,7 @@ input {
 }
   .sub-toolbar {
     padding: 30px;
-    margin: 30px auto 30px auto;
+    margin: 30px auto 65px auto;
     /*width: 100%;*/
     border-radius: 5px;
     background: #F9F9FA;
