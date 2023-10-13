@@ -4,20 +4,23 @@
       <Drawer variant="modal" bind:this={myDrawer2} bind:open={myDrawer2Open} on:MDCDrawer:closed={() => drawerOpen.update(n => false)}>
         <Content>
           <List>
-          <Item href="//www.{domainName}/privacy/">
-            <Graphic class="material-icons" aria-hidden="true">privacy_tip</Graphic>
-            <Text>Privacy</Text>
+          <Item href="/bronnen/">
+            <Text>Bronnen</Text>
+          </Item>
+          <Item href="/over/">
+            <Text>Over Ons</Text>
           </Item>
           <Separator/>
+          <Item href="//www.{domainName}/privacy/">
+            <Text>Privacy</Text>
+          </Item>
           {#if $identity}
             <Item href="//{apiDomainName}/users/simple/logout">
-              <Graphic class="material-icons" aria-hidden="true">login</Graphic>
               <Text>Uitloggen</Text>
             </Item>
           {:else}
             {#if !$isTesting}
             <Item href="//www.{domainName}/login/">
-              <Graphic class="material-icons" aria-hidden="true">account_box</Graphic>
               <Text>Inloggen</Text>
             </Item>
             {/if}
