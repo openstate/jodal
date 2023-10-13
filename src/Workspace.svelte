@@ -1,6 +1,10 @@
 <div class="workspace" id="workspace">
   <div class="columns">
   <div class="workspace-header">
+    <div class="logo-description-container show-smallscreen">
+      <p class="logo-description"><span>alle overheidsdata</span><span> — </span><span>monitor, filter, stuur door.</span></p>
+    </div>
+
     <h1><img src="/images/alert.svg" style="width: 25px;" /> Alerts</h1>
     <p>Scan alle nieuwe overheidsdocumenten en ontvang de belangrijkste in je e-mail.</p>
   </div>
@@ -35,7 +39,23 @@ let empty = ($inquiries.length <= 0);
   text-align: center;
 }
 
+@media (min-width: 950px) {
+  .hide-smallscreen {
+    display: inline-flex !important;
+  }
+  .show-smallscreen{
+    display: none !important;
+  }
+}
+
 @media (max-width: 950px) {
+  .hide-smallscreen {
+    display: none !important;
+  }
+  .show-smallscreen{
+    display: inline-flex !important;
+  }
+
 	.workspace-header {
 		margin-top: 60px;
 		overflow: hidden;

@@ -1,14 +1,11 @@
 <header>
-  <div class="menu-hamburger menu-part">
-    <IconButton class="material-icons"  on:click={() => drawerOpen.update(n => !n)}>menu</IconButton>
-  </div>
   <div class="logo-container menu-part">
     <a href="/"><img src="/images/bron-logo.svg" alt="Bron logo" /></a>
   </div>
-  <div class="menu-part logo-description-container">
+  <div class="menu-part hide-smallscreen logo-description-container">
     <p class="logo-description"><span>alle overheidsdata</span><span> — </span><span>monitor, filter, stuur door.</span></p>
   </div>
-  <div class="menu-container menu-part">
+  <div class="menu-container hide-smallscreen menu-part">
     <Link class="menu-link" to="bronnen">Bronnen</Link>
     <Link class="menu-link" to="over">Over Ons</Link>
     <!--
@@ -21,6 +18,9 @@
       <IconButton id="btn-icon-login" class="material-icons" aria-label="Login" href="//www.{domainName}/login/" title="Inloggen">account_box</IconButton>
     {/if}
     -->
+  </div>
+  <div class="menu-hamburger show-smallscreen menu-part">
+    <IconButton class="material-icons"  on:click={() => drawerOpen.update(n => !n)}>menu</IconButton>
   </div>
 </header>
 <Account/>
@@ -76,11 +76,20 @@
   display: inline;
 }
 
-@media (max-width: 950px) {
-	.menu-container {
-		display: none !important;
-	}
+.logo-container {
+  margin-left: 15px !important;
+}
+.menu-hamburger {
+  margin: 3px;
+}
 
+@media (max-width: 950px) {
+  .hide-smallscreen {
+    display: none !important;
+  }
+  .show-smallscreen{
+    display: inline-flex !important;
+  }
 }
 
 @media (min-width: 1025px) {
@@ -95,7 +104,7 @@
 	}
 
   .logo-container {
-    margin-left: 30px;
+    margin-left: 15px;
   }
 
 }
