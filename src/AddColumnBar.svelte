@@ -227,7 +227,7 @@
   line-height: 32px;
   height: 56px;
   margin: 0;
-  padding: 0 10px;
+  padding: 0 20px;
   background: white;
   border: 1px solid black;
   border-radius: 5px;
@@ -245,7 +245,7 @@ input {
 	border: 1px solid black;
 	border-radius: 5px;
 	line-height: 32px;
-  padding: 0 10px;
+  padding: 0 20px;
   margin: 10px 0;
 }
 .no-bottom-margin {
