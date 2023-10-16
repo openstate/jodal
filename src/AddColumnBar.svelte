@@ -27,9 +27,9 @@
     </div>
   </div>
   {#if showAdvancedOptions}
-  <div class="flexy flexy-alt flexy-alt2"  transition:slide="{{ duration: 500 }}">
+  <div class="flexy flexy-start flexy-alt flexy-alt2 no-bottom-margin"  transition:slide="{{ duration: 500 }}">
     <div class="cell cell-col">
-    <h4>Bronnen</h4>
+    <h4 class="no-margin">Bronnen</h4>
     <div class="flexy flexy-start">
     {#each $sources as s}
       <div class="checkbox-source">
@@ -248,6 +248,9 @@ input {
   padding: 0 10px;
   margin: 10px 0;
 }
+.no-bottom-margin {
+  margin-bottom: 0 !important;
+}
 .no-margin {
   margin: 0 !important
 }
@@ -322,7 +325,7 @@ input {
   }
 
   .checkbox-source {
-    margin-left: 15px;
+    margin-right: 15px;
   }
 
 .cell-noright {
@@ -347,6 +350,9 @@ input {
     flex-direction: column;
   }
 
+.cell-col h4 {
+  margin: 0 !important;
+}
   .cell select {
     margin-top: 0px;
   }
