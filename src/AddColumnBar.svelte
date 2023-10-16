@@ -20,8 +20,8 @@
       <p class="input-help">Selecteer gemeenten of provincies waarin je wilt zoeken.</p>
     </div>
   </div>
-  <div class="flexy flexy-alt">
-    <div class="cell">
+  <div class="flexy flexy-start">
+    <div class="cell flexy-min">
       <a href="#" on:click={() => toggleAdvancedOptions()}>Meer opties</a>
       <Icon class="material-icons expand-more">{advancedChevron}</Icon>
     </div>
@@ -263,6 +263,11 @@ input {
     box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.15);
     line-height: 16px;
   }
+
+  .flexy-min {
+      display: flex;
+  }
+
   .flexy {
      display: flex;
      flex-flow: row wrap;
