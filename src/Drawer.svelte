@@ -4,10 +4,10 @@
       <Drawer variant="modal" bind:this={myDrawer2} bind:open={myDrawer2Open} on:MDCDrawer:closed={() => drawerOpen.update(n => false)}>
         <Content>
           <List>
-          <Item href="/bronnen/">
+          <Item href="https://bronhq.notion.site/FAQ-1a580975cb964dbe97971aef475f0406" target="_blank">
             <Text>Bronnen</Text>
           </Item>
-          <Item href="/over/">
+          <Item href="https://bronhq.notion.site/FAQ-1a580975cb964dbe97971aef475f0406" target="_blank">
             <Text>Over Ons</Text>
           </Item>
           <Separator/>
