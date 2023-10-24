@@ -96,6 +96,13 @@ h6 {
 	max-height:20px;
 }
 
+@media (max-width: 600px) {
+  .entry-date {
+    min-width: 5rem !important;
+    max-width: 5rem !important;
+  }
+}
+
 @media (max-width: 950px) {
 	.columns {
 		width: 98% !important;
@@ -309,6 +316,7 @@ h6 {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+  align-items: first baseline;
 }
 
 .entry-title a {
@@ -361,7 +369,10 @@ h6 {
 .entry-date {
 	text-align: right;
 	color: #5E5E5E;
+  min-width: 11rem;
+  max-width: 11rem;
 }
+
 .source-link {
 	float: left;
 	display: block;
