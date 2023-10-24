@@ -63,7 +63,7 @@
 <style>
 .logo-container img {
   width: 190px;
-  height: 40px;
+  height: 42px;
 }
 
 .logo-description {

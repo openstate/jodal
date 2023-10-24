@@ -29,7 +29,7 @@ header {
 	justify-content: space-between;
 	align-items: center;
 	height: 85px;
-	border-bottom: 1px solid #959595;
+	border-bottom: 1px solid #D9D9D9;
 }
 
 @media (max-width: 440px) {
@@ -555,7 +555,7 @@ input {
 .menu-link {
 	color: #5E5E5E;
 	font-weight: 600;
-	font-size: 20px;
+	font-size: 16px;
 	font-style: normal;
 	line-height: normal;
 	margin: 30px;
