@@ -1,5 +1,5 @@
 <div class="multi-select-input">
-   <Select items={$selectable_locations} isMulti={true} bind:selectedValue={selectedLocations} placeholder="Selecteer gemeente(s) ..."></Select>
+   <Select items={$selectable_locations} isMulti={true} isClearable={false} bind:selectedValue={selectedLocations} placeholder="Selecteer gemeente(s) ..."></Select>
    {#if (showNumberOfSelectedLocations && selectedLocations)}
    <p class="locations-select-byline">Er zijn {selectedLocations.length} lokaties geselecteerd</p>
    {/if}
