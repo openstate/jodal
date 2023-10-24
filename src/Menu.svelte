@@ -6,8 +6,11 @@
     <p class="logo-description"><span>alle overheidsdata</span><span> — </span><span>monitor, filter, stuur door.</span></p>
   </div>
   <div class="menu-container hide-smallscreen menu-part">
+  <!--
     <Link class="menu-link" to="bronnen">Bronnen</Link>
-    <Link class="menu-link" to="over">Over Ons</Link>
+    <Link class="menu-link" to="over">Over Ons</Link> -->
+    <a href="https://bronhq.notion.site/FAQ-1a580975cb964dbe97971aef475f0406" class="menu-link" target="_blank">Bronnen</a>
+    <a href="https://bronhq.notion.site/Over-Bron-e649b53c71744e338d33d04ad8939568" class="menu-link" target="_blank">Over Ons</a>
     <!--
     <IconButton id="btn-icon-help" class="material-icons" aria-label="Hulp" title="Om hulp vragen" on:click={() => showHelpDialog()}>help</IconButton>
     {#if $identity}
