@@ -33,7 +33,7 @@
     <div class="flexy flexy-start">
     {#each $sources as s}
       <div class="checkbox-source">
-      <input type="checkbox" id="source-checkbox-{s.short}" name="source"  bind:group={checkedSources} value="{s.short}" on:change={() => handleQueryChange()}><label for="source-checkbox-{s.short}">{s.name}</label>
+      <input type="checkbox" id="source-checkbox-{s.short}" class="input-checkbox" name="source"  bind:group={checkedSources} value="{s.short}" on:change={() => handleQueryChange()}><label for="source-checkbox-{s.short}">{s.name}</label>
       </div>
     {/each}
     </div>
@@ -248,7 +248,10 @@ input {
 	border-radius: 5px;
 	line-height: 32px;
   padding: 0 20px;
-  margin: 10px 10px 10px 0;
+  margin: 10px 0 10px 0;
+}
+.input-checkbox {
+  margin-right: 10px;
 }
 .no-bottom-margin {
   margin-bottom: 0 !important;

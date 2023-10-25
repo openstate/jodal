@@ -3,7 +3,7 @@
     <a href="/"><img src="/images/bron-logo.svg" alt="Bron logo" /></a>
   </div>
   <div class="menu-part hide-smallscreen logo-description-container">
-    <p class="logo-description"><span>alle overheidsdata</span><span> — </span><span>monitor, filter, stuur door.</span></p>
+    <p class="logo-description"><span>alle overheidsdata</span>&nbsp;<span> — </span>&nbsp;<span>monitor, filter, stuur door.</span></p>
   </div>
   <div class="menu-container hide-smallscreen menu-part">
   <!--
