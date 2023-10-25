@@ -534,7 +534,7 @@ input {
 
 .selectContainer {
 	border: 0px none !important;
-	padding: 10px;
+	padding: 10px 20px !important;
 }
 
 .cell > .material-icons {
