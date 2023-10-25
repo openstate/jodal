@@ -84,7 +84,7 @@ let empty = ($inquiries.length <= 0);
   }
 
   .workspace-header {
-    margin-top: 0;
+    margin-top: 20px;
     overflow: hidden;
     text-overflow: ellipsis;
   }
