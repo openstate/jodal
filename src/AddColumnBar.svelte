@@ -231,6 +231,7 @@
   background: white;
   border: 1px solid black;
   border-radius: 5px;
+  appearance: none;
 }
 
 .input-help {
@@ -258,12 +259,11 @@ input {
   gap: 0 !important;
 }
   .sub-toolbar {
-    padding: 30px 20px;
+    padding: 30px 30px;
     margin: 30px auto 65px auto;
     /*width: 100%;*/
     border-radius: 5px;
     background: #F9F9FA;
-    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.15);
     line-height: 16px;
   }
 
@@ -338,7 +338,7 @@ input {
     }
     .sub-toolbar {
       margin: 10px auto 10px auto;
-      padding: 10px;
+      padding: 20px;
     }
     .flexy-alt2 {
       padding-bottom: 10px;
