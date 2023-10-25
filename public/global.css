@@ -33,9 +33,9 @@ header {
 }
 
 @media (max-width: 440px) {
-	header {
-		height: 75px;
-	}
+  header {
+    height: 60px;
+  }
 }
 
 @media (max-width: 374px) {

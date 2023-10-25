@@ -66,6 +66,12 @@
   height: 42px;
 }
 
+@media (max-width: 950px) {
+  .logo-container img {
+    width: 120px;
+    height: 42px;
+  }
+}
 .logo-description {
   font-size: 17px;
   line-height:48px;

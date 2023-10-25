@@ -333,6 +333,12 @@ input {
   margin-right: 0 !important;
 }
 
+@media (max-width: 440px) {
+  .sub-toolbar {
+    padding: 30px 20px !important;
+  }
+}
+
   @media (max-width: 890px) {
     .cell {
       margin: 5px 5px;

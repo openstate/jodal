@@ -1,9 +1,6 @@
 <div class="workspace" id="workspace">
   <div class="columns">
   <div class="workspace-header">
-    <div class="logo-description-container show-smallscreen">
-      <p class="logo-description"><span>alle overheidsdata</span><span> — </span><span>monitor, filter, stuur door.</span></p>
-    </div>
 
     <h1><img src="/images/alert.svg" style="width: 25px;" /> Alerts</h1>
     <p>Scan alle nieuwe overheidsdocumenten en ontvang de belangrijkste in je e-mail.</p>
@@ -75,5 +72,21 @@ let empty = ($inquiries.length <= 0);
   color: #5E5E5E;
   text-align: center;
   font-size: 18px;
+}
+
+@media (max-width: 438px) {
+  .workspace-header p {
+    color: #5E5E5E;
+    text-align: center;
+    font-size: 16px;
+    line-height: 25px;
+    padding: 0px 20px 20px;
+  }
+
+  .workspace-header {
+    margin-top: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 </style>
