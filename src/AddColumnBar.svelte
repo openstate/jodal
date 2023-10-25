@@ -224,6 +224,7 @@
 }
 
 .input-frequency {
+  font-size: 16px;
   line-height: 32px;
   height: 56px;
   margin: 0;
