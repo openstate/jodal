@@ -10,10 +10,6 @@
           <Item href="https://bronhq.notion.site/FAQ-1a580975cb964dbe97971aef475f0406" target="_blank">
             <Text>Over Ons</Text>
           </Item>
-          <Separator/>
-          <Item href="//www.{domainName}/privacy/">
-            <Text>Privacy</Text>
-          </Item>
           {#if $identity}
             <Item href="//{apiDomainName}/users/simple/logout">
               <Text>Uitloggen</Text>
