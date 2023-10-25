@@ -8,7 +8,7 @@
             <Text>Bronnen</Text>
           </Item>
           <Item href="https://bronhq.notion.site/FAQ-1a580975cb964dbe97971aef475f0406" target="_blank">
-            <Text>Over Ons</Text>
+            <Text>Over</Text>
           </Item>
           {#if $identity}
             <Item href="//{apiDomainName}/users/simple/logout">
