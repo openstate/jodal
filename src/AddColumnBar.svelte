@@ -248,7 +248,7 @@ input {
 	border-radius: 5px;
 	line-height: 32px;
   padding: 0 20px;
-  margin: 10px 0;
+  margin: 10px 10px 10px 0;
 }
 .no-bottom-margin {
   margin-bottom: 0 !important;
