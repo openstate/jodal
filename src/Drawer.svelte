@@ -4,10 +4,10 @@
       <Drawer variant="modal" bind:this={myDrawer2} bind:open={myDrawer2Open} on:MDCDrawer:closed={() => drawerOpen.update(n => false)}>
         <Content>
           <List>
-          <Item href="https://bronhq.notion.site/FAQ-1a580975cb964dbe97971aef475f0406" target="_blank">
+          <Item href="https://bron.super.site/faq" target="_blank">
             <Text>FAQs</Text>
           </Item>
-          <Item href="https://bronhq.notion.site/FAQ-1a580975cb964dbe97971aef475f0406" target="_blank">
+          <Item href="https://bron.super.site/over-bron" target="_blank">
             <Text>Over</Text>
           </Item>
           {#if $identity}
