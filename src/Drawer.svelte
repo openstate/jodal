@@ -5,7 +5,7 @@
         <Content>
           <List>
           <Item href="https://bronhq.notion.site/FAQ-1a580975cb964dbe97971aef475f0406" target="_blank">
-            <Text>Bronnen</Text>
+            <Text>FAQs</Text>
           </Item>
           <Item href="https://bronhq.notion.site/FAQ-1a580975cb964dbe97971aef475f0406" target="_blank">
             <Text>Over</Text>

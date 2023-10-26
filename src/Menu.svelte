@@ -9,7 +9,7 @@
   <!--
     <Link class="menu-link" to="bronnen">Bronnen</Link>
     <Link class="menu-link" to="over">Over Ons</Link> -->
-    <a href="https://bron.super.site/faq" class="menu-link" target="_blank">Bronnen</a>
+    <a href="https://bron.super.site/faq" class="menu-link" target="_blank">FAQs</a>
     <a href="https://bron.super.site/over-bron" class="menu-link" target="_blank">Over</a>
     <!--
     <IconButton id="btn-icon-help" class="material-icons" aria-label="Hulp" title="Om hulp vragen" on:click={() => showHelpDialog()}>help</IconButton>
