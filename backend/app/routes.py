@@ -96,7 +96,7 @@ def subscriptions_new():
     client_resp = client.retrieve_user_by_email(email)
     if not client_resp.was_successful():
         client_response = client.register({
-            'sendSetPasswordEmail': True,
+            'sendSetPasswordEmail': False,
             'registration': {
                 'applicationId': app.config['CLIENT_ID'],
             },
