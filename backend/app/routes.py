@@ -103,7 +103,7 @@ def subscriptions_new():
             },
             'user': {
                 'email': email,
-                'password': hashlib.md5(email).hexdigest()
+                'password': hashlib.md5(email.encode('ascii', 'replace')).hexdigest()
             }
         })
         # result = resp.json()
