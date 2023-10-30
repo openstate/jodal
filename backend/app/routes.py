@@ -3,6 +3,7 @@ import json
 from functools import wraps
 import logging
 import traceback
+import hashlib
 
 from flask import Flask, session, render_template, request, redirect, url_for, flash, Markup, jsonify, send_file
 from requests_oauthlib import OAuth2Session
@@ -101,7 +102,8 @@ def subscriptions_new():
                 'applicationId': app.config['CLIENT_ID'],
             },
             'user': {
-                'email': email
+                'email': email,
+                'password': hashlib.md5(email).hexdigest()
             }
         })
         # result = resp.json()
