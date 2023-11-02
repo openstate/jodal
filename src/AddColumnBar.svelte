@@ -177,9 +177,9 @@
     if (name == '*') {
       name = 'Alle gemeenten';
     }
-    if (newQuery == '') {
-      newQuery = "*"
-    }
+    // if (newQuery == '') {
+    //   newQuery = "*"
+    // }
     if (name.indexOf(' ' + newQuery) < 0) {
       name = name + ' ' + newQuery;
     }
