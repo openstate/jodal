@@ -226,7 +226,7 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
         self.payload['from'] = 0
 
         self.payload['query']['bool']['filter'].append(
-              {"terms": {"@type.keyword": self.types}})
+              {"terms": {"@type": self.types}})
         self.payload['query']['bool']['filter'].append(
               {
                 "range": {
