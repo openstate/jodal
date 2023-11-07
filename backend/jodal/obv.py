@@ -267,8 +267,10 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
         sleep(1)
         result = super(MeetingsAndAgendaScraper, self).fetch()
         if result is not None:
+            n_hits = len(result.get('hits', {}).get('hits', []))
             logging.info(
-                'Scraper: in total %s results' % (result['hits']['total'],))
+                'Scraper: got %s of in total %s results' % (
+                    n_hits, result['hits']['total'],))
             return result.get('hits', {}).get('hits', [])
         else:
             return []
@@ -297,6 +299,8 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
                 try:
                     location_id = self.locations[location_uri]
                 except KeyError as e:
+                    logging.error("Could not match %s against local locations" % (location_uri,))
+                    #logging.error(pformat(sitem))
                     location_id = None
                 if location_id is not None:
                     # logging.info('%s => %s' % (location_uri, location_id,))
@@ -320,6 +324,8 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
                         'data': data
                     }
                     result.append(r)
+            else:
+                logging.warning("Item has no organization name? %s" % (sitem,))
 
         # logging.info(pformat(result))
         return result
