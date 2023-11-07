@@ -300,10 +300,10 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
                     location_id = self.locations[location_uri]
                 except KeyError as e:
                     logging.error("Could not match %s against local locations" % (location_uri,))
+                    logging.error(sitem['name'])
                     #logging.error(pformat(sitem))
                     location_id = None
                 if location_id is not None:
-                    # logging.info('%s => %s' % (location_uri, location_id,))
                     # 'https://openbesluitvorming.nl/?zoekterm=' + encodeURIComponent(query) + '&organisaties=%5B%22' + i._index + '%22%5D&showResource=' + encodeURIComponent(encodeURIComponent('https://id.openraadsinformatie.nl/' + i._id))
                     obv_url = 'https://openbesluitvorming.nl/?zoekterm=%22*%22&organisaties=%5B%22' + item['_index'] + '%22%5D&showResource=' + _encode_uri_component(_encode_uri_component(r_uri))
                     r = {
@@ -327,6 +327,7 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
             else:
                 logging.warning("Item has no organization name? %s" % (sitem,))
 
+        #logging.info(pformat(self.locations))
         # logging.info(pformat(result))
         return result
 

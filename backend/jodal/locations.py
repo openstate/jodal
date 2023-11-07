@@ -91,9 +91,9 @@ class OpenspendingProvinceLocationScraper(OpenspendingCountyLocationScraper):
 
 class OpenBesluitvormingLocationScraper(MemoryMixin, BaseLocationScraper):
     name = 'openbesluitvorming'
-    url = 'https://api.openraadsinformatie.nl/v1/elastic/ori_*/_search'
+    url = 'https://api.openraadsinformatie.nl/v1/elastic/ori_*,osi_*/_search'
     payload = {
-      "size": 500,
+      "size": 1000,
       "query": {
           "bool": {
               "must": {
