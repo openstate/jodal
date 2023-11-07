@@ -154,11 +154,12 @@ class LocationsScraperRunner(object):
         OpenBesluitvormingLocationScraper,
         CVDRLocationScraper
     ]
+    year = '2023'
 
     def read_renames(self):
         renames = []
         filepath = os.path.abspath(os.path.join(
-            os.path.dirname(__file__), '../mappings/gemeenten-uniform-2020.csv'))
+            os.path.dirname(__file__), '../mappings/gemeenten-uniform-%s.csv' % (self.year,)))
         with open(filepath, newline='') as f:
             reader = csv.reader(f)
             header = reader.__next__()
@@ -175,7 +176,7 @@ class LocationsScraperRunner(object):
     def read_municipalities(self):
         municipalities = []
         filepath = os.path.abspath(os.path.join(
-            os.path.dirname(__file__), '../mappings/gemeenten-2020.csv'))
+            os.path.dirname(__file__), '../mappings/gemeenten-%s.csv' % (self.year,)))
         with open(filepath, newline='') as f:
             reader = csv.reader(f)
             header = reader.__next__()
