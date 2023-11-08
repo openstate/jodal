@@ -286,6 +286,7 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
 
     def transform(self, item):
         sitem = item['_source']
+        # logging.info("XX: %s" % (sitem['name'],))
         names = getattr(self, 'names', None) or [self.name]
         result = []
         for n in names:
