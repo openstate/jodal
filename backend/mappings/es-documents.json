@@ -50,6 +50,9 @@
             "url": {
               "type": "keyword"
             },
+            "doc_url": {
+              "type": "keyword"
+            },
             "location": {
               "type": "text",
               "analyzer": "text_nl",

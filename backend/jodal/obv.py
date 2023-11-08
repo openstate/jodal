@@ -313,6 +313,7 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
                         'id': h_id.hexdigest(),
                         'identifier': r_uri,
                         'url': obv_url,
+                        'doc_url': sitem.get('original_url'),
                         'location': location_id,
                         'title': sitem.get('name', ''),
                         'description': self._get_description(sitem),
