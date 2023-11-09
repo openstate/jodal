@@ -80,6 +80,7 @@ function fetchFromApi(query, sources, location_ids, date_start, date_end, sort_f
               location: _id2locations[i._source.location],
               type: i._source.type,
               source: i._source.source,
+              doc_url: i._source.doc_url,
               url: i._source.url,
               data: i._source.data,
               _id: i._id,
