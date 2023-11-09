@@ -22,7 +22,7 @@ APP_CONTAINER = 'jodal_backend_1'
 MAKESITE_CONTAINER = 'jodal_makesite_1'
 MAKESITE2_CONTAINER = 'jodal_makesite-pdd_1'
 # API container
-API_CONTAINER = 'jodal_api-jodal_1'
+API_CONTAINER = 'api-jodal'
 
 # Server name
 SERVER = 'fluorine'
