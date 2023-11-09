@@ -48,7 +48,11 @@
     </div>
   </Content>
   <Actions>
-    <a href="{$item.doc_url} || {$item.url}" target="_blank" class="mdc-button">
+    {#if $item.doc_url}
+    <a href="{$item.doc_url}" target="_blank" class="mdc-button">
+    {:else}
+    <a href="{$item.url}" target="_blank" class="mdc-button">
+    {/if}
       <Label>Ga naar bron</Label>
     </a>
 
