@@ -11,16 +11,18 @@
     <Link class="menu-link" to="over">Over Ons</Link> -->
     <a href="https://bron.super.site/faq" class="menu-link" target="_blank">FAQs</a>
     <a href="https://bron.super.site/over-bron" class="menu-link" target="_blank">Over</a>
-    <a href="https://github.com/openstate/jodal" class="menu-link" target="_blank">
-      <img class="social-logo" src="/images/github.svg">
-    </a>
-    <a href="https://mastodon.nl/bron_live" class="menu-link" target="_blank">
-      <img class="social-logo" src="/images/mastodon.svg">
-    </a>
-    <a href="https://twitter.com/bron_live" class="menu-link" target="_blank">
-      <img class="social-logo" src="/images/twitter.svg">
-    </a>
+    <div class="social-container menu-link">
 
+      <a href="https://github.com/openstate/jodal" target="_blank">
+        <img class="social-logo" src="/images/github.svg">
+      </a>
+      <a href="https://mastodon.nl/bron_live" target="_blank">
+        <img class="social-logo" src="/images/mastodon.svg">
+      </a>
+      <a href="https://twitter.com/bron_live" target="_blank">
+        <img class="social-logo" src="/images/twitter.svg">
+      </a>
+    </div>
     <!--
     <IconButton id="btn-icon-help" class="material-icons" aria-label="Hulp" title="Om hulp vragen" on:click={() => showHelpDialog()}>help</IconButton>
     {#if $identity}
@@ -107,7 +109,22 @@
   height: 20px;
 }
 
-@media (max-width: 950px) {
+.social-container {
+  display: flex;
+}
+
+.social-container a {
+  display: block;
+  flex: 1;
+  text-align: center;
+  margin-right: 26px;
+}
+
+.social-container a:last-child {
+  margin-right: 0px;
+}
+
+@media (max-width: 980px) {
   .hide-smallscreen {
     display: none !important;
   }
@@ -122,7 +139,7 @@
   }
 }
 
-@media (min-width: 950px) {
+@media (min-width: 980px) {
 	.menu-hamburger {
 		display: none !important;
 	}
