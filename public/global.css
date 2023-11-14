@@ -32,6 +32,19 @@ header {
 	border-bottom: 1px solid #D9D9D9;
 }
 
+.mdc-drawer__content {
+    margin: 20px;
+}
+
+.mdc-list-item {
+  margin-top: 0px !important;
+  margin-bottom: 10px !important;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
 @media (max-width: 440px) {
   header {
     height: 60px;
