@@ -10,6 +10,17 @@
           <Item href="https://bron.super.site/over-bron" target="_blank">
             <Text>Over</Text>
           </Item>
+          <div class="social-container">
+            <a href="https://github.com/openstate/jodal">
+              <img class="social-logo" src="/images/github.svg">
+            </a>
+            <a href="https://mastodon.nl/bron_live">
+              <img class="social-logo" src="/images/mastodon.svg">
+            </a>
+            <a href="https://twitter.com/bron_live">
+              <img class="social-logo" src="/images/twitter.svg">
+            </a>
+          </div>
           {#if $identity}
             <Item href="//{apiDomainName}/users/simple/logout">
               <Text>Uitloggen</Text>
@@ -90,5 +101,21 @@
     padding: 16px;
     height: 100%;
     box-sizing: border-box;
+  }
+
+  .social-logo {
+    width: 40px;
+    height: 40px;
+    flex: 1;
+  }
+
+  .social-container {
+    display: flex;
+  }
+
+  .social-container a {
+    display: block;
+    flex: 1;
+    text-align: center;
   }
 </style>
