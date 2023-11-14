@@ -11,6 +11,16 @@
     <Link class="menu-link" to="over">Over Ons</Link> -->
     <a href="https://bron.super.site/faq" class="menu-link" target="_blank">FAQs</a>
     <a href="https://bron.super.site/over-bron" class="menu-link" target="_blank">Over</a>
+    <a href="https://github.com/openstate/jodal" class="menu-link" target="_blank">
+      <img class="social-logo" src="/images/github.svg">
+    </a>
+    <a href="https://mastodon.nl/bron_live" class="menu-link" target="_blank">
+      <img class="social-logo" src="/images/mastodon.svg">
+    </a>
+    <a href="https://twitter.com/bron_live" class="menu-link" target="_blank">
+      <img class="social-logo" src="/images/twitter.svg">
+    </a>
+
     <!--
     <IconButton id="btn-icon-help" class="material-icons" aria-label="Hulp" title="Om hulp vragen" on:click={() => showHelpDialog()}>help</IconButton>
     {#if $identity}
@@ -90,6 +100,11 @@
 }
 .menu-hamburger {
   margin: 3px;
+}
+
+.social-logo {
+  width: 20px;
+  height: 20px;
 }
 
 @media (max-width: 950px) {
