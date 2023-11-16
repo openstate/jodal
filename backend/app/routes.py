@@ -51,11 +51,13 @@ def perform_search(index_name=None):
     page = request.args.get('page', '')
     page_size = request.args.get('limit', '10')
     sort = request.args.get('sort', '')
+    excludes = request.args.get('excludes', 'description')
+    includes = request.args.get('includes', '*')
     if not term or term == "null":
         term = "*"
 
     results = perform_query(
-        term, filters, page, int(page_size), sort, index_name)
+        term, filters, page, int(page_size), sort, includes, excludes, index_name)
     return results
 
 

@@ -12,11 +12,12 @@ def clean_results(results):
     if len(results.get('hits', {}).get('hits', [])) <= 0:
         return results
     for h in results['hits']['hits']:
-        h['description_clean'] = html2text(
-            h.get('_source', {}).get('description', ''))
+        desc = h.get('_source', {}).get('description')
+        if desc is not None:
+            h['description_clean'] = html2text(desc)
     return results
 
-def perform_query(term, filter_string, page, page_size, sort, index_name=None):
+def perform_query(term, filter_string, page, page_size, sort, includes, excludes, index_name=None):
 
     filters = parse_filters(filter_string)
     logging.info(filters)
@@ -34,7 +35,7 @@ def perform_query(term, filter_string, page, page_size, sort, index_name=None):
             aggregation_fields = app.config[app_name]['elasticsearch']['aggregations']
         highlighting = app.config[app_name]['elasticsearch'].get('indices', {}).get(idx, {}).get('highlight', None)
 
-    query = get_basic_query(filters, term, page, page_size, sort, query_fields, aggregation_fields, highlighting)
+    query = get_basic_query(filters, term, page, page_size, sort, includes, excludes, query_fields, aggregation_fields, highlighting)
     logging.info(query)
     result = es.search(index=index_name, body=query)
 
@@ -53,7 +54,7 @@ def parse_filters(filters):
 
 
 #Those queries implement the filters as AND filter and the query as query_string_query
-def get_basic_query(filters, term, page, page_size, sort, query_fields, aggregation_fields, highlight):
+def get_basic_query(filters, term, page, page_size, sort, includes, excludes, query_fields, aggregation_fields, highlight):
         query = None
 
         if not page:
@@ -111,10 +112,8 @@ def get_basic_query(filters, term, page, page_size, sort, query_fields, aggregat
                 }
             },
             "_source": {
-              "includes": [
-                "*"
-              ],
-              "excludes": []
+              "includes": includes.split(","),
+              "excludes": excludes.split(",")
             },
             "size": page_size,
             "from": start,
