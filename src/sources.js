@@ -1,14 +1,18 @@
 import { get } from 'svelte/store';
-import { id2locations, apiDomainName } from './stores.js';
+import { id2locations, apiDomainName, sources } from './stores.js';
 
-export function fetchSource(query, sources, location_ids, date_start, date_end, sort_field, sort_order, stable, page, callback) {
-  return fetchFromApi(query, sources, location_ids.map(function (l) { return l.id;}), date_start, date_end, sort_field, sort_order, stable, page, callback);
+export function fetchSource(query, selected_sources, location_ids, date_start, date_end, sort_field, sort_order, stable, page, callback) {
+  return fetchFromApi(query, selected_sources, location_ids.map(function (l) { return l.id;}), date_start, date_end, sort_field, sort_order, stable, page, callback);
 }
 
-function fetchFromApi(query, sources, location_ids, date_start, date_end, sort_field, sort_order, stable, page, callback) {
+function fetchFromApi(query, selected_sources, location_ids, date_start, date_end, sort_field, sort_order, stable, page, callback) {
   console.log('Should fetch locations ' + location_ids + ' using openspending now!');
   // 'http://api.jodal.nl/documents/search?query=*&filter=location.keyword:GM0777|GM0632&sort=published:desc'
-  var api_filter = '&filter=source.keyword:' + encodeURIComponent(sources.join(","));
+  var api_filter = '&filter=';
+  var current_sources = get(sources);
+  if (selected_sources.length != current_sources.length) {
+    api_filter += 'source.keyword:' + encodeURIComponent(selected_sources.join(","));
+  }
   var add_location = (location_ids.length != 1) || (location_ids[0] != '*');
   if (add_location) {
     api_filter += '|location.keyword:'+ location_ids.join(",");
