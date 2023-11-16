@@ -202,8 +202,15 @@ def api_register():
 
 @app.route("/users/simple/me")
 def do_me():
-    if session.get('user') != None:
-        user = session['user']
+    # Delete User For A Given ID
+    client = setup_fa()
+
+    client_response = client.validate_jwt(session['oauth_token'])
+    if client_response.was_successful():
+        if session.get('user') != None:
+            user = session['user']
+        else:
+            user = None
     else:
         user = None
     return jsonify(user)
