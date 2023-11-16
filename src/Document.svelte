@@ -74,7 +74,7 @@
   import Dialog, { Title, Content, Actions, InitialFocus } from '@smui/dialog';
   import Button, { Group, GroupItem, Label, Icon } from '@smui/button';
   import { writable, get, derived } from 'svelte/store';
-  import { identity, apiDomainName } from './stores.js';
+  import { identity, apiDomainName, fetchDocument } from './stores.js';
   let converting = false;
   let open;
   let response = 'Nothing yet.';
@@ -205,7 +205,7 @@
       );
   }
 
-	export function showDocumentDialog(doc) {
+  function _showDocumentDialog(doc) {
     if (typeof(doc.highlight) !== 'undefined') {
       var highlight_tags_removed = doc.highlight.replace('<em>', '').replace('</em>', '');
       if (typeof(doc.description) !== 'undefined') {
@@ -220,5 +220,24 @@
     GoogleSpreadSheetId.set(undefined);
     getDocumentTools();
     docDialog.open();
+  }
+
+	export function showDocumentDialog(doc) {
+    var doc_id = doc._id;
+    var doc_highlight = doc.highlight;
+
+    if(typeof(doc.description) === 'undefined') {
+      console.log('Show document: Getting data for document', doc);
+      fetchDocument(doc_id).then(function(data) {
+        console.log('Show document: got document data:', data);
+        if (data.hits.total.value > 0) {
+          doc = data.hits.hits[0]._source;
+        }
+        doc.highlight = doc_highlight;
+        _showDocumentDialog(doc)
+      });
+    } else {
+      _showDocumentDialog(doc);
+    }
 	}
 </script>

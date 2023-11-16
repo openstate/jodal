@@ -108,7 +108,7 @@ function _addInquiry(data) {
 }
 
 export function fetchDocument(doc_id) {
-  return fetch(window.location.protocol + '//' + apiDomainName + '/documents/search?query=id:'+doc_id)
+  return fetch(window.location.protocol + '//' + apiDomainName + '/documents/search?query=id:'+doc_id+'&excludes=')
     .then(r => r.json())
 }
 
