@@ -67,7 +67,7 @@ services:
       - jodal
     restart: always
   mysql:
-    image: mysql:5.7.21
+    image: mysql:8.0
     # This root password will be overwritten with the password used in
     # the backup that will be restored from a .sql file in the
     # docker-entrypoint-initdb.d directory.
@@ -82,7 +82,9 @@ services:
     restart: always
     command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci']
   fusionauth:
-    image: fusionauth/fusionauth-app:latest
+    build:
+      context: ./
+      dockerfile: Dockerfile-fusionauth
     depends_on:
       - mysql
     environment:
@@ -93,7 +95,8 @@ services:
       DATABASE_PASSWORD: jodal
       FUSIONAUTH_APP_MEMORY: 512M
       SEARCH_TYPE: database
-      FUSIONAUTH_APP_URL: https://users.jodal.nl
+      FUSIONAUTH_APP_URL: http://users.jodal.nl
+      FUSIONAUTH_RUNTIME_MODE: development
     networks:
      - jodal
     restart: always
