@@ -34,6 +34,7 @@ Then you can go to `http://app.jodal.nl` preferably in a private window, because
       - Require an API key: 	Yes
       - Generate Refresh Tokens: 	No
       - Enable JWT refresh: 	No
+      - Passwordless: yes
     2. Authentication tokens: no
     3. JWT Enabled: Yes
     4. Self serice registration:
@@ -54,7 +55,7 @@ Then you can go to `http://app.jodal.nl` preferably in a private window, because
   2. Generate an api key for use with the jodal application
   3. Settings
    1. Cors: Enabled
-   
+
 # deployment
 
 Open Overheidsdata uses Fabric for deployment. Run `fab deploy`.
