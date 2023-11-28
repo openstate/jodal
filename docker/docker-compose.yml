@@ -67,7 +67,7 @@ services:
       - jodal
     restart: always
   mysql:
-    image: mysql:8.2.0
+    image: mysql:8.0
     # This root password will be overwritten with the password used in
     # the backup that will be restored from a .sql file in the
     # docker-entrypoint-initdb.d directory.

@@ -1,3 +1,4 @@
+ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY 'jodal';
 CREATE DATABASE IF NOT EXISTS `jodal`;
 
 -- CREATE TABLE IF NOT EXISTS `jodal`.`user` (
