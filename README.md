@@ -10,8 +10,8 @@ jodal is het JOurnalistiek DAshboard Lokaal.
 3. `# Edit config.py and config.yaml accordingly to what you want`
 2. `cd ../docker`
 3. `docker-compose  up -d`
-4. `docker exec jodal_backend_1 ./manage.py elasticsearch put_templates`
-5. `docker exec jodal_backend_1 alembic upgrade head`
+4. `cd ..`
+5. `./setup.sh`
 
 In development mode you can run `./bin/dev.sh` from the base directory, which will launch
 the development environment.
@@ -55,7 +55,9 @@ Then you can go to `http://app.jodal.nl` preferably in a private window, because
   2. Generate an api key for use with the jodal application
   3. Settings
    1. Cors: Enabled
-
+  4. copy the client id and secret from the application to `backend/config.py`
+  5. copy the api key to `backend/config.py`
+  6. restart backend and api container
 # deployment
 
 Open Overheidsdata uses Fabric for deployment. Run `fab deploy`.
