@@ -1,5 +1,5 @@
 <script>
-export let title;
+export let title = "(zonder titel)";
 export let key;
 export let date;
 export let type;
