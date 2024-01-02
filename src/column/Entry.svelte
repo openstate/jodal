@@ -32,14 +32,18 @@ $: time_since = timeDisplay(cur_date);
 </script>
 
 <div class="entry" id="entry_{column}{key}" transition:slide="{{ duration: 150 }}" on:click={function (e) { e.preventDefault(); showDocumentDialog(entry); return false;}}>
-  {#if title}
   <div class="entry-title">
+  {#if title}
     <a href="#entry_{column}{key}" {title}>
     { title }
     </a>
+  {else}
+  <a href="#entry_{column}{key}">
+  ( zonder titel )
+  </a>
+  {/if}
     <div class="entry-date">{time_since}</div>
   </div>
-  {/if}
 </div>
 
 
