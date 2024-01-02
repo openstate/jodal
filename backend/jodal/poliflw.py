@@ -96,6 +96,10 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
                 item.get('location', None), item.get('parties', ['-'])[0], item_id,)
             data = {}
             if item.get('location', None) in self.poliflw_locations:
+                description = item.get('description', '').strip()
+                title = item.get('title', '').strip()
+                if (description == '') and (title == ''):
+                    continue
                 r = {
                     '_id': h_id.hexdigest(),
                     '_index': 'jodal_documents',
@@ -103,8 +107,8 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
                     'identifier': r_uri,
                     'url': poliflw_url,
                     'location': self.poliflw_locations[item['location']],
-                    'title': item.get('title', ''),
-                    'description': item.get('description', ''),
+                    'title': title,
+                    'description': description,
                     'created': item['date'],
                     'modified': item['date'],
                     'published': item['date'],
