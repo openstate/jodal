@@ -37,7 +37,7 @@ $: time_since = timeDisplay(cur_date);
     <a href="#entry_{column}{key}" {title}>
     { title }
     </a>
-  {else}
+  {:else}
   <a href="#entry_{column}{key}">
   ( zonder titel )
   </a>
