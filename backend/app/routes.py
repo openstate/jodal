@@ -130,6 +130,32 @@ def subscriptions_delete():
         result = {'error': 'Er ging iets verkeerd', 'status': 'error', 'msg': str(resp.content)}
     return jsonify(result)
 
+@app.route("/users/passwordless/start", methods=["GET"])
+def api_passwordless_start():
+    client = setup_fa()
+
+    email = request.args.get('email','')
+
+    if email.strip() == '':
+        return jsonify({"error": "Email was empty"})
+
+    client_response = client.start_passwordless_login({
+        'applicationId': app.config['CLIENT_ID'],
+        'loginId': request.form['email']
+    })
+    # result = resp.json()
+
+    if not client_response.was_successful():
+        return jsonify({"error": "Some kind of error: %s" % (client_response.error_response,)})
+
+    send_response = client.send_passwordless_code(
+        client_response.success_response)
+
+    if send_response.was_successful():
+        return jsonify(send_response.succes_response)
+    else:
+        return jsonify({"error": "Some kind of error: %s" % (send_response.error_response,)})
+
 @app.route("/users/login", methods=["POST"])
 def api_login():
 
