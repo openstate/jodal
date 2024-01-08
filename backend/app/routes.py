@@ -156,6 +156,26 @@ def api_passwordless_start():
     else:
         return jsonify({"error": "Some kind of error: %s" % (send_response.error_response,)})
 
+@app.route("/users/passwordless/complete", methods=["GET"])
+def api_passwordless_complete():
+    client = setup_fa()
+
+    code = request.args.get('code','')
+
+    if code.strip() == '':
+        return jsonify({"error": "Code was empty"})
+
+    client_response = client.passwordless_login({
+        'applicationId': app.config['CLIENT_ID'],
+        'code': code
+    })
+    # result = resp.json()
+
+    if not client_response.was_successful():
+        return jsonify({"error": "Some kind of error: %s" % (client_response.error_response,)})
+
+    return jsonify(client_response.succes_response)
+
 @app.route("/users/login", methods=["POST"])
 def api_login():
 
