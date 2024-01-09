@@ -116,7 +116,6 @@ def subscriptions_new():
 
 @app.route("/subscriptions/delete", methods=["GET"])
 def subscriptions_delete():
-    logging.info(request.args)
     resp = requests.delete(
         url='http://binoas.openstate.eu/subscriptions/delete',
         json={
@@ -135,24 +134,38 @@ def api_passwordless_start():
     client = setup_fa()
 
     email = request.args.get('email','')
+    user_id = request.args.get('user_id', '')
+
+    if user_id.strip() != '':
+        resp = requests.get('http://binoas.openstate.eu/users?id=%s' % (user_id,))
+        if resp.status_code == 200:
+            j = resp.json()
+
+            results = j.get('results', [])
+            try:
+                email = results[0]['email']
+            except LookupError as e:
+                email = ''
 
     if email.strip() == '':
-        return jsonify({"error": "Email was empty"})
+        return jsonify({"error": "Email was empty or not found"})
 
     client_response = client.start_passwordless_login({
         'applicationId': app.config['CLIENT_ID'],
-        'loginId': request.form['email']
+        'loginId': email
     })
-    # result = resp.json()
 
     if not client_response.was_successful():
         return jsonify({"error": "Some kind of error: %s" % (client_response.error_response,)})
+
+    logging.info('Started password login succesfully for %s' % (email,))
 
     send_response = client.send_passwordless_code(
         client_response.success_response)
 
     if send_response.was_successful():
-        return jsonify(send_response.succes_response)
+        logging.info('Sent password login succesfully for %s' % (email,))
+        return jsonify(send_response.success_response)
     else:
         return jsonify({"error": "Some kind of error: %s" % (send_response.error_response,)})
 
