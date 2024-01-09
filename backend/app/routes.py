@@ -187,7 +187,7 @@ def api_passwordless_complete():
     if not client_response.was_successful():
         return jsonify({"error": "Some kind of error: %s" % (client_response.error_response,)})
 
-    return jsonify(client_response.succes_response)
+    return jsonify(client_response.success_response)
 
 @app.route("/users/login", methods=["POST"])
 def api_login():
