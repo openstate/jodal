@@ -188,7 +188,7 @@ def api_passwordless_complete():
         return jsonify({"error": "Some kind of error: %s" % (client_response.error_response,)})
 
     session['oauth_token'] = client_response.success_response['token']
-    session['user'] = fusionauth.get(client_response.success_response['user']).json()
+    session['user'] = client_response.success_response['user']
 
     #return jsonify(client_response.success_response)
     return redirect(app.config['JODAL_URL'])
