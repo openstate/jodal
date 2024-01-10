@@ -35,11 +35,13 @@ onMount(function () {
         ).then(
           function (data) {
             if (data) {
-              console.log('Got identity:');
+              console.log('Identity: logged in as ', data);
               //console.dir(data);
               identity.set(data);
               console.log('Setting if testing');
               isTesting.set(typeof(data) !== 'object');
+            } else {
+              console.log('Identity: not logged in')
             }
           }
         );
