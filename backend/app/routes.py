@@ -115,7 +115,7 @@ def subscriptions_new():
         else:
             # TODO: add sending passwordless login here
             res = _passwordless_start(client, email)
-            if 'error' in res:
+            if (res is not None) and ('error' in res):
                 return jsonify(res)
     return jsonify(resp.json())
 
