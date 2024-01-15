@@ -268,14 +268,19 @@ def do_me():
     # Delete User For A Given ID
     client = setup_fa()
 
-    client_response = client.validate_jwt(session['oauth_token'])
-    if client_response.was_successful():
-        if session.get('user') != None:
-            user = session['user']
+    logging.info('session:')
+    logging.info(dict(session))
+    if 'oauth_token' not in session:
+        user = None
+    else:
+        client_response = client.validate_jwt(session['oauth_token'])
+        if client_response.was_successful():
+            if session.get('user') != None:
+                user = session['user']
+            else:
+                user = None
         else:
             user = None
-    else:
-        user = None
     return jsonify(user)
 
 
