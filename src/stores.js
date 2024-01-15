@@ -1,7 +1,7 @@
 import { readable, writable, get, derived } from 'svelte/store';
 import { onMount } from "svelte";
 
-export const domainName = 'jodal.nl';
+export const domainName = 'bron.live';
 export const apiDomainName = 'api.' + domainName;
 export const testDomainName = 'test.' + domainName;
 

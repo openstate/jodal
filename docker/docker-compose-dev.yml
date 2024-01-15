@@ -13,7 +13,7 @@ services:
     ports:
       - 9011:9011
     environment:
-      FUSIONAUTH_APP_URL: http://users.jodal.nl
+      FUSIONAUTH_APP_URL: http://users.bron.live
   node:
     restart: "no"
     command: npm run dev

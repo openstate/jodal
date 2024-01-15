@@ -1,4 +1,4 @@
-export const binoasDomain = 'api.jodal.nl';
+export const binoasDomain = 'api.bron.live';
 
 function buildSubscriptionQuery(sources, locations, user_query) {
   var clauses = [];

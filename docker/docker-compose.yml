@@ -95,7 +95,7 @@ services:
       DATABASE_PASSWORD: jodal
       FUSIONAUTH_APP_MEMORY: 512M
       SEARCH_TYPE: database
-      FUSIONAUTH_APP_URL: http://users.jodal.nl
+      FUSIONAUTH_APP_URL: http://users.bron.live
       FUSIONAUTH_RUNTIME_MODE: development
     networks:
      - jodal
