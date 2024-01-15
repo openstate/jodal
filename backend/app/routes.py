@@ -112,6 +112,11 @@ def subscriptions_new():
 
         if not client_response.was_successful():
             return jsonify(client_response.error_response)
+        else:
+            # TODO: add sending passwordless login here
+            res = _passwordless_start(client, email)
+            if 'error' in res:
+                return jsonify(res)
     return jsonify(resp.json())
 
 @app.route("/subscriptions/delete", methods=["GET"])
@@ -128,6 +133,26 @@ def subscriptions_delete():
     except Exception as e:
         result = {'error': 'Er ging iets verkeerd', 'status': 'error', 'msg': str(resp.content)}
     return jsonify(result)
+
+def _passwordless_start(client, email):
+    client_response = client.start_passwordless_login({
+        'applicationId': app.config['CLIENT_ID'],
+        'loginId': email
+    })
+
+    if not client_response.was_successful():
+        return {"error": "Some kind of error: %s" % (client_response.error_response,)}
+
+    logging.info('Started password login succesfully for %s' % (email,))
+
+    send_response = client.send_passwordless_code(
+        client_response.success_response)
+
+    if send_response.was_successful():
+        logging.info('Sent password login succesfully for %s' % (email,))
+        return send_response.success_response
+    else:
+        return {"error": "Some kind of error: %s" % (send_response.error_response,)}
 
 @app.route("/users/passwordless/start", methods=["GET"])
 def api_passwordless_start():
@@ -150,24 +175,7 @@ def api_passwordless_start():
     if email.strip() == '':
         return jsonify({"error": "Email was empty or not found"})
 
-    client_response = client.start_passwordless_login({
-        'applicationId': app.config['CLIENT_ID'],
-        'loginId': email
-    })
-
-    if not client_response.was_successful():
-        return jsonify({"error": "Some kind of error: %s" % (client_response.error_response,)})
-
-    logging.info('Started password login succesfully for %s' % (email,))
-
-    send_response = client.send_passwordless_code(
-        client_response.success_response)
-
-    if send_response.was_successful():
-        logging.info('Sent password login succesfully for %s' % (email,))
-        return jsonify(send_response.success_response)
-    else:
-        return jsonify({"error": "Some kind of error: %s" % (send_response.error_response,)})
+    return jsonify(_passwordless_start(client, email))
 
 @app.route("/users/passwordless/complete", methods=["GET"])
 def api_passwordless_complete():
