@@ -6,9 +6,11 @@ import re
 from pprint import pformat
 import hashlib
 from copy import deepcopy
+from urllib.parse import urljoin
 
 import requests
 from elasticsearch.helpers import bulk
+from lxml import etree
 
 from jodal.es import setup_elasticsearch
 from jodal.scrapers import MemoryMixin, ElasticsearchMixin, BaseScraper, ElasticsearchBulkMixin
@@ -146,13 +148,56 @@ class CVDRLocationScraper(MemoryMixin, BaseLocationScraper):
             'source': self.name
         })
 
+
+class WoogleLocationScraper(MemoryMixin, BaseLocationScraper):
+    name = 'woogle'
+    url = 'https://doi.wooverheid.nl/?doi=nl&dim=publisher&category=Gemeente'
+
+    def _sanatize_name(self, name):
+        return name.replace('Gemeente ', '')
+
+    def fetch(self):
+        resp = requests.get(self.url, headers=self.headers)
+        html = etree.HTML(resp.content)
+        results = []
+
+        for r in html.xpath("//table//tr"):
+            #print(r)
+            try:
+                l = r.xpath('./td[1]/a/@href')[0]
+            except LookupError as e:
+                l = None
+            gl = urljoin(self.url, l)
+            gm = u''.join(r.xpath('./td[1]//text()')).strip()
+            name = u''.join(r.xpath('./td[2]//text()'))
+            count = u''.join(r.xpath('./td[3]//text()')).replace(',', '')
+            if not count:
+                count = '0'
+            results.append({
+                'url': gl,
+                'code': gm,
+                'name': name,
+                'count': int(count)
+            })
+
+        return results
+
+    def transform(self, item):
+        name = self._sanatize_name(item['name'])
+        return super(WoogleLocationScraper, self).transform({
+            'name': name,
+            'id': item['code'],
+            'source': self.name
+        })
+
 class LocationsScraperRunner(object):
     scrapers = [
         PoliFlwLocationScraper,
         OpenspendingCountyLocationScraper,
         OpenspendingProvinceLocationScraper,
         OpenBesluitvormingLocationScraper,
-        CVDRLocationScraper
+        CVDRLocationScraper,
+        WoogleLocationScraper
     ]
     year = '2023'
 
