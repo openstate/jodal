@@ -32,6 +32,10 @@ export const sources = readable([
   {
     short: 'cvdr',
     name: 'Lokale wet- en regelgeving'
+  },
+  {
+    short: 'woogle',
+    name: 'Woo verzoeken'
   }
 ]);
 
