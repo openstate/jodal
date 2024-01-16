@@ -13,6 +13,8 @@ from time import sleep
 import glob
 
 import requests
+from redis import Redis
+from rq import Connection, Queue, Worker
 
 import click
 from click.core import Command
@@ -82,6 +84,10 @@ def scrapers():
 def openspending():
     """Manage openspending stuff"""
 
+
+@cli.group()
+def worker():
+    """Manage workers"""
 
 @command('elasticsearch')
 def scrapers_elasticsearch():
@@ -316,6 +322,16 @@ def es_put_template(template_dir):
             es.indices.create(index=index_name)
 
 
+@command('run')
+@click.option('--host', default='redis', help='Redis host')
+@click.option('--port', default=6379, help='Redis port')
+def worker_run(host, port):
+    redis_conn = Redis(host=host, port=port)
+    # Tell rq what Redis connection to use
+    with Connection(redis_conn):
+        q = Queue()
+        Worker(q).work()
+
 # Register commands explicitly with groups, so we can easily use the docstring
 # wrapper
 elasticsearch.add_command(es_put_template)
@@ -331,6 +347,8 @@ scrapers.add_command(scrapers_obv)
 scrapers.add_command(scrapers_obv_counts)
 scrapers.add_command(scrapers_cvdr)
 scrapers.add_command(scrapers_elasticsearch)
+
+worker.add_command(worker_run)
 
 if __name__ == '__main__':
     cli()

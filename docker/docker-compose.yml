@@ -66,6 +66,15 @@ services:
     networks:
       - jodal
     restart: always
+  worker:
+    build:
+      context: ../backend
+      dockerfile: Dockerfile
+    volumes:
+      - ../backend:/opt/jodal
+    networks:
+      - jodal
+    restart: always
   redis:
     image: "redis:${REDIS_VERSION}"
     networks:
