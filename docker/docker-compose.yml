@@ -66,6 +66,17 @@ services:
     networks:
       - jodal
     restart: always
+  redis:
+    image: "redis:${REDIS_VERSION}"
+    networks:
+      - jodal
+    volumes:
+     - redisdata:/data
+    sysctls:
+     - net.core.somaxconn=65535
+    command: ["redis-server", "--appendonly", "no", "--save", "\"\""]
+    #mem_limit: 1g
+    restart: always
   mysql:
     image: mysql:8.0
     # This root password will be overwritten with the password used in
@@ -133,6 +144,8 @@ volumes:
   jodal-mysql-volume:
     driver: local
   fa_config:
+    driver: local
+  redisdata:
     driver: local
 networks:
   jodal:
