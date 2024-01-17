@@ -75,6 +75,7 @@ services:
     networks:
       - jodal
     restart: always
+    command: ./manage.py worker run
   redis:
     image: "redis:${REDIS_VERSION}"
     networks:
