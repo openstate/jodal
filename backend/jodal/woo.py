@@ -9,8 +9,8 @@ from time import sleep
 import requests
 from lxml import etree
 from elasticsearch.helpers import bulk
-from rq import Queue
-from redis import Connection, Redis
+from rq import Connection, Queue
+from redis import Redis
 
 from jodal.utils import load_config
 from jodal.es import setup_elasticsearch
@@ -165,6 +165,8 @@ def test():
     fetch_url(url)
 
 def run(config={}):
+    redis_client = setup_redis(config)
+
     resp = requests.get(WOO_URL)
     if resp.status_code != 200:
         logging.warning('Page not fetched correctly!')
@@ -187,9 +189,11 @@ def run(config={}):
         if not count:
             count = '0'
         #print({'url': gl, 'code': gm, 'name': name, 'count': int(count)})
-        logging.info((rc, max_rc))
+        #logging.info((rc, max_rc))
         gln = gl.replace('&infobox=true', '').strip()
         if (gln != WOO_URL) and (rc < max_rc):
             logging.info(gl)
-            fetch_url(gl)
+            with Connection(redis_client):
+                q = Queue()
+                q.enqueue(fetch_url, gl)
         rc += 1

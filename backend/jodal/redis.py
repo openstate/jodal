@@ -10,6 +10,7 @@ def setup_redis(config={}):
 
     if redis_client is None:
         redis_config = config['jodal']['redis']
+        print(redis_config)
         redis_client = Redis(**redis_config)
 
     return redis_client
