@@ -9,9 +9,12 @@ from time import sleep
 import requests
 from lxml import etree
 from elasticsearch.helpers import bulk
+from rq import Queue
+from redis import Connection, Redis
 
 from jodal.utils import load_config
 from jodal.es import setup_elasticsearch
+from jodal.redis import setup_redis
 from jodal.scrapers import (
     MemoryMixin, ElasticsearchMixin, ElasticsearchBulkMixin, BaseScraper,
     BaseWebScraper, BaseFromElasticsearch)
@@ -141,29 +144,36 @@ class WoogleScraperRunner(object):
                 raise e
         logging.info('Fetching woogle resulted in %s items ...' % (len(items)))
 
-def test():
-    print("Test")
+def fetch_url(url):
     config = load_config()
     es = setup_elasticsearch(config)
+    redis_client = setup_redis(config)
     df = None
     dt = None
-    url = 'https://doi.wooverheid.nl/?doi=nl.gm0518&infobox=true'
     kwargs = {
         'config': config,
         'date_from': df,
         'date_to': dt,
         'url': url
     }
+    print(url)
     WoogleScraperRunner().run(**kwargs)
 
-def run():
+def test():
+    print("Test")
+    url = 'https://doi.wooverheid.nl/?doi=nl.gm0518&infobox=true'
+    fetch_url(url)
+
+def run(config={}):
     resp = requests.get(WOO_URL)
-    print(resp)
     if resp.status_code != 200:
+        logging.warning('Page not fetched correctly!')
         return
 
     html = etree.HTML(resp.content)
 
+    rc = 0
+    max_rc = 2
     for r in html.xpath("//table//tr"):
         #print(r)
         try:
@@ -176,4 +186,10 @@ def run():
         count = u''.join(r.xpath('./td[3]//text()')).replace(',', '')
         if not count:
             count = '0'
-        print({'url': gl, 'code': gm, 'name': name, 'count': int(count)})
+        #print({'url': gl, 'code': gm, 'name': name, 'count': int(count)})
+        logging.info((rc, max_rc))
+        gln = gl.replace('&infobox=true', '').strip()
+        if (gln != WOO_URL) and (rc < max_rc):
+            logging.info(gl)
+            fetch_url(gl)
+        rc += 1

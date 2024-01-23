@@ -23,6 +23,8 @@ from elasticsearch.exceptions import NotFoundError
 
 from jodal.utils import load_config
 from jodal.es import setup_elasticsearch
+from jodal.redis import setup_redis
+
 from jodal.locations import LocationsScraperRunner
 from jodal.openspending import (
     OpenSpendingScraperRunner, OpenSpendingDocumentScraperRunner,
@@ -33,6 +35,7 @@ from jodal.obv import (OpenbesluitvormingScraperRunner,
     OpenbesluitvormingCountsScraperRunner)
 from jodal.cvdr import CVDRScraperRunner
 from jodal.scrapers import ElasticSearchScraper, BinoasMixin
+from jodal.woo import run
 
 class BinoasUploader(BinoasMixin, ElasticSearchScraper):
     pass
@@ -294,6 +297,13 @@ def scrapers_cvdr(date_from, date_to, date_field):
     }
     CVDRScraperRunner().run(**kwargs)
 
+@command('woo')
+@click.option('-f', '--date-from', default=(datetime.now() - timedelta(days=1)))
+@click.option('-t', '--date-to', default=datetime.now())
+def scrapers_woo(date_from, date_to):
+    config = load_config()
+    run(config)
+
 @command('put_templates')
 @click.option('--template_dir', default='./mappings/', help='Path to JSON file containing the template.')
 def es_put_template(template_dir):
@@ -326,7 +336,8 @@ def es_put_template(template_dir):
 @click.option('--host', default='redis', help='Redis host')
 @click.option('--port', default=6379, help='Redis port')
 def worker_run(host, port):
-    redis_conn = Redis(host=host, port=port)
+    config = load_config()
+    redis_conn = setup_redis(config)
     # Tell rq what Redis connection to use
     with Connection(redis_conn):
         q = Queue()
@@ -347,6 +358,7 @@ scrapers.add_command(scrapers_obv)
 scrapers.add_command(scrapers_obv_counts)
 scrapers.add_command(scrapers_cvdr)
 scrapers.add_command(scrapers_elasticsearch)
+scrapers.add_command(scrapers_woo)
 
 worker.add_command(worker_run)
 
