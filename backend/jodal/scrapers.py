@@ -35,6 +35,9 @@ class MemoryMixin(object):
 class ElasticsearchMixin(object):
     es = None
 
+    def setup(self):
+        self._init_es()
+
     def _init_es(self):
         if self.es is None:
             logging.info('Elasticsearch: setting up')
@@ -45,9 +48,6 @@ class ElasticsearchMixin(object):
 
 
 class ElasticsearchBulkMixin(MemoryMixin, ElasticsearchMixin):
-    def setup(self):
-        self._init_es()
-
     def teardown(self):
         logging.info(
             'Elasticsearch: bulk storing %s items' % (len(self.items),))

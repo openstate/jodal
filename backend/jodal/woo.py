@@ -8,6 +8,7 @@ from time import sleep
 
 import requests
 from lxml import etree
+from elasticsearch.helpers import bulk
 
 from jodal.utils import load_config
 from jodal.es import setup_elasticsearch
@@ -18,7 +19,7 @@ from jodal.scrapers import (
 WOO_URL = 'https://doi.wooverheid.nl/?doi=nl&dim=publisher&category=Gemeente'
 
 
-class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
+class DocumentsScraper(ElasticsearchMixin, BaseWebScraper):
     name = 'woogle'
     url = ''
     headers = {
@@ -60,6 +61,13 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
             return result['infobox'].get('foi_dossiers', [])
         else:
             return []
+
+    def setup(self):
+        self._init_es()
+
+    def load(self, item):
+        super(DocumentsScraper, self).load(item)
+        result = bulk(self.es, item, False)
 
     def transform(self, item):
         #logging.info(item)
