@@ -4,6 +4,7 @@ import logging
 from time import sleep
 import hashlib
 import datetime
+from time import sleep
 
 import requests
 from lxml import etree
@@ -93,6 +94,18 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
                     'data': data
                 }
 
+                for fd in item['foi_files']:
+                    if not fd.get('dc_source', '').endswith('.pdf'):
+                        logging.info('Skipping foi document %s since it is not a pdf' % (fd.get('dc_source', ''),))
+                        continue
+                    resp = requests.get('http://texter/convert', params={
+                        'url': fd['dc_source'],
+                        'filetype': 'pdf'
+                    })
+                    if resp.status_code == 200:
+                        t = resp.json()
+                        r['description'] += "\n\n" + fd['dc_title'] + "\n\n" + t.get('text', '')
+                    sleep(1)
                 ## todo: something with attached documents
                 logging.info(r)
                 result.append(r)
