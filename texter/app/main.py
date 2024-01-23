@@ -10,6 +10,8 @@ import fitz
 
 app = Flask(__name__)
 
+UA = 'Texter v0.01'
+
 @app.route("/")
 def hello():
     return "Hello World from Flask"
@@ -20,10 +22,13 @@ def convert():
     filetype = request.args.get('filetype', 'pdf')
     text = ''
     logging.info('Attempting to retrieve url : %s' % (url,))
-    resp = requests.get(url)
-    doc=fitz.open(stream=BytesIO(resp.content), filetype=filetype)
-    for page in doc: # iterate the document pages
-        text += "\n\n" + page.get_text() # get plain text encoded as UTF-8
+    resp = requests.get(url, headers={
+        'User-agent': UA
+    })
+    with fitz.open(stream=BytesIO(resp.content), filetype=filetype) as doc:
+    #with fitz.open(stream=BytesIO(resp.content)) as doc:
+        for page in doc: # iterate the document pages
+            text += "\n\n" + page.get_text() # get plain text encoded as UTF-8
     logging.info('Converted url : %s' % (url,))
     return json.dumps({
         'url': url,
