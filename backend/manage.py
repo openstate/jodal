@@ -20,6 +20,7 @@ import click
 from click.core import Command
 from click.decorators import _make_command
 from elasticsearch.exceptions import NotFoundError
+from elasticsearch.helpers import reindex
 
 from jodal.utils import load_config
 from jodal.es import setup_elasticsearch
@@ -331,6 +332,15 @@ def es_put_template(template_dir):
             click.echo("Should make index %s" % (index_name,))
             es.indices.create(index=index_name)
 
+@command('reindex')
+@click.option('--source', default='jodal_documents', help='Source index')
+@click.option('--target', default='jodal_copy_documents', help='Target index')
+def es_reindex(source, target):
+    config = load_config()
+    es = setup_elasticsearch(config)
+
+    click.echo('Copying ES template %s to %s' % (source, target,))
+    reindex(es, source, target)
 
 @command('run')
 @click.option('--host', default='redis', help='Redis host')
@@ -346,6 +356,7 @@ def worker_run(host, port):
 # Register commands explicitly with groups, so we can easily use the docstring
 # wrapper
 elasticsearch.add_command(es_put_template)
+elasticsearch.add_command(es_reindex)
 
 openspending.add_command(openspending_openspendingcompare)
 
