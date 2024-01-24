@@ -21,6 +21,16 @@
                               "custom_word_delimiter"
                           ],
                           "tokenizer": "standard"
+                      },
+                      "fttext_nl": {
+                        "type": "custom",
+                        "filter": [
+                            "asciifolding",
+                            "lowercase",
+                            "custom_word_delimiter",
+                            "type_as_payload"
+                        ],
+                        "tokenizer": "standard"
                       }
                   },
                   "filter": {
@@ -74,11 +84,8 @@
             "description": {
               "type": "text",
               "analyzer": "text_nl",
-              "fields": {
-                "raw": {
-                  "type": "keyword"
-                }
-              }
+              "term_vector": "with_positions_offsets_payloads",
+              "analyzer": "fttext_nl"
             },
             "created": {
               "type": "date"
