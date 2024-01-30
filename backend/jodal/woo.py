@@ -5,6 +5,8 @@ from time import sleep
 import hashlib
 import datetime
 from time import sleep
+from pprint import pprint
+import json
 
 import requests
 from lxml import etree
@@ -172,6 +174,19 @@ def test():
     url = 'https://doi.wooverheid.nl/?doi=nl.gm0518&infobox=true'
     fetch_url(url)
 
+def load_counts():
+    result = {}
+    with open('./woo-counts.json', 'r') as in_file:
+        result = json.load(in_file)
+    return result
+
+def save_counts(results):
+    counts = {}
+    for gm in results.keys():
+        counts[gm] = results[gm]['count']
+    with open('./woo-counts.json', 'w') as out_file:
+        json.dump(counts, out_file)
+
 def run(config={}):
     redis_client = setup_redis(config)
 
@@ -183,7 +198,8 @@ def run(config={}):
     html = etree.HTML(resp.content)
 
     rc = 0
-    max_rc = 2
+    max_rc = 0
+    results = {}
     for r in html.xpath("//table//tr"):
         #print(r)
         try:
@@ -199,9 +215,28 @@ def run(config={}):
         #print({'url': gl, 'code': gm, 'name': name, 'count': int(count)})
         #logging.info((rc, max_rc))
         gln = gl.replace('&infobox=true', '').strip()
-        if (gln != WOO_URL) and (rc < max_rc):
+        if (gln != WOO_URL):
             logging.info(gl)
-            with Connection(redis_client):
-                q = Queue()
-                q.enqueue(fetch_url, gl)
-        rc += 1
+            result = {
+                'url': gl, 'code': gm, 'name': name, 'count': int(count)}
+            results[gm] = result
+
+    try:
+        old_counts = load_counts()
+    except (json.decoder.JSONDecodeError, FileNotFoundError) as e:
+        old_counts = {}
+
+    for gm in results.keys():
+        num_current = results[gm]['count']
+        try:
+            num_old = old_counts[gm]
+        except LookupError as e:
+            num_old = 0
+        if num_old == num_current:
+            print("%s has the same counts, skipping" % (gm,))
+            continue
+        with Connection(redis_client):
+            q = Queue()
+            q.enqueue(fetch_url, results[gm]['url'])
+    save_counts(results)
+    #pprint(results)
