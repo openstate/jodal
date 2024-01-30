@@ -71,6 +71,11 @@ class DocumentsScraper(ElasticsearchMixin, BaseWebScraper):
         self._init_es()
         self.redis_client = setup_redis(self.config)
 
+    def _get_hashed_id(self, dc_identifier):
+        h_id = hashlib.sha1()
+        h_id.update(dc_identifier.encode('utf-8'))
+        return h_id.hexdigest()
+
     def transform(self, item):
         #logging.info(item)
         names = getattr(self, 'names', None) or [self.name]
@@ -78,8 +83,7 @@ class DocumentsScraper(ElasticsearchMixin, BaseWebScraper):
         for n in names:
             data = {}
             r_uri = item['dc_identifier']
-            h_id = hashlib.sha1()
-            h_id.update(r_uri.encode('utf-8'))
+            h_id = self._get_hashed_id(r_uri)
             if item.get('dc_publisher', None) in self.locations:
                 description = item.get('dc_description', '').strip()
                 title = item.get('dc_title', '').strip()
@@ -87,9 +91,9 @@ class DocumentsScraper(ElasticsearchMixin, BaseWebScraper):
                     continue
                 ud = item.get('foi_updateDate') or item['foi_retrievedDate']
                 r = {
-                    '_id': h_id.hexdigest(),
+                    '_id': h_id,
                     '_index': 'jodal_documents',
-                    'id': h_id.hexdigest(),
+                    'id': h_id,
                     'identifier': r_uri,
                     'url': 'https://doi.wooverheid.nl/?doi=%s' % (r_uri,),
                     'location': self.locations[item['dc_publisher']],
@@ -206,7 +210,7 @@ def run(config={}):
             l = r.xpath('./td[1]/a/@href')[0]
         except LookupError as e:
             l = None
-        gl = urljoin(WOO_URL, l) + '&infobox=true'
+        gl = urljoin(WOO_URL, l) + '.2i&infobox=true'
         gm = u''.join(r.xpath('./td[1]//text()')).strip()
         name = u''.join(r.xpath('./td[2]//text()'))
         count = u''.join(r.xpath('./td[3]//text()')).replace(',', '')
