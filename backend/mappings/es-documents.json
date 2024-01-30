@@ -83,7 +83,6 @@
             },
             "description": {
               "type": "text",
-              "analyzer": "text_nl",
               "term_vector": "with_positions_offsets_payloads",
               "analyzer": "fttext_nl"
             },

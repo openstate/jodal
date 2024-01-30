@@ -132,6 +132,7 @@ class WoogleScraperRunner(object):
 def fetch_attachments(result_item, documents):
     config = load_config()
     es = setup_elasticsearch(config)
+    converted_documents = 0
     for fd in documents:
         if not fd.get('dc_source', '').endswith('.pdf'):
             logging.info('Skipping foi document %s since it is not a pdf' % (fd.get('dc_source', ''),))
@@ -143,8 +144,11 @@ def fetch_attachments(result_item, documents):
         if resp.status_code == 200:
             t = resp.json()
             result_item['description'] += "\n\n" + fd['dc_title'] + "\n\n" + t.get('text', '')
+            converted_documents += 1
         sleep(1)
-    bulk(es, [result_item], False)
+    # only index when there are in fact attached pdfs
+    if converted_documents > 0:
+        bulk(es, [result_item], False)
 
 
 
