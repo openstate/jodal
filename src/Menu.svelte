@@ -9,6 +9,7 @@
   <!--
     <Link class="menu-link" to="bronnen">Bronnen</Link>
     <Link class="menu-link" to="over">Over Ons</Link> -->
+    <a href="https://bron.super.site/gids" class="menu-link" target="_blank">Gids</a>
     <a href="https://bron.super.site/faq" class="menu-link" target="_blank">FAQs</a>
     <a href="https://bron.super.site/over-bron" class="menu-link" target="_blank">Over</a>
     <div class="social-container menu-link">
