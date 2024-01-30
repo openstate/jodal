@@ -210,7 +210,8 @@ def run(config={}):
             l = r.xpath('./td[1]/a/@href')[0]
         except LookupError as e:
             l = None
-        gl = urljoin(WOO_URL, l) + '.2i&infobox=true'
+        gl = urljoin(WOO_URL, l) + '&infobox=true'
+        #gl = urljoin(WOO_URL, l) + '.2i&infobox=true'
         gm = u''.join(r.xpath('./td[1]//text()')).strip()
         name = u''.join(r.xpath('./td[2]//text()'))
         count = u''.join(r.xpath('./td[3]//text()')).replace(',', '')
