@@ -38,6 +38,8 @@ class DocumentsScraper(ElasticsearchMixin, BaseWebScraper):
         self.date_to = kwargs['date_to']
         self.url = kwargs['url']
         self.locations = None
+        self.max_count = kwargs['max_count']
+        self.item_count = 0
         logging.info('Scraper: fetch from %s to %s' % (
             self.date_from, self.date_to,))
 
@@ -108,9 +110,11 @@ class DocumentsScraper(ElasticsearchMixin, BaseWebScraper):
                     'data': data
                 }
 
-                with Connection(self.redis_client):
-                    q = Queue()
-                    q.enqueue(fetch_attachments, r, [f for f in item.get('foi_files', []) if f.get('dc_source', '').endswith('.pdf')])
+                if self.item_count < self.max_count:
+                    with Connection(self.redis_client):
+                        q = Queue()
+                        q.enqueue(fetch_attachments, r, [f for f in item.get('foi_files', []) if f.get('dc_source', '').endswith('.pdf')])
+                    self.item_count += 1
 
         # logging.info(pformat(result))
         return result
@@ -158,7 +162,7 @@ def fetch_attachments(result_item, documents):
 
 
 
-def fetch_url(url):
+def fetch_url(url, max_count):
     config = load_config()
     es = setup_elasticsearch(config)
     redis_client = setup_redis(config)
@@ -168,9 +172,9 @@ def fetch_url(url):
         'config': config,
         'date_from': df,
         'date_to': dt,
-        'url': url
+        'url': url,
+        'max_count': max_count
     }
-    print(url)
     WoogleScraperRunner().run(**kwargs)
 
 def test():
@@ -240,8 +244,9 @@ def run(config={}):
         if num_old == num_current:
             print("%s has the same counts, skipping" % (gm,))
             continue
+        print("Now getting result for %s" % (gm,))
         with Connection(redis_client):
             q = Queue()
-            q.enqueue(fetch_url, results[gm]['url'])
+            q.enqueue(fetch_url, results[gm]['url'], num_current - num_old)
     save_counts(results)
     #pprint(results)

@@ -342,6 +342,21 @@ def es_reindex(source, target):
     click.echo('Copying ES template %s to %s' % (source, target,))
     reindex(es, source, target)
 
+@command('delete_source')
+@click.option('--index', default='jodal_documents', help='Index')
+@click.option('--source', default='woo', help='Source')
+def es_delete_source(index, source):
+    config = load_config()
+    es = setup_elasticsearch(config)
+    body= {
+        "query": {
+            "term": {
+                "source": source
+            }
+        }
+    }
+    click.echo(es.delete_by_query(index=index, body=body))
+
 @command('run')
 @click.option('--host', default='redis', help='Redis host')
 @click.option('--port', default=6379, help='Redis port')
@@ -357,6 +372,7 @@ def worker_run(host, port):
 # wrapper
 elasticsearch.add_command(es_put_template)
 elasticsearch.add_command(es_reindex)
+elasticsearch.add_command(es_delete_source)
 
 openspending.add_command(openspending_openspendingcompare)
 
