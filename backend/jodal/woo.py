@@ -22,7 +22,7 @@ from jodal.scrapers import (
     BaseWebScraper, BaseFromElasticsearch)
 
 WOO_URL = 'https://doi.wooverheid.nl/?doi=nl&dim=publisher&category=Gemeente'
-
+WOO_TIMEOUT = (5,15)
 
 class DocumentsScraper(ElasticsearchMixin, BaseWebScraper):
     name = 'woogle'
@@ -150,7 +150,7 @@ def fetch_attachments(result_item, documents):
         resp = requests.get('http://texter/convert', params={
             'url': fd['dc_source'],
             'filetype': 'pdf'
-        })
+        }, timeout=WOO_TIMEOUT)
         if resp.status_code == 200:
             t = resp.json()
             result_item['description'] += "\n\n" + fd['dc_title'] + "\n\n" + t.get('text', '')
@@ -198,7 +198,7 @@ def save_counts(results):
 def run(config={}):
     redis_client = setup_redis(config)
 
-    resp = requests.get(WOO_URL)
+    resp = requests.get(WOO_URL, timeout=WOO_TIMEOUT)
     if resp.status_code != 200:
         logging.warning('Page not fetched correctly!')
         return
