@@ -4,14 +4,14 @@
       <Drawer variant="modal" bind:this={myDrawer2} bind:open={myDrawer2Open} on:MDCDrawer:closed={() => drawerOpen.update(n => false)}>
         <Content>
           <List>
-          <Item href="https://bron.super.site/gids" target="_blank">
+          <Item href="https://site.bron.live/gids">
             <Text>Gids</Text>
           </Item>
 
-          <Item href="https://bron.super.site/faq" target="_blank">
+          <Item href="https://site.bron.live/faq">
             <Text>FAQs</Text>
           </Item>
-          <Item href="https://bron.super.site/over-bron" target="_blank">
+          <Item href="https://site.bron.live/over-bron">
             <Text>Over</Text>
           </Item>
           <div class="social-container">
