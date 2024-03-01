@@ -94,6 +94,9 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
             data = {}
             r_uri = item['link']
             h_id = self._get_hashed_id(r_uri)
+            if self.es.exists(id=h_id, index='jodal_documents'):
+                logging.info('Document %s already exists.' % (h_id,))
+                continue
             item_location = item['title'].rsplit(':', -1)[-1].strip()
             pdf_url = item['link'].replace('.html', '.pdf')
             if item_location in self.locations:
