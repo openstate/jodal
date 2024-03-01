@@ -36,6 +36,10 @@ export const sources = readable([
   {
     short: 'woogle',
     name: 'Woo verzoeken'
+  },
+  {
+    short: 'obk',
+    name: 'Officiële bekendmakingen'
   }
 ]);
 
