@@ -349,7 +349,7 @@ def es_put_template(template_dir):
         with open(template_path, 'rb') as template_file:
             template = json.load(template_file)
         template_name = os.path.basename(template_file.name.replace('es-','').replace('.json', ''))
-        es.indices.put_template(template_name, template)
+        es.indices.put_index_template(template_name, template)
         index_name = 'jodal_%s' % (template_name)
         if not es.indices.exists(index=index_name):
             click.echo("Should make index %s" % (index_name,))
