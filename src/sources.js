@@ -15,7 +15,7 @@ function fetchFromApi(query, selected_sources, location_ids, date_start, date_en
   }
   var add_location = (location_ids.length != 1) || (location_ids[0] != '*');
   if (add_location) {
-    api_filter += '|location.keyword:'+ location_ids.join(",");
+    api_filter += '|location.raw:'+ location_ids.join(",");
   }
   if (stable !== null) {
     api_filter += "|published_to:" + encodeURIComponent(stable);
