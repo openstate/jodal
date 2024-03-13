@@ -46,6 +46,23 @@ class BaseLocationScraper(BaseScraper):
         return None
 
 
+class OverheidsOrganisatiesScraper(MemoryMixin, BaseLocationScraper):
+    name = 'oo'
+    url = 'https://almanak.overheid.nl/archive/exportOO.xml'
+    nsmap = {}
+
+    def fetch(self):
+        xml = etree.XML(requests.get(self.url).content)
+        self.nsmap = xml.nsmap
+        return xml.xpath('//p:organisaties/p:organisatie', namespaces=xml.nsmap)
+
+    def transform(self, item):
+        return super(OverheidsOrganisatiesScraper, self).transform({
+            'name': u''.join(item.xpath('./p:naam//text()', namespaces=self.nsmap)),
+            'id': item.xpath('./@p:systeemId', namespaces=self.nsmap)[0],
+            'source': self.name
+        })
+
 class PoliFlwLocationScraper(MemoryMixin, BaseLocationScraper):
     name = 'poliflw'
     url = 'https://api.poliflw.nl/v0/search'
@@ -197,7 +214,8 @@ class LocationsScraperRunner(object):
         OpenspendingProvinceLocationScraper,
         OpenBesluitvormingLocationScraper,
         CVDRLocationScraper,
-        WoogleLocationScraper
+        WoogleLocationScraper,
+        OverheidsOrganisatiesScraper
     ]
     year = '2023'
 
