@@ -48,7 +48,7 @@ onMount(function () {
     }
   };
   async function fetchLocations() {
-    return fetch(window.location.protocol + '//' + apiDomainName + '/locations/search?limit=500&sort=name.keyword:asc')
+    return fetch(window.location.protocol + '//' + apiDomainName + '/locations/search?limit=500&sort=name.raw:asc')
       .then(r => r.json())
       .then(data => {
         console.log('got locations data:')

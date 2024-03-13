@@ -57,11 +57,15 @@ class OverheidsOrganisatiesScraper(MemoryMixin, BaseLocationScraper):
         return xml.xpath('//p:organisaties/p:organisatie', namespaces=xml.nsmap)
 
     def transform(self, item):
-        return super(OverheidsOrganisatiesScraper, self).transform({
+        result = {
             'name': u''.join(item.xpath('./p:naam//text()', namespaces=self.nsmap)),
             'id': item.xpath('./@p:systeemId', namespaces=self.nsmap)[0],
+            'type': item.xpath('./p:types//p:type/text()', namespaces=self.nsmap),
             'source': self.name
-        })
+        }
+        if 'Ministerie' in result['type']:
+            result['name'] = 'Ministerie van %s' % (result['name'],)
+        return super(OverheidsOrganisatiesScraper, self).transform(result)
 
 class PoliFlwLocationScraper(MemoryMixin, BaseLocationScraper):
     name = 'poliflw'
@@ -271,6 +275,9 @@ class LocationsScraperRunner(object):
                 'source': 'cbs'}
         return list(provinces.values())
 
+    def extract_oo(self, items):
+        return [i for i in items if (i['source'] == 'oo' and 'Ministerie' in i['type'])]
+
     def get_hash(self, source, identifier):
         return '%s:%s' % (source, identifier,)
 
@@ -281,6 +288,8 @@ class LocationsScraperRunner(object):
         # logging.info(municipalities)
         provinces = self.extract_provinces(municipalities)
         locations = self.extract_municipalities(municipalities) + provinces
+        locations += self.extract_oo(items)
+
         location_names = [l['name'] for l in locations]
         # logging.info(locations)
         total_counts = {}
