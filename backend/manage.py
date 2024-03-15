@@ -38,6 +38,7 @@ from jodal.cvdr import CVDRScraperRunner
 from jodal.scrapers import ElasticSearchScraper, BinoasMixin
 from jodal.woo import run
 from jodal.obk import OBKScraperRunner
+from jodal.oor import OORScraperRunner
 
 class BinoasUploader(BinoasMixin, ElasticSearchScraper):
     pass
@@ -328,6 +329,27 @@ def scrapers_obk(date_from, date_to):
     }
     OBKScraperRunner().run(**kwargs)
 
+@command('oor')
+@click.option('-f', '--date-from', default=(datetime.now() - timedelta(days=1)))
+@click.option('-t', '--date-to', default=datetime.now())
+def scrapers_oor(date_from, date_to):
+    config = load_config()
+    es = setup_elasticsearch(config)
+    try:
+        df = date_from.isoformat()[0:19]
+    except AttributeError as e:
+        df = str(date_from)
+    try:
+        dt = date_to.isoformat()[0:19]
+    except AttributeError as e:
+        dt = str(date_to)
+    kwargs = {
+        'config': config,
+        'date_from': df,
+        'date_to': dt
+    }
+    OORScraperRunner().run(**kwargs)
+
 @command('put_templates')
 @click.option('--template_dir', default='./mappings/', help='Path to JSON file containing the template.')
 def es_put_template(template_dir):
@@ -410,6 +432,7 @@ scrapers.add_command(scrapers_cvdr)
 scrapers.add_command(scrapers_elasticsearch)
 scrapers.add_command(scrapers_woo)
 scrapers.add_command(scrapers_obk)
+scrapers.add_command(scrapers_oor)
 
 worker.add_command(worker_run)
 
