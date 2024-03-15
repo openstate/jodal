@@ -40,6 +40,10 @@ export const sources = readable([
   {
     short: 'obk',
     name: 'Officiële bekendmakingen'
+  },
+  {
+    short: 'oor',
+    name: 'Rapporten van de Ministeries'
   }
 ]);
 
