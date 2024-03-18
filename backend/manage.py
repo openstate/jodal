@@ -332,7 +332,9 @@ def scrapers_obk(date_from, date_to):
 @command('oor')
 @click.option('-f', '--date-from', default=(datetime.now() - timedelta(days=1)))
 @click.option('-t', '--date-to', default=datetime.now())
-def scrapers_oor(date_from, date_to):
+@click.option('--paging', '-p', is_flag=True, default=False, help="Pagination")
+@click.option('--max-pages', '-m', default=0)
+def scrapers_oor(date_from, date_to, paging, max_pages):
     config = load_config()
     es = setup_elasticsearch(config)
     try:
@@ -346,7 +348,9 @@ def scrapers_oor(date_from, date_to):
     kwargs = {
         'config': config,
         'date_from': df,
-        'date_to': dt
+        'date_to': dt,
+        'paging': paging,
+        'max_pages': max_pages
     }
     OORScraperRunner().run(**kwargs)
 
