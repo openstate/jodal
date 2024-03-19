@@ -88,10 +88,14 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
         return h_id.hexdigest()
 
     def _get_item_description(self, pdf_url):
-        resp = requests.get('http://texter/convert', params={
-            'url': pdf_url,
-            'filetype': 'pdf'
-        }, timeout=OOR_TIMEOUT)
+        try:
+            resp = requests.get('http://texter/convert', params={
+                'url': pdf_url,
+                'filetype': 'pdf'
+            }, timeout=OOR_TIMEOUT)
+        except requests.exceptions.ReadTimeout as e:
+            logging.warning(f'Time out converting pdf to text: {pdf_url}')
+            return ''
         if resp.status_code == 200:
             t = resp.json()
             return t.get('text', '')
