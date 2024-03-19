@@ -106,7 +106,7 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
             data = {}
             full_uri = urljoin(OOR_URL, u''.join(item.xpath('.//h2/a/@href')))
             parse_uri = urlparse(full_uri)
-            r_uri = parse_uri.scheme + ';//' + parse_uri.netloc + parse_uri.path  # create stable urls
+            r_uri = parse_uri.scheme + '://' + parse_uri.netloc + parse_uri.path  # create stable urls
             h_id = self._get_hashed_id(r_uri)
             if self.es.exists(id=h_id, index='jodal_documents'):
                 logging.info('Document %s already exists.' % (h_id,))
