@@ -1,5 +1,5 @@
 import re
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 import logging
 from time import sleep
 import hashlib
@@ -104,7 +104,9 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
         result = []
         for n in names:
             data = {}
-            r_uri = urljoin(OOR_URL, u''.join(item.xpath('.//h2/a/@href')))
+            full_uri = urljoin(OOR_URL, u''.join(item.xpath('.//h2/a/@href')))
+            parse_uri = urlparse(full_uri)
+            r_uri = parse_uri.scheme + ';//' + parse_uri.netloc + parse_uri.path  # create stable urls
             h_id = self._get_hashed_id(r_uri)
             if self.es.exists(id=h_id, index='jodal_documents'):
                 logging.info('Document %s already exists.' % (h_id,))
@@ -119,7 +121,6 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
                     continue
                 item_date = u''.join(
                     item.xpath('.//ul[contains(@class,"list--metadata")]/li[3]//text()')).split(':')[-1]
-                print(item_date)
                 d, m, y = item_date.strip().split('-')
                 ud = datetime.datetime(int(y), int(m), int(d)).isoformat()
                 item_type = u''.join(
@@ -141,6 +142,7 @@ class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
                     'type': item_type,
                     'data': data
                 }
+                #logging.info(r['url'])
                 # logging.info(pformat(r))
                 result.append(r)
         #logging.info(pformat(result))
