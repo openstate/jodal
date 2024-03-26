@@ -82,16 +82,21 @@ class PoliFlwLocationScraper(MemoryMixin, BaseLocationScraper):
 
     def transform(self, item):
         name = self._sanatize_name(item['key'])
+        item_type = 'Gemeente'
+        if name.lower().startswith('provincie'):
+            item_type = 'Provincie'
         return super(PoliFlwLocationScraper, self).transform({
             'name': name,
             'id': item['key'],
-            'source': self.name
+            'source': self.name,
+            'type': [item_type]
         })
 
 
 class OpenspendingCountyLocationScraper(MemoryMixin, BaseLocationScraper):
     name = 'openspending'
     url = 'https://www.openspending.nl/api/v1/governments/?kind=county&limit=1000'
+    item_type = 'Gemeente'
 
     def fetch(self):
         response = super(OpenspendingCountyLocationScraper, self).fetch()
@@ -104,13 +109,14 @@ class OpenspendingCountyLocationScraper(MemoryMixin, BaseLocationScraper):
             'id': item['code'],  # 'https://www.openspending.nl%s' % (item['resource_uri'],),
             'kind': item['kind'],
             'parent_kind': item['state'],
-            'source': self.name
+            'source': self.name,
+            'type': [self.item_type]
         })
 
 class OpenspendingProvinceLocationScraper(OpenspendingCountyLocationScraper):
     name = 'openspending'
     url = 'https://www.openspending.nl/api/v1/governments/?kind=province&limit=1000'
-
+    item_type = 'Provincie'
 
 class OpenBesluitvormingLocationScraper(MemoryMixin, BaseLocationScraper):
     name = 'openbesluitvorming'
@@ -141,11 +147,16 @@ class OpenBesluitvormingLocationScraper(MemoryMixin, BaseLocationScraper):
 
     def transform(self, item):
         name = item['_source'].get('name', '').replace('Gemeente ', '').replace('(L)','(L.)')
+        if item['_source']['classification'] == 'municipality':
+            item_type = 'Gemeente'
+        else:
+            item_type = 'Provincie'
         return super(OpenBesluitvormingLocationScraper, self).transform({
             'name': name,
             'id': '%s%s' % (item['_source']['@context']['@base'], item['_source']['@id'],),
             'kind': item['_source']['classification'],
-            'source': self.name
+            'source': self.name,
+            'type': [item_type]
         })
 
 
@@ -166,7 +177,8 @@ class CVDRLocationScraper(MemoryMixin, BaseLocationScraper):
         return super(CVDRLocationScraper, self).transform({
             'name': name,
             'id': item['id'],
-            'source': self.name
+            'source': self.name,
+            'type': ['Gemeente']
         })
 
 
@@ -208,7 +220,8 @@ class WoogleLocationScraper(MemoryMixin, BaseLocationScraper):
         return super(WoogleLocationScraper, self).transform({
             'name': name,
             'id': item['code'],
-            'source': self.name
+            'source': self.name,
+            'type': ['Gemeente']
         })
 
 class LocationsScraperRunner(object):
@@ -258,6 +271,7 @@ class LocationsScraperRunner(object):
                 'name': m['Gemeentenaam'],
                 'id': m['GemeentecodeGM'],
                 'kind': 'municipality',
+                'type': ['Gemeente'],
                 'source': 'cbs'
             }
             municipalities.append(r)
@@ -272,6 +286,7 @@ class LocationsScraperRunner(object):
                 'name': 'Provincie %s' % (m['Provincienaam'],),
                 'id': m['ProvinciecodePV'],
                 'kind': 'province',
+                'type': ['Provincie'],
                 'source': 'cbs'}
         return list(provinces.values())
 

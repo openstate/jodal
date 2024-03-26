@@ -50,6 +50,9 @@
             "source": {
               "type": "keyword"
             },
+            "type": {
+              "type": "keyword"
+            },
             "name": {
               "type": "text",
               "analyzer": "text_nl",
