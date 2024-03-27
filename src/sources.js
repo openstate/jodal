@@ -16,8 +16,23 @@ function fetchFromApi(query, selected_sources, location_ids, date_start, date_en
 
   var all_locations = (location_ids.length <= 0) || (location_ids.includes('*'));
   if (!all_locations) {
-    var loc_ids = location_ids;
-    api_filter += '|location.raw:'+ location_ids.join(",");
+    var cur_locs = get(locations);
+    var loc_ids = location_ids.map(function (l) {
+      var parts = l.split(':');
+      if (parts.length > 1) {
+        var m = cur_locs.filter(function (c) {
+          if (c[parts[0]] == parts[1]) {
+            return c['id'];
+          }
+        });
+        if (m.length > 0) {
+          return m.map(function (x) {return x['id'];}).join(",");
+        }
+      } else {
+        return l;
+      }
+    });
+    api_filter += '|location.raw:'+ loc_ids.join(",");
   }
 
   if (stable !== null) {
