@@ -48,7 +48,7 @@ class BaseLocationScraper(BaseScraper):
 
 class OverheidsOrganisatiesScraper(MemoryMixin, BaseLocationScraper):
     name = 'oo'
-    url = 'https://almanak.overheid.nl/archive/exportOO.xml'
+    url = 'https://organisaties.overheid.nl/archive/exportOO.xml'
     nsmap = {}
 
     def fetch(self):

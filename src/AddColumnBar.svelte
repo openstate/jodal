@@ -163,7 +163,7 @@
 
   function doAddInquiry() {
     if (typeof(selectedLocations) == 'undefined') {
-      selectedLocations = [{'value': '*', 'label': 'Alle gemeenten'}];
+      selectedLocations = [{'value': '*', 'label': 'Alles'}];
     } else {
       if (selectedLocations.length > 1) {
         selectedLocations = selectedLocations.filter(function (l) { return (l.value != '*');})
@@ -175,7 +175,7 @@
     var selected = $locations.filter(l => selected_ids.indexOf(l.id) >= 0);
     name = selected_names.join(", ");
     if (name == '*') {
-      name = 'Alle gemeenten';
+      name = 'Alles';
     }
     // if (newQuery == '') {
     //   newQuery = "*"
