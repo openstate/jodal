@@ -1,5 +1,5 @@
 import { get } from 'svelte/store';
-import { id2locations, apiDomainName, sources } from './stores.js';
+import { id2locations, apiDomainName, sources, locations } from './stores.js';
 
 export function fetchSource(query, selected_sources, location_ids, date_start, date_end, sort_field, sort_order, stable, page, callback) {
   return fetchFromApi(query, selected_sources, location_ids.map(function (l) { return l.id;}), date_start, date_end, sort_field, sort_order, stable, page, callback);
@@ -13,10 +13,13 @@ function fetchFromApi(query, selected_sources, location_ids, date_start, date_en
   if (selected_sources.length != current_sources.length) {
     api_filter += 'source:' + encodeURIComponent(selected_sources.join(","));
   }
-  var add_location = (location_ids.length != 1) || (location_ids[0] != '*');
-  if (add_location) {
+
+  var all_locations = (location_ids.length <= 0) || (location_ids.includes('*'));
+  if (!all_locations) {
+    var loc_ids = location_ids;
     api_filter += '|location.raw:'+ location_ids.join(",");
   }
+
   if (stable !== null) {
     api_filter += "|published_to:" + encodeURIComponent(stable);
   }
