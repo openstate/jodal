@@ -6,7 +6,7 @@ export const apiDomainName = 'api.' + domainName;
 export const testDomainName = 'test.' + domainName;
 
 export const searchUrl = writable('');
-export const searchFeedUrl = derived(searchUrl, $searchUrl => $searchUrl + '&format=feed');
+export const searchFeedUrl = derived(searchUrl, $searchUrl => $searchUrl + '&excludes=&format=feed');
 
 //export const isTesting = readable((window.location.hostname == testDomainName));
 export const identity = writable(false);
