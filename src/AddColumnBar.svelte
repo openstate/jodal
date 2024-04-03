@@ -53,7 +53,7 @@
       </select>
     </div>
     <div class="cell cell-auto-flex flexy">
-      <a href="#" id="rss-button mdc-button" class="subscribe-button mdc-button">RSS</a>
+      <a href="{$searchFeedUrl}" id="rss-button mdc-button" class="subscribe-button mdc-button">RSS</a>
     </div>
     <div class="cell cell-auto-flex flexy">
       <Button class="subscribe-button input-full-width" style="width: 100%" on:click={(e) => handleSubscription(e)}>Maak alert aan</Button>
@@ -63,7 +63,7 @@
 </div>
 </form>
 <script>
-  import { addInquiry, removeInquiry, inquiries, locations, selectable_locations, id2locations, sources, drawerOpen,fetchingEnabled, identity, isTesting, apiDomainName, domainName, selected_inquiry, selected_inquiry_id } from './stores.js';
+  import { addInquiry, removeInquiry, inquiries, locations, selectable_locations, id2locations, sources, drawerOpen,fetchingEnabled, identity, isTesting, apiDomainName, domainName, selected_inquiry, selected_inquiry_id, searchFeedUrl } from './stores.js';
   import AddColumn, { startAddColumn } from './AddColumn.svelte';
   import TopAppBar, {Row, Section, Title} from '@smui/top-app-bar';
   import IconButton from '@smui/icon-button';

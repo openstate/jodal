@@ -1,5 +1,5 @@
 import { get } from 'svelte/store';
-import { id2locations, apiDomainName, sources, locations } from './stores.js';
+import { id2locations, apiDomainName, sources, locations, searchUrl, searchFeedUrl } from './stores.js';
 
 export function fetchSource(query, selected_sources, location_ids, date_start, date_end, sort_field, sort_order, stable, page, callback) {
   return fetchFromApi(query, selected_sources, location_ids.map(function (l) { return l.id;}), date_start, date_end, sort_field, sort_order, stable, page, callback);
@@ -51,6 +51,7 @@ function fetchFromApi(query, selected_sources, location_ids, date_start, date_en
   api_filter += date_filter;
   var url =  window.location.protocol + '//' + apiDomainName + '/documents/search?page='+ page + '&query=' + encodeURIComponent(query || '*') + api_filter +'&sort=' + sort_field + ':' + sort_order + '&limit=50';
   console.log(url);
+  searchUrl.set(url);
 
   return fetch(
     url, {cache: 'no-cache'}).then(
