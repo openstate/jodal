@@ -4,12 +4,14 @@ from functools import wraps
 import logging
 import traceback
 import hashlib
+from urllib.parse import urljoin
 
-from flask import Flask, session, render_template, request, redirect, url_for, flash, Markup, jsonify, send_file
+from flask import Flask, session, render_template, request, redirect, url_for, flash, Markup, jsonify, send_file, make_response
 from requests_oauthlib import OAuth2Session
 from fusionauth.fusionauth_client import FusionAuthClient
 import pkce
 import requests
+from feedgen.feed import FeedGenerator
 
 from app import app, db, AppError
 from app.fa import setup_fa
@@ -44,13 +46,42 @@ def decode_json_post_data(fn):
 
     return wrapped_function
 
+def make_feed(results, title='Test', description='test', link='https://openstate.eu'):
+    fg = FeedGenerator()
+    fg.title(title)
+    fg.description(description)
+    fg.link(href=link)
 
-def perform_search(index_name=None):
+    items = results.get('hits', {}).get('hits', [])
+    items.reverse()  # ??
+    for i in items: # get_news() returns a list of articles from somewhere
+        title = i['_source'].get('title') or i['_source'].get('name', '')
+        pubDate = i['_source']['published']
+        if 'T' not in pubDate:
+            pubDate += 'T00:00:00'
+        if 'Z' not in pubDate:
+            pubDate += 'Z+00:00'
+        fe = fg.add_entry()
+        fe.title(title)
+        fe.link(href=urljoin(app.config['JODAL_URL'], 'doc/' + i['_source']['id']))
+        fe.description(i['_source'].get('description', ''))
+        fe.guid(i['_source']['id'], permalink=False) # Or: fe.guid(article.url, permalink=True)
+        fe.pubDate(pubDate)
+    response = make_response(fg.rss_str())
+    response.headers.set('Content-Type', 'application/rss+xml')
+
+    return response
+
+def perform_search(index_name=None, format='json'):
     term = request.args.get('query', '')
     filters = request.args.get('filter', '')
     page = request.args.get('page', '')
     page_size = request.args.get('limit', '10')
-    sort = request.args.get('sort', '')
+    if format == 'feed':
+        default_sort = 'published:desc'
+    else:
+        default_sort = ''
+    sort = request.args.get('sort', default_sort)
     excludes = request.args.get('excludes', 'description')
     includes = request.args.get('includes', '*')
     if not term or term == "null":
@@ -417,14 +448,22 @@ def download(source, external_item_id):
 
 @app.route('/search')
 def search():
-    results = perform_search()
-    return jsonify(results)
+    format = request.args.get('format', 'json')
+    results = perform_search(format=format)
+    if format == 'feed':
+        return make_feed(results)
+    else:
+        return jsonify(results)
 
 
 @app.route('/<index_name>/search')
 def search_index(index_name):
-    results = perform_search('jodal_%s' % (index_name,))
-    return jsonify(results)
+    format = request.args.get('format', 'json')
+    results = perform_search('jodal_%s' % (index_name,), format=format)
+    if format == 'feed':
+        return make_feed(results)
+    else:
+        return jsonify(results)
 
 if __name__ == "__main__":
     app.run(threaded=True)
