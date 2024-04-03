@@ -167,7 +167,8 @@ function doGoToEntry() {
   }
 }
 
-function doNextPage() {
+function doNextPage(e) {
+	e.preventDefault();
   console.log('should get next page with stable ' + stable_date + ' with page ' + stable_page_number);
   loading = true;
   fetchFromSources(stable_page_number, stable_date);
@@ -536,7 +537,7 @@ onDestroy(function () {
   {/each}
   {#if !loading && itemsLeft}
   <div id="more-page-link" class="entry entry-paging">
-    <a href="#" on:click={() => doNextPage()}>Meer resultaten</a>
+    <a href="#" on:click={(e) => doNextPage(e)}>Meer resultaten</a>
   </div>
   {/if}
   {#if loading}
