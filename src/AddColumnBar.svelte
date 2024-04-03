@@ -53,6 +53,9 @@
       </select>
     </div>
     <div class="cell cell-auto-flex flexy">
+      <a href="#" id="rss-button mdc-button" class="subscribe-button mdc-button">RSS</a>
+    </div>
+    <div class="cell cell-auto-flex flexy">
       <Button class="subscribe-button input-full-width" style="width: 100%" on:click={(e) => handleSubscription(e)}>Maak alert aan</Button>
       <p class="input-help">Afmelden kan met &eacute;&eacute;n klik.</p>
     </div>

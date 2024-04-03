@@ -64,7 +64,9 @@ def make_feed(results, title='Test', description='test', link='https://openstate
         fe = fg.add_entry()
         fe.title(title)
         fe.link(href=urljoin(app.config['JODAL_URL'], 'doc/' + i['_source']['id']))
-        fe.description(i['_source'].get('description', ''))
+        desc = i.get('description_clean', '')
+        if desc.strip() != '':
+            fe.description(desc)
         fe.guid(i['_source']['id'], permalink=False) # Or: fe.guid(article.url, permalink=True)
         fe.pubDate(pubDate)
     response = make_response(fg.rss_str())
