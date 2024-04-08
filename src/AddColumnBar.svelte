@@ -1,3 +1,10 @@
+<svelte:head>
+  <link
+  rel="alternate"
+  type="application/rss+xml"
+  href="{$searchFeedUrl}"
+  title="RSS Feed">
+</svelte:head>
 <Modal>
   <div slot="modalTitle">Melding</div>
   <div slot="modalContent">{modalMsg}</div>
