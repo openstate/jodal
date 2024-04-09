@@ -3,7 +3,7 @@
   rel="alternate"
   type="application/rss+xml"
   href="{$searchFeedUrl}"
-  title="RSS Feed">
+  title="RSS Feed voor {description}">
 </svelte:head>
 <Modal>
   <div slot="modalTitle">Melding</div>
