@@ -59,9 +59,10 @@
         <option value="168h" selected={frequency == '168h'}>Elke week</option>
       </select>
     </div>
+    <!--
     <div class="cell cell-auto-flex flexy">
       <a href="{$searchFeedUrl}" target="_blank" id="rss-button mdc-button" class="subscribe-button mdc-button" style="background: orange;">RSS</a>
-    </div>
+    </div> -->
     <div class="cell cell-auto-flex flexy">
       <Button class="subscribe-button input-full-width" style="width: 100%" on:click={(e) => handleSubscription(e)}>Maak alert aan</Button>
       <p class="input-help">Afmelden kan met &eacute;&eacute;n klik.</p>
