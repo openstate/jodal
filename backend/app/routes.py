@@ -46,7 +46,7 @@ def decode_json_post_data(fn):
 
     return wrapped_function
 
-def make_feed(results, title='Test', description='test', link='https://openstate.eu'):
+def make_feed(results, title='Test', description='test', link=app.config['JODAL_URL']):
     fg = FeedGenerator()
     fg.title(title)
     fg.description(description)
@@ -451,9 +451,11 @@ def download(source, external_item_id):
 @app.route('/search')
 def search():
     format = request.args.get('format', 'json')
+    title = request.args.get('title', 'Test')
+    description = request.args.get('description', 'Test')
     results = perform_search(format=format)
     if format == 'feed':
-        return make_feed(results)
+        return make_feed(results, title, description)
     else:
         return jsonify(results)
 
@@ -461,9 +463,11 @@ def search():
 @app.route('/<index_name>/search')
 def search_index(index_name):
     format = request.args.get('format', 'json')
+    title = request.args.get('title', 'Test')
+    description = request.args.get('description', 'Test')
     results = perform_search('jodal_%s' % (index_name,), format=format)
     if format == 'feed':
-        return make_feed(results)
+        return make_feed(results, title, description)
     else:
         return jsonify(results)
 

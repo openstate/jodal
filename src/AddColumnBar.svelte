@@ -2,7 +2,7 @@
   <link
   rel="alternate"
   type="application/rss+xml"
-  href="{$searchFeedUrl}"
+  href="{$searchFeedUrl}&title={description}&description={description}"
   title="RSS Feed voor {description}">
 </svelte:head>
 <Modal>
