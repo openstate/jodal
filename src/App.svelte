@@ -1,5 +1,5 @@
 <svelte:head>
-  <title>Bron - alle overheidsdata — monitor, filter, stuur door ({testEnv})</title>
+  <title>Bron - alle overheidsdata — monitor, filter, stuur door</title>
 </svelte:head>
 
 <Router url="{url}">
