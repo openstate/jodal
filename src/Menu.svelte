@@ -17,7 +17,7 @@
       <a href="https://github.com/openstate/jodal" target="_blank">
         <img class="social-logo" src="/images/github.svg">
       </a>
-      <a href="https://mastodon.nl/bron_live" target="_blank">
+      <a href="https://mastodon.social/@bron_live" target="_blank">
         <img class="social-logo" src="/images/mastodon.svg">
       </a>
       <a href="https://twitter.com/bron_live" target="_blank">
