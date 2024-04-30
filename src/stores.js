@@ -46,7 +46,7 @@ export const sources = readable([
   },
   {
     short: 'oor',
-    name: 'Rapporten van de Ministeries'
+    name: 'Rapporten'
   }
 ]);
 
