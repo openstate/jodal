@@ -463,7 +463,7 @@ def download(source, external_item_id):
         items, source, external_item_id, file_format)
 
 
-@app.route('/archive/create')
+@app.route('/archive/warc/create')
 @ensure_authenticated
 def archive_create():
     url = request.args.get('url')
@@ -475,7 +475,7 @@ def archive_create():
     return josinfy(results)
 
 
-@app.route('/archive/<archive_id>')
+@app.route('/archive/warc/<archive_id>')
 @ensure_authenticated
 def archive_status(archive_id):
     results = {}
