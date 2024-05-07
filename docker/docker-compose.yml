@@ -152,6 +152,15 @@ services:
     networks:
       - jodal
     restart: always
+  heritrix:
+    image : "iipc/heritrix"
+    environment:
+      - USERNAME=jodal
+      - PASSWORD=jodal
+    networks:
+      - jodal
+    volumes:
+      - heritrixjobs:/opt/heritrix/jobs
 volumes:
   esbackups:
     driver: local
@@ -162,6 +171,8 @@ volumes:
   fa_config:
     driver: local
   redisdata:
+    driver: local
+  heritrixjobs:
     driver: local
 networks:
   jodal:
