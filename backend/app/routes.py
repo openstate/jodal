@@ -55,7 +55,7 @@ def ensure_authenticated(fn):
         else:
             user = None
         if user is None:
-            return AppError('Not logged in', 403)
+            raise AppError('Not logged in', 403)
         return fn(*args, **kwargs)
 
     return wrapped_function
