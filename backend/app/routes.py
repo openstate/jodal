@@ -46,6 +46,21 @@ def decode_json_post_data(fn):
 
     return wrapped_function
 
+def ensure_authenticated(fn):
+    """"Decorator thst cheks if user is logged in"""
+    @wraps(fn)
+    def wrapped_function(*args, **kwargs):
+        if session.get('user') != None:
+            user = session['user']
+        else:
+            user = None
+        if user is None:
+            return AppError('Not logged in', 403)
+        return fn(*args, **kwargs)
+
+    return wrapped_function
+
+
 def make_feed(results, title='Test', description='test', link=app.config['JODAL_URL']):
     fg = FeedGenerator()
     fg.title(title)
@@ -446,6 +461,26 @@ def download(source, external_item_id):
         source, external_item_id, file_format)
     return perform_download(
         items, source, external_item_id, file_format)
+
+
+@app.route('/archive/create')
+@ensure_authenticated
+def archive_create():
+    url = request.args.get('url')
+    results = {}
+    # TODO: make identifier base on url + user_id
+    # TODO: create new job : https://heritrix.readthedocs.io/en/latest/api.html#create-new-job
+    # TODO: build job configuration : https://heritrix.readthedocs.io/en/latest/api.html#build-job-configuration
+    # TODO: launch job : https://heritrix.readthedocs.io/en/latest/api.html#launch-job
+    return josinfy(results)
+
+
+@app.route('/archive/<archive_id>')
+@ensure_authenticated
+def archive_status(archive_id):
+    results = {}
+    # TODO: get job status : https://heritrix.readthedocs.io/en/latest/api.html#get-job-status
+    return jsonify(results)
 
 
 @app.route('/search')
