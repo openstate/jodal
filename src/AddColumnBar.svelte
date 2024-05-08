@@ -94,11 +94,12 @@
   import Select, {Option} from '@smui/select';
   import {subscriptionNew } from './binoas.js';
 
+  const urlParams = new URLSearchParams(window.location.search);
   let prominent = false;
   let dense = false;
   let secondaryColor = true; // false;
   let selectedLocations;
-  let newQuery = "windmolens";
+  let newQuery = urlParams.get('query') || "windmolens";
   let oldQuery = newQuery;
   let oldSelectedLocations = selectedLocations;
   let email;
