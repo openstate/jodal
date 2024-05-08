@@ -13,6 +13,8 @@ export let entry;
 
 let empty = false;
 
+const urlParams = new URLSearchParams(window.location.search);
+const showSnippets = urlParams.has('snippets');
 import { slide } from 'svelte/transition';
 import { onMount, onDestroy } from 'svelte';
 import { showDocumentDialog } from '../Document.svelte';
@@ -29,6 +31,7 @@ let cur_date = Date.parse(date);
 
 $: time_since = timeDisplay(cur_date);
 
+if(showSnippets) { console.log('should show snippets!'); }
 </script>
 
 <div class="entry" id="entry_{column}{key}" transition:slide="{{ duration: 150 }}" on:click={function (e) { e.preventDefault(); showDocumentDialog(entry); return false;}}>
@@ -44,8 +47,16 @@ $: time_since = timeDisplay(cur_date);
   {/if}
     <div class="entry-date">{time_since}</div>
   </div>
+  {#if showSnippets}
+  <div class="entry-highlight">&hellip; { @html highlight} &hellip;</div>
+  {/if}
 </div>
 
 
 <style>
+.entry-highlight {
+  font-size: 13px;
+  line-height: 16px;
+  margin-left: 10px;
+}
 </style>
