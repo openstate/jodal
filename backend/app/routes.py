@@ -19,6 +19,7 @@ from app.search import perform_query
 from app.models import Column, UserData
 from app.downloads import prepare_download, perform_download
 from app.user import delete_user_data
+from app.archive import create_archive, archive_status
 
 def decode_json_post_data(fn):
     """Decorator that parses POSTed JSON and attaches it to the request
@@ -467,19 +468,15 @@ def download(source, external_item_id):
 @ensure_authenticated
 def archive_create():
     url = request.args.get('url')
-    results = {}
-    # TODO: make identifier base on url + user_id
-    # TODO: create new job : https://heritrix.readthedocs.io/en/latest/api.html#create-new-job
-    # TODO: build job configuration : https://heritrix.readthedocs.io/en/latest/api.html#build-job-configuration
-    # TODO: launch job : https://heritrix.readthedocs.io/en/latest/api.html#launch-job
+    user = session['user']
+    results = create_archive(url, user)
     return josinfy(results)
 
 
 @app.route('/archive/warc/<archive_id>')
 @ensure_authenticated
 def archive_status(archive_id):
-    results = {}
-    # TODO: get job status : https://heritrix.readthedocs.io/en/latest/api.html#get-job-status
+    results = archive_status(archive_id)
     return jsonify(results)
 
 
