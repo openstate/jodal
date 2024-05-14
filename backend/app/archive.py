@@ -21,6 +21,18 @@ def heritrix_request(path='', params={}, files=None):
         files=files,
         verify=False)
 
+def heritrix_put(path='', params={}, files=None):
+    url = f"{HERITRIX_URL}"
+    if path != '':
+        url += f"/{path}"
+    print(url)
+    return requests.put(
+        url,
+        data=params,
+        auth=HTTPDigestAuth(HERITRIX_USER, HERITRIX_PASSWD),
+        files=files,
+        verify=False)
+
 def heritrix_job_create(job_id):
     resp = heritrix_request(params={'action': 'create', 'createpath': job_id})
     return resp
@@ -42,7 +54,13 @@ def heritrix_generate_job_config(orig_template, url):
         '# [see override above]', url
     ).replace(
         'ENTER_AN_URL_WITH_YOUR_CONTACT_INFO_HERE_FOR_WEBMASTERS_AFFECTED_BY_YOUR_CRAWL', 'https://bron.live/'
+    ).replace(
+        'http://example.example/example', url
     )
+
+def heritrix_put_config(job_id, config):
+    resp = heritrix_put(f"job/{job_id}/jobdir/crawler-beans.cxml", params=config)
+    return resp
 
 def get_warc_archive_id(user_id, url):
     identifier = f"{user_id}\{url}"
@@ -57,8 +75,6 @@ def warc_create_archive(url, user):
     print(f"Hash: {hash_id}")
     # create new job : https://heritrix.readthedocs.io/en/latest/api.html#create-new-job
     resp = heritrix_job_create(hash_id)
-    # build job configuration : https://heritrix.readthedocs.io/en/latest/api.html#build-job-configuration
-    #resp2 = heritrix_job_build(hash_id)
     # get generated config
     content = ''
     with open('./app/files/heritrix.cxml') as in_file:
@@ -67,6 +83,9 @@ def warc_create_archive(url, user):
     new_config = heritrix_generate_job_config(content, url)
     print(new_config)
     # TODO: upload new config
+    resp4 = heritrix_put_config(hash_id, new_config)
+    # build job configuration : https://heritrix.readthedocs.io/en/latest/api.html#build-job-configuration
+    resp2 = heritrix_job_build(hash_id)
     # TODO: launch job : https://heritrix.readthedocs.io/en/latest/api.html#launch-job
     return result
 
