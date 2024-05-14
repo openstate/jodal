@@ -19,7 +19,7 @@ from app.search import perform_query
 from app.models import Column, UserData
 from app.downloads import prepare_download, perform_download
 from app.user import delete_user_data
-from app.archive import create_archive, archive_status
+from app.archive import create_warc_archive, warc_archive_status
 
 def decode_json_post_data(fn):
     """Decorator that parses POSTed JSON and attaches it to the request
@@ -469,14 +469,14 @@ def download(source, external_item_id):
 def archive_create():
     url = request.args.get('url')
     user = session['user']
-    results = create_archive(url, user)
+    results = create_warc_archive(url, user)
     return josinfy(results)
 
 
 @app.route('/archive/warc/<archive_id>')
 @ensure_authenticated
 def archive_status(archive_id):
-    results = archive_status(archive_id)
+    results = warc_archive_status(archive_id)
     return jsonify(results)
 
 
