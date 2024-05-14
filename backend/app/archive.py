@@ -2,6 +2,20 @@
 
 import hashlib
 
+import requests
+from requests.auth import HTTPDigestAuth
+
+HERITRIX_URL = 'https://heritrix:8443/engine'
+HERITRIX_USER = 'jodal'
+HERITRIX_PASSWD = 'jodal'
+
+def heritrix_request(params={}):
+    return requests.post(
+        HERITRIX_URL,
+        data=params,
+        auth=HTTPDigestAuth(HERITRIX_USER, HERITRIX_PASSWD),
+        verify=False)
+
 def get_warc_archive_id(user_id, url):
     identifier = f"{user_id}\{url}"
     h_id = hashlib.sha1()
