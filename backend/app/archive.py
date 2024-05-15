@@ -120,3 +120,10 @@ def warc_archive_status(job_id):
     result = heritrix_request(f"job/{job_id}")
 
     return result
+
+def warc_get_filepath(job_id):
+    try:
+        result = sorted(glob(f"/heritrix/jobs/{job_id}/warcs/*.warc.gz"))[0]
+    except LookupError as e:
+        result = None
+    return result

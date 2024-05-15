@@ -19,7 +19,7 @@ from app.search import perform_query
 from app.models import Column, UserData
 from app.downloads import prepare_download, perform_download
 from app.user import delete_user_data
-from app.archive import warc_create_archive, warc_archive_status
+from app.archive import warc_create_archive, warc_archive_status, warc_get_filepath
 
 def decode_json_post_data(fn):
     """Decorator that parses POSTed JSON and attaches it to the request
@@ -478,6 +478,16 @@ def archive_create():
 def archive_status(archive_id):
     results = warc_archive_status(archive_id)
     return jsonify(results)
+
+
+@app.route('/archive/warc/download/<archive_id>')
+@ensure_authenticated
+def archive_download(archive_id):
+    filepath = warc_get_filepath(archive_id)
+    return send_file(
+        filepath, mimetype='application/warc',
+        attachment_filename=os.path.basename(filepath),
+        as_attachment=True)
 
 
 @app.route('/search')
