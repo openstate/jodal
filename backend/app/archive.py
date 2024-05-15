@@ -123,7 +123,7 @@ def warc_archive_status(job_id):
 
 def warc_get_filepath(job_id):
     try:
-        result = sorted(glob(f"/heritrix/jobs/{job_id}/warcs/*.warc.gz"))[0]
+        result = sorted(glob(f"/heritrix/jobs/{job_id}/warcs/*.warc.gz"))[-1]
     except LookupError as e:
         result = None
     return result
