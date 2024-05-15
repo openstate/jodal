@@ -160,7 +160,7 @@ services:
     networks:
       - jodal
     volumes:
-      - heritrixjobs:/opt/heritrix/jobs
+      - ../heritrix/jobs:/opt/heritrix/jobs
 volumes:
   esbackups:
     driver: local
