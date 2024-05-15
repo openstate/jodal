@@ -70,6 +70,12 @@ def heritrix_job_pause(job_id):
 def heritrix_job_unpause(job_id):
     return heritrix_request(f"job/{job_id}", {'action': 'unpause'})
 
+def heritrix_job_terminate(job_id):
+    return heritrix_request(f"job/{job_id}", {'action': 'terminate'})
+
+def heritrix_job_teardown(job_id):
+    return heritrix_request(f"job/{job_id}", {'action': 'teardown'})
+
 def heritrix_put_config(job_id, config):
     resp = heritrix_put(f"job/{job_id}/jobdir/crawler-beans.cxml", params=config)
     return resp
