@@ -58,6 +58,18 @@ def heritrix_generate_job_config(orig_template, url):
         'http://example.example/example', url
     )
 
+def heritrix_job_launch(job_id, checkpoint=None):
+    params = {'action': 'launch'}
+    if checkpoint is not None:
+        params['checkpont'] = checkpoint
+    return heritrix_request(f"job/{job_id}", params)
+
+def heritrix_job_pause(job_id):
+    return heritrix_request(f"job/{job_id}", {'action': 'pause'})
+
+def heritrix_job_unpause(job_id):
+    return heritrix_request(f"job/{job_id}", {'action': 'unpause'})
+
 def heritrix_put_config(job_id, config):
     resp = heritrix_put(f"job/{job_id}/jobdir/crawler-beans.cxml", params=config)
     return resp
@@ -72,7 +84,6 @@ def warc_create_archive(url, user):
     result = {}
     # make identifier base on url + user_id
     hash_id = get_warc_archive_id(user['id'], url)
-    print(f"Hash: {hash_id}")
     # create new job : https://heritrix.readthedocs.io/en/latest/api.html#create-new-job
     resp = heritrix_job_create(hash_id)
     # get generated config
@@ -81,12 +92,15 @@ def warc_create_archive(url, user):
         content = in_file.read()
     # modify config to add url
     new_config = heritrix_generate_job_config(content, url)
-    print(new_config)
     # TODO: upload new config
     resp4 = heritrix_put_config(hash_id, new_config)
     # build job configuration : https://heritrix.readthedocs.io/en/latest/api.html#build-job-configuration
     resp2 = heritrix_job_build(hash_id)
-    # TODO: launch job : https://heritrix.readthedocs.io/en/latest/api.html#launch-job
+    # launch job : https://heritrix.readthedocs.io/en/latest/api.html#launch-job
+    resp5 = heritrix_job_launch(hash_id)
+    resp6 = heritrix_job_unpause(hash_id)
+
+    result['job_id'] = hash_id
     return result
 
 
