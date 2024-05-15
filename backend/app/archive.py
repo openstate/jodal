@@ -4,6 +4,7 @@ import hashlib
 
 import requests
 from requests.auth import HTTPDigestAuth
+import xmltodict
 
 HERITRIX_URL = 'https://heritrix:8443/engine'
 HERITRIX_USER = 'jodal'
@@ -14,12 +15,15 @@ def heritrix_request(path='', params={}, files=None):
     if path != '':
         url += f"/{path}"
     print(url)
-    return requests.post(
+    resp = requests.post(
         url,
         data=params,
         auth=HTTPDigestAuth(HERITRIX_USER, HERITRIX_PASSWD),
         files=files,
         verify=False)
+    if resp.status_code != 200:
+        return {"status": "error", "code": resp.status_code}
+    return xmltodict.parse(resp.content)
 
 def heritrix_put(path='', params={}, files=None):
     url = f"{HERITRIX_URL}"
@@ -110,7 +114,9 @@ def warc_create_archive(url, user):
     return result
 
 
-def warc_archive_status(archive_id):
+def warc_archive_status(job_id):
     result = {}
         # TODO: get job status : https://heritrix.readthedocs.io/en/latest/api.html#get-job-status
+    result = heritrix_request(f"job/{job_id}")
+
     return result
