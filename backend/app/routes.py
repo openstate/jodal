@@ -16,7 +16,7 @@ from feedgen.feed import FeedGenerator
 from app import app, db, AppError
 from app.fa import setup_fa
 from app.search import perform_query
-from app.models import Column, UserData
+from app.models import Column, UserData, Asset
 from app.downloads import prepare_download, perform_download
 from app.user import delete_user_data
 from app.archive import warc_create_archive, warc_archive_status, warc_get_filepath

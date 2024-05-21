@@ -38,3 +38,11 @@ class UserData(db.Model):
     user_id = db.Column('user_id', BinaryUUID())
     key = db.Column('key', db.String(100), nullable=False)
     value = db.Column('value', db.String(1024))
+
+class Asset(db.Model):
+    __tablename__ = 'asset'
+    id = db.Column('id', db.Integer, primary_key=True)
+    user_id = db.Column('user_id', BinaryUUID())
+    created =  db.Column('created', db.DateTime())
+    modified = db.Column('modified', db.DateTime())
+    last_run = db.Column('last_run', db.DateTime())

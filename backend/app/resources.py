@@ -6,8 +6,9 @@ import flask_restful
 from flask_restful import Resource
 
 from app import db
-from app.models import Column, ColumnSource
-from app.schemas import (column_schema, columns_schema)
+from app.models import Column, ColumnSource, Asset
+from app.schemas import (
+    column_schema, columns_schema, asset_schema, assets_schema)
 
 def authenticate(func):
     @wraps(func)
@@ -76,5 +77,53 @@ class ColumnResource(Resource):
         user_id = session['user']['sub']
         column = Column.query.filter(Column.user_id==user_id, Column.id==column_id).first_or_404()
         db.session.delete(column)
+        db.session.commit()
+        return '', 204
+
+class AssetListResource(Resource):
+    method_decorators = [authenticate]
+
+    def get(self):
+        user_id = session['user']['sub']
+
+        #columns = Column.query.all()
+        assets = Asset.query.filter(Column.user_id==user_id)
+
+        return assets_schema.dump(assets)
+
+    def post(self):
+        user_id = session['user']['sub']
+        new_asset = Asset(
+            user_id=user_id,
+            url=request.json['url']
+        )
+        db.session.add(new_asset)
+        db.session.commit()
+        return asset_schema.dump(new_asset)
+
+class AssetResource(Resource):
+    method_decorators = [authenticate]
+
+    def get(self, asset_id):
+        user_id = session['user']['sub']
+        asset = Asset.query.filter(Asset.user_id==user_id, Asset.id==asset_id).first_or_404()
+        return asset_schema.dump(asset)
+
+    def post(self, asset_id):
+        user_id = session['user']['sub']
+        asset = Asset.query.filter(Asset.user_id==user_id, Asset.id==asset_id).first_or_404()
+        updated_asset = asset_schema.load(request.json)
+        editable = [
+            'url', 'last_run', 'modified']
+        for f in editable:
+            if f in request.json:
+                setattr(asset, f, updated_asset[f])
+        db.session.commit()
+        return asset_schema.dump(asset)
+
+    def delete(self, asset_id):
+        user_id = session['user']['sub']
+        column = Asset.query.filter(Asset.user_id==user_id, Asset.id==asset_id).first_or_404()
+        db.session.delete(asset)
         db.session.commit()
         return '', 204

@@ -5,7 +5,7 @@ import json
 from marshmallow import fields, ValidationError
 
 from app import ma
-from app.models import Column, ColumnSource
+from app.models import Column, ColumnSource, Asset
 
 
 
@@ -62,7 +62,17 @@ class ColumnSchema(ma.Schema):
     date_start = fields.DateTime(allow_none=True, default=None)
     date_end = fields.DateTime(allow_none=True, default=None)
 
+class AssetSchema(ma.Schema):
+    class Meta:
+        fields = ("id", "user_id", "created", "modified", "last_run")
+        model = Asset
+    date_start = fields.DateTime(allow_none=True, default=None)
+    date_end = fields.DateTime(allow_none=True, default=None)
+
+
 column_schema = ColumnSchema()
 columns_schema = ColumnSchema(many=True)
 column_source_schema = ColumnSourceSchema()
 column_sources_schema = ColumnSourceSchema(many=True)
+asset_schema = AssetSchema()
+assets_schema = AssetSchema(many=True)
