@@ -14,6 +14,7 @@
 </Route>
 <Route path="bronnen" component="{Bronnen}" />
 <Route path="over" component="{Over}" />
+<Route path="login" component="{Login}"/>
 <Route path="/d/:id" component={Doc} />
 <Route path="/r/:id" component={Redirect} />
 <Route path="/u/:user_id/:query_id" component={Unsubscribe} />
@@ -21,7 +22,7 @@
 </div>
 </Router>
 <Document/>
-
+<LoginDialog/>
 <script>
   import { Router, Route, Link } from "svelte-routing";
   import Bronnen from "./pages/Bronnen.svelte";
@@ -29,6 +30,7 @@
   import Doc from './Doc.svelte';
   import Redirect from './Redirect.svelte';
   import Unsubscribe from './Unsubscribe.svelte';
+  import Login from './Login.svelte';
 
   export let url = ""; //This property is necessary declare to avoid ignore the Router
 
@@ -40,6 +42,7 @@
   import Document from './Document.svelte';
   import SearchHelp from './SearchHelp.svelte';
   import Subscribe from './Subscribe.svelte';
+  import LoginDialog from './LoginDialog.svelte';
   import { isTesting } from './stores.js';
   const runEnv = runEnvironment.env.isProd ? 'Production' : 'Dev';
   $: testEnv = $isTesting ? 'Test' : 'Beta';
