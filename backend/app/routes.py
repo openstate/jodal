@@ -226,7 +226,8 @@ def api_passwordless_complete():
     # result = resp.json()
 
     if not client_response.was_successful():
-        return jsonify({"error": "Some kind of error: %s" % (client_response.error_response,)})
+        #return jsonify({"error": "Some kind of error: %s" % (client_response.error_response,)})
+        return redirect(urljoin(app.config['JODAL_URL'], '/login'))
 
     session['oauth_token'] = client_response.success_response['token']
     session['user'] = convert_userinfo(client_response.success_response['user'])
