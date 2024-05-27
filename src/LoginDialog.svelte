@@ -13,7 +13,7 @@
     <Button
       default
       use={[InitialFocus]}
-      on:click={() => (response = 'It will be glorious.')}
+      on:click={(e) => (startPasswordlessLogin(e))}
     >
       <Label>Inloggen</Label>
     </Button>
@@ -24,9 +24,26 @@
   import Dialog, { Title, Content, Actions, InitialFocus } from '@smui/dialog';
   import Button, { Label } from '@smui/button';
 
+  import { apiDomainName, loginDialogOpen } from './stores.js';
+
   let open;
-  let response = 'Nothing yet.';
+  let response = '';
   let emailAddress = "";
+
+  function startPasswordlessLogin(e) {
+    //e.preventDefault();
+    var url = window.location.protocol + '//' + apiDomainName + '/users/passwordless/start?email=' + encodeURIComponent(emailAddress);
+    return fetch(
+      url, {cache: 'no-cache'}).then(
+        response => response.json()
+      ).then(
+        function (data) {
+          console.log('login passwordless start response:', data);
+          response = 'Er is zojuis een e-mail gestuurd met verdere instructies om in te loggen.'
+          $loginDialogOpen = false;
+        }
+      );
+  }
 </script>
 
 <script context="module">

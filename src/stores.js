@@ -16,6 +16,8 @@ export const fetchingEnabled = writable(false);
 
 export const drawerOpen = writable(false);
 
+export const loginDialogOpen = writable(true);
+
 export const locations = writable([]);
 export const id2locations = writable({});
 export const selectable_locations = derived(locations, $locations => Object.values($locations).map(function (l) { return {value: l.id, label: l.name}}))
