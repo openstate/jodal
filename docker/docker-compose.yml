@@ -41,6 +41,17 @@ services:
     restart: always
     # Use this to keep the container running
     command: npm run start
+  frontend:
+    image: node:lts
+    working_dir: /opt/app/
+    networks:
+      - jodal
+    volumes:
+      - ../frontend:/opt/app
+    restart: always
+    # Use this to keep the container running
+    # command: npm run start
+    tty: true
   backend:
     build:
       context: ../backend

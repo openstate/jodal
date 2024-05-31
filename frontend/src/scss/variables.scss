@@ -1,0 +1,135 @@
+// Open State Colors
+
+
+// Bootstrap variabelen
+
+// $purple-darker: rgb(50, 8, 84);
+// $magenta: rgb(200, 46, 148);
+// $teak: rgb(97, 168, 169);
+// $teak-darker: rgb(68, 119, 120);
+// $cyan: rgb(108, 202, 209);
+
+// $bs-body-color: rgb(61, 74, 46);
+// $bs-accordion-active-bg: $teak;
+// $bs-accordion-active-color: #fff;
+// $bs-link-color-rgb: $purple;
+// $bs-link-hover-color-rgb: $magenta;
+// $bs-primary: $purple;
+// $bs-btn-color: $purple;
+// $form-label-color: $purple;
+// $table-cell-vertical-align: middle;
+
+:root {
+    /* Open State Colors */
+    --petrol: rgb(1, 92, 110);
+    --petrol-light: rgb(0, 139, 167);
+    --cyan: rgb(88, 184, 208);
+    --cyan-light: rgb(180, 229, 247);
+    --magenta: rgb(166, 38, 137);
+    --magenta-light: rgb(204, 67, 178);
+    --white: #fff;
+    --black: #000;
+    --grey-30: rgb(168, 196, 217); 
+
+    /* Colors */
+    --primary-color: var(--petrol);
+    --primary-color-hover: var(--petrol-light)
+    --secondary-color: var(--magenta);
+    --secondary-color-hover: var(--magenta-light)
+    --tertiary-color: var(--cyan);
+    --tertiary-color-hover: var(--cyan-light)
+
+    /* Bootstrap variabelen */
+    --bs-primary: var(--petrol);
+    --bs-secondary: var(--cyan);
+    --link-primary: var(--magenta);
+
+    /*Algemeen*/
+    --text-decoration: none;
+    --box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);
+
+    /* tekst */
+    --font-family-headings: "ibm-plex-sans", sans-serif;
+    --font-weight-headings: 700;
+    --font-style-headings: normal;
+    --font-family-body: "ibm-plex-sans", sans-serif;
+    --font-weight-body: 400;
+    --font-style-body: normal;
+
+    /*Buttons*/
+    --btn-font-size: 16px;
+    --btn-border-radius: 10px;
+    --btn-border-text-transform: capitalize;
+    --btn-primary-hover: #58B8D0;
+    --btn-secondary-hover: #CC43B2;
+    --btn-hover-transition: 0.3s background-color;
+
+    .btn {
+        font-size: var(--btn-font-size);
+        border-radius: var(--btn-border-radius);
+    }
+
+    .btn-primary {
+        // general
+        --bs-btn-color: var(--white);
+        --bs-btn-bg: var(--magenta);
+        // hover
+        --bs-btn-hover-bg: var(--magenta-light);
+        --bs-btn-border-color: var(--magenta);
+        --bs-btn-hover-border-color: var(--magenta-light);
+        // active
+        --bs-btn-active-bg: var(--magenta);
+        --bs-btn-active-border-color: var(--magenta);
+        // disabled
+        --bs-btn-disabled-bg: var(--magenta);
+        --bs-btn-disabled-border-color: var(--magenta);
+
+    }
+
+    .btn-secondary {
+        //general
+        --bs-btn-color: var(--white);
+        --bs-btn-bg: var(--petrol);
+        //hover
+        --bs-btn-hover-bg: var(--petrol-light);
+        --bs-btn-border-color: var(--petrol);
+        --bs-btn-hover-border-color: var(--petrol-light);
+        //active
+        --bs-btn-active-bg: var(--petrol);
+        --bs-btn-active-border-color: var(--petrol);
+        //disabled
+        --bs-btn-disabled-bg: var(--petrol);
+        --bs-btn-disabled-border-color: var(--petrol);
+    }
+ 
+    .btn-outline-primary {
+        //general
+        --bs-btn-color: var(--magenta);
+        --bs-btn-border-color: var(--magenta);
+        //hover
+        --bs-btn-hover-bg: var(--magenta-light);
+        --bs-btn-hover-border-color: var(--magenta-light);
+        //active
+        --bs-btn-active-bg: var(--magenta);
+        --bs-btn-active-border-color: var(--magenta);
+        //disabled
+        --bs-btn-disabled-color: var(--magenta);
+        --bs-btn-disabled-border-color: var(--magenta);      
+    }
+
+      .btn-outline-secondary {
+        //general
+        --bs-btn-color: var(--petrol);
+        --bs-btn-border-color: var(--petrol);
+        //hover
+        --bs-btn-hover-bg: var(--petrol-light);
+        --bs-btn-hover-border-color: var(--petrol-light);
+        //active
+        --bs-btn-active-bg: var(--petrol);
+        --bs-btn-active-border-color: var(--petrol);
+        //disabled
+        --bs-btn-disabled-color: var(--petrol);
+        --bs-btn-disabled-border-color: var(--petrol);       
+    }
+
+}
