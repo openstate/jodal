@@ -41,22 +41,6 @@ services:
     restart: always
     # Use this to keep the container running
     command: npm run start
-  makesite:
-    build:
-      context: ../www
-      dockerfile: Dockerfile
-    volumes:
-      - ../www/:/opt/jodal
-    networks:
-      - jodal
-  makesite-pdd:
-    build:
-      context: ../www-pdd
-      dockerfile: Dockerfile
-    volumes:
-      - ../www-pdd/:/opt/jodal
-    networks:
-      - jodal
   backend:
     build:
       context: ../backend
