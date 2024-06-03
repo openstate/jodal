@@ -41,6 +41,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@tabler/core": "^1.0.0-beta20",
 		"svelte-bootstrap-icons": "^3.1.1",
 		"svelte-preprocess": "^5.1.4"
 	}
