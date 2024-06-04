@@ -1,17 +1,14 @@
 <script>
 	import { onMount } from "svelte";
-	import "../scss/variables.scss";
-	import "../scss/bootstrap.scss";
+	//import "../scss/variables.scss";
+	//import "../scss/bootstrap.scss";
 	import "../scss/tabler.scss";
 	import "../scss/app.scss";
 	import { browser } from "$app/environment";
-	import NavBar from '$lib/NavBar.svelte';
-	import Footer from '$lib/Footer.svelte';
-	import OpenstateBar from '$lib/OpenstateBar.svelte';
 
 	onMount(async () => {
 		if (!browser) return;
-		await import("bootstrap");
+		//await import("bootstrap");
 		await import("@tabler/core");
 	});
 </script>
@@ -21,11 +18,8 @@
 	<meta property="og:title" content="Bron" />
 </svelte:head>
 
-<OpenstateBar />
-<NavBar/>
 <main class="mt-3 mb-5">
   <div class="container">
     <slot />
   </div>
 </main>
-<Footer/>
