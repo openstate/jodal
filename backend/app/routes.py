@@ -251,16 +251,18 @@ def api_passwordless_complete():
     #return jsonify(client_response.success_response)
     return redirect(app.config['JODAL_URL'])
 
-@app.route("/users/login", methods=["POST"])
+@app.route("/users/login", methods=["POST", "GET"])
 def api_login():
 
     # Delete User For A Given ID
     client = setup_fa()
 
+    loginId = request.args.get('email') or request.form['email']
+    passwd = request.args.get('password') or request.form['password']
     client_response = client.login({
         'applicationId': app.config['CLIENT_ID'],
-        'loginId': request.form['email'],
-        'password': request.form['password']
+        'loginId': loginId,
+        'password': passwd
     })
     # result = resp.json()
 
