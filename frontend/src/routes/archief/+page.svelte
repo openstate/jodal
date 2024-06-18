@@ -35,12 +35,16 @@ function getStatusUpdate() {
   warcStatus(job_id).then(function (data) {
     console.log('warc status data:', data);
     heritrix_response = data;
+    if (data.job.crawlExitStatus == "FINISHED") {
+      clearInterval(job_timer);
+      heritrix_response = "KLAAR";
+    }
   });
 }
 
 function initiateStatusUpdates() {
   console.log('warc initiatin status updates');
-  job_timer = setTimeout(function () {
+  job_timer = setInterval(function () {
     getStatusUpdate();
   }, 1000);
 }
@@ -66,7 +70,7 @@ Verstuur
       <div class="modal-body">
         <code>
         <pre>
-        {JSON.stringify(heritrix_response)}
+        {JSON.stringify(heritrix_response, 2)}
         </pre>
         </code>
       </div>
