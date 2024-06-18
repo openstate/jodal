@@ -7,8 +7,12 @@ let url = "";
 let handleUrlForm = function() {
   //e.preventDefault();
   //alert(url);
-  console.log('form submit! : [' + url + ']')
-  warcCreate(url);
+  if (url != '') {
+    console.log('form submit! : [' + url + ']')
+    warcCreate(url);
+  } else {
+    console.log('no url specified');
+  }
 };
 
 function handleKeydown(e) {
