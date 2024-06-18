@@ -5,6 +5,7 @@ import { warcCreate, warcStatus } from '$lib/archive';
 let url = "";
 let heritrix_response = "";
 let job_id = "";
+let job_timer = null;
 
 let handleUrlForm = function() {
   //e.preventDefault();
@@ -15,6 +16,7 @@ let handleUrlForm = function() {
       console.log('warc got data', data);
       heritrix_response = data;
       job_id = heritrix_response.job_id;
+      initiateStatusUpdates();
     });
   } else {
     console.log('no url specified');
@@ -27,6 +29,22 @@ function handleKeydown(e) {
     handleUrlForm();
   }
 }
+
+function getStatusUpdate() {
+  console.log('warc getting status update');
+  warcStatus(job_id).then(function (data) {
+    console.log('warc status data:', data);
+    heritrix_response = data;
+  });
+}
+
+function initiateStatusUpdates() {
+  console.log('warc initiatin status updates');
+  job_timer = setTimeout(function () {
+    getStatusUpdate();
+  }, 1000);
+}
+
 </script>
 
 <h1>Archief</h1>
@@ -43,15 +61,17 @@ Verstuur
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Modal title</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h5 class="modal-title">Status</h5>
       </div>
       <div class="modal-body">
-        {job_id}
+        <code>
+        <pre>
+        {JSON.stringify(heritrix_response)}
+        </pre>
+        </code>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save changes</button>
       </div>
     </div>
   </div>
