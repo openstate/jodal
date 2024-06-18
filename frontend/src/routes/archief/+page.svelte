@@ -3,13 +3,19 @@ import { identity } from '$lib/stores';
 import { warcCreate, warcStatus } from '$lib/archive';
 
 let url = "";
+let heritrix_response = "";
+let job_id = "";
 
 let handleUrlForm = function() {
   //e.preventDefault();
   //alert(url);
   if (url != '') {
     console.log('form submit! : [' + url + ']')
-    warcCreate(url);
+    warcCreate(url).then(function (data) {
+      console.log('warc got data', data);
+      heritrix_response = data;
+      job_id = heritrix_response.job_id;
+    });
   } else {
     console.log('no url specified');
   }
@@ -41,7 +47,7 @@ Verstuur
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci animi beatae delectus deleniti dolorem eveniet facere fuga iste nemo nesciunt nihil odio perspiciatis, quia quis reprehenderit sit tempora totam unde.
+        {job_id}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>

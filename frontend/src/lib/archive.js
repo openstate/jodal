@@ -18,6 +18,7 @@ export function warcCreate(url) {
         } else {
           console.log('warc could not be created');
         }
+        return data;
       }
     );
 }
@@ -37,6 +38,7 @@ export function warcStatus(archive_id) {
         } else {
           console.log('warc status was not gotten');
         }
+        return data;
       }
     );
 }
