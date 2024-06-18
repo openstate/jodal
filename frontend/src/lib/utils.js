@@ -1,4 +1,5 @@
-import { identity } from '$lib/stores';
+import { identity, apiDomainName } from '$lib/stores';
+import { get } from 'svelte/store';
 
 export function initBronApp() {
   getIdentity();
@@ -6,8 +7,7 @@ export function initBronApp() {
 
 export function getIdentity() {
   console.log('should do identity check now!');
-  var apiDomainName = 'api.bron.live';
-  var url = '//' + apiDomainName + '/users/simple/me';
+  var url = '//' + get(apiDomainName) + '/users/simple/me';
   return fetch(
     url, {credentials: "include", cache: 'no-cache'}).then(
       response => response.json()
@@ -22,5 +22,4 @@ export function getIdentity() {
         }
       }
     );
-
 }

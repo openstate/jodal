@@ -93,7 +93,7 @@ def get_warc_archive_id(user_id, url):
 def warc_create_archive(url, user):
     result = {}
     # make identifier base on url + user_id
-    hash_id = get_warc_archive_id(user['id'], url)
+    hash_id = get_warc_archive_id(user['sub'], url)
     # create new job : https://heritrix.readthedocs.io/en/latest/api.html#create-new-job
     resp = heritrix_job_create(hash_id)
     # get generated config

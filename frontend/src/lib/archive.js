@@ -1,0 +1,42 @@
+import { apiDomainName } from '$lib/stores';
+import { get } from 'svelte/store';
+
+export function warcCreate(url) {
+  console.log('shouldcreate warc now!');
+  var url = '//' + get(apiDomainName) + '/archive/warc/create?' + new URLSearchParams({
+    url: url
+  });
+  return fetch(
+    url, {credentials: "include", cache: 'no-cache'}).then(
+      response => response.json()
+    ).then(
+      function (data) {
+        if (data) {
+          console.log('warc creation response:  ', data);
+          //console.dir(data);
+          //identity.set(data);
+        } else {
+          console.log('warc could not be created');
+        }
+      }
+    );
+}
+
+export function warcStatus(archive_id) {
+  console.log('shouldcreate warc now!');
+  var url = '//' + get(apiDomainName) + '/archive/warc/' + archive_id;
+  return fetch(
+    url, {credentials: "include", cache: 'no-cache'}).then(
+      response => response.json()
+    ).then(
+      function (data) {
+        if (data) {
+          console.log('warc status response:  ', data);
+          //console.dir(data);
+          //identity.set(data);
+        } else {
+          console.log('warc status was not gotten');
+        }
+      }
+    );
+}

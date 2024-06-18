@@ -1,10 +1,14 @@
 <script>
+import { identity } from '$lib/stores';
+import { warcCreate, warcStatus } from '$lib/archive';
+
 let url = "";
 
 let handleUrlForm = function() {
   //e.preventDefault();
   //alert(url);
   console.log('form submit! : [' + url + ']')
+  warcCreate(url);
 };
 
 function handleKeydown(e) {
@@ -17,6 +21,9 @@ function handleKeydown(e) {
 
 <h1>Archief</h1>
 
+<p>Hello ,
+{$identity}
+</p>
   <input type="text" name="url" bind:value={url} on:keydown={handleKeydown} />
 <button type="button" class="btn btnrimary" on:click="{handleUrlForm}">
 Verstuur

@@ -472,8 +472,8 @@ def download(source, external_item_id):
 def archive_create():
     url = request.args.get('url')
     user = session['user']
-    results = create_warc_archive(url, user)
-    return josinfy(results)
+    results = warc_create_archive(url, user)
+    return jsonify(results)
 
 
 @app.route('/archive/warc/<archive_id>')
