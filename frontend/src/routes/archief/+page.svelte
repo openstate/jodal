@@ -25,11 +25,8 @@ function handleKeydown(e) {
 {$identity}
 </p>
   <input type="text" name="url" bind:value={url} on:keydown={handleKeydown} />
-<button type="button" class="btn btnrimary" on:click="{handleUrlForm}">
+<button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#exampleModal" on:click="{handleUrlForm}">
 Verstuur
-</button>
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  Launch demo modal
 </button>
 
 <div class="modal" id="exampleModal" tabindex="-1">
