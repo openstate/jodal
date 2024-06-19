@@ -1,6 +1,10 @@
 import { apiDomainName } from '$lib/stores';
 import { get } from 'svelte/store';
 
+export function warcDownloadURL(archive_id) {
+  var url = '//' + get(apiDomainName) + '/archive/warc/download/' + archive_id;
+  return url;
+}
 export function warcCreate(url) {
   console.log('shouldcreate warc now!');
   var url = '//' + get(apiDomainName) + '/archive/warc/create?' + new URLSearchParams({

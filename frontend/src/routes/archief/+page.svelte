@@ -1,11 +1,13 @@
 <script>
 import { identity } from '$lib/stores';
-import { warcCreate, warcStatus } from '$lib/archive';
+import { warcCreate, warcStatus, warcDownloadURL } from '$lib/archive';
 
 let url = "";
 let heritrix_response = "";
 let job_id = "";
 let job_timer = null;
+let job_status = "";
+let job_running = false;
 
 let handleUrlForm = function() {
   //e.preventDefault();
@@ -35,9 +37,10 @@ function getStatusUpdate() {
   warcStatus(job_id).then(function (data) {
     console.log('warc status data:', data);
     heritrix_response = data;
-    if (data.job.crawlExitStatus == "FINISHED") {
+    job_status = data.job.crawlExitStatus;
+    job_running = data.job.isRunning;
+    if (job_status == "FINISHED") {
       clearInterval(job_timer);
-      heritrix_response = "KLAAR";
     }
   });
 }
@@ -68,14 +71,16 @@ Verstuur
         <h5 class="modal-title">Status</h5>
       </div>
       <div class="modal-body">
-        <code>
-        <pre>
-        {JSON.stringify(heritrix_response, 2)}
-        </pre>
-        </code>
+      {#if job_status != "FINISHED"}
+        <p>Het WARC bestand wordt gegenereerd, even geduld aub.</p>
+      {/if}
+      {#if job_status == "FINISHED"}
+        <p>Het bestand is gegenereerd. Klink op de onderstaande knop om het te downloaden.</p>
+        <a href="{warcDownloadURL(job_id)}" class="btn btn-primary">Downloaden</a>
+      {/if}
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn me-auto" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn me-auto" data-bs-dismiss="modal">Sluiten</button>
       </div>
     </div>
   </div>

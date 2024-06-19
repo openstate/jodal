@@ -25,6 +25,7 @@ services:
       - elasticsearch
     volumes:
       - ../backend:/opt/jodal
+      - ../heritrix/jobs:/heritrix/jobs
     environment:
       OAUTHLIB_INSECURE_TRANSPORT: "1"
     networks:

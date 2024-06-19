@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import hashlib
+from glob import glob
 
 import requests
 from requests.auth import HTTPDigestAuth
@@ -123,7 +124,7 @@ def warc_archive_status(job_id):
 
 def warc_get_filepath(job_id):
     try:
-        result = sorted(glob(f"/heritrix/jobs/{job_id}/warcs/*.warc.gz"))[-1]
+        result = sorted(glob(f"/heritrix/jobs/{job_id}/latest/warcs/*.warc.gz"))[-1]
     except LookupError as e:
         result = None
     return result

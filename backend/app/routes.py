@@ -487,6 +487,7 @@ def archive_status(archive_id):
 @ensure_authenticated
 def archive_download(archive_id):
     filepath = warc_get_filepath(archive_id)
+    logging.info(f'archive {archive_id} => {filepath}')
     return send_file(
         filepath, mimetype='application/warc',
         attachment_filename=os.path.basename(filepath),
