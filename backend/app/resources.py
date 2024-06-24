@@ -86,8 +86,8 @@ class AssetListResource(Resource):
     def get(self):
         user_id = session['user']['sub']
 
-        #columns = Column.query.all()
-        assets = Asset.query.filter(Column.user_id==user_id)
+        #assets = Asset.query.all()
+        assets = Asset.query.filter(Asset.user_id==user_id)
 
         return assets_schema.dump(assets)
 

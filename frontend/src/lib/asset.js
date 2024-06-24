@@ -35,7 +35,6 @@ export function getAssets() {
   return fetch(
     asset_url, {
       credentials: "include",
-      body: JSON.stringify(params),
       headers: {
         'Content-Type': 'application/json'
       }
