@@ -9,6 +9,6 @@ import { getAssets } from '$lib/asset';
 export async function load({ fetch, params }) {
   const identity = await initBronApp();
   const assets = await getAssets();
-  console.log('assets data load');
+  console.log('assets data load:', assets);
 	return {assets};
 }

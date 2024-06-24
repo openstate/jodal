@@ -3,6 +3,9 @@ import { identity } from '$lib/stores';
 import { warcCreate, warcStatus, warcDownloadURL } from '$lib/archive';
 import { createAsset } from '$lib/asset';
 
+/** @type {import('./$types').PageData} */
+export let data;
+
 let url = "";
 let heritrix_response = "";
 let job_id = "";
@@ -66,6 +69,11 @@ function initiateStatusUpdates() {
 Verstuur
 </button>
 
+<ul>
+{#each data.assets as a}
+  <li><a href="{a.url}" target="_blank">{a.url}</a></li>
+{/each}
+</ul>
 <div class="modal" id="exampleModal" tabindex="-1">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
