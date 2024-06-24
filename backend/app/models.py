@@ -43,6 +43,7 @@ class Asset(db.Model):
     __tablename__ = 'asset'
     id = db.Column('id', db.Integer, primary_key=True)
     user_id = db.Column('user_id', BinaryUUID())
+    url = db.Column('url', db.String(1024))
     created =  db.Column('created', db.DateTime())
     modified = db.Column('modified', db.DateTime())
     last_run = db.Column('last_run', db.DateTime())

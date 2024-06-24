@@ -1,6 +1,7 @@
 <script>
 import { identity } from '$lib/stores';
 import { warcCreate, warcStatus, warcDownloadURL } from '$lib/archive';
+import { createAsset } from '$lib/asset';
 
 let url = "";
 let heritrix_response = "";
@@ -15,6 +16,7 @@ let handleUrlForm = function() {
   if (url != '') {
     console.log('form submit! : [' + url + ']')
     warcCreate(url).then(function (data) {
+      createAsset(url);
       console.log('warc got data', data);
       heritrix_response = data;
       job_id = heritrix_response.job_id;
