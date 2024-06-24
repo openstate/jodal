@@ -2,7 +2,7 @@ import { identity, apiDomainName } from '$lib/stores';
 import { get } from 'svelte/store';
 
 export function initBronApp() {
-  getIdentity();
+  return getIdentity();
 }
 
 export function getIdentity() {
@@ -20,6 +20,7 @@ export function getIdentity() {
         } else {
           console.log('Identity: not logged in')
         }
+        return data;
       }
     );
 }

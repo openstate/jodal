@@ -23,3 +23,23 @@ export function createAsset(url) {
       response => response.json()
     );
 }
+
+export function getAssets() {
+  var asset_url = '//' + get(apiDomainName) + '/assets';
+
+  var params = {
+    user_id: identity.sub
+    // more params?
+  };
+
+  return fetch(
+    asset_url, {
+      credentials: "include",
+      body: JSON.stringify(params),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(
+      response => response.json()
+    );
+}
