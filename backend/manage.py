@@ -40,6 +40,7 @@ from jodal.scrapers import ElasticSearchScraper, BinoasMixin
 from jodal.woo import run
 from jodal.obk import OBKScraperRunner
 from jodal.oor import OORScraperRunner
+from jodal.archive import heritrix_job_status, heritrix_job_teardown
 
 class BinoasUploader(BinoasMixin, ElasticSearchScraper):
     pass
@@ -426,10 +427,11 @@ def worker_run(host, port):
 def heritrix_cleanup():
     config = load_config()
     jobs = [os.path.basename(f) for f in glob.glob('./heritrix/jobs/*')]
-    pprint(jobs)
     for j in jobs:
-        results = requests.get('http://api-jodal:5000/archive/warc/' + j).json()
-        pprint(results)
+        results = heritrix_job_status(j)
+        if 'teardown' in results.get('job', {}).get('availableActions', {}).get('value', []):
+            heritrix_job_teardown(j)
+            print(j)
 
 
 # Register commands explicitly with groups, so we can easily use the docstring

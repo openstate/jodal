@@ -15,7 +15,7 @@ def heritrix_request(path='', params={}, files=None):
     url = f"{HERITRIX_URL}"
     if path != '':
         url += f"/{path}"
-    print(url)
+    #print(url)
     resp = requests.post(
         url,
         data=params,
@@ -30,7 +30,7 @@ def heritrix_put(path='', params={}, files=None):
     url = f"{HERITRIX_URL}"
     if path != '':
         url += f"/{path}"
-    print(url)
+    #print(url)
     return requests.put(
         url,
         data=params,
