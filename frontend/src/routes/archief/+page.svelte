@@ -71,7 +71,7 @@ Verstuur
 
 <ul>
 {#each data.assets as a}
-  <li><a href="{a.url}" target="_blank">{a.url}</a></li>
+  <li><a href="{a.url}" target="_blank">{a.url}</a> (<a href="//api.bron.live/archive/warc/download/{a.external_id}">downloaden</a>)</li>
 {/each}
 </ul>
 <div class="modal" id="exampleModal" tabindex="-1">
