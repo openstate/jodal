@@ -1,5 +1,5 @@
 <script>
-import { identity } from '$lib/stores';
+import { identity, apiDomainName } from '$lib/stores';
 import { warcCreate, warcStatus, warcDownloadURL } from '$lib/archive';
 import { createAsset } from '$lib/asset';
 
@@ -71,7 +71,7 @@ Verstuur
 
 <ul>
 {#each data.assets as a}
-  <li><a href="{a.url}" target="_blank">{a.url}</a> (<a href="//api.bron.live/archive/warc/download/{a.external_id}">downloaden</a>)</li>
+  <li><a href="{a.url}" target="_blank">{a.url}</a> (<a href="//{$apiDomainName}/archive/warc/download/{a.external_id}">downloaden</a>)</li>
 {/each}
 </ul>
 <div class="modal" id="exampleModal" tabindex="-1">
