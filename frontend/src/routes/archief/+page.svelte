@@ -19,10 +19,10 @@ let handleUrlForm = function() {
   if (url != '') {
     console.log('form submit! : [' + url + ']')
     warcCreate(url).then(function (data) {
-      createAsset(url);
       console.log('warc got data', data);
       heritrix_response = data;
       job_id = heritrix_response.job_id;
+      createAsset(url, job_id);
       initiateStatusUpdates();
     });
   } else {

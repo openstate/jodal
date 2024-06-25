@@ -44,6 +44,7 @@ class Asset(db.Model):
     id = db.Column('id', db.Integer, primary_key=True)
     user_id = db.Column('user_id', BinaryUUID())
     url = db.Column('url', db.String(1024))
+    external_id = db.Column('external_id', db.String(100))
     created =  db.Column('created', db.DateTime())
     modified = db.Column('modified', db.DateTime())
     last_run = db.Column('last_run', db.DateTime())

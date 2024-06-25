@@ -95,7 +95,8 @@ class AssetListResource(Resource):
         user_id = session['user']['sub']
         new_asset = Asset(
             user_id=user_id,
-            url=request.json['url']
+            url=request.json['url'],
+            external_id=request.json['external_id']
         )
         db.session.add(new_asset)
         db.session.commit()
@@ -114,7 +115,7 @@ class AssetResource(Resource):
         asset = Asset.query.filter(Asset.user_id==user_id, Asset.id==asset_id).first_or_404()
         updated_asset = asset_schema.load(request.json)
         editable = [
-            'url', 'last_run', 'modified']
+            'url', 'external_id', 'last_run', 'modified']
         for f in editable:
             if f in request.json:
                 setattr(asset, f, updated_asset[f])

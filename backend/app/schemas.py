@@ -64,7 +64,9 @@ class ColumnSchema(ma.Schema):
 
 class AssetSchema(ma.Schema):
     class Meta:
-        fields = ("id", "user_id", "url", "created", "modified", "last_run")
+        fields = (
+            "id", "user_id", "url", "external_id", "created", "modified",
+            "last_run")
         model = Asset
     date_start = fields.DateTime(allow_none=True, default=None)
     date_end = fields.DateTime(allow_none=True, default=None)

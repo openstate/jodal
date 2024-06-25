@@ -2,13 +2,13 @@ import { apiDomainName } from '$lib/stores';
 import { get } from 'svelte/store';
 import { identity } from '$lib/stores';
 
-export function createAsset(url) {
+export function createAsset(url, external_id) {
   var asset_url = '//' + get(apiDomainName) + '/assets';
 
   var params = {
     user_id: identity.sub,
-    url: url
-    // more params?
+    url: url,
+    external_id: external_id
   };
 
   return fetch(
