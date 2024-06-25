@@ -59,6 +59,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - ../backend:/opt/jodal
+      - ../heritrix:/opt/jodal/heritrix
     networks:
       - jodal
     restart: always

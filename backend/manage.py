@@ -11,6 +11,7 @@ import time
 import logging
 from time import sleep
 import glob
+from pprint import pprint
 
 import requests
 from redis import Redis
@@ -94,6 +95,10 @@ def openspending():
 @cli.group()
 def worker():
     """Manage workers"""
+
+@cli.group()
+def heritrix():
+    """Manage heritrix"""
 
 @command('elasticsearch')
 def scrapers_elasticsearch():
@@ -417,6 +422,16 @@ def worker_run(host, port):
         q = Queue()
         Worker(q).work()
 
+@command('cleanup')
+def heritrix_cleanup():
+    config = load_config()
+    jobs = [os.path.basename(f) for f in glob.glob('./heritrix/jobs/*')]
+    pprint(jobs)
+    for j in jobs:
+        results = requests.get('http://api-jodal:5000/archive/warc/' + j).json()
+        pprint(results)
+
+
 # Register commands explicitly with groups, so we can easily use the docstring
 # wrapper
 elasticsearch.add_command(es_put_template)
@@ -439,6 +454,8 @@ scrapers.add_command(scrapers_obk)
 scrapers.add_command(scrapers_oor)
 
 worker.add_command(worker_run)
+
+heritrix.add_command(heritrix_cleanup)
 
 if __name__ == '__main__':
     cli()
