@@ -82,7 +82,14 @@ Verstuur
 
 <ul>
 {#each data.assets as a}
-  <li><a href="{a.url}" target="_blank">{a.url}</a> (<a href="//{$apiDomainName}/archive/warc/download/{a.external_id}">downloaden</a>)</li>
+  <li>
+    <a href="{a.url}" target="_blank">{a.url}</a>
+    {#if typeof(a.status !== 'undefined') && (typeof(a.status.job) !== 'undefined') && (a.status.job.isRunning == 'false')}
+    (<a href="//{$apiDomainName}/archive/warc/download/{a.external_id}">downloaden</a>)
+    {:else}
+    (bezig...)
+    {/if}
+  </li>
 {/each}
 </ul>
 <div class="modal" id="exampleModal" tabindex="-1">
