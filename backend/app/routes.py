@@ -499,7 +499,7 @@ def archive_download(archive_id):
 @ensure_authenticated
 def archive_statuses(archive_ids_str):
     archive_ids = re.split(r'\s*,\s*',archive_ids_str)
-    esults = []
+    results = []
     for a in archive_ids:
         results.append(warc_archive_status(a))
     return jsonify(results)

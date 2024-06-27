@@ -46,3 +46,23 @@ export function warcStatus(archive_id) {
       }
     );
 }
+
+export function warcStatuses(archive_ids) {
+  console.log('shouldcreate warc now!');
+  var url = '//' + get(apiDomainName) + '/archive/warcs/' + archive_ids;
+  return fetch(
+    url, {credentials: "include", cache: 'no-cache'}).then(
+      response => response.json()
+    ).then(
+      function (data) {
+        if (data) {
+          console.log('warc status response:  ', data);
+          //console.dir(data);
+          //identity.set(data);
+        } else {
+          console.log('warc status was not gotten');
+        }
+        return data;
+      }
+    );
+}
