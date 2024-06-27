@@ -26,6 +26,7 @@ let handleUrlForm = function() {
       job_id = heritrix_response.job_id;
       createAsset(url, job_id);
       initiateStatusUpdates();
+      invalidateAll();
     });
   } else {
     console.log('no url specified');
@@ -48,6 +49,7 @@ function getStatusUpdate() {
     job_running = data.job.isRunning;
     if (job_status == "FINISHED") {
       clearInterval(job_timer);
+      invalidateAll();
     }
   });
 }
