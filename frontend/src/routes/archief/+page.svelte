@@ -1,4 +1,6 @@
 <script>
+import { onMount } from 'svelte';
+import { invalidateAll } from '$app/navigation';
 import { identity, apiDomainName } from '$lib/stores';
 import { warcCreate, warcStatus, warcDownloadURL } from '$lib/archive';
 import { createAsset } from '$lib/asset';
@@ -57,6 +59,15 @@ function initiateStatusUpdates() {
   }, 1000);
 }
 
+onMount(() => {
+		const interval = setInterval(() => {
+			invalidateAll();
+		}, 30000);
+
+		return () => {
+			clearInterval(interval);
+		};
+	});
 </script>
 
 <h1>Archief</h1>
