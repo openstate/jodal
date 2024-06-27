@@ -1,4 +1,5 @@
 import os
+import re
 import json
 from functools import wraps
 import logging
@@ -493,6 +494,15 @@ def archive_download(archive_id):
         attachment_filename=os.path.basename(filepath),
         as_attachment=True)
 
+
+@app.route('/archive/warcs/<archive_ids_str>')
+@ensure_authenticated
+def archive_statuses(archive_ids_str):
+    archive_ids = re.split(r'\s*,\s*',archive_ids_str)
+    esults = []
+    for a in archive_ids:
+        results.append(warc_archive_status(a))
+    return jsonify(results)
 
 @app.route('/search')
 def search():
