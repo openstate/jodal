@@ -82,18 +82,31 @@ onMount(() => {
 Verstuur
 </button>
 
-<ul>
-{#each data.assets as a}
-  <li>
-    <a href="{a.url}" target="_blank">{a.url}</a>
-    {#if typeof(a.status !== 'undefined') && (typeof(a.status.job) !== 'undefined') && (a.status.job.isRunning == 'false')}
-    (<a href="//{$apiDomainName}/archive/warc/download/{a.external_id}">downloaden</a>)
-    {:else}
-    (bezig...)
-    {/if}
-  </li>
-{/each}
-</ul>
+<div class="table-responsive">
+  <table class="table table-vcenter">
+    <thead>
+      <tr>
+        <th>URL</th>
+        <th>Acties</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    {#each data.assets as a}
+      <tr>
+        <td><a href="{a.url}" target="_blank">{a.url}</a></td>
+        {#if typeof(a.status !== 'undefined') && (typeof(a.status.job) !== 'undefined') && (a.status.job.isRunning == 'false')}
+        <td><a href="//{$apiDomainName}/archive/warc/download/{a.external_id}" class="btn btn-primary">downloaden</a></td>
+        {:else}
+        <td class="text-secondary">bezig...</td>
+        {/if}
+      </tr>
+    {/each}
+
+    </tbody>
+  </table>
+</div>
+
 <div class="modal" id="exampleModal" tabindex="-1">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
