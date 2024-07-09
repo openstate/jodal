@@ -2,6 +2,7 @@
 
 import hashlib
 from glob import glob
+import logging
 
 import requests
 from requests.auth import HTTPDigestAuth
@@ -16,14 +17,21 @@ def heritrix_request(path='', params={}, files=None):
     if path != '':
         url += f"/{path}"
     print(url)
-    resp = requests.post(
-        url,
-        data=params,
-        auth=HTTPDigestAuth(HERITRIX_USER, HERITRIX_PASSWD),
-        files=files,
-        verify=False)
-    if resp.status_code != 200:
-        return {"status": "error", "code": resp.status_code}
+    status_code = 500
+    content = ''
+    try:
+        resp = requests.post(
+            url,
+            data=params,
+            auth=HTTPDigestAuth(HERITRIX_USER, HERITRIX_PASSWD),
+            files=files,
+            verify=False)
+        status_code = resp.status_code
+        content = resp.content
+    except requests.exceptions.RequestException as e:
+        logging.info('Heritrix might be down')
+    if status_code != 200:
+        return {"status": "error", "code": status_code}
     return xmltodict.parse(resp.content)
 
 def heritrix_put(path='', params={}, files=None):

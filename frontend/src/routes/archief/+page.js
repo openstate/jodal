@@ -17,7 +17,10 @@ export async function load({ fetch, params }) {
     const statuses = await warcStatuses(external_ids.join(','));
     console.log('warc statuses:', statuses);
     statuses.forEach(function (s) {
-      const asset_idx = assets.findIndex(function (x) {return (x.external_id == s.job.shortName)});
+      var asset_idx = -1;
+      if (typeof(s.job) !== 'undefined') {
+        asset_idx = assets.findIndex(function (x) {return (x.external_id == s.job.shortName)});
+      }
       if (asset_idx >= 0) {
         assets[asset_idx].status = JSON.parse(JSON.stringify(s));
       }
