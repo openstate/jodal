@@ -49,8 +49,11 @@ If you  get an error about maintenance mode failed, it means that fusionauth cou
       - Generate Refresh Tokens: 	Yes
       - Logout URL: 	https://app.jodal.nl/
       - Logout behavior: 	All applications
-      - Authorized origins: 	–
-       Authorized redirects: 	https://api.jodal.nl/users/simple/callback, http://localhost:8080/api/2/sessions/callback, https://aleph.openstate.eu/api/2/sessions/callback
+      - Authorized origins:
+      - Authorized redirects:
+        - https://api.jodal.nl/users/simple/callback
+        - http://localhost:8080/api/2/sessions/callback
+        - https://aleph.openstate.eu/api/2/sessions/callback
       - Enabled grants: 	Authorization Code, Refresh Token
     6. SAML:
       - Enabled: 	No
