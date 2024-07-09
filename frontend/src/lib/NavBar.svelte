@@ -1,5 +1,8 @@
 <script>
 import BronLogo from '$lib/assets/bron-logo.svg';
+import MastodonLogo from '$lib/assets/mastodon.svg';
+import TwitterLogo from '$lib/assets/twitter.svg';
+import GitHubLogo from '$lib/assets/github.svg';
 
 </script>
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
@@ -14,15 +17,30 @@ import BronLogo from '$lib/assets/bron-logo.svg';
     alle overheidsdata — monitor, filter, stuur door.
     </div>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="https://site.bron.live/gids">Gids</a>
+          <a class="nav-link" href="https://site.bron.live/gids" target="_blank">Gids</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://site.bron.live/faq">FAQs</a>
+          <a class="nav-link" href="https://site.bron.live/faq" target="_blank">FAQs</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="https://site.bron.live/over-bron">Over</a>
+          <a class="nav-link" href="https://site.bron.live/over-bron" target="_blank">Over</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://github.com/openstate/jodal"  target="_blank">
+            <img src="{GitHubLogo}" alt="Github" class="social-logo" />
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="https://mastodon.social/@bron_live"  target="_blank">
+            <img src="{MastodonLogo}" alt="Mastodon" class="social-logo" />
+          </a>
+        </li>
+        <li class="nav-item ms-auto">
+          <a class="nav-link" href="https://twitter.com/bron_live"  target="_blank">
+            <img src="{TwitterLogo}" alt="Twitter" class="social-logo" />
+          </a>
         </li>
       </ul>
     </div>
@@ -37,5 +55,10 @@ import BronLogo from '$lib/assets/bron-logo.svg';
 .navbar-brand img {
   width: 190px;
   height: 42px;
+}
+
+.social-logo {
+  width: 20px;
+  height: 20px;
 }
 </style>
