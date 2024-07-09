@@ -227,8 +227,8 @@ class WoogleLocationScraper(MemoryMixin, BaseLocationScraper):
 class LocationsScraperRunner(object):
     scrapers = [
         PoliFlwLocationScraper,
-        OpenspendingCountyLocationScraper,
-        OpenspendingProvinceLocationScraper,
+        #OpenspendingCountyLocationScraper,
+        #OpenspendingProvinceLocationScraper,
         OpenBesluitvormingLocationScraper,
         CVDRLocationScraper,
         WoogleLocationScraper,

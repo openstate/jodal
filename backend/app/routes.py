@@ -275,7 +275,11 @@ def api_login():
         return redirect(app.config['JODAL_URL'])
         # return jsonify(session['user'])
     else:
-        return jsonify({"error": "Some kind of error: %s" % (client_response.error_response,)})
+        return jsonify(
+        {
+            "error": "Some kind of error: %s" % (client_response.error_response,),
+            "content":str(client_response.response.content),
+        })
 
 @app.route("/users/forgot-password", methods=["POST"])
 def api_forgot():
