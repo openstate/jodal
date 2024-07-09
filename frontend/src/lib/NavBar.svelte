@@ -57,7 +57,7 @@ import GitHubLogo from '$lib/assets/github.svg';
   height: 42px;
 }
 
-.nav-link a {
+.nav-link {
 	color: #5E5E5E;
 	font-weight: 600;
 	font-size: 16px;

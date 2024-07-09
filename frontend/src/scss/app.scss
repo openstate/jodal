@@ -15,10 +15,10 @@
     --box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.1);
 
     /* tekst */
-    --font-family-headings: "ibm-plex-sans", sans-serif;
+    --font-family-headings: "Inter", sans-serif;
     --font-weight-headings: 700;
     --font-style-headings: normal;
-    --font-family-body: "ibm-plex-sans", sans-serif;
+    --font-family-body: "Inter", sans-serif;
     --font-weight-body: 400;
     --font-style-body: normal;
 
@@ -37,6 +37,7 @@ body {
   /*
     padding-top: 150px;
     padding-bottom: 60px; */
+    font-family: var(--font-family-body);
 }
 
 h1 {
