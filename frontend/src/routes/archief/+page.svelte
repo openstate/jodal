@@ -77,7 +77,8 @@ onMount(() => {
 <p>Hello ,
 {$identity}
 </p>
-  <input type="text" name="url" bind:value={url} on:keydown={handleKeydown} />
+
+<label class="form-label">Link</label>  <input type="text" name="url" bind:value={url} on:keydown={handleKeydown} />
 <button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#exampleModal" on:click="{handleUrlForm}">
 Verstuur
 </button>
@@ -98,7 +99,7 @@ Verstuur
         {#if typeof(a.status !== 'undefined') && (typeof(a.status.job) !== 'undefined') && (a.status.job.isRunning == 'false')}
         <td><a href="//{$apiDomainName}/archive/warc/download/{a.external_id}" class="btn btn-primary">downloaden</a></td>
         {:else}
-        <td class="text-secondary">bezig...</td>
+        <td class="text-secondary"><span class="status status-azure">bezig...</span></td>
         {/if}
       </tr>
     {/each}
