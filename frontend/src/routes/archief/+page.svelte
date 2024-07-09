@@ -96,7 +96,7 @@ Verstuur
     {#each data.assets as a}
       <tr>
         <td><a href="{a.url}" target="_blank">{a.url}</a></td>
-        {#if typeof(a.status !== 'undefined') && (typeof(a.status.job) !== 'undefined') && (a.status.job.isRunning == 'false')}
+        {#if (typeof(a.status) !== 'undefined') && (typeof(a.status.job) !== 'undefined') && (a.status.job.isRunning == 'false')}
         <td><a href="//{$apiDomainName}/archive/warc/download/{a.external_id}" class="btn btn-primary">downloaden</a></td>
         {:else}
         <td class="text-secondary"><span class="status status-azure">bezig...</span></td>

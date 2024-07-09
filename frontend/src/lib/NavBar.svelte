@@ -13,7 +13,7 @@ import GitHubLogo from '$lib/assets/github.svg';
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="d-flex">
+    <div class="d-flex brand-byline">
     alle overheidsdata — monitor, filter, stuur door.
     </div>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -57,8 +57,27 @@ import GitHubLogo from '$lib/assets/github.svg';
   height: 42px;
 }
 
+.nav-link a {
+	color: #5E5E5E;
+	font-weight: 600;
+	font-size: 16px;
+	font-style: normal;
+	line-height: normal;
+	margin: 30px;
+	text-decoration: none;
+}
+
 .social-logo {
   width: 20px;
   height: 20px;
+}
+
+.brand-byline {
+	font-size: 17px;
+	line-height: 48px;
+	font-weight: 400;
+	color: #767676;
+	margin-left: 30px;
+	text-align: left;
 }
 </style>
