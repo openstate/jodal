@@ -59,7 +59,7 @@ import GitHubLogo from '$lib/assets/github.svg';
 	font-size: 16px;
 	font-style: normal;
 	line-height: normal;
-	margin: 30px;
+	margin: 30px 18px;
 	text-decoration: none;
 }
 .social-container {
