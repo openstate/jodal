@@ -28,7 +28,7 @@ import GitHubLogo from '$lib/assets/github.svg';
           <a class="nav-link" href="https://site.bron.live/over-bron" target="_blank">Over</a>
         </li>
       </ul>
-      <div class="d-flex">
+      <div class="d-flex social-container">
           <a class="social-link" href="https://github.com/openstate/jodal"  target="_blank">
             <img src="{GitHubLogo}" alt="Github" class="social-logo" />
           </a>
@@ -62,7 +62,12 @@ import GitHubLogo from '$lib/assets/github.svg';
 	margin: 30px;
 	text-decoration: none;
 }
-
+.social-container {
+  margin: 30px;
+}
+.social-container a:last-child {
+  margin-right: 0px;
+}
 .social-link {
   	display: block;
   	flex: 1;
