@@ -27,22 +27,18 @@ import GitHubLogo from '$lib/assets/github.svg';
         <li class="nav-item">
           <a class="nav-link" href="https://site.bron.live/over-bron" target="_blank">Over</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="https://github.com/openstate/jodal"  target="_blank">
+      </ul>
+      <div class="d-flex">
+          <a class="social-link" href="https://github.com/openstate/jodal"  target="_blank">
             <img src="{GitHubLogo}" alt="Github" class="social-logo" />
           </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="https://mastodon.social/@bron_live"  target="_blank">
+          <a class="social-link" href="https://mastodon.social/@bron_live"  target="_blank">
             <img src="{MastodonLogo}" alt="Mastodon" class="social-logo" />
           </a>
-        </li>
-        <li class="nav-item ms-auto">
-          <a class="nav-link" href="https://twitter.com/bron_live"  target="_blank">
+          <a class="social-link" href="https://twitter.com/bron_live"  target="_blank">
             <img src="{TwitterLogo}" alt="Twitter" class="social-logo" />
           </a>
-        </li>
-      </ul>
+      </div>
     </div>
   </div>
 </nav>
@@ -66,6 +62,13 @@ import GitHubLogo from '$lib/assets/github.svg';
 	margin: 30px;
 	text-decoration: none;
 }
+
+.social-link {
+  	display: block;
+  	flex: 1;
+  	text-align: center;
+  	margin-right: 26px;
+  }
 
 .social-logo {
   width: 20px;
