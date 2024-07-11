@@ -75,7 +75,11 @@ onMount(() => {
 <h1>Archief</h1>
 
 <p>Hello ,
-{$identity}
+{#if $identity}
+{$identity.given_name}
+{:else}
+anonymous
+{/if}
 </p>
 
 <label class="form-label">Link</label>  <input type="text" name="url" bind:value={url} on:keydown={handleKeydown} />

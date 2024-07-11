@@ -24,29 +24,29 @@
 
 
     /*Buttons*/
+    /*
     --button-font-size: 16px;
     --border-radius: 20px;
     --border-text-transform: capitalize;
     --button-padding: 10px 20px 10px 20px;
     --primary-hover: #58B8D0;
     --secondary-hover: #CC43B2;
-    --hover-transition: 0.3s background-color
+    --hover-transition: 0.3s background-color;
+     */
+
 }
 
 body {
-  /*
-    padding-top: 150px;
-    padding-bottom: 60px; */
     font-family: var(--font-family-body);
 }
 
 h1 {
-    color: var(--petrol);
     font-family: var(--font-family-headings);
     font-weight: var(--font-weight-headings);
     font-style: var(--font-style-headings);
 }
 
+/*
 h2, h3, h4, h5, h6 {
     color: var(--magenta);
 }
@@ -58,13 +58,12 @@ a {
 a:hover {
     color: var(--petrol-light);
 }
-
+*/
 p {
     font-family: var(--font-family-body);
     font-weight: var(--font-weight-body);
     font-style: var(--font-style-body);
 }
-
 
 
 
@@ -94,60 +93,4 @@ p {
         width: 100%;
         visibility: visible;
     }
-}
-
-.hero-section {
-    /* background: url(images/hero.jpg) no-repeat center; */
-    background-size: cover;
-    width: 100%;
-}
-
-.hero-section::before {
-    /* background-color: rgba(0, 0, 0, 0.3); */
-    content: "";
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-}
-
-.hero-section .container {
-    height: 100vh;
-    color: var(--secondary-color);
-    z-index: 1;
-    position: relative;
-}
-
-.hero-section p {
-    color: var(--black);
-    text-align: center;
-    width: 50;
-}
-
-/* searchbar met radio buttons */
-.radio-button-search {
-    border-radius: 20px 0px 0px 20px;
-    /* background-color: pink; */
-    border: none;
-    box-shadow: var(--box-shadow);
-    background-color: var(--white);
-}
-
-.search-form {
-    border: none;
-    box-shadow: var(--box-shadow);
-    border-radius: 50%;
-}
-
-.form-button-search {
-    border-radius: 0px 20px 20px 0px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none
-}
-
-.form-button-search:hover {
-    background-color: var(--secondary-color);
-
 }

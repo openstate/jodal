@@ -42,13 +42,14 @@
 
 :root {
 	// --magenta: rgb(200, 46, 148);
+	/*
 	--teak: rgb(97, 168, 169);
 	--teak-darker: rgb(68, 119, 120);
 	--cyan: rgb(108, 202, 209);
 
 	--bs-body-color: rgb(61, 74, 46);
 	--bs-accordion-active-bg: var(--teak);
-	--bs-accordion-active-color: #fff;
+	--bs-accordion-active-color: #fff;*/
 	// --bs-link-color-rgb: var(--purple);
 	// --bs-link-hover-color-rgb: var(--magenta);
 	// --bs-primary: var(--purple);
@@ -78,28 +79,30 @@
 }
 
 div.alert img {
-	width: 24px;
+
+/*	width: 24px;
 	margin-right: 8px;
+	*/
 }
 
 div.alert-warning img {
 	/* https://codepen.io/sosuke/pen/Pjoqqp */
-	filter: invert(28%) sepia(8%) saturate(6998%) hue-rotate(17deg) brightness(98%) contrast(98%);
+	// filter: invert(28%) sepia(8%) saturate(6998%) hue-rotate(17deg) brightness(98%) contrast(98%);
 }
 div.alert-success img {
 	/* https://codepen.io/sosuke/pen/Pjoqqp */
-	filter: invert(18%) sepia(22%) saturate(1214%) hue-rotate(100deg) brightness(94%) contrast(101%);
+	// filter: invert(18%) sepia(22%) saturate(1214%) hue-rotate(100deg) brightness(94%) contrast(101%);
 }
 
 main a {
 	// color: var(--purple);
-	text-decoration: none;
-	border-bottom: rgba(76, 33, 110, 0.3) solid 1px;
+	// text-decoration: none;
+	// border-bottom: rgba(76, 33, 110, 0.3) solid 1px;
 }
 
 main a:hover {
 	// color: var(--magenta);
-	border-bottom: rgba(76, 33, 110, 1) solid 1px;
+	// border-bottom: rgba(76, 33, 110, 1) solid 1px;
 }
 h1,
 h2,
@@ -107,5 +110,5 @@ h3 {
 	// color: var(--magenta);
 }
 h1 img {
-	width: 320px;
+	// width: 320px;
 }
