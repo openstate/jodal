@@ -87,7 +87,7 @@ anonymous
 Verstuur
 </button>
 
-<div class="table-responsive">
+<div class="table-responsive table-heritrix">
   <table class="table table-vcenter">
     <thead>
       <tr>
