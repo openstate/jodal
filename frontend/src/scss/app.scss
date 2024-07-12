@@ -34,6 +34,22 @@
     --hover-transition: 0.3s background-color;
      */
 
+     --tblr-primary: var(--petrol);
+     --tblr-secondary: var(--white);
+     --tblr-link-primary: var(--magenta);
+
+     --tblr-primary-fg: var(--white);
+
+     /* buttons */
+     --tblr-btn-bg: var(--petrol);
+     --tblr-btn-font-size: 16px;
+     --tblr-btn-font-weight: 600;
+
+     --tblr-btn-border-radius: 5px;
+
+     --tblr-btn-padding-x: 20px;
+     --tblr-btn-padding-y: 17px;
+
 }
 
 body {
@@ -65,8 +81,20 @@ p {
     font-style: var(--font-style-body);
 }
 
+.btn {
+    font-size: var(--tblr-btn-font-size) !important;
+    font-weight: var(--tblr-btn-font-weight);
+    border-radius: var(--tblr-btn-border-radius);
+}
 
+.btn-primary {
+  background: var(--tblr-btn-bg);
+}
 
+.btn-secondary {
+  background: var(--white);
+  color: inherit;
+}
 
 /* @media (max-width: 991px) {
     .login-button {

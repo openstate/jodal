@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from "svelte";
-	//import "../scss/variables.scss";
+	import "../scss/variables.scss";
 	//import "../scss/bootstrap.scss";
 	import "../scss/tabler.scss";
 	import "../scss/app.scss";
