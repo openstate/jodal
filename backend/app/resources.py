@@ -87,7 +87,8 @@ class AssetListResource(Resource):
         user_id = session['user']['sub']
 
         #assets = Asset.query.all()
-        assets = Asset.query.filter(Asset.user_id==user_id)
+        assets = Asset.query.filter(
+            Asset.user_id==user_id).order_by(Asset.created.desc())
 
         return assets_schema.dump(assets)
 
