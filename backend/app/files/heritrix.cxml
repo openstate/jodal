@@ -335,7 +335,7 @@ http://example.example/example
     <!-- ...extract outlinks from CSS content... -->
     <ref bean="extractorCss"/>
     <!-- ...extract outlinks from Javascript content... -->
-    <ref bean="extractorJs"/>
+    <!-- <ref bean="extractorJs"/> -->
     <!-- ...extract outlinks from Flash content... -->
     <ref bean="extractorSwf"/>
    </list>
