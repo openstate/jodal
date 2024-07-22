@@ -20,3 +20,5 @@ services:
   node:
     restart: "no"
     command: npm run dev
+  frontend:
+     command: ["npm", "run", "dev"]

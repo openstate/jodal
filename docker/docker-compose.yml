@@ -43,8 +43,10 @@ services:
     # Use this to keep the container running
     command: npm run start
   frontend:
-    image: node:lts
-    working_dir: /opt/app/
+    build:
+      context: ../frontend
+    environment:
+      - PORT=3000
     networks:
       - jodal
     volumes:
