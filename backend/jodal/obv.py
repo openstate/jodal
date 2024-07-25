@@ -155,7 +155,20 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
         'Membership': 'Lidmaatschap',
         'Organization': 'Organisatie',
         'ImageObject': 'Beeld'
-    };
+    }
+    bestand_types = {
+        'bijlage': 'Bijlage',
+        'schriftelijke ': 'Vragen',
+        'brief': 'Brief',
+        'motie': 'Motie',
+        'raadsvoorstel': 'Raadsvoorstel',
+        'bestemmingsplan': 'Bestemmingsplan',
+        'raadsvergadering': 'Raadsvergadering',
+        'agenda': 'Agenda',
+        'amendement': 'Amendement',
+        'stemuitslag': 'Stemming',
+        'besluitenlijst': 'Besluitenlijst'
+    }
     payload = {
         "aggs": {
           "types": {
@@ -307,6 +320,13 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
                 if location_id is not None:
                     # 'https://openbesluitvorming.nl/?zoekterm=' + encodeURIComponent(query) + '&organisaties=%5B%22' + i._index + '%22%5D&showResource=' + encodeURIComponent(encodeURIComponent('https://id.openraadsinformatie.nl/' + i._id))
                     obv_url = 'https://openbesluitvorming.nl/?zoekterm=%22*%22&organisaties=%5B%22' + item['_index'] + '%22%5D&showResource=' + _encode_uri_component(_encode_uri_component(r_uri))
+                    obv_type = self.obv_types[sitem['@type']]
+                    obv_title = sitem.get('name', '')
+                    if obv_type == 'Bestand':
+                       obv_type_lower = obv_type.lower()
+                       for k, v in self.bestand_types.items():
+                           if obv_title.startswith(k):
+                               obv_type = v
                     r = {
                         '_id': h_id.hexdigest(),
                         '_index': 'jodal_documents',
@@ -322,7 +342,7 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
                         'published': sitem[self.date_field],
                         'processed': datetime.datetime.now().isoformat(),
                         'source': self.name,
-                        'type': self.obv_types[sitem['@type']],
+                        'type': obv_type,
                         'data': data
                     }
                     result.append(r)
