@@ -120,6 +120,8 @@ services:
       FUSIONAUTH_RUNTIME_MODE: development
     networks:
      - jodal
+    #ports:
+    # - "9011:9011"
     restart: always
     volumes:
       - fa_config:/usr/local/fusionauth/config
@@ -131,7 +133,7 @@ services:
       - cluster.name=ras-cluster
       - xpack.security.enabled=false
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m -Dlog4j2.formatMsgNoLookups=true"
+      - "ES_JAVA_OPTS=-Xms16g -Xmx16g -Dlog4j2.formatMsgNoLookups=true"
       - xpack.monitoring.enabled=false
       - 'path.repo=/opt/elasticsearch/backups'
     ulimits:

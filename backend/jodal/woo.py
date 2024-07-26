@@ -93,9 +93,9 @@ class DocumentsScraper(ElasticsearchMixin, BaseWebScraper):
                     continue
                 ud = item.get('foi_updateDate') or item['foi_retrievedDate']
                 item_type = item['dc_type_description']
-                if title.lower().startswith('aanvraag omgevingsvergunning'):
+                if 'aanvraag omgevingsvergunning' in title.lower():
                     item_type = 'Aanvraag'
-                if title.lower().startswith('verleende omgevingsvergunning'):
+                if 'verleende omgevingsvergunning' in title.lower():
                     item_type = 'Verlening'
                 r = {
                     '_id': h_id,

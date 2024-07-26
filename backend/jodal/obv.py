@@ -157,17 +157,22 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
         'ImageObject': 'Beeld'
     }
     bestand_types = {
-        'bijlage': 'Bijlage',
-        'schriftelijke ': 'Vragen',
-        'brief': 'Brief',
-        'motie': 'Motie',
-        'raadsvoorstel': 'Raadsvoorstel',
-        'bestemmingsplan': 'Bestemmingsplan',
-        'raadsvergadering': 'Raadsvergadering',
         'agenda': 'Agenda',
         'amendement': 'Amendement',
         'stemuitslag': 'Stemming',
-        'besluitenlijst': 'Besluitenlijst'
+        'raadsmemo': 'Raadsmemo'
+    }
+    bestand_types_contains = {
+        'bijlage': 'Bijlage',
+        ' rb ': 'Raadsbesluit',
+        'schriftelijke vragen': 'Vragen',
+        'raadsvergadering': 'Raadsvergadering',
+        'raadsvragen': 'Raadsvragen',
+        'bestemmingsplan': 'Bestemmingsplan',
+        'raadsvoorstel': 'Raadsvoorstel',
+        'besluitenlijst': 'Besluitenlijst',
+        'brief': 'Brief',
+        'motie': 'Motie',
     }
     payload = {
         "aggs": {
@@ -323,10 +328,14 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
                     obv_type = self.obv_types[sitem['@type']]
                     obv_title = sitem.get('name', '')
                     if obv_type == 'Bestand':
-                       obv_type_lower = obv_type.lower()
+                       obv_title_lower = obv_title.lower()
                        for k, v in self.bestand_types.items():
-                           if obv_title.startswith(k):
+                           if obv_title_lower.startswith(k):
                                obv_type = v
+                       for k, v in self.bestand_types_contains.items():
+                           if k in obv_title_lower:
+                               obv_type = v
+
                     r = {
                         '_id': h_id.hexdigest(),
                         '_index': 'jodal_documents',
