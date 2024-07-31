@@ -9,6 +9,9 @@ services:
   api-jodal:
     environment:
       OAUTHLIB_INSECURE_TRANSPORT: "1"
+  elasticsearch:
+    environment:
+      - "ES_JAVA_OPTS=-Xms1g -Xmx1g -Dlog4j2.formatMsgNoLookups=true"
   fusionauth:
     ports:
       - 9011:9011
