@@ -118,6 +118,7 @@ services:
       SEARCH_TYPE: database
       FUSIONAUTH_APP_URL: http://users.bron.live
       FUSIONAUTH_RUNTIME_MODE: development
+      FUSIONAUTH_APP_KICKSTART_FILE: /opt/kickstart/kickstart.json
     networks:
      - jodal
     #ports:
@@ -125,6 +126,7 @@ services:
     restart: always
     volumes:
       - fa_config:/usr/local/fusionauth/config
+      - ./fa-kickstart/:/opt/kickstart
   elasticsearch:
     image: "docker.elastic.co/elasticsearch/elasticsearch:${ES_VERSION}"
     environment:
