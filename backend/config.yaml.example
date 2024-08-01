@@ -1,4 +1,7 @@
 jodal:
+  redis:
+    host: 'redis'
+    port: 6379
   elasticsearch:
     host: elasticsearch
     port: 9200
