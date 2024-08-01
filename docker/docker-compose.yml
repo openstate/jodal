@@ -94,6 +94,10 @@ services:
     environment:
       - MYSQL_DATABASE=jodal
       - MYSQL_ROOT_PASSWORD=jodal
+    healthcheck:
+      test: ["CMD", 'mysqladmin', 'ping', '-h', 'localhost', '-u', 'root', '-p$$MYSQL_ROOT_PASSWORD']
+      timeout: 20s
+      retries: 10
     networks:
       - jodal
     volumes:
@@ -101,12 +105,14 @@ services:
       - "./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
     restart: always
     command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci', '--default-authentication-plugin=mysql_native_password']
+
   fusionauth:
     build:
       context: ./
       dockerfile: Dockerfile-fusionauth
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     environment:
       DATABASE_URL: jdbc:mysql://mysql:3306/fusionauth
       DATABASE_ROOT_USERNAME: root
