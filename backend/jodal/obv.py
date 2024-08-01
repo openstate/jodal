@@ -155,7 +155,25 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
         'Membership': 'Lidmaatschap',
         'Organization': 'Organisatie',
         'ImageObject': 'Beeld'
-    };
+    }
+    bestand_types = {
+        'agenda': 'Agenda',
+        'amendement': 'Amendement',
+        'stemuitslag': 'Stemming',
+        'raadsmemo': 'Raadsmemo'
+    }
+    bestand_types_contains = {
+        'bijlage': 'Bijlage',
+        ' rb ': 'Raadsbesluit',
+        'schriftelijke vragen': 'Vragen',
+        'raadsvergadering': 'Raadsvergadering',
+        'raadsvragen': 'Raadsvragen',
+        'bestemmingsplan': 'Bestemmingsplan',
+        'raadsvoorstel': 'Raadsvoorstel',
+        'besluitenlijst': 'Besluitenlijst',
+        'brief': 'Brief',
+        'motie': 'Motie',
+    }
     payload = {
         "aggs": {
           "types": {
@@ -307,6 +325,17 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
                 if location_id is not None:
                     # 'https://openbesluitvorming.nl/?zoekterm=' + encodeURIComponent(query) + '&organisaties=%5B%22' + i._index + '%22%5D&showResource=' + encodeURIComponent(encodeURIComponent('https://id.openraadsinformatie.nl/' + i._id))
                     obv_url = 'https://openbesluitvorming.nl/?zoekterm=%22*%22&organisaties=%5B%22' + item['_index'] + '%22%5D&showResource=' + _encode_uri_component(_encode_uri_component(r_uri))
+                    obv_type = self.obv_types[sitem['@type']]
+                    obv_title = sitem.get('name', '')
+                    if obv_type == 'Bestand':
+                       obv_title_lower = obv_title.lower()
+                       for k, v in self.bestand_types.items():
+                           if obv_title_lower.startswith(k):
+                               obv_type = v
+                       for k, v in self.bestand_types_contains.items():
+                           if k in obv_title_lower:
+                               obv_type = v
+
                     r = {
                         '_id': h_id.hexdigest(),
                         '_index': 'jodal_documents',
@@ -322,7 +351,7 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
                         'published': sitem[self.date_field],
                         'processed': datetime.datetime.now().isoformat(),
                         'source': self.name,
-                        'type': self.obv_types[sitem['@type']],
+                        'type': obv_type,
                         'data': data
                     }
                     result.append(r)

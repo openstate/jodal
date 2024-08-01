@@ -1,0 +1,49 @@
+{
+  "variables": {
+
+  },
+  "apiKeys": [
+    {
+      "key": "4737ea8520bd454caabb7cb3d36e14bc1832c0d3f70a4189b82598670f11b1bd"
+    }
+  ],
+  "requests": [
+    {
+      "method": "PATCH",
+      "url": "/api/system-configuration",
+      "body": {
+        "systemConfiguration": {
+          "corsConfiguration": {
+            "enabled": true
+          }
+        }
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/application/6e11ceb9-2b26-4c40-b399-182d4f9b97b6",
+      "body": {
+        "application": "&{jodal.json}"
+      }
+    },
+    {
+      "method": "POST",
+      "url": "/api/user/registration",
+      "body": {
+        "user": {
+          "email": "bje@dds.nl",
+          "password": "blatenblaten",
+          "data": {
+            "Company": "Open State Foundation"
+          }
+        },
+        "registration": {
+          "applicationId": "#{FUSIONAUTH_APPLICATION_ID}",
+          "roles": [
+            "admin"
+          ]
+        }
+      }
+    }
+  ]
+}

@@ -27,6 +27,8 @@ Then you can go to `http://app.jodal.nl` preferably in a private window, because
 
 ## Installing FusionAuth
 
+If you  get an error about maintenance mode failed, it means that fusionauth could not properbly connect to the mysql server. Simply restart the fusionauth container and you should be fine.
+
 1. Go to `http://localhost:9011/`
 2. Make an admin account
 3. Complete the steps on the main DAshboard
@@ -47,8 +49,11 @@ Then you can go to `http://app.jodal.nl` preferably in a private window, because
       - Generate Refresh Tokens: 	Yes
       - Logout URL: 	https://app.jodal.nl/
       - Logout behavior: 	All applications
-      - Authorized origins: 	–
-       Authorized redirects: 	https://api.jodal.nl/users/simple/callback, http://localhost:8080/api/2/sessions/callback, https://aleph.openstate.eu/api/2/sessions/callback
+      - Authorized origins:
+      - Authorized redirects:
+        - https://api.jodal.nl/users/simple/callback
+        - http://localhost:8080/api/2/sessions/callback
+        - https://aleph.openstate.eu/api/2/sessions/callback
       - Enabled grants: 	Authorization Code, Refresh Token
     6. SAML:
       - Enabled: 	No

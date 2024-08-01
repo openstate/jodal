@@ -3,10 +3,13 @@
 import locale
 import os
 import logging
+import json
+
 # from logging.handlers import SMTPHandler, RotatingFileHandler
 from config import Config
 from .utils import load_config
 
+import click
 from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
@@ -86,6 +89,19 @@ db = SQLAlchemy(app)
 ma = Marshmallow(app)
 api = Api(app)
 
+from app.fa import setup_fa
+
+@app.cli.group("fusionauth")
+def fusionauth():
+    """Manage fusionauth"""
+
+@fusionauth.command("list")
+@click.argument("entity")
+def list_entities(entity):
+    fa = setup_fa()
+    resp = fa.retrieve_application()
+    if resp.was_successful():
+        print(json.dumps(resp.success_response, indent=2))
 
 from app import routes
 from app.resources import ColumnListResource, ColumnResource, AssetListResource, AssetResource

@@ -92,6 +92,11 @@ class DocumentsScraper(ElasticsearchMixin, BaseWebScraper):
                 if (description == '') and (title == ''):
                     continue
                 ud = item.get('foi_updateDate') or item['foi_retrievedDate']
+                item_type = item['dc_type_description']
+                if 'aanvraag omgevingsvergunning' in title.lower():
+                    item_type = 'Aanvraag'
+                if 'verleende omgevingsvergunning' in title.lower():
+                    item_type = 'Verlening'
                 r = {
                     '_id': h_id,
                     '_index': 'jodal_documents',
@@ -106,7 +111,7 @@ class DocumentsScraper(ElasticsearchMixin, BaseWebScraper):
                     'published': item['foi_retrievedDate'],
                     'processed': datetime.datetime.now().isoformat(),
                     'source': self.name,
-                    'type': item['dc_type_description'],
+                    'type': item_type,
                     'data': data
                 }
 

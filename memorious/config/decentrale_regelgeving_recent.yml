@@ -3,6 +3,7 @@
 # linked from the page as proof.
 name: decentrale_regelgeving_recent
 #delay: 1
+expire: 30
 
 # A title for display in the UI:
 description: "Decentrale Regelgeving"

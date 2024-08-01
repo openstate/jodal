@@ -117,11 +117,15 @@ services:
       SEARCH_TYPE: database
       FUSIONAUTH_APP_URL: http://users.bron.live
       FUSIONAUTH_RUNTIME_MODE: development
+      FUSIONAUTH_APP_KICKSTART_FILE: /opt/kickstart/kickstart.json
     networks:
      - jodal
+    #ports:
+    # - "9011:9011"
     restart: always
     volumes:
       - fa_config:/usr/local/fusionauth/config
+      - ./fa-kickstart/:/opt/kickstart
   elasticsearch:
     image: "docker.elastic.co/elasticsearch/elasticsearch:${ES_VERSION}"
     environment:
@@ -130,7 +134,7 @@ services:
       - cluster.name=ras-cluster
       - xpack.security.enabled=false
       - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m -Dlog4j2.formatMsgNoLookups=true"
+      - "ES_JAVA_OPTS=-Xms16g -Xmx16g -Dlog4j2.formatMsgNoLookups=true"
       - xpack.monitoring.enabled=false
       - 'path.repo=/opt/elasticsearch/backups'
     ulimits:

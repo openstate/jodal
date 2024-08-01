@@ -1,0 +1,154 @@
+{
+  "accessControlConfiguration": {},
+  "active": true,
+  "authenticationTokenConfiguration": {
+    "enabled": false
+  },
+  "data": {},
+  "emailConfiguration": {},
+  "externalIdentifierConfiguration": {},
+  "formConfiguration": {
+    "selfServiceFormConfiguration": {
+      "requireCurrentPasswordOnPasswordChange": false
+    }
+  },
+  "id": "6e11ceb9-2b26-4c40-b399-182d4f9b97b6",
+  "insertInstant": 1720520082117,
+  "jwtConfiguration": {
+    "enabled": true,
+    "refreshTokenExpirationPolicy": "Fixed",
+    "refreshTokenSlidingWindowConfiguration": {
+      "maximumTimeToLiveInMinutes": 43200
+    },
+    "refreshTokenTimeToLiveInMinutes": 43200,
+    "refreshTokenUsagePolicy": "Reusable",
+    "timeToLiveInSeconds": 3600
+  },
+  "lambdaConfiguration": {},
+  "lastUpdateInstant": 1720522260443,
+  "loginConfiguration": {
+    "allowTokenRefresh": false,
+    "generateRefreshTokens": false,
+    "requireAuthentication": true
+  },
+  "multiFactorConfiguration": {
+    "email": {},
+    "sms": {}
+  },
+  "name": "Bron",
+  "oauthConfiguration": {
+    "authorizedOriginURLs": [],
+    "authorizedRedirectURLs": [
+      "http://localhost:8080/api/2/sessions/callback",
+      "http://api.bron.live/users/simple/callback"
+    ],
+    "authorizedURLValidationPolicy": "ExactMatch",
+    "clientAuthenticationPolicy": "Required",
+    "clientId": "6e11ceb9-2b26-4c40-b399-182d4f9b97b6",
+    "clientSecret": "Ev8ymaIwzwBRLZTv4G5OIX3djqwcunDK45PEG3Tj3oU",
+    "debug": false,
+    "enabledGrants": [
+      "authorization_code",
+      "refresh_token"
+    ],
+    "generateRefreshTokens": true,
+    "logoutBehavior": "AllApplications",
+    "logoutURL": "http://app.bron.live/",
+    "proofKeyForCodeExchangePolicy": "NotRequired",
+    "requireClientAuthentication": true,
+    "requireRegistration": false
+  },
+  "passwordlessConfiguration": {
+    "enabled": true
+  },
+  "registrationConfiguration": {
+    "birthDate": {
+      "enabled": false,
+      "required": false
+    },
+    "confirmPassword": false,
+    "enabled": true,
+    "firstName": {
+      "enabled": false,
+      "required": false
+    },
+    "fullName": {
+      "enabled": false,
+      "required": false
+    },
+    "lastName": {
+      "enabled": false,
+      "required": false
+    },
+    "loginIdType": "email",
+    "middleName": {
+      "enabled": false,
+      "required": false
+    },
+    "mobilePhone": {
+      "enabled": false,
+      "required": false
+    },
+    "preferredLanguages": {
+      "enabled": false,
+      "required": false
+    },
+    "type": "basic"
+  },
+  "registrationDeletePolicy": {
+    "unverified": {
+      "enabled": false,
+      "numberOfDaysToRetain": 120
+    }
+  },
+  "roles": [],
+  "samlv2Configuration": {
+    "assertionEncryptionConfiguration": {
+      "digestAlgorithm": "SHA256",
+      "enabled": false,
+      "encryptionAlgorithm": "AES256GCM",
+      "keyLocation": "Child",
+      "keyTransportAlgorithm": "RSA_OAEP",
+      "maskGenerationFunction": "MGF1_SHA1"
+    },
+    "authorizedRedirectURLs": [],
+    "debug": false,
+    "enabled": false,
+    "initiatedLogin": {
+      "enabled": false,
+      "nameIdFormat": "urn:oasis:names:tc:SAML:2.0:nameid-format:persistent"
+    },
+    "loginHintConfiguration": {
+      "enabled": true,
+      "parameterName": "login_hint"
+    },
+    "logout": {
+      "behavior": "AllParticipants",
+      "requireSignedRequests": false,
+      "singleLogout": {
+        "enabled": false,
+        "xmlSignatureC14nMethod": "exclusive_with_comments"
+      },
+      "xmlSignatureC14nMethod": "exclusive_with_comments"
+    },
+    "requireSignedRequests": false,
+    "xmlSignatureC14nMethod": "exclusive_with_comments",
+    "xmlSignatureLocation": "Assertion"
+  },
+  "state": "Active",
+  "tenantId": "4ec8782d-3dd9-11ef-876e-0242c0a8a004",
+  "unverified": {
+    "behavior": "Allow"
+  },
+  "verificationStrategy": "ClickableLink",
+  "verifyRegistration": false,
+  "webAuthnConfiguration": {
+    "bootstrapWorkflow": {
+      "enabled": false
+    },
+    "enabled": false,
+    "reauthenticationWorkflow": {
+      "enabled": false
+    }
+  }
+}
