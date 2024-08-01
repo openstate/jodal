@@ -5,65 +5,29 @@ jodal is het JOurnalistiek DAshboard Lokaal.
 
 ## Get started
 
-1. `# clone the repo and chdir to there`
-2. `cd backend && cp config.py.example config.py && cp config.yaml.example config.yaml`
-3. `# Edit config.py and config.yaml accordingly to what you want`
-2. `cd ../docker`
-3. `docker-compose  up -d`
-4. `cd ..`
-5. `./setup.sh`
-6. `docker exec -it jodal_backend_1 ./manage.py scrapers locations`
+How to setup a local development environment:
 
-In development mode you can run `./bin/dev.sh` from the base directory, which will launch
-the development environment.
+1. `git clone git@github.com:openstate/jodal.git`
+2. `cd backend && cp config.py.example config.py && cp config.yaml.example config.yaml`
+3. `# Edit config.py and config.yaml accordingly to what you want, not strictly necessary`
+4. `cd ../docker`
+5. `Edit fa-kickstart/kickstart.json, esp. the part where it creates an account`
+6. `docker-compose  up -d backend mysql elasticsearch`
+7. `cd ..`
+8. `./setup.sh`
+9. `./bin/dev.sh`
+10. `docker exec -it jodal_backend_1 ./manage.py scrapers locations`
 
 To access the local development environment, add the following in `/etc/hosts`:
 
 ```
-127.0.0.1	api.jodal.nl users.jodal.nl www.jodal.nl app.jodal.nl
+127.0.0.1	api.bron.live app.bron.live heritrix.bron.live bron.live www.bron.live users.bron.live
 ```
 
 Then you can go to `http://app.jodal.nl` preferably in a private window, because of HSTS parameters on the live setup.
 
-## Installing FusionAuth
+You can quickly login using a link like `http://api.bron.live/users/login?email=bje@dds.nl&password=blatenblaten`
 
-If you  get an error about maintenance mode failed, it means that fusionauth could not properbly connect to the mysql server. Simply restart the fusionauth container and you should be fine.
-
-1. Go to `http://localhost:9011/`
-2. Make an admin account
-3. Complete the steps on the main DAshboard
-  1. Make an application (for example 'jodal')
-    1. Login ap config:
-      - Require an API key: 	Yes
-      - Generate Refresh Tokens: 	No
-      - Enable JWT refresh: 	No
-      - Passwordless: yes
-    2. Authentication tokens: no
-    3. JWT Enabled: Yes
-    4. Self serice registration:
-       - Enabled: Yes
-       - Require password confirmation: Yes
-       - Fields:
-    5. OAuth config:
-      - Require authentication: 	Yes
-      - Generate Refresh Tokens: 	Yes
-      - Logout URL: 	https://app.jodal.nl/
-      - Logout behavior: 	All applications
-      - Authorized origins:
-      - Authorized redirects:
-        - https://api.jodal.nl/users/simple/callback
-        - http://localhost:8080/api/2/sessions/callback
-        - https://aleph.openstate.eu/api/2/sessions/callback
-      - Enabled grants: 	Authorization Code, Refresh Token
-    6. SAML:
-      - Enabled: 	No
-    7. Roles:
-  2. Generate an api key for use with the jodal application
-  3. Settings
-   1. Cors: Enabled
-  4. copy the client id and secret from the application to `backend/config.py`
-  5. copy the api key to `backend/config.py`
-  6. restart backend and api container
 # deployment
 
 Open Overheidsdata uses Fabric for deployment. Run `fab deploy`.

@@ -59,6 +59,9 @@ services:
     build:
       context: ../backend
       dockerfile: Dockerfile
+    depends_on:
+      mysql:
+        condition: service_healthy
     volumes:
       - ../backend:/opt/jodal
       - ../heritrix:/opt/jodal/heritrix
