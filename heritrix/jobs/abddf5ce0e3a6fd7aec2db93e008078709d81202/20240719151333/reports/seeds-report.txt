@@ -1,0 +1,3 @@
+[code] [status] [seed] [redirect]
+302 CRAWLED https://openstate.eu/ https://openstate.eu/en/
+200 CRAWLED https://openstate.eu/en/

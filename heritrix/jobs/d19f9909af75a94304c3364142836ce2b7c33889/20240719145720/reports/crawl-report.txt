@@ -1,0 +1,21 @@
+crawl name: basic
+crawl status: Empty - Active
+duration: 28s933ms
+
+seeds crawled: 1
+seeds uncrawled: 0
+
+hosts visited: 1
+
+URIs processed: 10
+URI successes: 10
+URI failures: 0
+URI disregards: 0
+
+novel URIs: 10
+
+total crawled bytes: 468797 (458 KiB) 
+novel crawled bytes: 468797 (458 KiB)
+
+URIs/sec: 0.35
+KB/sec: 15

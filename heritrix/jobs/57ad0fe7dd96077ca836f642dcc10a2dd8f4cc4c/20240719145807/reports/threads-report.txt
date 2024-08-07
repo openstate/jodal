@@ -1,0 +1,279 @@
+Toe threads report - 202407191501
+ Job being crawled: basic
+ Number of toe threads in pool: 25 (0 active)
+
+[ToeThread #1: 
+ -no CrawlURI- 
+    WAITING for 2m39s571ms
+    step: ABOUT_TO_GET_URI for 2m39s571ms
+Java Thread State: TIMED_WAITING
+Blocked/Waiting On: NONE
+    java.base@11.0.13/java.lang.Thread.sleep(Native Method)
+    app//org.archive.crawler.frontier.WorkQueueFrontier.findEligibleURI(WorkQueueFrontier.java:730)
+    app//org.archive.crawler.frontier.AbstractFrontier.next(AbstractFrontier.java:457)
+    app//org.archive.crawler.framework.ToeThread.run(ToeThread.java:134)
+]
+[ToeThread #2: 
+ -no CrawlURI- 
+    WAITING for 2m55s963ms
+    step: ABOUT_TO_GET_URI for 2m55s963ms
+Java Thread State: TIMED_WAITING
+Blocked/Waiting On: NONE
+    java.base@11.0.13/java.lang.Thread.sleep(Native Method)
+    app//org.archive.crawler.frontier.WorkQueueFrontier.findEligibleURI(WorkQueueFrontier.java:730)
+    app//org.archive.crawler.frontier.AbstractFrontier.next(AbstractFrontier.java:457)
+    app//org.archive.crawler.framework.ToeThread.run(ToeThread.java:134)
+]
+[ToeThread #3
+ -no CrawlURI- 
+    WAITING for 3m9s216ms
+    step: ABOUT_TO_GET_URI for 3m9s216ms
+Java Thread State: TIMED_WAITING
+Blocked/Waiting On: NONE
+    java.base@11.0.13/java.lang.Thread.sleep(Native Method)
+    app//org.archive.crawler.frontier.WorkQueueFrontier.findEligibleURI(WorkQueueFrontier.java:730)
+    app//org.archive.crawler.frontier.AbstractFrontier.next(AbstractFrontier.java:457)
+    app//org.archive.crawler.framework.ToeThread.run(ToeThread.java:134)
+]
+[ToeThread #4: 
+ -no CrawlURI- 
+    WAITING for 2m19s689ms
+    step: ABOUT_TO_GET_URI for 2m19s689ms
+Java Thread State: TIMED_WAITING
+Blocked/Waiting On: NONE
+    java.base@11.0.13/java.lang.Thread.sleep(Native Method)
+    app//org.archive.crawler.frontier.WorkQueueFrontier.findEligibleURI(WorkQueueFrontier.java:730)
+    app//org.archive.crawler.frontier.AbstractFrontier.next(AbstractFrontier.java:457)
+    app//org.archive.crawler.framework.ToeThread.run(ToeThread.java:134)
+]
+[ToeThread #5
+ -no CrawlURI- 
+    WAITING for 3m9s215ms
+    step: ABOUT_TO_GET_URI for 3m9s215ms
+Java Thread State: TIMED_WAITING
+Blocked/Waiting On: NONE
+    java.base@11.0.13/java.lang.Thread.sleep(Native Method)
+    app//org.archive.crawler.frontier.WorkQueueFrontier.findEligibleURI(WorkQueueFrontier.java:730)
+    app//org.archive.crawler.frontier.AbstractFrontier.next(AbstractFrontier.java:457)
+    app//org.archive.crawler.framework.ToeThread.run(ToeThread.java:134)
+]
+[ToeThread #6
+ -no CrawlURI- 
+    WAITING for 3m9s215ms
+    step: ABOUT_TO_GET_URI for 3m9s215ms
+Java Thread State: TIMED_WAITING
+Blocked/Waiting On: NONE
+    java.base@11.0.13/java.lang.Thread.sleep(Native Method)
+    app//org.archive.crawler.frontier.WorkQueueFrontier.findEligibleURI(WorkQueueFrontier.java:730)
+    app//org.archive.crawler.frontier.AbstractFrontier.next(AbstractFrontier.java:457)
+    app//org.archive.crawler.framework.ToeThread.run(ToeThread.java:134)
+]
+[ToeThread #7
+ -no CrawlURI- 
+    WAITING for 3m9s215ms
+    step: ABOUT_TO_GET_URI for 3m9s215ms
+Java Thread State: TIMED_WAITING
+Blocked/Waiting On: NONE
+    java.base@11.0.13/java.lang.Thread.sleep(Native Method)
+    app//org.archive.crawler.frontier.WorkQueueFrontier.findEligibleURI(WorkQueueFrontier.java:730)
+    app//org.archive.crawler.frontier.AbstractFrontier.next(AbstractFrontier.java:457)
+    app//org.archive.crawler.framework.ToeThread.run(ToeThread.java:134)
+]
+[ToeThread #8
+ -no CrawlURI- 
+    WAITING for 3m9s216ms
+    step: ABOUT_TO_GET_URI for 3m9s216ms
+Java Thread State: TIMED_WAITING
+Blocked/Waiting On: NONE
+    java.base@11.0.13/java.lang.Thread.sleep(Native Method)
+    app//org.archive.crawler.frontier.WorkQueueFrontier.findEligibleURI(WorkQueueFrontier.java:730)
+    app//org.archive.crawler.frontier.AbstractFrontier.next(AbstractFrontier.java:457)
+    app//org.archive.crawler.framework.ToeThread.run(ToeThread.java:134)
+]
+[ToeThread #9
+ -no CrawlURI- 
+    WAITING for 3m9s216ms
+    step: ABOUT_TO_GET_URI for 3m9s215ms
+Java Thread State: TIMED_WAITING
+Blocked/Waiting On: NONE
+    java.base@11.0.13/java.lang.Thread.sleep(Native Method)
+    app//org.archive.crawler.frontier.WorkQueueFrontier.findEligibleURI(WorkQueueFrontier.java:730)
+    app//org.archive.crawler.frontier.AbstractFrontier.next(AbstractFrontier.java:457)
+    app//org.archive.crawler.framework.ToeThread.run(ToeThread.java:134)
+]
+[ToeThread #10
+ -no CrawlURI- 
+    WAITING for 3m9s215ms
+    step: ABOUT_TO_GET_URI for 3m9s215ms
+Java Thread State: TIMED_WAITING
+Blocked/Waiting On: NONE
+    java.base@11.0.13/java.lang.Thread.sleep(Native Method)
+    app//org.archive.crawler.frontier.WorkQueueFrontier.findEligibleURI(WorkQueueFrontier.java:730)
+    app//org.archive.crawler.frontier.AbstractFrontier.next(AbstractFrontier.java:457)
+    app//org.archive.crawler.framework.ToeThread.run(ToeThread.java:134)
+]
+[ToeThread #11: 
+ -no CrawlURI- 
+    WAITING for 1m52s391ms
+    step: ABOUT_TO_GET_URI for 1m52s391ms
+Java Thread State: TIMED_WAITING
+Blocked/Waiting On: NONE
+    java.base@11.0.13/java.lang.Thread.sleep(Native Method)
+    app//org.archive.crawler.frontier.WorkQueueFrontier.findEligibleURI(WorkQueueFrontier.java:730)
+    app//org.archive.crawler.frontier.AbstractFrontier.next(AbstractFrontier.java:457)
+    app//org.archive.crawler.framework.ToeThread.run(ToeThread.java:134)
+]
+[ToeThread #12: 
+ -no CrawlURI- 
+    WAITING for 2m52s665ms
+    step: ABOUT_TO_GET_URI for 2m52s665ms
+Java Thread State: TIMED_WAITING
+Blocked/Waiting On: NONE
+    java.base@11.0.13/java.lang.Thread.sleep(Native Method)
+    app//org.archive.crawler.frontier.WorkQueueFrontier.findEligibleURI(WorkQueueFrontier.java:730)
+    app//org.archive.crawler.frontier.AbstractFrontier.next(AbstractFrontier.java:457)
+    app//org.archive.crawler.framework.ToeThread.run(ToeThread.java:134)
+]
+[ToeThread #13
+ -no CrawlURI- 
+    WAITING for 3m9s215ms
+    step: ABOUT_TO_GET_URI for 3m9s214ms
+Java Thread State: TIMED_WAITING
+Blocked/Waiting On: NONE
+    java.base@11.0.13/java.lang.Thread.sleep(Native Method)
+    app//org.archive.crawler.frontier.WorkQueueFrontier.findEligibleURI(WorkQueueFrontier.java:730)
+    app//org.archive.crawler.frontier.AbstractFrontier.next(AbstractFrontier.java:457)
+    app//org.archive.crawler.framework.ToeThread.run(ToeThread.java:134)
+]
+[ToeThread #14: 
+ -no CrawlURI- 
+    WAITING for 2m25s361ms
+    step: ABOUT_TO_GET_URI for 2m25s361ms
+Java Thread State: TIMED_WAITING
+Blocked/Waiting On: NONE
+    java.base@11.0.13/java.lang.Thread.sleep(Native Method)
+    app//org.archive.crawler.frontier.WorkQueueFrontier.findEligibleURI(WorkQueueFrontier.java:730)
+    app//org.archive.crawler.frontier.AbstractFrontier.next(AbstractFrontier.java:457)
+    app//org.archive.crawler.framework.ToeThread.run(ToeThread.java:134)
+]
+[ToeThread #15: 
+ -no CrawlURI- 
+    WAITING for 2m52s894ms
+    step: ABOUT_TO_GET_URI for 2m52s894ms
+Java Thread State: TIMED_WAITING
+Blocked/Waiting On: NONE
+    java.base@11.0.13/java.lang.Thread.sleep(Native Method)
+    app//org.archive.crawler.frontier.WorkQueueFrontier.findEligibleURI(WorkQueueFrontier.java:730)
+    app//org.archive.crawler.frontier.AbstractFrontier.next(AbstractFrontier.java:457)
+    app//org.archive.crawler.framework.ToeThread.run(ToeThread.java:134)
+]
+[ToeThread #16: 
+ -no CrawlURI- 
+    WAITING for 1m49s366ms
+    step: ABOUT_TO_GET_URI for 1m49s366ms
+Java Thread State: TIMED_WAITING
+Blocked/Waiting On: NONE
+    java.base@11.0.13/java.lang.Thread.sleep(Native Method)
+    app//org.archive.crawler.frontier.WorkQueueFrontier.findEligibleURI(WorkQueueFrontier.java:730)
+    app//org.archive.crawler.frontier.AbstractFrontier.next(AbstractFrontier.java:457)
+    app//org.archive.crawler.framework.ToeThread.run(ToeThread.java:134)
+]
+[ToeThread #17: 
+ -no CrawlURI- 
+    WAITING for 2m43s799ms
+    step: ABOUT_TO_GET_URI for 2m43s799ms
+Java Thread State: TIMED_WAITING
+Blocked/Waiting On: NONE
+    java.base@11.0.13/java.lang.Thread.sleep(Native Method)
+    app//org.archive.crawler.frontier.WorkQueueFrontier.findEligibleURI(WorkQueueFrontier.java:730)
+    app//org.archive.crawler.frontier.AbstractFrontier.next(AbstractFrontier.java:457)
+    app//org.archive.crawler.framework.ToeThread.run(ToeThread.java:134)
+]
+[ToeThread #18
+ -no CrawlURI- 
+    WAITING for 3m9s214ms
+    step: ABOUT_TO_GET_URI for 3m9s214ms
+Java Thread State: TIMED_WAITING
+Blocked/Waiting On: NONE
+    java.base@11.0.13/java.lang.Thread.sleep(Native Method)
+    app//org.archive.crawler.frontier.WorkQueueFrontier.findEligibleURI(WorkQueueFrontier.java:730)
+    app//org.archive.crawler.frontier.AbstractFrontier.next(AbstractFrontier.java:457)
+    app//org.archive.crawler.framework.ToeThread.run(ToeThread.java:134)
+]
+[ToeThread #19: 
+ -no CrawlURI- 
+    WAITING for 2m54s954ms
+    step: ABOUT_TO_GET_URI for 2m54s954ms
+Java Thread State: TIMED_WAITING
+Blocked/Waiting On: NONE
+    java.base@11.0.13/java.lang.Thread.sleep(Native Method)
+    app//org.archive.crawler.frontier.WorkQueueFrontier.findEligibleURI(WorkQueueFrontier.java:730)
+    app//org.archive.crawler.frontier.AbstractFrontier.next(AbstractFrontier.java:457)
+    app//org.archive.crawler.framework.ToeThread.run(ToeThread.java:134)
+]
+[ToeThread #20
+ -no CrawlURI- 
+    WAITING for 3m9s210ms
+    step: ABOUT_TO_GET_URI for 3m9s210ms
+Java Thread State: TIMED_WAITING
+Blocked/Waiting On: NONE
+    java.base@11.0.13/java.lang.Thread.sleep(Native Method)
+    app//org.archive.crawler.frontier.WorkQueueFrontier.findEligibleURI(WorkQueueFrontier.java:730)
+    app//org.archive.crawler.frontier.AbstractFrontier.next(AbstractFrontier.java:457)
+    app//org.archive.crawler.framework.ToeThread.run(ToeThread.java:134)
+]
+[ToeThread #21
+ -no CrawlURI- 
+    WAITING for 3m9s209ms
+    step: ABOUT_TO_GET_URI for 3m9s209ms
+Java Thread State: TIMED_WAITING
+Blocked/Waiting On: NONE
+    java.base@11.0.13/java.lang.Thread.sleep(Native Method)
+    app//org.archive.crawler.frontier.WorkQueueFrontier.findEligibleURI(WorkQueueFrontier.java:730)
+    app//org.archive.crawler.frontier.AbstractFrontier.next(AbstractFrontier.java:457)
+    app//org.archive.crawler.framework.ToeThread.run(ToeThread.java:134)
+]
+[ToeThread #22
+ -no CrawlURI- 
+    WAITING for 3m9s209ms
+    step: ABOUT_TO_GET_URI for 3m9s208ms
+Java Thread State: TIMED_WAITING
+Blocked/Waiting On: NONE
+    java.base@11.0.13/java.lang.Thread.sleep(Native Method)
+    app//org.archive.crawler.frontier.WorkQueueFrontier.findEligibleURI(WorkQueueFrontier.java:730)
+    app//org.archive.crawler.frontier.AbstractFrontier.next(AbstractFrontier.java:457)
+    app//org.archive.crawler.framework.ToeThread.run(ToeThread.java:134)
+]
+[ToeThread #23
+ -no CrawlURI- 
+    WAITING for 3m9s208ms
+    step: ABOUT_TO_GET_URI for 3m9s208ms
+Java Thread State: TIMED_WAITING
+Blocked/Waiting On: NONE
+    java.base@11.0.13/java.lang.Thread.sleep(Native Method)
+    app//org.archive.crawler.frontier.WorkQueueFrontier.findEligibleURI(WorkQueueFrontier.java:730)
+    app//org.archive.crawler.frontier.AbstractFrontier.next(AbstractFrontier.java:457)
+    app//org.archive.crawler.framework.ToeThread.run(ToeThread.java:134)
+]
+[ToeThread #24
+ -no CrawlURI- 
+    WAITING for 3m9s208ms
+    step: ABOUT_TO_GET_URI for 3m9s207ms
+Java Thread State: TIMED_WAITING
+Blocked/Waiting On: NONE
+    java.base@11.0.13/java.lang.Thread.sleep(Native Method)
+    app//org.archive.crawler.frontier.WorkQueueFrontier.findEligibleURI(WorkQueueFrontier.java:730)
+    app//org.archive.crawler.frontier.AbstractFrontier.next(AbstractFrontier.java:457)
+    app//org.archive.crawler.framework.ToeThread.run(ToeThread.java:134)
+]
+[ToeThread #25
+ -no CrawlURI- 
+    WAITING for 3m9s208ms
+    step: ABOUT_TO_GET_URI for 3m9s208ms
+Java Thread State: TIMED_WAITING
+Blocked/Waiting On: NONE
+    java.base@11.0.13/java.lang.Thread.sleep(Native Method)
+    app//org.archive.crawler.frontier.WorkQueueFrontier.findEligibleURI(WorkQueueFrontier.java:730)
+    app//org.archive.crawler.frontier.AbstractFrontier.next(AbstractFrontier.java:457)
+    app//org.archive.crawler.framework.ToeThread.run(ToeThread.java:134)
+]

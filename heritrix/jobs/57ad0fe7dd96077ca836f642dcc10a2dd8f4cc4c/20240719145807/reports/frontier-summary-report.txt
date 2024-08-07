@@ -1,0 +1,188 @@
+Frontier report - 202407191502
+ Job being crawled: basic
+
+ -----===== STATS =====-----
+ Discovered:    75
+ Queued:        3
+ Finished:      72
+  Successfully: 72
+  Failed:       0
+  Disregarded:  0
+
+ -----===== QUEUES =====-----
+ Already included size:     75
+               pending:     0
+
+ All class queues map size: 10
+             Active queues: 1
+                    In-process: 0
+                         Ready: 0
+                       Snoozed: 1
+           Inactive queues: 0 (p3: 0)
+            Retired queues: 0
+          Exhausted queues: 9
+
+             Last state: RUN
+ -----===== MANAGER THREAD =====-----
+Java Thread State: TIMED_WAITING
+Blocked/Waiting On: NONE
+    java.base@11.0.13/java.lang.Thread.sleep(Native Method)
+    app//org.archive.crawler.frontier.AbstractFrontier.managementTasks(AbstractFrontier.java:367)
+    app//org.archive.crawler.frontier.AbstractFrontier$1.run(AbstractFrontier.java:318)
+
+ -----===== 10 LONGEST QUEUES =====-----
+LONGEST#0:
+Queue net,facebook,www, (p3)
+  3 items
+   wakes in: 10m46s900ms
+    last enqueued: https://www.facebook.net/login/?next=https%3A%2F%2Fconnect.facebook.net%2Fen_US%2Fall.js
+      last peeked: dns:www.facebook.net
+   total expended: 1 (total budget: -1)
+   active balance: 2999
+   last(avg) cost: 1(1)
+   totalScheduled fetchSuccesses fetchFailures fetchDisregards fetchResponses robotsDenials successBytes totalBytes fetchNonResponses lastSuccessTime
+   3 0 0 0 0 0 0 0 2 1970-01-01T00:00:00.000Z
+   SimplePrecedenceProvider
+   3
+
+LONGEST#1:
+Queue com,google,apis, (p3)
+  0 items
+    last enqueued: https://apis.google.com/favicon.ico
+      last peeked: https://apis.google.com/favicon.ico
+   total expended: 4 (total budget: -1)
+   active balance: 2996
+   last(avg) cost: 1(1)
+   totalScheduled fetchSuccesses fetchFailures fetchDisregards fetchResponses robotsDenials successBytes totalBytes fetchNonResponses lastSuccessTime
+   4 4 0 0 4 0 58977 58977 2 2024-07-19T14:58:23.910Z
+   SimplePrecedenceProvider
+   3
+
+LONGEST#2:
+Queue com,google,developers, (p3)
+  0 items
+    last enqueued: https://developers.google.com/
+      last peeked: https://developers.google.com/
+   total expended: 5 (total budget: -1)
+   active balance: 2995
+   last(avg) cost: 1(1)
+   totalScheduled fetchSuccesses fetchFailures fetchDisregards fetchResponses robotsDenials successBytes totalBytes fetchNonResponses lastSuccessTime
+   5 5 0 0 5 0 202456 202456 3 2024-07-19T14:58:32.894Z
+   SimplePrecedenceProvider
+   3
+
+LONGEST#3:
+Queue com,google,www, (p3)
+  0 items
+    last enqueued: http://www.google.com/favicon.ico
+      last peeked: http://www.google.com/favicon.ico
+   total expended: 4 (total budget: -1)
+   active balance: 2996
+   last(avg) cost: 1(1)
+   totalScheduled fetchSuccesses fetchFailures fetchDisregards fetchResponses robotsDenials successBytes totalBytes fetchNonResponses lastSuccessTime
+   4 4 0 0 4 0 17790 17790 2 2024-07-19T14:58:23.743Z
+   SimplePrecedenceProvider
+   3
+
+LONGEST#4:
+Queue com,googleapis,fonts, (p3)
+  0 items
+    last enqueued: http://fonts.googleapis.com/favicon.ico
+      last peeked: http://fonts.googleapis.com/favicon.ico
+   total expended: 6 (total budget: -1)
+   active balance: 2994
+   last(avg) cost: 1(1)
+   totalScheduled fetchSuccesses fetchFailures fetchDisregards fetchResponses robotsDenials successBytes totalBytes fetchNonResponses lastSuccessTime
+   6 6 0 0 6 0 5477 5477 2 2024-07-19T14:58:29.815Z
+   SimplePrecedenceProvider
+   3
+
+LONGEST#5:
+Queue com,gstatic,fonts, (p3)
+  0 items
+    last enqueued: http://fonts.gstatic.com/s/merienda/v19/gNMaW3x8Qoy5_mf8uUkJGHtiYXjmKFy5nX9YTkT4.ttf
+      last peeked: http://fonts.gstatic.com/s/merienda/v19/gNMaW3x8Qoy5_mf8uUkJGHtiYXjmKFy5nX9YTkT4.ttf
+   total expended: 11 (total budget: -1)
+   active balance: 2989
+   last(avg) cost: 1(1)
+   totalScheduled fetchSuccesses fetchFailures fetchDisregards fetchResponses robotsDenials successBytes totalBytes fetchNonResponses lastSuccessTime
+   11 11 0 0 11 0 552610 552610 2 2024-07-19T14:58:51.439Z
+   SimplePrecedenceProvider
+   3
+
+LONGEST#6:
+Queue com,twitter,platform, (p3)
+  0 items
+    last enqueued: http://platform.twitter.com/favicon.ico
+      last peeked: http://platform.twitter.com/favicon.ico
+   total expended: 4 (total budget: -1)
+   active balance: 2996
+   last(avg) cost: 1(1)
+   totalScheduled fetchSuccesses fetchFailures fetchDisregards fetchResponses robotsDenials successBytes totalBytes fetchNonResponses lastSuccessTime
+   4 4 0 0 4 0 94976 94976 2 2024-07-19T14:58:24.383Z
+   SimplePrecedenceProvider
+   3
+
+LONGEST#7:
+Queue net,facebook,connect, (p3)
+  0 items
+    last enqueued: https://connect.facebook.net/favicon.ico
+      last peeked: https://connect.facebook.net/favicon.ico
+   total expended: 4 (total budget: -1)
+   active balance: 2996
+   last(avg) cost: 1(1)
+   totalScheduled fetchSuccesses fetchFailures fetchDisregards fetchResponses robotsDenials successBytes totalBytes fetchNonResponses lastSuccessTime
+   4 4 0 0 4 0 14505 14505 2 2024-07-19T14:58:24.139Z
+   SimplePrecedenceProvider
+   3
+
+LONGEST#8:
+Queue net,yerb, (p3)
+  0 items
+    last enqueued: https://yerb.net/
+      last peeked: http://yerb.net/favicon.ico
+   total expended: 7 (total budget: -1)
+   active balance: 2993
+   last(avg) cost: 1(1)
+   totalScheduled fetchSuccesses fetchFailures fetchDisregards fetchResponses robotsDenials successBytes totalBytes fetchNonResponses lastSuccessTime
+   7 7 0 0 7 0 5064 5064 3 2024-07-19T14:58:37.232Z
+   SimplePrecedenceProvider
+   3
+
+LONGEST#9:
+Queue nl,dds,bje,www, (p3)
+  0 items
+    last enqueued: https://www.bje.dds.nl/ShockwaveFlash.ShockwaveFlash
+      last peeked: https://www.bje.dds.nl/ShockwaveFlash.ShockwaveFlash
+   total expended: 27 (total budget: -1)
+   active balance: 2973
+   last(avg) cost: 1(1)
+   totalScheduled fetchSuccesses fetchFailures fetchDisregards fetchResponses robotsDenials successBytes totalBytes fetchNonResponses lastSuccessTime
+   27 27 0 0 27 0 467878 467878 2 2024-07-19T14:59:27.439Z
+   SimplePrecedenceProvider
+   3
+
+
+ -----===== IN-PROCESS QUEUES =====-----
+
+ -----===== READY QUEUES =====-----
+
+ -----===== SNOOZED QUEUES =====-----
+SNOOZED#0:
+Queue net,facebook,www, (p3)
+  3 items
+   wakes in: 10m46s899ms
+    last enqueued: https://www.facebook.net/login/?next=https%3A%2F%2Fconnect.facebook.net%2Fen_US%2Fall.js
+      last peeked: dns:www.facebook.net
+   total expended: 1 (total budget: -1)
+   active balance: 2999
+   last(avg) cost: 1(1)
+   totalScheduled fetchSuccesses fetchFailures fetchDisregards fetchResponses robotsDenials successBytes totalBytes fetchNonResponses lastSuccessTime
+   3 0 0 0 0 0 0 0 2 1970-01-01T00:00:00.000Z
+   SimplePrecedenceProvider
+   3
+
+
+ -----===== INACTIVE QUEUES =====-----
+
+ -----===== RETIRED QUEUES =====-----
