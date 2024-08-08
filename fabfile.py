@@ -47,8 +47,8 @@ def deploy(c):
     c.sudo("sh -c 'cd %s && docker-compose up -d'" % (os.path.join(DIR, 'docker'),))
 
     # compile web landing page
-    c.sudo("docker exec %s ./makesite.py" % (MAKESITE_CONTAINER,))
-    c.sudo("docker exec %s ./makesite.py" % (MAKESITE2_CONTAINER,))
+    #c.sudo("docker exec %s ./makesite.py" % (MAKESITE_CONTAINER,))
+    #c.sudo("docker exec %s ./makesite.py" % (MAKESITE2_CONTAINER,))
     # Compile assets
     output = c.sudo(
         'docker inspect --format="{{.State.Status}}" %s' % (NODE_CONTAINER)
