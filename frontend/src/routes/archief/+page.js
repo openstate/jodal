@@ -13,7 +13,7 @@ export async function load({ fetch, params }) {
   const external_ids = assets.map(function (a){return a.external_id;});
   console.log('assets data load:', assets);
   console.log('asset ext ids', external_ids);
-  if (external_ids.length > 1) {
+  if (external_ids.length >= 1) {
     const statuses = await warcStatuses(external_ids.join(','));
     console.log('warc statuses:', statuses);
     statuses.forEach(function (s) {

@@ -83,7 +83,7 @@ anonymous
 </p>
 
 <label class="form-label">Link</label>  <input type="text" name="url" bind:value={url} on:keydown={handleKeydown} />
-<button type="button" class="btn btn-primary"  data-bs-toggle="modal" data-bs-target="#exampleModal" on:click="{handleUrlForm}">
+<button type="button" class="btn btn-primary" on:click="{handleUrlForm}">
 Verstuur
 </button>
 
