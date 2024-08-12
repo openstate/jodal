@@ -87,7 +87,8 @@ class DocumentsScraper(ElasticsearchMixin, BaseWebScraper):
         names = getattr(self, 'names', None) or [self.name]
         result = []
         for n in names:
-            if ((item['foi_retrievedDate'] < self.date_from) or
+            if (item['foi_retrievedDate'] is not None) and
+                ((item['foi_retrievedDate'] < self.date_from) or
                 (item['foi_retrievedDate'] > self.date_to)):
                     continue
             data = {}
