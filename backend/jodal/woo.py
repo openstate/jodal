@@ -21,7 +21,7 @@ from jodal.scrapers import (
     MemoryMixin, ElasticsearchMixin, ElasticsearchBulkMixin, BaseScraper,
     BaseWebScraper, BaseFromElasticsearch)
 
-WOO_URL = 'https://pid.wooverheid.nl/?pid=nl'
+WOO_URL = 'https://pid.wooverheid.nl/?pid=nl&dim=publisher&category=Gemeente'
 WOO_TIMEOUT = (5,15)
 
 class DocumentsScraper(ElasticsearchMixin, BaseWebScraper):
@@ -246,6 +246,7 @@ def run(config={}):
             num_old = old_counts[gm]
         except LookupError as e:
             num_old = 0
+            #num_old = num_current - 1
         if num_old == num_current:
             print("%s has the same counts, skipping" % (gm,))
             continue
