@@ -21,7 +21,7 @@ from jodal.scrapers import (
     MemoryMixin, ElasticsearchMixin, ElasticsearchBulkMixin, BaseScraper,
     BaseWebScraper, BaseFromElasticsearch)
 
-WOO_URL = 'https://doi.wooverheid.nl/?doi=nl&dim=publisher&category=Gemeente'
+WOO_URL = 'https://pid.wooverheid.nl/?pid=nl'
 WOO_TIMEOUT = (5,15)
 
 class DocumentsScraper(ElasticsearchMixin, BaseWebScraper):
@@ -102,7 +102,7 @@ class DocumentsScraper(ElasticsearchMixin, BaseWebScraper):
                     '_index': 'jodal_documents',
                     'id': h_id,
                     'identifier': r_uri,
-                    'url': 'https://doi.wooverheid.nl/?doi=%s' % (r_uri,),
+                    'url': 'https://pid.wooverheid.nl/?doi=%s' % (r_uri,),
                     'location': self.locations[item['dc_publisher']],
                     'title': title,
                     'description': description,
@@ -184,7 +184,7 @@ def fetch_url(url, max_count):
 
 def test():
     print("Test")
-    url = 'https://doi.wooverheid.nl/?doi=nl.gm0518&infobox=true'
+    url = 'https://pid.wooverheid.nl/?doi=nl.gm0518&infobox=true'
     fetch_url(url)
 
 def load_counts():
