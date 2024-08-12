@@ -65,7 +65,11 @@ class DocumentsScraper(ElasticsearchMixin, BaseWebScraper):
         if result is not None:
             logging.info(
                 'Scraper: in total %s results' % (result['infobox']['foi_totalDossiers'],))
-            return result['infobox'].get('foi_dossiers', [])
+            result = sorted(
+                result['infobox'].get('foi_dossiers', []),
+                key=lambda d: d['foi_retrievedDate'])
+            result.reverse()
+            return result
         else:
             return []
 
@@ -119,6 +123,7 @@ class DocumentsScraper(ElasticsearchMixin, BaseWebScraper):
                     with Connection(self.redis_client):
                         q = Queue()
                         q.enqueue(fetch_attachments, r, [f for f in item.get('foi_files', []) if f.get('dc_source', '').endswith('.pdf')])
+                        logging.info('Enqueued woo individual item %s (%s)' % (h_id, item['foi_retrievedDate'],))
                     self.item_count += 1
 
         # logging.info(pformat(result))
@@ -246,7 +251,7 @@ def run(config={}):
             num_old = old_counts[gm]
         except LookupError as e:
             num_old = 0
-            #num_old = num_current - 1
+            # num_old = num_current - 5
         if num_old == num_current:
             print("%s has the same counts, skipping" % (gm,))
             continue
