@@ -87,6 +87,9 @@ class DocumentsScraper(ElasticsearchMixin, BaseWebScraper):
         names = getattr(self, 'names', None) or [self.name]
         result = []
         for n in names:
+            if ((item['foi_retrievedDate'] < self.date_from) or
+                (item['foi_retrievedDate'] > self.date_to)):
+                    continue
             data = {}
             r_uri = item['dc_identifier']
             h_id = self._get_hashed_id(r_uri)
@@ -119,6 +122,7 @@ class DocumentsScraper(ElasticsearchMixin, BaseWebScraper):
                     'data': data
                 }
 
+                self.item_count = 0
                 if self.item_count < self.max_count:
                     with Connection(self.redis_client):
                         q = Queue()
@@ -172,12 +176,12 @@ def fetch_attachments(result_item, documents):
 
 
 
-def fetch_url(url, max_count):
+def fetch_url(url, max_count, date_from=None, date_to=None):
     config = load_config()
     es = setup_elasticsearch(config)
     redis_client = setup_redis(config)
-    df = None
-    dt = None
+    df = date_from
+    dt = date_to
     kwargs = {
         'config': config,
         'date_from': df,
@@ -205,7 +209,7 @@ def save_counts(results):
     with open('./woo-counts.json', 'w') as out_file:
         json.dump(counts, out_file)
 
-def run(config={}):
+def run(config={}, date_from=None, date_to=None, force=False):
     redis_client = setup_redis(config)
 
     resp = requests.get(WOO_URL, timeout=WOO_TIMEOUT)
@@ -252,12 +256,15 @@ def run(config={}):
         except LookupError as e:
             num_old = 0
             # num_old = num_current - 5
+        if force:
+            num_old = 0
         if num_old == num_current:
             print("%s has the same counts, skipping" % (gm,))
             continue
         print("Now getting result for %s" % (gm,))
         with Connection(redis_client):
             q = Queue()
-            q.enqueue(fetch_url, results[gm]['url'], num_current - num_old)
+            q.enqueue(
+                fetch_url, results[gm]['url'], num_current - num_old, date_from, date_to)
     save_counts(results)
     #pprint(results)

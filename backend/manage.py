@@ -309,9 +309,10 @@ def scrapers_cvdr(date_from, date_to, date_field):
 @command('woo')
 @click.option('-f', '--date-from', default=(datetime.now() - timedelta(days=1)))
 @click.option('-t', '--date-to', default=datetime.now())
-def scrapers_woo(date_from, date_to):
+@click.option('-F', "--force", is_flag=True, show_default=True, default=False, help="Force fetching.")
+def scrapers_woo(date_from, date_to, force):
     config = load_config()
-    run(config)
+    run(config, date_from, date_to, force)
 
 
 @command('obk')
