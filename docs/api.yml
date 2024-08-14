@@ -1,0 +1,7 @@
+swagger: "2.0" # Swagger version compatible with OAS 3.0
+info:
+ description: "De API van Bron"
+ version: "1.0.0" # This is your api version
+ title: "Bron API"
+host: "api.bron.live"
+basePath: "/"
