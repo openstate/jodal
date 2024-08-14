@@ -233,7 +233,7 @@ def run(config={}, date_from=None, date_to=None, force=False):
         #gl = urljoin(WOO_URL, l) + '.2i&infobox=true'
         gm = u''.join(r.xpath('./td[1]//text()')).strip()
         name = u''.join(r.xpath('./td[2]//text()'))
-        count = u''.join(r.xpath('./td[3]//text()')).replace(',', '')
+        count = u''.join(r.xpath('./td[4]//text()')).replace(',', '')
         if not count:
             count = '0'
         #print({'url': gl, 'code': gm, 'name': name, 'count': int(count)})
