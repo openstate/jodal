@@ -5,3 +5,90 @@ info:
  title: "Bron API"
 host: "api.bron.live"
 basePath: "/"
+paths:
+  /users/forgot-password:
+    post:
+      summary: "Send a forgotten password email to a user"
+  /users/login:
+    post:
+      summary: "Starts login procedure for a user"
+    get:
+      summary: "Starts login procedure for a user"
+  /users/passwordless/start:
+    get:
+      summary: "Starts a passwordless login for a user"
+  /users/passwordless/complete:
+    get:
+      summary: "Completes a pasdswordless login for a user"
+  /users/register:
+    post:
+      summary: "Registers a new user"
+  /users/delete:
+    get:
+      summary: "Deletes a user"
+  /users/simple/me:
+    get:
+      summary: "Returns the information of the currently logged in user"
+  /users/simple/login:
+    get:
+      summary: "Alternative way to login"
+  users/simple/logout:
+    get:
+      summary: "Log the user out"
+  /user/simple/register:
+    get:
+      summary: "Registers a new user"
+  /users/simple/callback:
+    get:
+      summary: "Completes a OAuth2 login process"
+  /archive/warc/create:
+    get:
+      summary: "Starts a procedure to get heritrix to make a WARC archive of the given URL."
+  /archive/warc/download/<archive_id>:
+    get:
+      summary: "Downloads the given WARC file to your computer."
+  /archive/warc/<archive_id>:
+    get:
+      summary: "Get the status of a warc given archive"
+  /archive/warcs/<archive_ids_str>:
+    get:
+      summary: "Get the status of the given warcs files (separated by ,)"
+  /assets:
+    get:
+      summary: "Returns the assets associated with the logged in user."
+    post:
+      summary: "Create a new asset associated with the logged in user."
+  /assets/<int:asset_id>:
+    get:
+      summary: "Get the information of an asset, associated with the logged in user"
+    post:
+      summary: "Update the asset information, associated with the logged in user."
+    delete:
+      summary: "Deletes the asset associated with the logged in user."
+  /columns:
+    get:
+      summary: "Get the associated feeds for the logged in user."
+    post:
+      summary: "Add a new feed for the logged in user."
+  /columns/<int:column_id>:
+    get:
+      summary: "Get the information of a feed, associated with the logged in user"
+    post:
+      summary: "Update the feed information, associated with the logged in user."
+    delete:
+      summary: "Deletes the feed associated with the logged in user."
+  /documents/download/<source>/<external_item_id>:
+    get:
+      summary: "Starts downloading an external file"
+  /search:
+    get:
+      summary: "Perform a search operation over all indexes"
+  /<index_name>/search:
+    get:
+      summary: "Perform a search operation over a specific index"
+  /subscriptions/delete:
+    get:
+      summary: "Deletes an email subscription"
+  /subscriptions/new:
+    get:
+      summary: "Creates a new email subscription"
