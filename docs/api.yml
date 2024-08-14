@@ -9,86 +9,158 @@ paths:
   /users/forgot-password:
     post:
       summary: "Send a forgotten password email to a user"
+      produces:
+        - "application/json"
+      parameters:
+      - name: "email"
+        in: "query" # This is saying that this parameter must be given in a query string
+      responses:
+        301:
+          description: "The email was succesfully sent. Redirecto to front page."
+          schema:
+            type: "array"
+            items:
+              type: "string"
+        200:
+          description: "Something went wrong sending out the password lost email"
+          schema:
+            type: "object"
+            error:
+              type: "string"
   /users/login:
     post:
       summary: "Starts login procedure for a user"
+      produces:
+           - "application/json"
     get:
       summary: "Starts login procedure for a user"
+      produces:
+           - "application/json"
   /users/passwordless/start:
     get:
       summary: "Starts a passwordless login for a user"
+      produces:
+           - "application/json"
   /users/passwordless/complete:
     get:
       summary: "Completes a pasdswordless login for a user"
   /users/register:
     post:
       summary: "Registers a new user"
+      produces:
+           - "application/json"
   /users/delete:
     get:
       summary: "Deletes a user"
+      produces:
+           - "application/json"
   /users/simple/me:
     get:
       summary: "Returns the information of the currently logged in user"
+      produces:
+           - "application/json"
   /users/simple/login:
     get:
       summary: "Alternative way to login"
+      produces:
+           - "application/json"
   users/simple/logout:
     get:
       summary: "Log the user out"
+      produces:
+           - "application/json"
   /user/simple/register:
     get:
       summary: "Registers a new user"
+      produces:
+           - "application/json"
   /users/simple/callback:
     get:
       summary: "Completes a OAuth2 login process"
   /archive/warc/create:
     get:
       summary: "Starts a procedure to get heritrix to make a WARC archive of the given URL."
+      produces:
+           - "application/json"
   /archive/warc/download/<archive_id>:
     get:
       summary: "Downloads the given WARC file to your computer."
+      produces:
+           - "application/json"
   /archive/warc/<archive_id>:
     get:
       summary: "Get the status of a warc given archive"
+      produces:
+           - "application/json"
   /archive/warcs/<archive_ids_str>:
     get:
       summary: "Get the status of the given warcs files (separated by ,)"
+      produces:
+           - "application/json"
   /assets:
     get:
       summary: "Returns the assets associated with the logged in user."
+      produces:
+           - "application/json"
     post:
       summary: "Create a new asset associated with the logged in user."
+      produces:
+           - "application/json"
   /assets/<int:asset_id>:
     get:
       summary: "Get the information of an asset, associated with the logged in user"
+      produces:
+           - "application/json"
     post:
       summary: "Update the asset information, associated with the logged in user."
+      produces:
+           - "application/json"
     delete:
       summary: "Deletes the asset associated with the logged in user."
+      produces:
+           - "application/json"
   /columns:
     get:
       summary: "Get the associated feeds for the logged in user."
+      produces:
+           - "application/json"
     post:
       summary: "Add a new feed for the logged in user."
+      produces:
+           - "application/json"
   /columns/<int:column_id>:
     get:
       summary: "Get the information of a feed, associated with the logged in user"
+      produces:
+           - "application/json"
     post:
       summary: "Update the feed information, associated with the logged in user."
+      produces:
+           - "application/json"
     delete:
       summary: "Deletes the feed associated with the logged in user."
+      produces:
+           - "application/json"
   /documents/download/<source>/<external_item_id>:
     get:
       summary: "Starts downloading an external file"
   /search:
     get:
       summary: "Perform a search operation over all indexes"
+      produces:
+           - "application/json"
   /<index_name>/search:
     get:
       summary: "Perform a search operation over a specific index"
+      produces:
+           - "application/json"
   /subscriptions/delete:
     get:
       summary: "Deletes an email subscription"
+      produces:
+           - "application/json"
   /subscriptions/new:
     get:
       summary: "Creates a new email subscription"
+      produces:
+           - "application/json"
