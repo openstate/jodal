@@ -8,6 +8,8 @@ basePath: "/"
 paths:
   /users/forgot-password:
     post:
+      tags:
+        - Users
       summary: "Send a forgotten password email to a user"
       produces:
         - "application/json"
@@ -17,10 +19,6 @@ paths:
       responses:
         301:
           description: "The email was succesfully sent. Redirecto to front page."
-          schema:
-            type: "array"
-            items:
-              type: "string"
         200:
           description: "Something went wrong sending out the password lost email"
           schema:
@@ -29,138 +27,222 @@ paths:
               type: "string"
   /users/login:
     post:
+      tags:
+        - Users
       summary: "Starts login procedure for a user"
       produces:
-           - "application/json"
+        - "application/json"
+      parameters:
+      - name: "email"
+      - name: "password"
+      responses:
+        301:
+          description: "The login was succesful. Redirecto to front page."
+        200:
+          description: "Something went wrong loggin in"
+          schema:
+            type: "object"
+            error:
+              type: "string"
     get:
+      tags:
+        - Users
       summary: "Starts login procedure for a user"
       produces:
            - "application/json"
+      parameters:
+      - name: "email"
+      - name: "password"
+      responses:
+        301:
+          description: "The login was succesful. Redirecto to front page."
+        200:
+          description: "Something went wrong loggin in"
+          schema:
+            type: "object"
+            error:
+              type: "string"
   /users/passwordless/start:
     get:
+      tags:
+        - Users
       summary: "Starts a passwordless login for a user"
       produces:
            - "application/json"
   /users/passwordless/complete:
     get:
+      tags:
+        - Users
       summary: "Completes a pasdswordless login for a user"
   /users/register:
     post:
+      tags:
+        - Users
       summary: "Registers a new user"
       produces:
            - "application/json"
   /users/delete:
     get:
+      tags:
+        - Users
       summary: "Deletes a user"
       produces:
            - "application/json"
   /users/simple/me:
     get:
+      tags:
+        - Users
       summary: "Returns the information of the currently logged in user"
       produces:
            - "application/json"
   /users/simple/login:
     get:
+      tags:
+        - Users
       summary: "Alternative way to login"
       produces:
            - "application/json"
   users/simple/logout:
     get:
+      tags:
+        - Users
       summary: "Log the user out"
       produces:
            - "application/json"
   /user/simple/register:
     get:
+      tags:
+        - Users
       summary: "Registers a new user"
       produces:
            - "application/json"
   /users/simple/callback:
     get:
+      tags:
+        - Users
       summary: "Completes a OAuth2 login process"
   /archive/warc/create:
     get:
+      tags:
+        - WARC
       summary: "Starts a procedure to get heritrix to make a WARC archive of the given URL."
       produces:
            - "application/json"
   /archive/warc/download/<archive_id>:
     get:
+      tags:
+        - WARC
       summary: "Downloads the given WARC file to your computer."
       produces:
            - "application/json"
   /archive/warc/<archive_id>:
     get:
+      tags:
+        - WARC
       summary: "Get the status of a warc given archive"
       produces:
            - "application/json"
   /archive/warcs/<archive_ids_str>:
     get:
+      tags:
+        - WARC
       summary: "Get the status of the given warcs files (separated by ,)"
       produces:
            - "application/json"
   /assets:
     get:
+      tags:
+        - Assets
       summary: "Returns the assets associated with the logged in user."
       produces:
            - "application/json"
     post:
+      tags:
+        - Assets
       summary: "Create a new asset associated with the logged in user."
       produces:
            - "application/json"
   /assets/<int:asset_id>:
     get:
+      tags:
+        - Assets
       summary: "Get the information of an asset, associated with the logged in user"
       produces:
            - "application/json"
     post:
+      tags:
+        - Assets
       summary: "Update the asset information, associated with the logged in user."
       produces:
            - "application/json"
     delete:
+      tags:
+        - Assets
       summary: "Deletes the asset associated with the logged in user."
       produces:
            - "application/json"
   /columns:
     get:
+      tags:
+        - Feeds
       summary: "Get the associated feeds for the logged in user."
       produces:
            - "application/json"
     post:
+      tags:
+        - Feeds
       summary: "Add a new feed for the logged in user."
       produces:
            - "application/json"
   /columns/<int:column_id>:
     get:
+      tags:
+        - Feeds
       summary: "Get the information of a feed, associated with the logged in user"
       produces:
            - "application/json"
     post:
+      tags:
+        - Feeds
       summary: "Update the feed information, associated with the logged in user."
       produces:
            - "application/json"
     delete:
+      tags:
+        - Feeds
       summary: "Deletes the feed associated with the logged in user."
       produces:
            - "application/json"
   /documents/download/<source>/<external_item_id>:
     get:
+      tags:
+        - Documents
       summary: "Starts downloading an external file"
   /search:
     get:
+      tags:
+        - Search
       summary: "Perform a search operation over all indexes"
       produces:
            - "application/json"
   /<index_name>/search:
     get:
+      tags:
+        - Search
       summary: "Perform a search operation over a specific index"
       produces:
            - "application/json"
   /subscriptions/delete:
     get:
+      tags:
+        - Subscriptions
       summary: "Deletes an email subscription"
       produces:
            - "application/json"
   /subscriptions/new:
     get:
+      tags:
+        - Subscriptions
       summary: "Creates a new email subscription"
       produces:
            - "application/json"
