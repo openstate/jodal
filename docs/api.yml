@@ -144,6 +144,24 @@ paths:
       summary: "Registers a new user"
       produces:
            - "application/json"
+      parameters:
+      - name: "email"
+        description: "The email address of the user."
+        in: "form"
+        required: true
+      - name: "password"
+        description: "The password used for logging in."
+        in: "form"
+        required: true
+      responses:
+        301:
+          description: "The registration was succesful and an email was sent. Redirecto to front page."
+        200:
+          description: "Something went wrong registering the user. The contents describe the error encountered."
+          schema:
+            type: "object"
+            error:
+              type: "string"
   /users/delete:
     get:
       tags:
