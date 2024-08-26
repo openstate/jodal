@@ -34,7 +34,7 @@ paths:
       tags:
         - Users
       summary: "Starts login procedure for a user."
-      description: "Log in a user. The parameters email and password can be specified via the form or via the query."
+      description: "Log in a user. The parameters email and password can be specified via the form or via the query, but both need to be present."
       produces:
         - "application/json"
       parameters:
@@ -63,11 +63,15 @@ paths:
       tags:
         - Users
       summary: "Starts login procedure for a user"
+      description: "Log in a user. Redirect to frontpage if successful"
       produces:
            - "application/json"
-      parameters:
       - name: "email"
+        in: "query"
+        required: true
       - name: "password"
+        in: "query"
+        required: true
       responses:
         301:
           description: "The login was succesful. Redirecto to front page."
