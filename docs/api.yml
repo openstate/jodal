@@ -39,15 +39,19 @@ paths:
         - "application/json"
       parameters:
       - name: "email"
+        description: "The email address of the user."
         in: "query"
         required: false
       - name: "password"
+        description: "The password used for loggin in."
         in: "query"
         required: false
       - name: "email"
+        description: "The email address of the user."
         in: "form"
         required: false
       - name: "password"
+        description: "The password used for loggin in."
         in: "form"
         required: false
       responses:
@@ -66,10 +70,13 @@ paths:
       description: "Log in a user. Redirect to frontpage if successful"
       produces:
            - "application/json"
+      parameters:
       - name: "email"
+        description: "The email address of the user."
         in: "query"
         required: true
       - name: "password"
+        description: "The password used for loggin in."
         in: "query"
         required: true
       responses:
@@ -85,14 +92,51 @@ paths:
     get:
       tags:
         - Users
-      summary: "Starts a passwordless login for a user"
+      summary: "Starts a passwordless login for a user. An email address should be provided, or a user id."
       produces:
            - "application/json"
+      parameters:
+      - name: "email"
+        description: "The email address of the user."
+        in: "query"
+        required: false
+      - name: "user_id"
+        description: "The user id."
+        in: "query"
+        required: false
+      responses:
+        200:
+          description: "The procedure was started"
+          schema:
+            type: "object"
+            code:
+              type: "string"
+              description: "One time use login code. If this key is pesent, the passwordless login start was sucessful."
+            error:
+              type: "string"
+              description: "If this key is present, there as an error sending the password login start. It describes the error."
   /users/passwordless/complete:
     get:
       tags:
         - Users
       summary: "Completes a pasdswordless login for a user"
+      produces:
+        - "application/json"
+      parameters:
+      - name: "code"
+        description: "Login code that was sent."
+        in: "query"
+        required: true
+      responses:
+        301:
+          description: "The login was succesful. Redirecto to front page."
+        200:
+          description: "Something went wrong loggin in"
+          schema:
+            type: "object"
+            error:
+              description: "The contents describe the error encountered."
+              type: "string"
   /users/register:
     post:
       tags:
