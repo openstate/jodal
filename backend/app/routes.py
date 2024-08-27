@@ -96,6 +96,7 @@ def perform_search(index_name=None, format='json'):
     filters = request.args.get('filter', '')
     page = request.args.get('page', '')
     page_size = request.args.get('limit', '10')
+    default_operator = request.args.get('default_operator', 'or')
     if format == 'feed':
         default_sort = 'published:desc'
     else:
@@ -107,7 +108,8 @@ def perform_search(index_name=None, format='json'):
         term = "*"
 
     results = perform_query(
-        term, filters, page, int(page_size), sort, includes, excludes, index_name)
+        term, filters, page, int(page_size), sort, includes, excludes,
+        default_operator, index_name)
     return results
 
 
