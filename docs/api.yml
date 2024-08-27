@@ -92,7 +92,8 @@ paths:
     get:
       tags:
         - Users
-      summary: "Starts a passwordless login for a user. An email address should be provided, or a user id."
+      summary: "Starts a passwordless login for a user."
+      description: "Starts a passwordless login for a user. An email address should be provided, or a user id."
       produces:
            - "application/json"
       parameters:
@@ -120,6 +121,7 @@ paths:
       tags:
         - Users
       summary: "Completes a pasdswordless login for a user"
+      description: "Complete the passwordless login. Places cookie and adds session info for further use."
       produces:
         - "application/json"
       parameters:
@@ -142,6 +144,7 @@ paths:
       tags:
         - Users
       summary: "Registers a new user"
+      description: "Registeres a new user based on the given email address and password. A welcome email is sent."
       produces:
            - "application/json"
       parameters:
@@ -167,13 +170,18 @@ paths:
       tags:
         - Users
       summary: "Deletes a user"
+      description: "Deletes a user and his/her associated info from the database. Only a logged in user can delete her/himself using this method."
       produces:
            - "application/json"
+      responses:
+        200:
+          description: "The user was deleted. Redirects to the front page."
   /users/simple/me:
     get:
       tags:
         - Users
       summary: "Returns the information of the currently logged in user"
+      description: "Returns the info about the user, which is kept in the session."
       produces:
            - "application/json"
   /users/simple/login:
