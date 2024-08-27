@@ -96,7 +96,7 @@ def perform_search(index_name=None, format='json'):
     filters = request.args.get('filter', '')
     page = request.args.get('page', '')
     page_size = request.args.get('limit', '10')
-    default_operator = request.args,get('default_operator', 'or')
+    default_operator = request.args.get('default_operator', 'or')
     if format == 'feed':
         default_sort = 'published:desc'
     else:
