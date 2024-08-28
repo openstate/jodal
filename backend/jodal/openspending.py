@@ -15,7 +15,7 @@ import requests
 
 from jodal.es import setup_elasticsearch
 from jodal.scrapers import (
-    MemoryMixin, ElasticsearchMixin, ElasticsearchBulkMixin, BaseScraper,
+    MemoryMixin, ElasticsearchMixin, ElasticSearchBulkLocationMixin, BaseScraper,
     BaseWebScraper)
 
 
@@ -171,7 +171,7 @@ class AggregationsScraper(BaseOpenSpendingScraper):
         return result
 
 
-class DocumentsScraper(ElasticsearchBulkMixin, BaseOpenSpendingScraper):
+class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseOpenSpendingScraper):
     name = 'openspending'
     url = 'https://openspending.nl/api/v1/documents/?order_by=-created_at&limit=10'
     payload = None

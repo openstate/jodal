@@ -47,19 +47,19 @@ class ElasticsearchMixin(object):
         self._init_es()
 
 
-class ElasticsearchBulkMixin(MemoryMixin, ElasticsearchMixin):
+class ElasticSearchBulkMixin(MemoryMixin, ElasticsearchMixin):
     def teardown(self):
         logging.info(
             'Elasticsearch: bulk storing %s items' % (len(self.items),))
         result = bulk(self.es, self.items, False)
         self.items = []
 
-class ElasticSearchBulkLocationMixin(ElasticsearchBulkMixin):
+class ElasticSearchBulkLocationMixin(ElasticSearchBulkMixin):
     def _get_locations(self):
         result = {}
         self._init_es()
         locations = self.es.search(index='jodal_locations', body={"size": 500})
-        result = {l['_id'].lower(): l['_source']['name'] for l in locations}
+        result = {l['_id'].lower(): l['_source']['name'] for l in locations['hits']['hits']}
         return result
 
     def teardown(self):

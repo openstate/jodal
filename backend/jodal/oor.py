@@ -19,13 +19,13 @@ from jodal.utils import load_config
 from jodal.es import setup_elasticsearch
 from jodal.redis import setup_redis
 from jodal.scrapers import (
-    MemoryMixin, ElasticsearchMixin, ElasticsearchBulkMixin, BaseScraper,
+    MemoryMixin, ElasticsearchMixin, ElasticSearchBulkLocationMixin, BaseScraper,
     BaseWebScraper, BaseFromElasticsearch)
 
 OOR_URL = 'https://open.overheid.nl/zoekresultaten?informatiesoort=c_3300f29a&sort=date-desc&page=1'
 OOR_TIMEOUT = (5,15)
 
-class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
+class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseWebScraper):
     name = 'oor'
     url = ''
     headers = {

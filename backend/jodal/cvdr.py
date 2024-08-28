@@ -14,12 +14,12 @@ import requests
 
 from jodal.es import setup_elasticsearch
 from jodal.scrapers import (
-    MemoryMixin, ElasticsearchMixin, ElasticsearchBulkMixin, BaseScraper,
+    MemoryMixin, ElasticsearchMixin, ElasticSearchBulkLocationMixin, BaseScraper,
     BaseWebScraper, BaseFromElasticsearch)
 
 
 
-class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
+class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseWebScraper):
     name = 'cvdr'
     method = 'get'
     url = 'https://aleph.openstate.eu/api/2/search'
