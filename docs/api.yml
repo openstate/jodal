@@ -184,25 +184,54 @@ paths:
       description: "Returns the info about the user, which is kept in the session."
       produces:
            - "application/json"
+      responses:
+        200:
+          description: "The user data returned. null if not logged in."
+          schema:
+            type: "object"
+            applicationId:
+              type: "string"
+              description: The application id
+            email:
+              type: "string"
+              description: "The email address of the user."
+            email_verified:
+              type: "boolean"
+              description: "Whether the user was verified or not."
+            family_name:
+              type: "string"
+              description: "The family name of the user"
+            given_name:
+              type: "string"
+              description: "The given name of the user"
+            roles:
+              type: "list"
+              description: "The roles that this user has in admin"
+            sub:
+              type: "string"
+              description : "Show the interal id user for the user,:"
   /users/simple/login:
     get:
       tags:
         - Users
-      summary: "Alternative way to login"
+      summary: "Old way to login"
+      description: "Login via the fusionauth login form. Not actively used anymore."
       produces:
            - "application/json"
   users/simple/logout:
     get:
       tags:
         - Users
-      summary: "Log the user out"
+      summary: "Old way to log the user out"
+      description: "Old way to logout, via fusionauth logout redirect url. Not actively used anymore."
       produces:
            - "application/json"
   /user/simple/register:
     get:
       tags:
         - Users
-      summary: "Registers a new user"
+      summary: "Old way to register a new user"
+      description: "Old way to register a new user via the fusionauth form. Not actively used anymore."
       produces:
            - "application/json"
   /users/simple/callback:
@@ -210,6 +239,7 @@ paths:
       tags:
         - Users
       summary: "Completes a OAuth2 login process"
+      description: "This is the callback that completes a login sequence. It is used by fusionauth, sets the cookie. It also saves via which of the marketing campaing you logged in, if applicable. This happens mostly when you came in via a link to register."
   /archive/warc/create:
     get:
       tags:
