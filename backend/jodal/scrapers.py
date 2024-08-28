@@ -54,6 +54,23 @@ class ElasticsearchBulkMixin(MemoryMixin, ElasticsearchMixin):
         result = bulk(self.es, self.items, False)
         self.items = []
 
+class ElasticSearchBulkLocationMixin(ElasticsearchBulkMixin):
+    def _get_locations(self):
+        result = {}
+        self._init_es()
+        locations = self.es.search(index='jodal_locations', body={"size": 500})
+        result = {l['_id'].lower(): l['_source']['name'] for l in locations}
+        return result
+
+    def teardown(self):
+        # get the location name for the location code specified
+        locations = self._get_locations()
+        for i in self.items:
+            if i.get('location') is None:
+                continue  # should not happen
+            i['location_name'] = locations[i['location'].lower()]
+        super(ElasticSearchBulkLocationMixin, self).teardown()
+
 class BinoasMixin(object):
     def exists(self, item_id):
         try:
