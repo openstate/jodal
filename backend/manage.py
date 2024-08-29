@@ -432,6 +432,7 @@ def es_location_names():
                 updates = []
     if len(updates) > 0:
         result = bulk(es, updates, False)
+        sleep(1)
         updates = []
 
 
