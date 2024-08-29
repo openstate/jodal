@@ -13,7 +13,7 @@ from elasticsearch.helpers import bulk
 from lxml import etree
 
 from jodal.es import setup_elasticsearch
-from jodal.scrapers import MemoryMixin, ElasticsearchMixin, BaseScraper, ElasticsearchBulkMixin
+from jodal.scrapers import MemoryMixin, ElasticsearchMixin, BaseScraper, ElasticSearchBulkLocationMixin
 
 
 class BaseLocationScraper(BaseScraper):

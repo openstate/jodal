@@ -15,12 +15,12 @@ import requests
 
 from jodal.es import setup_elasticsearch
 from jodal.scrapers import (
-    MemoryMixin, ElasticsearchMixin, ElasticsearchBulkMixin, BaseScraper,
+    MemoryMixin, ElasticsearchMixin, ElasticSearchBulkLocationMixin, BaseScraper,
     BaseWebScraper, BaseFromElasticsearch)
 
 
 
-class DocumentsScraper(ElasticsearchBulkMixin, BaseWebScraper):
+class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseWebScraper):
     name = 'poliflw'
     url = 'https://api.poliflw.nl/v0/search'
     payload = {
