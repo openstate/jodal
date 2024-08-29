@@ -21,7 +21,7 @@ import click
 from click.core import Command
 from click.decorators import _make_command
 from elasticsearch.exceptions import NotFoundError
-from elasticsearch.helpers import reindex
+from elasticsearch.helpers import reindex, scan, bulk
 
 from jodal.utils import load_config
 from jodal.es import setup_elasticsearch
@@ -388,6 +388,53 @@ def es_put_template(template_dir):
             click.echo("Should make index %s" % (index_name,))
             es.indices.create(index=index_name)
 
+@command('fix_location_names')
+def es_location_names():
+    config = load_config()
+    es = setup_elasticsearch(config)
+    es_query = {
+        "query": {
+            "bool": {
+                "must_not": {
+                    "term": {"source": "openspending"}
+                }
+            }
+        }
+    }
+    update_size = 100
+
+    resp = es.search(index='jodal_locations', body={"size": 500})
+    locations = {l['_id'].lower(): l['_source']['name'] for l in resp['hits']['hits']}
+
+    updates = []
+    for item in scan(es, query=es_query, index='jodal_documents'):
+        existing_location_name = item.get('_source', {}).get('location_name', '')
+        correct_location_name = existing_location_name
+        #pprint(item)
+        #print(item['_source']['location'])
+        try:
+            correct_location_name = locations[item['_source']['location'].lower()]
+        except LookupError as e:
+            pass
+        if existing_location_name != correct_location_name:
+            print(f"{existing_location_name} <=> {correct_location_name}")
+            #pprint(item)
+            updates.append({
+                '_op_type': 'update',
+                '_id': item['_id'],
+                '_index': item['_index'],
+                'doc': {
+                    'location_name': correct_location_name
+                }
+            })
+            if len(updates) >= update_size:
+                result = bulk(es, updates, False)
+                updates = []
+    if len(updates) > 0:
+        result = bulk(es, updates, False)
+        updates = []
+
+
 @command('reindex')
 @click.option('--source', default='jodal_documents', help='Source index')
 @click.option('--target', default='jodal_copy_documents', help='Target index')
@@ -440,6 +487,7 @@ def heritrix_cleanup():
 elasticsearch.add_command(es_put_template)
 elasticsearch.add_command(es_reindex)
 elasticsearch.add_command(es_delete_source)
+elasticsearch.add_command(es_location_names)
 
 openspending.add_command(openspending_openspendingcompare)
 
