@@ -168,6 +168,7 @@ class MeetingsAndAgendaScraper(ElasticSearchBulkLocationMixin, BaseWebScraper):
         'schriftelijke vragen': 'Vragen',
         'raadsvergadering': 'Raadsvergadering',
         'raadsvragen': 'Raadsvragen',
+        'raadsvraag': 'Raadsvragen',
         'bestemmingsplan': 'Bestemmingsplan',
         'raadsvoorstel': 'Raadsvoorstel',
         'besluitenlijst': 'Besluitenlijst',
