@@ -20,6 +20,7 @@ paths:
         description: "The email address for which a forgotten password email is sent."
         type: "String"
         required: true
+        example: "breyten@openstate.eu"
       responses:
         301:
           description: "The email was succesfully sent. Redirecto to front page."
@@ -29,6 +30,9 @@ paths:
             type: "object"
             error:
               type: "string"
+              example: "Something wemt wrong."
+          examples:
+            application/json: {"error": "Something went wrong."}
   /users/login:
     post:
       tags:
@@ -210,6 +214,15 @@ paths:
             sub:
               type: "string"
               description : "Show the interal id user for the user,:"
+          example:
+            applicationId: "6e11ceb9-2b26-4c40-b399-182d4f9b97b6"
+            email: "bje@dds.nl"
+            email_verified: false
+            family_name: "Ernsting"
+            given_name: "Breyten"
+            roles:
+            - User
+            sub: "6e11ceb9-2b26-4c40-b399-182d4f9b97b6"
   /users/simple/login:
     get:
       tags:
