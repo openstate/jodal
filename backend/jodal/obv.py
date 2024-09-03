@@ -16,7 +16,7 @@ import requests
 
 from jodal.es import setup_elasticsearch
 from jodal.scrapers import (
-    MemoryMixin, ElasticsearchMixin, ElasticsearchBulkMixin, BaseScraper,
+    MemoryMixin, ElasticsearchMixin, ElasticSearchBulkLocationMixin, BaseScraper,
     BaseWebScraper, BaseFromElasticsearch)
 
 def _encode_uri_component(s):
@@ -140,7 +140,7 @@ class CountsScraper(MemoryMixin, BaseWebScraper):
 
 
 
-class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
+class MeetingsAndAgendaScraper(ElasticSearchBulkLocationMixin, BaseWebScraper):
     name = 'openbesluitvorming'
     url = 'https://api.openraadsinformatie.nl/v1/elastic/_search'
     types = ["AgendaItem", "Meeting"]
@@ -168,6 +168,7 @@ class MeetingsAndAgendaScraper(ElasticsearchBulkMixin, BaseWebScraper):
         'schriftelijke vragen': 'Vragen',
         'raadsvergadering': 'Raadsvergadering',
         'raadsvragen': 'Raadsvragen',
+        'raadsvraag': 'Raadsvragen',
         'bestemmingsplan': 'Bestemmingsplan',
         'raadsvoorstel': 'Raadsvoorstel',
         'besluitenlijst': 'Besluitenlijst',

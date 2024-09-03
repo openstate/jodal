@@ -16,7 +16,7 @@ import requests
 
 from jodal.es import setup_elasticsearch
 from jodal.scrapers import (
-    MemoryMixin, ElasticsearchMixin, ElasticsearchBulkMixin, BaseScraper,
+    MemoryMixin, ElasticsearchMixin, ElasticSearchBulkLocationMixin, BaseScraper,
     BaseWebScraper)
 
 def get_municipalities():
