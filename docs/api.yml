@@ -46,18 +46,22 @@ paths:
         description: "The email address of the user."
         in: "query"
         required: false
+        example: "breyten@openstate.eu"
       - name: "password"
         description: "The password used for loggin in."
         in: "query"
         required: false
+        example: "password123"
       - name: "email"
         description: "The email address of the user."
         in: "form"
         required: false
+        example: "breyten@openstate.eu"
       - name: "password"
         description: "The password used for loggin in."
         in: "form"
         required: false
+        example: "password123"
       responses:
         301:
           description: "The login was succesful. Redirecto to front page."
@@ -67,6 +71,8 @@ paths:
             type: "object"
             error:
               type: "string"
+          examples:
+            application/json: {"error": "Something went wrong."}
     get:
       tags:
         - Users
@@ -79,10 +85,12 @@ paths:
         description: "The email address of the user."
         in: "query"
         required: true
+        example: "breyten@openstate.eu"
       - name: "password"
         description: "The password used for loggin in."
         in: "query"
         required: true
+        example: password123
       responses:
         301:
           description: "The login was succesful. Redirecto to front page."
@@ -92,6 +100,8 @@ paths:
             type: "object"
             error:
               type: "string"
+          examples:
+            application/json: {"error": "Something went wrong."}
   /users/passwordless/start:
     get:
       tags:
@@ -105,10 +115,12 @@ paths:
         description: "The email address of the user."
         in: "query"
         required: false
+        example: "breyten@openstate.eu"
       - name: "user_id"
         description: "The user id."
         in: "query"
         required: false
+        example: 1755
       responses:
         200:
           description: "The procedure was started"
@@ -120,6 +132,8 @@ paths:
             error:
               type: "string"
               description: "If this key is present, there as an error sending the password login start. It describes the error."
+          examples:
+            application/json: {"code": "123456", "error": "Something went wrong."}
   /users/passwordless/complete:
     get:
       tags:
@@ -133,6 +147,7 @@ paths:
         description: "Login code that was sent."
         in: "query"
         required: true
+        example: 123456
       responses:
         301:
           description: "The login was succesful. Redirecto to front page."
@@ -143,6 +158,8 @@ paths:
             error:
               description: "The contents describe the error encountered."
               type: "string"
+          examples:
+            application/json: {"error": "Something went wrong."}
   /users/register:
     post:
       tags:
@@ -156,10 +173,12 @@ paths:
         description: "The email address of the user."
         in: "form"
         required: true
+        example: breyten@openstate.eu
       - name: "password"
         description: "The password used for logging in."
         in: "form"
         required: true
+        example: password123
       responses:
         301:
           description: "The registration was succesful and an email was sent. Redirecto to front page."
@@ -169,6 +188,8 @@ paths:
             type: "object"
             error:
               type: "string"
+          examples:
+            application/json: {"error": "Something went wrong."}
   /users/delete:
     get:
       tags:
@@ -214,15 +235,16 @@ paths:
             sub:
               type: "string"
               description : "Show the interal id user for the user,:"
-          example:
-            applicationId: "6e11ceb9-2b26-4c40-b399-182d4f9b97b6"
-            email: "bje@dds.nl"
-            email_verified: false
-            family_name: "Ernsting"
-            given_name: "Breyten"
-            roles:
-            - User
-            sub: "6e11ceb9-2b26-4c40-b399-182d4f9b97b6"
+          examples:
+            application/json:
+              applicationId: "6e11ceb9-2b26-4c40-b399-182d4f9b97b6"
+              email: "bje@dds.nl"
+              email_verified: false
+              family_name: "Ernsting"
+              given_name: "Breyten"
+              roles:
+              - User
+              sub: "6e11ceb9-2b26-4c40-b399-182d4f9b97b6"
   /users/simple/login:
     get:
       tags:
