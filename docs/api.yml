@@ -280,8 +280,26 @@ paths:
       tags:
         - WARC
       summary: "Starts a procedure to get heritrix to make a WARC archive of the given URL."
+      description: "Instructs the heritrix backend to start a job to create a warc file of the given url. This happens asynchronously. A valid login is required for this to work."
       produces:
            - "application/json"
+      parameters:
+      - name: "url"
+        description: "The website which is the subject of the warc file."
+        in: "query"
+        required: true
+        example: https://openstate.eu/
+      responses:
+        200:
+          description: "The creating of a warc file was started."
+          schema:
+            type: "object"
+            job_id:
+              type: "string"
+              description: The archive id used if further requests
+          examples:
+            application/json:
+              job_id: "123456-xx-123456-yy"
   /archive/warc/download/<archive_id>:
     get:
       tags:
@@ -289,13 +307,32 @@ paths:
       summary: "Downloads the given WARC file to your computer."
       produces:
            - "application/json"
-  /archive/warc/<archive_id>:
+      responses:
+        301:
+          description: "Starts downloading the file."
+  /archive/warc/{archive_id}:
     get:
       tags:
         - WARC
       summary: "Get the status of a warc given archive"
       produces:
            - "application/json"
+      parameters:
+      - name: "archive_id"
+        in: path
+        required: true
+        example: "123456-xx-123456-yy"
+      responses:
+        200:
+          description: "The status is returned. See heritrix documentation for more information."
+          schema:
+            type: "object"
+            job_id:
+              type: "string"
+              description: The archive id used if further requests
+          examples:
+            application/json:
+              job_id: "123456-xx-123456-yy"          
   /archive/warcs/<archive_ids_str>:
     get:
       tags:
