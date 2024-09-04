@@ -533,6 +533,19 @@ paths:
       summary: "Returns the assets associated with the logged in user."
       produces:
            - "application/json"
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/Asset'
+          examples:
+            application/json:
+              id: 1
+              user_id: 1755
+              url: https://openstate.eu/
+              external_id: 123456-xx-123456-yy
+              created: 2024-01-01T00:00:00
+              modified: 2024-01-01T00:00:00
+              last_run: 2024-01-01T00:00:00
     post:
       tags:
         - Assets
@@ -623,20 +636,20 @@ paths:
       summary: "Creates a new email subscription"
       produces:
            - "application/json"
-components:
-  parameters:
-    users_login:
-      - name: "email"
-        in: "query"
-        required: false
-      - name: "password"
-        in: "query"
-        required: false
-      - name: "email"
-        in: "form"
-        required: false
-      - name: "password"
-        in: "form"
-        required: false
-  responses:
-    users_login:
+definitions:
+  Asset:
+    type: object
+    id:
+      type: integer
+    user_id:
+      type: integer
+    url:
+      type: string
+    external_id:
+      type: string
+    created:
+      type: date
+    modified:
+      type: date
+    last_run:
+      type: date
