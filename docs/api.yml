@@ -300,13 +300,18 @@ paths:
           examples:
             application/json:
               job_id: "123456-xx-123456-yy"
-  /archive/warc/download/<archive_id>:
+  /archive/warc/download/{archive_id}:
     get:
       tags:
         - WARC
       summary: "Downloads the given WARC file to your computer."
       produces:
            - "application/json"
+      parameters:
+      - name: "archive_id"
+        in: path
+        required: true
+        example: "123456-xx-123456-yy"
       responses:
         301:
           description: "Starts downloading the file."
@@ -534,7 +539,7 @@ paths:
       summary: "Create a new asset associated with the logged in user."
       produces:
            - "application/json"
-  /assets/<int:asset_id>:
+  /assets/{asset_id}:
     get:
       tags:
         - Assets
@@ -566,7 +571,7 @@ paths:
       summary: "Add a new feed for the logged in user."
       produces:
            - "application/json"
-  /columns/<int:column_id>:
+  /columns/{column_id}:
     get:
       tags:
         - Feeds
