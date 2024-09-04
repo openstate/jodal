@@ -327,9 +327,9 @@ paths:
           description: "The status is returned. See <a href=\"https://heritrix.readthedocs.io/en/latest/api.html#get-job-status\">heritrix documentation</a> for more information."
           schema:
             type: "object"
-            job_id:
-              type: "string"
-              description: The archive id used if further requests
+            job:
+              type: "object"
+              description: The details of the heritrix job
           examples:
             application/json:
               job:
@@ -414,13 +414,113 @@ paths:
                   usedBytes: 66893400
                   totalBytes: 589824000
                   maxBytes: 2885681152
-  /archive/warcs/<archive_ids_str>:
+  /archive/warcs/{archive_ids_str}:
     get:
       tags:
         - WARC
       summary: "Get the status of the given warcs files (separated by ,)"
       produces:
            - "application/json"
+      parameters:
+      - name: "archive_ids_str"
+        description: "The archive ids, separated by a ,"
+        in: path
+        required: true
+        example: "123456-xx-123456-yy"
+      responses:
+        200:
+          description: "The status is returned. See <a href=\"https://heritrix.readthedocs.io/en/latest/api.html#get-job-status\">heritrix documentation</a> for more information."
+          schema:
+            type: "object"
+            job:
+              type: "object"
+              description: The details of the heritrix job
+          examples:
+            application/json:
+            - job:
+                shortName: myjob
+                crawlControllerState: FINISHED
+                crawlExitStatus: FINISHED
+                statusDescription: "Finished: FINISHED"
+                availableActions:
+                  value: teardown
+                launchCount: 1
+                lastLaunch: 2020-04-01T02:07:42.531Z
+                isProfile: false
+                primaryConfig: /heritrix/jobs/myjob/crawler-beans.cxml
+                primaryConfigUrl: https://localhost:8443/engine/job/myjob/jobdir/crawler-beans.cxml
+                url: https://localhost:8443/engine/job/myjob/job/myjob
+                jobLogTail:
+                  value:
+                  - 2020-04-01T03:50:44.708Z INFO FINISHED 20200401020744
+                  - 2020-04-01T03:50:42.670Z INFO EMPTY 20200401020744
+                  - 2020-04-01T03:50:42.669Z INFO STOPPING 20200401020744
+                uriTotalsReport:
+                  downloadedUriCount: 3920
+                  queuedUriCount: 0
+                  totalUriCount: 3920
+                  futureUriCount: 0
+                sizeTotalsReport:
+                  dupByHash: 0
+                  dupByHashCount: 0
+                  notModified: 0
+                  notModifiedCount: 0
+                  novel: 2177235508
+                  novelCount: 3920
+                  total: 2177235508
+                  totalCount: 3920
+                  warcNovelContentBytes: 2177235508
+                  warcNovelUrls: 3920
+                rateReport:
+                  currentDocsPerSecond: 0.0
+                  averageDocsPerSecond: 0.6354171124312226
+                  currentKiBPerSec: 0
+                  averageKiBPerSec: 344
+                loadReport:
+                  busyThreads: 0
+                  totalThreads: 0
+                  congestionRatio: NaN
+                  averageQueueDepth: 0
+                  deepestQueueDepth: 0
+                elapsedReport:
+                  elapsedMilliseconds: 6169176
+                  elapsedPretty: 1h42m49s176ms
+                threadReport:
+                frontierReport:
+                  totalQueues: 1
+                  inProcessQueues: 0
+                  readyQueues: 0
+                  snoozedQueues: 0
+                  activeQueues: 0
+                  inactiveQueues: 0
+                  ineligibleQueues: 0
+                  retiredQueues: 0
+                  exhaustedQueues: 1
+                  lastReachedState: FINISH
+                crawlLogTail:
+                  ...
+
+                configFiles:
+                  ...
+
+                isLaunchInfoPartial: false
+                isRunning: false
+                isLaunchable: false
+                hasApplicationContext: true
+                alertCount: 549
+                checkpointFiles:
+                alertLogFilePath: /heritrix/jobs/myjob/20200401020744/logs/alerts.log
+                crawlLogFilePath: /heritrix/jobs/myjob/20200401020744/logs/crawl.log
+                reports:
+                  value:
+                    className: CrawlSummaryReport
+                    shortName: CrawlSummary
+                heapReport:
+                  usedBytes: 66893400
+                  totalBytes: 589824000
+                  maxBytes: 2885681152
+            - job:
+                shortName: job2
   /assets:
     get:
       tags:
