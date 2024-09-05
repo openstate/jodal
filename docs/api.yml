@@ -552,6 +552,50 @@ paths:
       summary: "Create a new asset associated with the logged in user."
       produces:
            - "application/json"
+      parameters:
+      - name: "user_id"
+        description: "The user id"
+        in: form
+        required: true
+        example: "1"
+      - name: "url"
+        description: "The url of the page to make a warv of"
+        in: form
+        required: true
+        example: "https://openstate.eu/"
+      - name: "external_id"
+        description: "The external id for the url of the page to make a warv of"
+        in: form
+        required: false
+        example: "123456-xx-123456-yy"
+      - name: "created"
+        description: "The creation date of the warc"
+        in: form
+        required: false
+        example: "2024-01-01T00:000:00"
+      - name: "modified"
+        description: "The midification date of the warc"
+        in: form
+        required: false
+        example: "2024-01-01T00:000:00"
+      - name: "last_run"
+        description: "When the warc was last sucessfully updated"
+        in: form
+        required: false
+        example: "2024-01-01T00:000:00"
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/Asset'
+          examples:
+            application/json:
+              id: 1
+              user_id: 1755
+              url: https://openstate.eu/
+              external_id: 123456-xx-123456-yy
+              created: 2024-01-01T00:00:00
+              modified: 2024-01-01T00:00:00
+              last_run: 2024-01-01T00:00:00
   /assets/{asset_id}:
     get:
       tags:
@@ -559,18 +603,75 @@ paths:
       summary: "Get the information of an asset, associated with the logged in user"
       produces:
            - "application/json"
+      parameters:
+      - name: "asset_id"
+        description: "The asset id"
+        in: form
+        required: true
+        example: "1"
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/Asset'
+          examples:
+            application/json:
+              id: 1
+              user_id: 1755
+              url: https://openstate.eu/
+              external_id: 123456-xx-123456-yy
+              created: 2024-01-01T00:00:00
+              modified: 2024-01-01T00:00:00
+              last_run: 2024-01-01T00:00:00
     post:
       tags:
         - Assets
       summary: "Update the asset information, associated with the logged in user."
       produces:
            - "application/json"
+      parameters:
+      - name: "asset_id"
+        description: "The asset id"
+        in: form
+        required: true
+        example: "1"
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/Asset'
+          examples:
+            application/json:
+              id: 1
+              user_id: 1755
+              url: https://openstate.eu/
+              external_id: 123456-xx-123456-yy
+              created: 2024-01-01T00:00:00
+              modified: 2024-01-01T00:00:00
+              last_run: 2024-01-01T00:00:00
     delete:
       tags:
         - Assets
       summary: "Deletes the asset associated with the logged in user."
       produces:
            - "application/json"
+      parameters:
+      - name: "asset_id"
+        description: "The asset id"
+        in: form
+        required: true
+        example: "1"
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/Asset'
+          examples:
+            application/json:
+              id: 1
+              user_id: 1755
+              url: https://openstate.eu/
+              external_id: 123456-xx-123456-yy
+              created: 2024-01-01T00:00:00
+              modified: 2024-01-01T00:00:00
+              last_run: 2024-01-01T00:00:00          
   /columns:
     get:
       tags:
