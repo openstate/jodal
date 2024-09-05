@@ -539,7 +539,7 @@ paths:
             $ref: '#/definitions/Asset'
           examples:
             application/json:
-              id: 1
+            - id: 1
               user_id: 1755
               url: https://openstate.eu/
               external_id: 123456-xx-123456-yy
@@ -671,7 +671,7 @@ paths:
               external_id: 123456-xx-123456-yy
               created: 2024-01-01T00:00:00
               modified: 2024-01-01T00:00:00
-              last_run: 2024-01-01T00:00:00          
+              last_run: 2024-01-01T00:00:00
   /columns:
     get:
       tags:
@@ -679,12 +679,114 @@ paths:
       summary: "Get the associated feeds for the logged in user."
       produces:
            - "application/json"
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/Asset'
+          examples:
+            application/json:
+            - id: 1
+              user_id: 1755
+              name: Windmolens
+              locations: ["GM0181", "GM0140"]
+              user_query: windmolens
+              order: 0
+              src_polflw: true
+              src_obv: false
+              src_cvdr: false
+              src_openspending: false
+              sort: date
+              sort_order: desc
+              date_start: 2024-01-01T00:00:00
+              date_end: 2024-02-01T00:00:00
+              read_counta: "{cvdr: 0, poliflw: 0}"
     post:
       tags:
         - Feeds
       summary: "Add a new feed for the logged in user."
       produces:
            - "application/json"
+      parameters:
+      - name: "user_id"
+        description: "The user id"
+        in: form
+        required: true
+        example: "1"
+      - name: "name"
+        description: "The name of the feed"
+        in: form
+        required: true
+        example: "windmolens"
+      - name: "locations"
+        description: "The locations being monitored for this feed"
+        required: false
+        example: "[\"GM0181\", \"GM0140\"]"
+      - name: user_query
+        description: "The query the user wrote."
+        required: false
+        example: windmolens
+      - name: order
+        description: Used to list the feeds in order
+        required: false
+        example: 0
+      - name: src_poliflw
+        description: "If poliflw is being monitored for this feed"
+        required: false
+        example: 0
+      - name: src_obv
+        description: "If openbesluitvorming is being monitored for this feed"
+        required: false
+        example: 0
+      - name: src_cvdr
+        description: "If cvdr is being monitored for this feed"
+        required: false
+        example: 0
+      - name: src_openspending
+        description: "If openspending is being monitored for this feed"
+        required: false
+        example: 0
+      - name: sort
+        description: "The field used for sorting the feed."
+        required: false
+        example: "date"
+      - name: sort_order
+        description: whether the feed is sorted in ascending or descending order
+        required: false
+        example: asc
+      - name: date_start
+        description: "The start date for which monitoring this feeds begins."
+        required: false
+        example: 2024-01-02T00:00:00
+      - name: date_end
+        description: "The end date for which monitoring this feeds begins."
+        required: false
+        example: 2024-02-01T00:00:00
+      - name: read_counts
+        description: Keeps tabs of the number of items read in the feed, per source. Is encoded as JSON
+        required: false
+        example: "{cvdr: 0, poliflw: 0}"
+      responses:
+        200:
+          schema:
+            $ref: '#/definitions/Asset'
+          examples:
+            application/json:
+              id: 1
+              user_id: 1755
+              name: Windmolens
+              locations: ["GM0181", "GM0140"]
+              user_query: windmolens
+              order: 0
+              src_polflw: true
+              src_obv: false
+              src_cvdr: false
+              src_openspending: false
+              sort: date
+              sort_order: desc
+              date_start: 2024-01-01T00:00:00
+              date_end: 2024-02-01T00:00:00
+              read_counta: "{cvdr: 0, poliflw: 0}"
+
   /columns/{column_id}:
     get:
       tags:
@@ -754,3 +856,33 @@ definitions:
       type: date
     last_run:
       type: date
+  Column:
+    type: object
+    id:
+      type: integer
+    user_id:
+      type: integer
+    locations:
+      type: list
+    user_query:
+      type: string
+    order:
+      type: integer
+    src_polflw:
+      type: boolean
+    src_obv:
+      type: boolean
+    src_cvdr:
+      type: boolean
+    src_openspending:
+      type: boolean
+    sort:
+      type: string
+    sort_order:
+      type: string
+    date_start:
+      type: date
+    date_end:
+      type: date
+    read_counta:
+      type: text
