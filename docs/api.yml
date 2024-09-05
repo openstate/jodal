@@ -942,11 +942,25 @@ paths:
               date_start: 2024-01-01T00:00:00
               date_end: 2024-02-01T00:00:00
               read_counta: "{cvdr: 0, poliflw: 0}"
-  /documents/download/<source>/<external_item_id>:
+  /documents/download/{source}/{<external_item_id}:
     get:
       tags:
         - Documents
       summary: "Starts downloading an external file"
+      parameters:
+      - name: source
+        description: specifies the source of the item (poliflw, obv, cvdr, openspending)
+        in: path
+        required: true
+        example: cvdr
+      - name: external_id
+        description: "The external identifier for the file to be downloaded"
+        in: path
+        required: true
+        example: 123456
+      responses:
+        301:
+          description: "Redirects to the location of the file that is consequentially downloaded."
   /search:
     get:
       tags:
