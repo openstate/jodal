@@ -968,13 +968,211 @@ paths:
       summary: "Perform a search operation over all indexes"
       produces:
            - "application/json"
-  /<index_name>/search:
+      parameters:
+      - name: format
+        in: query
+        description: Either json or feed
+        example: feed
+        required: false
+      - name: title
+        in: query
+        description: Only used if the format is feed, then it controls the title of the feed
+        example: Bron.live search for windmolens
+        required: false
+      - name: description
+        in: query
+        description: If the format is feed, this is the description of the feed.
+        example: Bron.live search for windmolens
+        required: false
+      - name: query
+        in: query
+        description: The search query
+        example: windmolens
+        required: false
+      - name: filter
+        in: query
+        description: Which filters to apply. Can specify multiple filters using ',' when wanting to use multiple values and '|' for different filters
+        example: location:gm0141,gm0180|source:obv
+        required: false
+      - name: page
+        in: query
+        description: For paginated search queries.
+        example: 1
+        required: false
+      - name: default_operator
+        in: query
+        description: The default operator of the search query. Can be 'and' or 'or'. Defaults to 'or'
+        example: and
+        required: false
+      - name: sort
+        in: query
+        description: The field to sort the query results on. Defaults to 'published:desc' if the format is feed. Use a ':' to seperate the field and order (ascending or descending)
+        example: title:asc
+        required: false
+      - name: excludes
+        in: query
+        description: Used to exclude certain fields from the results. By default the 'description' field is not included.
+        example: title
+        required: false
+      - name: includes
+        in: query
+        description: Used to include certain fields from the results. By default the 'description' field is not excluded so you have to use this if you can that field returned.
+        example: description
+        required: false
+      responses:
+        200:
+          examples:
+            application/json:
+              _shards:
+                failed: 0
+                skipped: 0
+                successful: 1
+                total: 1
+              aggregations:
+                location:
+                  buckets: []
+                  doc_count_error_upper_bound: 0
+                  sum_other_doc_count: 0
+                source:
+                  buckets: []
+                  doc_count_error_upper_bound: 0
+                  sum_other_doc_count: 0
+              hits:
+                hits:
+                - _id: '088d4318aa757ece44fe0abe7f1c5f77f43f1902'
+                  _index: jodal_documents
+                  _score: 1
+                  _source:
+                    created: '2024-09-04T20:00:00'
+                    data: {}
+                    doc_url:
+                    id: '088d4318aa757ece44fe0abe7f1c5f77f43f1902'
+                    identifier: https://id.openraadsinformatie.nl/4011915
+                    location: GM1901
+                    location_name: Bodegraven-Reeuwijk
+                    modified: '2024-09-04T20:00:00'
+                    processed: '2024-08-29T10:42:23.975275'
+                    published: '2024-09-04T20:00:00'
+                    source: openbesluitvorming
+                    title: Agenda Maandelijkse Inspraak van 4 september 2024
+                    type: Vergadering
+                    url: https://openbesluitvorming.nl/?zoekterm=%22*%22&organisaties=%5B%22ori_fixed_bodegravenreeuwijk_20230709151039%22%5D&showResource=https%253A%252F%252Fid.openraadsinformatie.nl%252F4011915
+                  _type: _doc
+                max_score: 1
+                total:
+                  relation: eq
+                  value: 52
+              timed_out: false
+              took: 106
+
+  /{index_name}/search:
     get:
       tags:
         - Search
       summary: "Perform a search operation over a specific index"
       produces:
            - "application/json"
+      parameters:
+      - name: index_name
+        description: The index name, 'documents' or 'locations'
+        required: true
+        example: locations
+        in: path
+      - name: format
+        in: query
+        description: Either json or feed
+        example: feed
+        required: false
+      - name: title
+        in: query
+        description: Only used if the format is feed, then it controls the title of the feed
+        example: Bron.live search for windmolens
+        required: false
+      - name: description
+        in: query
+        description: If the format is feed, this is the description of the feed.
+        example: Bron.live search for windmolens
+        required: false
+      - name: query
+        in: query
+        description: The search query
+        example: windmolens
+        required: false
+      - name: filter
+        in: query
+        description: Which filters to apply. Can specify multiple filters using ',' when wanting to use multiple values and '|' for different filters
+        example: location:gm0141,gm0180|source:obv
+        required: false
+      - name: page
+        in: query
+        description: For paginated search queries.
+        example: 1
+        required: false
+      - name: default_operator
+        in: query
+        description: The default operator of the search query. Can be 'and' or 'or'. Defaults to 'or'
+        example: and
+        required: false
+      - name: sort
+        in: query
+        description: The field to sort the query results on. Defaults to 'published:desc' if the format is feed. Use a ':' to seperate the field and order (ascending or descending)
+        example: title:asc
+        required: false
+      - name: excludes
+        in: query
+        description: Used to exclude certain fields from the results. By default the 'description' field is not included.
+        example: title
+        required: false
+      - name: includes
+        in: query
+        description: Used to include certain fields from the results. By default the 'description' field is not excluded so you have to use this if you can that field returned.
+        example: description
+        required: false
+      responses:
+        200:
+          examples:
+            application/json:
+              _shards:
+                failed: 0
+                skipped: 0
+                successful: 1
+                total: 1
+              aggregations:
+                location:
+                  buckets: []
+                  doc_count_error_upper_bound: 0
+                  sum_other_doc_count: 0
+                source:
+                  buckets: []
+                  doc_count_error_upper_bound: 0
+                  sum_other_doc_count: 0
+              hits:
+                hits:
+                - _id: '088d4318aa757ece44fe0abe7f1c5f77f43f1902'
+                  _index: jodal_documents
+                  _score: 1
+                  _source:
+                    created: '2024-09-04T20:00:00'
+                    data: {}
+                    doc_url:
+                    id: '088d4318aa757ece44fe0abe7f1c5f77f43f1902'
+                    identifier: https://id.openraadsinformatie.nl/4011915
+                    location: GM1901
+                    location_name: Bodegraven-Reeuwijk
+                    modified: '2024-09-04T20:00:00'
+                    processed: '2024-08-29T10:42:23.975275'
+                    published: '2024-09-04T20:00:00'
+                    source: openbesluitvorming
+                    title: Agenda Maandelijkse Inspraak van 4 september 2024
+                    type: Vergadering
+                    url: https://openbesluitvorming.nl/?zoekterm=%22*%22&organisaties=%5B%22ori_fixed_bodegravenreeuwijk_20230709151039%22%5D&showResource=https%253A%252F%252Fid.openraadsinformatie.nl%252F4011915
+                  _type: _doc
+                max_score: 1
+                total:
+                  relation: eq
+                  value: 52
+              timed_out: false
+              took: 106
   /subscriptions/delete:
     get:
       tags:
