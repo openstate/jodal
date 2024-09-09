@@ -13,6 +13,7 @@ services:
       - ../public/:/usr/share/nginx/html/
       - ../www/:/usr/share/nginx/html-www/
       - ../www-pdd/:/usr/share/nginx/html-www-pdd/
+      - ../docs:/usr/share/nginx/html-docs/
     restart: always
     networks:
       - nginx-load-balancer
