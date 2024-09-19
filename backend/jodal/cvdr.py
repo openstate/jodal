@@ -23,7 +23,7 @@ from jodal.scrapers import (
 class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseHtmlWebscraper):
     name = 'cvdr'
     method = 'get'
-    url = 'https://lokaleregelgeving.overheid.nl/ZoekResultaat?datumrange=alle&indeling=&sort=date-desc&page=1&count=50'
+    url = 'https://lokaleregelgeving.overheid.nl/ZoekResultaat?datumrange=alle&indeling=&sort=date-desc&page=1&count=10'
 
     def __init__(self, *args, **kwargs):
         super(DocumentsScraper, self).__init__(*args, **kwargs)
@@ -31,6 +31,7 @@ class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseHtmlWebscraper):
         self.date_from = kwargs['date_from']
         self.date_to = kwargs['date_to']
         self.date_field = kwargs['date_field']
+        self.force = kwargs['force']
         self.cvdr_locations = None
         logging.info('Scraper: fetch from %s to %s' % (
             self.date_from, self.date_to,))
@@ -48,9 +49,16 @@ class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseHtmlWebscraper):
         return result
 
     def next(self):
-        next_link = self.result_json.get('next')
+        if not self.force:
+            return
+        next_link = None
+        try:
+            next_link = self.result_html.xpath('//div[contains(@class, "pagination__index")]/ul/li[@class="next"]/a/@href')[0]
+        except LookupError as e:
+            pass
+        logging.info(next_link)
         if (next_link is not None) and (next_link.strip() != ''):
-            self.params['offset'] += self.params['limit']
+            self.url = urljoin(self.url, next_link)
             return True
 
     def fetch(self):
@@ -106,7 +114,7 @@ class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseHtmlWebscraper):
                     'url': full_url,
                     'location': self.cvdr_locations[name],
                     'title': html.xpath('//meta[@name="DCTERMS.title"]/@content')[0].strip(),
-                    'description': etree.tostring(html.xpath('//*[@id="content"]')[0]),
+                    'description': str(etree.tostring(html.xpath('//*[@id="content"]')[0])),
                     'created': html.xpath('//meta[@name="DCTERMS.modified"]/@content')[0].strip(),
                     'modified': html.xpath('//meta[@name="DCTERMS.modified"]/@content')[0].strip(),
                     'published': html.xpath('//meta[@name="DCTERMS.modified"]/@content')[0].strip(),
