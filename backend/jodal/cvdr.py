@@ -84,9 +84,14 @@ class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseHtmlWebscraper):
         sleep(1)
         full_url = urljoin(self.url, item)
         logging.info(full_url)
-        html = etree.HTML(requests.get(full_url).content)
+        try:
+            html = etree.HTML(requests.get(full_url).content)
+        except Exception as e:
+            html = None
         names = getattr(self, 'names', None) or [self.name]
         result = []
+        if html is none:
+            return result
         for n in names:
             r_uri = full_url
             h_id = hashlib.sha1()
