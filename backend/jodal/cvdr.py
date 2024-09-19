@@ -90,7 +90,7 @@ class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseHtmlWebscraper):
             html = None
         names = getattr(self, 'names', None) or [self.name]
         result = []
-        if html is none:
+        if html is None:
             return result
         for n in names:
             r_uri = full_url
