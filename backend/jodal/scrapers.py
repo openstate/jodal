@@ -5,7 +5,7 @@ import datetime
 import requests
 from elasticsearch.helpers import bulk
 from jodal.es import setup_elasticsearch
-
+from lxml import etree
 
 class DatetimeJSONEncoder(json.JSONEncoder):
     """
@@ -222,6 +222,30 @@ class BaseWebScraper(BaseScraper):
 
     def next(self):
         return None
+
+
+class BaseXmlWebscraper(BaseWebScraper):
+    def fetch(self):
+        try:
+            super(BaseXmlWebscraper, self).fetch()
+        except json.decoder.JSONDecodeError as e:
+            pass
+            self.result_json = {}
+        if self.result is not None:
+            self.result_xml = etree.XML(self.result.content)
+            return self.result_xml
+
+
+class BaseHtmlWebscraper(BaseWebScraper):
+    def fetch(self):
+        try:
+            super(BaseHtmlWebscraper, self).fetch()
+        except json.decoder.JSONDecodeError as e:
+            pass
+            self.result_json = {}
+        if self.result is not None:
+            self.result_html = etree.HTML(self.result.content)
+            return self.result_html
 
 
 class BaseFromElasticsearch(MemoryMixin, BaseWebScraper):

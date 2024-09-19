@@ -15,23 +15,14 @@ import requests
 from jodal.es import setup_elasticsearch
 from jodal.scrapers import (
     MemoryMixin, ElasticsearchMixin, ElasticSearchBulkLocationMixin, BaseScraper,
-    BaseWebScraper, BaseFromElasticsearch)
+    BaseWebScraper, BaseFromElasticsearch, BaseHtmlWebscraper)
 
 
 
-class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseWebScraper):
+class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseHtmlWebscraper):
     name = 'cvdr'
     method = 'get'
-    url = 'https://aleph.openstate.eu/api/2/search'
-    params = {
-        'filter:schemata': 'Thing',
-        'filter:collection_id': '7',
-        "offset": 0,
-        "limit": 100
-    }
-    headers = {
-        'Content-type': 'application/json'
-    }
+    url = 'https://lokaleregelgeving.overheid.nl/ZoekResultaat?datumrange=alle&indeling=&sort=date-desc&page=1&count=50'
 
     def __init__(self, *args, **kwargs):
         super(DocumentsScraper, self).__init__(*args, **kwargs)
@@ -42,6 +33,12 @@ class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseWebScraper):
         self.cvdr_locations = None
         logging.info('Scraper: fetch from %s to %s' % (
             self.date_from, self.date_to,))
+        self.url = (
+            'https://zoekdienst.overheid.nl/sru/Search?version=1.2&operation='
+            'searchRetrieve&x-connection=cvdr&startRecord=1&maximumRecords=10&'
+            'query=issued>=%s AND issued<=%s') % (
+                self.date_from, self.date_to,)
+
 
     def _get_cvdr_locations(self):
         result = {}
@@ -64,11 +61,11 @@ class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseWebScraper):
         if self.cvdr_locations is None:
             self.cvdr_locations = self._get_cvdr_locations()
         sleep(1)
-        self.params['filter:' + self.date_field] = str(self.date_from)
+        #self.params['filter:' + self.date_field] = str(self.date_from)
         #self.payload['filters']['date']['to'] = str(self.date_to)
         result = super(DocumentsScraper, self).fetch()
         if result is not None:
-            #logging.info(result)
+            logging.info(result)
             results = result.get('results', [])
             logging.info(
                 'Scraper: in total %s(%s) results before bulk' % (
