@@ -81,6 +81,7 @@ class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseHtmlWebscraper):
             return []
 
     def transform(self, item):
+        sleep(1)
         full_url = urljoin(self.url, item)
         logging.info(full_url)
         html = etree.HTML(requests.get(full_url).content)
