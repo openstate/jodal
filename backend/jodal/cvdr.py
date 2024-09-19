@@ -33,11 +33,6 @@ class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseHtmlWebscraper):
         self.cvdr_locations = None
         logging.info('Scraper: fetch from %s to %s' % (
             self.date_from, self.date_to,))
-        self.url = (
-            'https://zoekdienst.overheid.nl/sru/Search?version=1.2&operation='
-            'searchRetrieve&x-connection=cvdr&startRecord=1&maximumRecords=10&'
-            'query=issued>=%s AND issued<=%s') % (
-                self.date_from, self.date_to,)
 
 
     def _get_cvdr_locations(self):
@@ -66,10 +61,12 @@ class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseHtmlWebscraper):
         result = super(DocumentsScraper, self).fetch()
         if result is not None:
             logging.info(result)
-            results = result.get('results', [])
+            #logging.info(self.result.content)
+            results = result.xpath('//div[@id="content"]//*[contains(@class, "result--list--wide")]/ul/li')
+            logging.info(results)
             logging.info(
                 'Scraper: in total %s(%s) results before bulk' % (
-                    result['total'], len(results),))
+                    '0', len(results),))
             return results
         else:
             return []
