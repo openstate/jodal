@@ -110,10 +110,9 @@ class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseHtmlWebscraper):
                 logging.info(
                     'Scraper: cvdr author [%s] (%s) was not found in locations' % (
                         name, name,))
-
-            description = re.sub(
-                '\s+', ' ', ' '.join(html.xpath('//*[@id="content"]//text()')))
             else:
+                description = re.sub(
+                    '\s+', ' ', ' '.join(html.xpath('//*[@id="content"]//text()')))
                 r = {
                     '_id': h_id.hexdigest(),
                     '_index': 'jodal_documents',
