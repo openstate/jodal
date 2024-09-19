@@ -43,9 +43,8 @@ class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseHtmlWebscraper):
         results = self.es.search(index='jodal_locations', body={"size":1000})
         for l in results.get('hits', {}).get('hits', []):
             cbs_id = l['_id']
-            for p in l['_source'].get('sources', []):
-                if p['source'] == 'cvdr':
-                    result[p['name']] = cbs_id
+            cbs_name = l.get('_source', {}).get('name')
+            result[cbs_name] = cbs_id
         return result
 
     def next(self):
