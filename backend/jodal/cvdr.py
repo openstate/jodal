@@ -110,6 +110,9 @@ class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseHtmlWebscraper):
                 logging.info(
                     'Scraper: cvdr author [%s] (%s) was not found in locations' % (
                         name, name,))
+
+            description = re.sub(
+                '\s+', ' ', ' '.join(html.xpath('//*[@id="content"]//text()')))
             else:
                 r = {
                     '_id': h_id.hexdigest(),
@@ -119,7 +122,7 @@ class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseHtmlWebscraper):
                     'url': full_url,
                     'location': self.cvdr_locations[name],
                     'title': html.xpath('//meta[@name="DCTERMS.title"]/@content')[0].strip(),
-                    'description': str(etree.tostring(html.xpath('//*[@id="content"]')[0])),
+                    'description': description,
                     'created': html.xpath('//meta[@name="DCTERMS.modified"]/@content')[0].strip(),
                     'modified': html.xpath('//meta[@name="DCTERMS.modified"]/@content')[0].strip(),
                     'published': html.xpath('//meta[@name="DCTERMS.modified"]/@content')[0].strip(),
