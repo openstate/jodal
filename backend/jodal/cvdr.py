@@ -113,6 +113,7 @@ class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseHtmlWebscraper):
             else:
                 description = re.sub(
                     '\s+', ' ', ' '.join(html.xpath('//*[@id="content"]//text()')))
+                date = html.xpath('//meta[@name="DCTERMS.modified"]/@content')[0].strip()[0:10]
                 r = {
                     '_id': h_id.hexdigest(),
                     '_index': 'jodal_documents',
@@ -122,9 +123,9 @@ class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseHtmlWebscraper):
                     'location': self.cvdr_locations[name],
                     'title': html.xpath('//meta[@name="DCTERMS.title"]/@content')[0].strip(),
                     'description': description,
-                    'created': html.xpath('//meta[@name="DCTERMS.modified"]/@content')[0].strip(),
-                    'modified': html.xpath('//meta[@name="DCTERMS.modified"]/@content')[0].strip(),
-                    'published': html.xpath('//meta[@name="DCTERMS.modified"]/@content')[0].strip(),
+                    'created': date,
+                    'modified': date,
+                    'published': date,
                     'source': self.name,
                     'type': 'Bericht',
                     'data': data
