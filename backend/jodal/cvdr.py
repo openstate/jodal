@@ -23,7 +23,7 @@ from jodal.scrapers import (
 class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseHtmlWebscraper):
     name = 'cvdr'
     method = 'get'
-    url = 'https://lokaleregelgeving.overheid.nl/ZoekResultaat?datumrange=alle&indeling=&sort=date-desc&page=1&count=10'
+    url = 'https://lokaleregelgeving.overheid.nl/ZoekResultaat?datumrange=alle&indeling=&sort=date-desc&page=1&count=50'
 
     def __init__(self, *args, **kwargs):
         super(DocumentsScraper, self).__init__(*args, **kwargs)
