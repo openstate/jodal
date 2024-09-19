@@ -11,6 +11,7 @@ from time import sleep
 import locale
 
 import requests
+from lxml import etree
 
 from jodal.es import setup_elasticsearch
 from jodal.scrapers import (
@@ -62,7 +63,7 @@ class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseHtmlWebscraper):
         if result is not None:
             logging.info(result)
             #logging.info(self.result.content)
-            results = result.xpath('//div[@id="content"]//*[contains(@class, "result--list--wide")]/ul/li')
+            results = result.xpath('//div[@id="content"]//*[contains(@class, "result--list--wide")]/ul/li//h2/a/@href')
             logging.info(results)
             logging.info(
                 'Scraper: in total %s(%s) results before bulk' % (
@@ -72,17 +73,18 @@ class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseHtmlWebscraper):
             return []
 
     def transform(self, item):
-        # logging.info(item)
+        full_url = urljoin(self.url, item)
+        logging.info(full_url)
+        html = etree.HTML(requests.get(full_url).content)
         names = getattr(self, 'names', None) or [self.name]
         result = []
-        props = item['properties']
         for n in names:
-            r_uri = item['links']['self']
+            r_uri = full_url
             h_id = hashlib.sha1()
             h_id.update(r_uri.encode('utf-8'))
-            item_id = item.get('id', None) or item.get('meta', {}).get('_id', None)
+            item_id = item
             data = {}
-            name = props.get('author', ['-'])[0].strip()
+            name = html.xpath('//meta[@name="DCTERMS.creator"]/@content')[0].strip()
             name_replacements = {
                 'Gemeente ': '',
                 '(L)': '(L.)',
@@ -94,20 +96,20 @@ class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseHtmlWebscraper):
             if name not in self.cvdr_locations:
                 logging.info(
                     'Scraper: cvdr author [%s] (%s) was not found in locations' % (
-                        name, props.get('author'),))
+                        name, name,))
             else:
                 r = {
                     '_id': h_id.hexdigest(),
                     '_index': 'jodal_documents',
                     'id': h_id.hexdigest(),
                     'identifier': r_uri,
-                    'url': item['links']['ui'],
+                    'url': full_url,
                     'location': self.cvdr_locations[name],
-                    'title': props.get('title', [''])[0].strip(),
-                    'description': props.get('bodyHtml', [''])[0],
-                    'created': props.get('createdAt', [None])[0],
-                    'modified': props.get('modifiedAt', [None])[0],
-                    'published': props.get('publishedAt', [None])[0],
+                    'title': html.xpath('//meta[@name="DCTERMS.title"]/@content')[0].strip(),
+                    'description': etree.tostring(html.xpath('//*[@id="content"]')[0]),
+                    'created': html.xpath('//meta[@name="DCTERMS.modified"]/@content')[0].strip(),
+                    'modified': html.xpath('//meta[@name="DCTERMS.modified"]/@content')[0].strip(),
+                    'published': html.xpath('//meta[@name="DCTERMS.modified"]/@content')[0].strip(),
                     'source': self.name,
                     'type': 'Bericht',
                     'data': data
