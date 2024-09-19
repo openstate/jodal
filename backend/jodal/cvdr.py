@@ -111,8 +111,10 @@ class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseHtmlWebscraper):
                     'Scraper: cvdr author [%s] (%s) was not found in locations' % (
                         name, name,))
             else:
-                description = re.sub(
-                    '\s+', ' ', ' '.join(html.xpath('//*[@id="content"]//text()')))
+                # description = re.sub(
+                #     '\s+', ' ', ' '.join(html.xpath('//*[@id="content"]//text()')))
+                description = string(
+                    etree.tostring(html.xpath('//*[@id="content"]')))
                 date = html.xpath('//meta[@name="DCTERMS.modified"]/@content')[0].strip()[0:10]
                 r = {
                     '_id': h_id.hexdigest(),
