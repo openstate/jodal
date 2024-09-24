@@ -14,8 +14,8 @@ How to setup a local development environment:
 5. `Edit fa-kickstart/kickstart.json, esp. the part where it creates an account`
 6. `docker-compose  up -d backend mysql elasticsearch`
 7. `cd ..`
-8. `./setup.sh`
 9. `./bin/dev.sh`
+8. `./setup.sh`
 10. `docker exec -it jodal_backend_1 ./manage.py scrapers locations`
 
 To access the local development environment, add the following in `/etc/hosts`:
