@@ -2,7 +2,7 @@ beautifulsoup4==4.6.3
 bleach==3.3.0
 html5lib==1.1
 requests==2.21.0
-lxml
+lxml==4.6.5
 elasticsearch>=7.0.0,<8.0.0
 feedgen==1.0.0
 Flask==1.1.2
