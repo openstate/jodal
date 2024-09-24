@@ -23,6 +23,7 @@ from jodal.scrapers import (
 class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseHtmlWebscraper):
     name = 'cvdr'
     method = 'get'
+    url_formatter = 'https://lokaleregelgeving.overheid.nl/ZoekResultaat?datumrange=alle&indeling=&sort=date-desc&page=%s&count=50'
     url = 'https://lokaleregelgeving.overheid.nl/ZoekResultaat?datumrange=alle&indeling=&sort=date-desc&page=1&count=50'
 
     def __init__(self, *args, **kwargs):
@@ -32,6 +33,8 @@ class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseHtmlWebscraper):
         self.date_to = kwargs['date_to']
         self.date_field = kwargs['date_field']
         self.force = kwargs['force']
+        self.page = kwargs.get('page', '1')
+        self.url = self.url_formatter % (self.page,)
         self.cvdr_locations = None
         logging.info('Scraper: fetch from %s to %s' % (
             self.date_from, self.date_to,))
@@ -51,10 +54,14 @@ class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseHtmlWebscraper):
         if not self.force:
             return
         next_link = None
+        print(self.result)
         try:
             next_link = self.result_html.xpath('//div[contains(@class, "pagination__index")]/ul/li[@class="next"]/a/@href')[0]
         except LookupError as e:
             pass
+        except AttributeError as e:
+            sleep(300)  # temp block?
+            next_link = self.url
         logging.info(next_link)
         if (next_link is not None) and (next_link.strip() != ''):
             self.url = urljoin(self.url, next_link)
@@ -97,7 +104,11 @@ class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseHtmlWebscraper):
             h_id.update(r_uri.encode('utf-8'))
             item_id = item
             data = {}
-            name = html.xpath('//meta[@name="DCTERMS.creator"]/@content')[0].strip()
+            name = ''
+            try:
+                name = html.xpath('//meta[@name="DCTERMS.creator"]/@content')[0].strip()
+            except Exception as e:
+                pass
             name_replacements = {
                 'Gemeente ': '',
                 '(L)': '(L.)',
@@ -111,11 +122,21 @@ class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseHtmlWebscraper):
                     'Scraper: cvdr author [%s] (%s) was not found in locations' % (
                         name, name,))
             else:
-                # description = re.sub(
-                #     '\s+', ' ', ' '.join(html.xpath('//*[@id="content"]//text()')))
-                description = string(
-                    etree.tostring(html.xpath('//*[@id="content"]')))
-                date = html.xpath('//meta[@name="DCTERMS.modified"]/@content')[0].strip()[0:10]
+                description_clean = re.sub(
+                    '\s+', ' ', ' '.join(html.xpath('//*[@id="content"]//text()')))
+                try:
+                    description = etree.tostring(html.xpath('//*[@id="content"]')[0], encoding='unicode')
+                except Exception as e:
+                    description = description_clean
+                try:
+                    date = html.xpath('//meta[@name="DCTERMS.modified"]/@content')[0].strip()[0:10]
+                except Exception as e:
+                    date = datetime.now().date()
+                title = None
+                try:
+                    title = html.xpath('//meta[@name="DCTERMS.title"]/@content')[0].strip()
+                except Expetion as e:
+                    pass
                 r = {
                     '_id': h_id.hexdigest(),
                     '_index': 'jodal_documents',
@@ -123,7 +144,7 @@ class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseHtmlWebscraper):
                     'identifier': r_uri,
                     'url': full_url,
                     'location': self.cvdr_locations[name],
-                    'title': html.xpath('//meta[@name="DCTERMS.title"]/@content')[0].strip(),
+                    'title': title, 
                     'description': description,
                     'created': date,
                     'modified': date,

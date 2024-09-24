@@ -288,7 +288,8 @@ def scrapers_obv_counts(date_from, date_to, threshold, organizations):
 @click.option('-t', '--date-to', default=datetime.now())
 @click.option('-w', '--date-field', default='dates')  # created_at, updated_at, dates
 @click.option('-F', '--force', is_flag=True, default=False)
-def scrapers_cvdr(date_from, date_to, date_field, force):
+@click.option('-p', '--page', default='1')
+def scrapers_cvdr(date_from, date_to, date_field, force, page):
     config = load_config()
     es = setup_elasticsearch(config)
     try:
@@ -304,7 +305,8 @@ def scrapers_cvdr(date_from, date_to, date_field, force):
         'date_from': df,
         'date_to': dt,
         'date_field': date_field,
-        'force': force
+        'force': force,
+        'page': page
     }
     CVDRScraperRunner().run(**kwargs)
 
