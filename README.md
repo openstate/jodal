@@ -12,7 +12,7 @@ How to setup a local development environment:
 3. `# Edit config.py and config.yaml accordingly to what you want, not strictly necessary`
 4. `cd ../docker`
 5. `Edit fa-kickstart/kickstart.json, esp. the part where it creates an account`
-6. `docker-compose  up -d backend mysql elasticsearch`
+6. `docker-compose  -f docker-compose.yml -f docker-compose-dev.yml up -d backend mysql elasticsearch`
 7. `cd ..`
 9. `./bin/dev.sh`
 8. `./setup.sh`
