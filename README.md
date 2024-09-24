@@ -17,6 +17,7 @@ How to setup a local development environment:
 9. `./bin/dev.sh`
 8. `./setup.sh`
 10. `docker exec -it jodal_backend_1 ./manage.py scrapers locations`
+10. `docker exec -it jodal_backend_1 ./manage.py scrapers cvdr`
 
 To access the local development environment, add the following in `/etc/hosts`:
 
