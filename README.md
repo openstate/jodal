@@ -16,7 +16,7 @@ How to setup a local development environment:
 10. `docker exec -it jodal_backend_1 ./manage.py scrapers locations`
 10. `docker exec -it jodal_backend_1 ./manage.py scrapers cvdr` and other scrapers
 
-To access the local development environment, add the following in `/etc/hosts` on Linux or `/Windows/System32/drivers/etc` on Windows:
+To access the local development environment, add the following in `/etc/hosts` on Linux or `/Windows/System32/drivers/etc/hosts` on Windows:
 
 ```
 127.0.0.1	api.bron.live app.bron.live heritrix.bron.live bron.live www.bron.live users.bron.live
@@ -50,10 +50,10 @@ Bron uses [alembic](https://alembic.sqlalchemy.org/en/latest/index.html) for mig
 
 Bron runs several scrapers, in the `jodal_backend_1` container. Run the floowing steps to get started:
 
-1. `docker exec jodal_backend_1 ./mana ge.py scrapers locations`
-2. `docker exec jodal_backend_1 ./mana ge.py scrapers openspending -f 2021-01-01`
-3. `docker exec jodal_backend_1 ./mana ge.py scrapers poliflw -f 2021-01-01`
-4. `docker exec jodal_backend_1 ./mana ge.py scrapers obv -f 2021-01-01`
+1. `docker exec jodal_backend_1 ./manage.py scrapers locations`
+2. `docker exec jodal_backend_1 ./manage.py scrapers openspending -f 2021-01-01`
+3. `docker exec jodal_backend_1 ./manage.py scrapers poliflw -f 2021-01-01`
+4. `docker exec jodal_backend_1 ./manage.py scrapers obv -f 2021-01-01`
 
 # contact
 
