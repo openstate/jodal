@@ -5,6 +5,10 @@ export default defineConfig({
 	plugins: [sveltekit()],
 
 	server: {
+		port: 3000,
+		hmr: {
+			host: 'app.bron.live'
+		},
 		fs: {
 			allow: [
 				'static'
