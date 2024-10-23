@@ -136,7 +136,6 @@ def index():
 @decode_json_post_data
 def subscriptions_new():
     email = request.data.get('email', None)
-    # Delete User For A Given ID
     client = setup_fa()
 
     if email is None:
@@ -256,8 +255,6 @@ def api_passwordless_complete():
 
 @app.route("/users/login", methods=["POST", "GET"])
 def api_login():
-
-    # Delete User For A Given ID
     client = setup_fa()
 
     loginId = request.args.get('email') or request.form['email']
@@ -274,19 +271,16 @@ def api_login():
         session['oauth_token'] = client_response.success_response['token']
         session['user'] = convert_userinfo(client_response.success_response['user'])
 
-        return redirect(app.config['JODAL_URL'])
-        # return jsonify(session['user'])
+        #return redirect(app.config['JODAL_URL'])
+        return jsonify(session['user']), 200
     else:
-        return jsonify(
-        {
+        return jsonify({
             "error": "Some kind of error: %s" % (client_response.error_response,),
-            "content":str(client_response.response.content),
-        })
+            "content": str(client_response.response.content),
+        }), 400
 
 @app.route("/users/forgot-password", methods=["POST"])
-def api_forgot():
-
-    # Delete User For A Given ID
+def api_forgot_password():
     client = setup_fa()
 
     client_response = client.forgot_password({
@@ -299,13 +293,32 @@ def api_forgot():
         return redirect(app.config['JODAL_URL'])
         # return jsonify(session['user'])
     else:
-        return jsonify({"error": "Some kind of error: %s" % (client_response.error_response,)})
+        return jsonify({"error": "Some kind of error: %s" % (client_response.error_response,)}), 400
 
+@app.route("/users/change-password", methods=["POST"])
+def api_change_password():
+    client = setup_fa()
+
+    password1 = request.form['password']
+    password2 = request.form['password_repeat']
+
+    if password1 != password2:
+        return jsonify({"error": "Passwords don't match"})
+
+    client_response = client.change_password(request.form["changePasswordId"], {
+        "changePasswordId": request.form["changePasswordId"],
+        "password": password1
+    })
+    # result = resp.json()
+
+    if client_response.was_successful():
+        # return redirect(app.config['JODAL_URL'])
+        return jsonify({ "success": "true" })
+    else:
+        return jsonify({"error": "Some kind of error: %s" % (client_response.error_response,)}), 400
 
 @app.route("/users/register", methods=["POST"])
 def api_register():
-
-    # Delete User For A Given ID
     client = setup_fa()
 
     client_response = client.register({
@@ -324,15 +337,35 @@ def api_register():
         session['oauth_token'] = client_response.success_response['token']
         session['user'] = convert_userinfo(client_response.success_response['user'])
 
-        return redirect(app.config['JODAL_URL'])
-        # return jsonify(session['user'])
+        # return redirect(app.config['JODAL_URL'])
+        return jsonify(session['user'])
     else:
-        return jsonify({"error": "Some kind of error: %s" % (client_response.error_response,)})
+        return jsonify({
+            "error": "Some kind of error: %s" % (client_response.error_response,),
+            "content":str(client_response.response.content),
+        }), 400
 
+@app.route("/users/logout", methods=["POST"])
+def api_logout():
+    client = setup_fa()
+    clients_response = client.logout("false")
+    if clients_response.was_successful():
+        session.clear()
+        return jsonify({ "success": "true" })
+    else:
+        return jsonify({"error": "Some kind of error: %s" % (clients_response.error_response,)}), 400
+
+@app.route("/users/verify", methods=["GET"])
+def api_verify():
+    client = setup_fa()
+    clients_response = client.verify_registration(request.args.get('id'))
+    if clients_response.was_successful():
+        return redirect(app.config['JODAL_URL'])
+    else:
+        return jsonify({"error": "Some kind of error: %s" % (clients_response.error_response,)}), 400
 
 @app.route("/users/simple/me")
 def do_me():
-    # Delete User For A Given ID
     client = setup_fa()
 
     logging.info('session:')
@@ -455,7 +488,6 @@ def do_delete():
     # first delete associated user data
     delete_user_data(user['sub'])
 
-    # Delete User For A Given ID
     client = setup_fa()
     client_response =client.delete_user(user['sub'])
     if client_response.was_successful():

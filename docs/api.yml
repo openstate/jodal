@@ -23,9 +23,54 @@ paths:
         example: "breyten@openstate.eu"
       responses:
         301:
-          description: "The email was succesfully sent. Redirecto to front page."
-        200:
+          description: "The email was succesfully sent. Redirect to front page."
+        400:
           description: "Something went wrong sending out the password lost email"
+          schema:
+            type: "object"
+            error:
+              type: "string"
+              example: "Something wemt wrong."
+          examples:
+            application/json: {"error": "Something went wrong."}
+  /users/change-password:
+    post:
+      tags:
+        - Users
+      summary: "Change a password following forgotten password"
+      description: "This changes the password of the user. The user must have forgotten their password and must provide the new password."
+      produces:
+        - "application/json"
+      parameters:
+      - name: "changePasswordId"
+        in: "form"
+        description: "The token provided in the forget password e-mail."
+        type: "String"
+        required: true
+        example: "6e11ceb9-2b26-4c40-b399-182d4f9b97b6"
+      - name: "password"
+        in: "form"
+        description: "The new password."
+        type: "String"
+        required: true
+        example: "password123"
+      - name: "password_repeat"
+        in: "form"
+        description: "The new password repeated."
+        type: "String"
+        required: true
+        example: "password123"
+      responses:
+        200:
+          description: "The password was changed successfully."
+          schema:
+            type: "object"
+            success:
+              type: "string"
+          examples:
+            application/json: {"success":"true"}
+        400:
+          description: "Something went wrong changing the password."
           schema:
             type: "object"
             error:
@@ -45,28 +90,40 @@ paths:
       - name: "email"
         description: "The email address of the user."
         in: "query"
-        required: false
+        required: true
         example: "breyten@openstate.eu"
       - name: "password"
-        description: "The password used for loggin in."
+        description: "The password used for logging in."
         in: "query"
-        required: false
+        required: true
         example: "password123"
       - name: "email"
         description: "The email address of the user."
         in: "form"
-        required: false
+        required: true
         example: "breyten@openstate.eu"
       - name: "password"
-        description: "The password used for loggin in."
+        description: "The password used for logging in."
         in: "form"
-        required: false
+        required: true
         example: "password123"
       responses:
-        301:
-          description: "The login was succesful. Redirecto to front page."
         200:
-          description: "Something went wrong loggin in"
+          description: "The login was successful."
+          schema:
+            $ref: '#/definitions/User'
+          examples:
+            application/json:
+              applicationId: "6e11ceb9-2b26-4c40-b399-182d4f9b97b6"
+              email: "bje@dds.nl"
+              email_verified: false
+              family_name: "Ernsting"
+              given_name: "Breyten"
+              roles:
+                - User
+              sub: "6e11ceb9-2b26-4c40-b399-182d4f9b97b6"
+        400:
+          description: "Something went wrong logging in"
           schema:
             type: "object"
             error:
@@ -76,10 +133,10 @@ paths:
     get:
       tags:
         - Users
-      summary: "Starts login procedure for a user"
-      description: "Log in a user. Redirect to frontpage if successful"
+      summary: "Starts login procedure for a user."
+      description: "Log in a user. The parameters email and password can be specified via the form or via the query, but both need to be present."
       produces:
-           - "application/json"
+        - "application/json"
       parameters:
       - name: "email"
         description: "The email address of the user."
@@ -87,15 +144,37 @@ paths:
         required: true
         example: "breyten@openstate.eu"
       - name: "password"
-        description: "The password used for loggin in."
+        description: "The password used for logging in."
         in: "query"
         required: true
-        example: password123
+        example: "password123"
+      - name: "email"
+        description: "The email address of the user."
+        in: "form"
+        required: true
+        example: "breyten@openstate.eu"
+      - name: "password"
+        description: "The password used for logging in."
+        in: "form"
+        required: true
+        example: "password123"
       responses:
-        301:
-          description: "The login was succesful. Redirecto to front page."
         200:
-          description: "Something went wrong loggin in"
+          description: "The login was successful."
+          schema:
+            $ref: '#/definitions/User'
+          examples:
+            application/json:
+              applicationId: "6e11ceb9-2b26-4c40-b399-182d4f9b97b6"
+              email: "bje@dds.nl"
+              email_verified: false
+              family_name: "Ernsting"
+              given_name: "Breyten"
+              roles:
+                - User
+              sub: "6e11ceb9-2b26-4c40-b399-182d4f9b97b6"
+        400:
+          description: "Something went wrong logging in"
           schema:
             type: "object"
             error:
@@ -150,9 +229,9 @@ paths:
         example: 123456
       responses:
         301:
-          description: "The login was succesful. Redirecto to front page."
+          description: "The login was succesful. Redirect to front page."
         200:
-          description: "Something went wrong loggin in"
+          description: "Something went wrong logging in"
           schema:
             type: "object"
             error:
@@ -180,14 +259,77 @@ paths:
         required: true
         example: password123
       responses:
-        301:
-          description: "The registration was succesful and an email was sent. Redirecto to front page."
         200:
+          description: "The registration was successful and an email was sent."
+          schema:
+            $ref: "#/definitions/User"
+          examples:
+            application/json:
+              applicationId: "6e11ceb9-2b26-4c40-b399-182d4f9b97b6"
+              email: "bje@dds.nl"
+              email_verified: false
+              family_name: "Ernsting"
+              given_name: "Breyten"
+              roles:
+                - User
+              sub: "6e11ceb9-2b26-4c40-b399-182d4f9b97b6"
+        400:
           description: "Something went wrong registering the user. The contents describe the error encountered."
           schema:
             type: "object"
             error:
               type: "string"
+          examples:
+            application/json: {"error": "Something went wrong."}
+  /users/verify:
+    get:
+      tags:
+        - Users
+      summary: "Verifies a user"
+      description: "Verifies the e-mail address of a user. This is used to verify the user after they have registered."
+      produces:
+        - "application/json"
+      parameters:
+      - name: "id"
+        description: "The token provided in the registration e-mail."
+        in: "query"
+        required: true
+        example: "6e11ceb9-2b26-4c40-b399-182d4f9b97b6"
+      responses:
+        301:
+          description: "The user was verified successfully. Redirect to front page."
+        400:
+          description: "Something went wrong verifying the user."
+          schema:
+            type: "object"
+            error:
+              type: "string"
+          examples:
+            application/json: {"error": "Something went wrong."}
+  /users/logout:
+    post:
+      tags:
+        - Users
+      summary: "Logs a user out."
+      description: "Removes a users session to log them out."
+      produces:
+        - "application/json"
+      responses:
+        200:
+          description: "The user was logged out successfully."
+          schema:
+            type: "object"
+            success:
+              type: "string"
+          examples:
+            application/json: {"success":"true"}
+        400:
+          description: "Something went wrong logging the user out."
+          schema:
+            type: "object"
+            error:
+              type: "string"
+              example: "Something wemt wrong."
           examples:
             application/json: {"error": "Something went wrong."}
   /users/delete:
@@ -213,28 +355,7 @@ paths:
         200:
           description: "The user data returned. null if not logged in."
           schema:
-            type: "object"
-            applicationId:
-              type: "string"
-              description: The application id
-            email:
-              type: "string"
-              description: "The email address of the user."
-            email_verified:
-              type: "boolean"
-              description: "Whether the user was verified or not."
-            family_name:
-              type: "string"
-              description: "The family name of the user"
-            given_name:
-              type: "string"
-              description: "The given name of the user"
-            roles:
-              type: "list"
-              description: "The roles that this user has in admin"
-            sub:
-              type: "string"
-              description : "Show the interal id user for the user,:"
+            ref: "#/definitions/User"
           examples:
             application/json:
               applicationId: "6e11ceb9-2b26-4c40-b399-182d4f9b97b6"
@@ -1286,3 +1407,26 @@ definitions:
       type: date
     read_counta:
       type: text
+  User:
+    type: "object"
+    applicationId:
+      type: "string"
+      description: "The application id."
+    email:
+      type: "string"
+      description: "The email address of the user."
+    email_verified:
+      type: "boolean"
+      description: "Whether the user was verified or not."
+    family_name:
+      type: "string"
+      description: "The family name of the user."
+    given_name:
+      type: "string"
+      description: "The given name of the user."
+    roles:
+      type: "list"
+      description: "The roles that this user has in admin."
+    sub:
+      type: "string"
+      description : "The interal id user for the user."
