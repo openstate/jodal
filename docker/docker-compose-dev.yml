@@ -24,4 +24,9 @@ services:
     restart: "no"
     command: npm run dev
   frontend:
-     command: ["npm", "run", "dev"]
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile-dev
+    volumes:
+      - /opt/app/node_modules
+      - ../frontend:/opt/app
