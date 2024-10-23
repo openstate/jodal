@@ -7,3 +7,4 @@ backend/cache/**/*.json
 __pycache__
 **/static/2022-articles/*.json
 heritrix/jobs/*
+.vscode
