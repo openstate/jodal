@@ -1,21 +1,25 @@
-<script>
-  import { identity, apiDomainName } from '$lib/stores';
-  import { Mastodon, TwitterX, Linkedin, Github, EnvelopeFill } from 'svelte-bootstrap-icons';
-  import OSFLogo from '$lib/assets/logo-openstate.png';
-  import exampleLogo from '$lib/assets/example-logo.png';
-  import { IconHeart } from '@tabler/icons-svelte';
+<script lang="ts">
+  import { identity } from '$lib/stores';
+  import { dev } from '$app/environment';
+  import { logout } from '$lib/utils';
+
+  console.log(dev);
 </script>
 
 {#if $identity}
-<div class="page">
-  <ul>
-    <li><a href="/archief/">Archief</a></li>
-    <li>...</li>
-  </ul>
-</div>
+  <div class="page">
+    <p>Welkom, <b>{$identity.email}</b>!</p>
+    <ul>
+      <li><a href="/archief/">Archief</a></li>
+      <li>...</li>
+    </ul>
+  </div>
+  <button on:click={logout} class="btn btn-primary">Uitloggen</button>
 {:else}
-<p>Je bent momenteel niet ingelogt. Druk op de knop hieronder om naar de login pagina te gaan.</p>
-<a href="//bron.live/login/" class="btn btn-primary">
-Inloggen
-</a>
+  <p>
+    Je bent momenteel niet ingelogd. Druk op de knop hieronder om naar de login
+    pagina te gaan, of maak een account aan.
+  </p>
+  <a href="/login" class="btn btn-primary">Inloggen</a>
+  <a href="/register" class="btn btn-primary">Registreren</a>
 {/if}
