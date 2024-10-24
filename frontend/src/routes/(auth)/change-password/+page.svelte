@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { run } from 'svelte/legacy';
-
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
 
@@ -8,9 +6,10 @@
 
   let id = $derived($page.url.searchParams.get('id'));
 
-  run(() => {
+  $effect(() => {
     if (!id)
-      errorMessage = 'Je kan niet je wachtwoord veranderen zonder geldige code.';
+      errorMessage =
+        'Je kan niet je wachtwoord veranderen zonder geldige code.';
   });
 
   async function submit(e: SubmitEvent) {
