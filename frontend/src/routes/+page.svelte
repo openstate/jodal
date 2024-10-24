@@ -10,6 +10,7 @@
   <div class="page">
     <p>Welkom, <b>{$identity.email}</b>!</p>
     <ul>
+      <li><a href="/dossiers/">Dossiers</a></li>
       <li><a href="/archief/">Archief</a></li>
       <li>...</li>
     </ul>
