@@ -1,13 +1,17 @@
 <script lang="ts">
+  import { run } from 'svelte/legacy';
+
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
 
-  let errorMessage: false | string = false;
+  let errorMessage: false | string = $state(false);
 
-  $: id = $page.url.searchParams.get('id');
+  let id = $derived($page.url.searchParams.get('id'));
 
-  $: if (!id)
-    errorMessage = 'Je kan niet je wachtwoord veranderen zonder geldige code.';
+  run(() => {
+    if (!id)
+      errorMessage = 'Je kan niet je wachtwoord veranderen zonder geldige code.';
+  });
 
   async function submit(e: SubmitEvent) {
     e.preventDefault();
@@ -44,7 +48,7 @@
 <form
   method="POST"
   action="//api.bron.live/users/change-password"
-  on:submit={submit}
+  onsubmit={submit}
 >
   <input type="hidden" name="changePasswordId" value={id} />
   <input type="password" name="password" placeholder="Nieuw wachtwoord" />

@@ -1,6 +1,6 @@
 <script lang="ts">
-  let successMessage: false | string = false;
-  let errorMessage: false | string = false;
+  let successMessage: false | string = $state(false);
+  let errorMessage: false | string = $state(false);
 
   async function submit(e: SubmitEvent) {
     e.preventDefault();
@@ -40,7 +40,7 @@
 {/if}
 
 
-<form method="POST" action="//api.bron.live/users/register" on:submit={submit}>
+<form method="POST" action="//api.bron.live/users/register" onsubmit={submit}>
   <input type="email" name="email" placeholder="E-mail" />
   <input type="password" name="password" placeholder="Wachtwoord" />
   <button class="btn btn-primary">Registreren</button>

@@ -6,6 +6,13 @@
   import '../scss/app.scss';
   import { browser } from '$app/environment';
   import NavBar from '$lib/NavBar.svelte';
+  /**
+   * @typedef {Object} Props
+   * @property {import('svelte').Snippet} [children]
+   */
+
+  /** @type {Props} */
+  let { children } = $props();
 
   onMount(async () => {
     if (!browser) return;
@@ -22,6 +29,6 @@
 <NavBar />
 <main class="mt-3 mb-5">
   <div class="container">
-    <slot />
+    {@render children?.()}
   </div>
 </main>

@@ -1,5 +1,5 @@
 <script lang="ts">
-  let errorMessage: false | string = false;
+  let errorMessage: false | string = $state(false);
 
   async function submit(e: SubmitEvent) {
     e.preventDefault();
@@ -27,7 +27,7 @@
   </div>
 {/if}
 
-<form method="POST" action="//api.bron.live/users/forgot-password" on:submit={submit}>
+<form method="POST" action="//api.bron.live/users/forgot-password" onsubmit={submit}>
   <input type="email" name="email" placeholder="E-mail" />
   <button class="btn btn-primary">Verstuur bevestigingsmail</button>
 </form>
