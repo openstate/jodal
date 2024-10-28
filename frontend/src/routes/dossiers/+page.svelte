@@ -10,7 +10,7 @@
   $effect(() => void goto(`/dossiers/?q=${queryInput}`, { keepFocus: true }));
 
   function fetchDocuments() {
-    if (!queryInput) return undefined;
+    if (!queryInput) return null;
 
     const url =
       'http://api.bron.live/documents/search?page=0&filter=|&published_to:now&sort=published:desc&limit=50';
@@ -18,7 +18,7 @@
     return fetch(url + `&query=${queryInput}`).then((r) => r.json());
   }
 
-  const query = createQuery<ElasticSearchResponse | undefined>(() => ({
+  const query = createQuery<ElasticSearchResponse | null>(() => ({
     queryKey: ['query', queryInput],
     queryFn: fetchDocuments,
     placeholderData: keepPreviousData,
