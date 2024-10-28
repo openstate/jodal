@@ -13,7 +13,7 @@
     if (!queryInput) return null;
 
     const url =
-      'http://api.bron.live/documents/search?page=0&filter=|&published_to:now&sort=published:desc&limit=50';
+      '//api.bron.live/documents/search?page=0&filter=|&published_to:now&sort=published:desc&limit=50';
 
     return fetch(url + `&query=${queryInput}`).then((r) => r.json());
   }
