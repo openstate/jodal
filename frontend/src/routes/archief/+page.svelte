@@ -5,14 +5,20 @@ import { identity, apiDomainName } from '$lib/stores';
 import { warcCreate, warcStatus, warcDownloadURL } from '$lib/archive';
 import { createAsset } from '$lib/asset';
 
-/** @type {import('./$types').PageData} */
-export let data;
 
-let url = "";
+  /**
+   * @typedef {Object} Props
+   * @property {import('./$types').PageData} data
+   */
+
+  /** @type {Props} */
+  let { data } = $props();
+
+let url = $state("");
 let heritrix_response = "";
-let job_id = "";
+let job_id = $state("");
 let job_timer = null;
-let job_status = "";
+let job_status = $state("");
 let job_running = false;
 
 let handleUrlForm = function() {
@@ -82,8 +88,8 @@ anonymous
 {/if}
 </p>
 
-<label class="form-label">Link</label>  <input type="text" name="url" bind:value={url} on:keydown={handleKeydown} />
-<button type="button" class="btn btn-primary" on:click="{handleUrlForm}">
+<label class="form-label">Link</label>  <input type="text" name="url" bind:value={url} onkeydown={handleKeydown} />
+<button type="button" class="btn btn-primary" onclick={handleUrlForm}>
 Verstuur
 </button>
 

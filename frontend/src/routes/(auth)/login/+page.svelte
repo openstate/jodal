@@ -2,7 +2,7 @@
   import { identity } from '$lib/stores';
   import { goto } from '$app/navigation';
 
-  let errorMessage: false | string = false;
+  let errorMessage: false | string = $state(false);
 
   async function submit(e: SubmitEvent) {
     e.preventDefault();
@@ -38,7 +38,7 @@
   </div>
 {/if}
 
-<form method="POST" action="//api.bron.live/users/login" on:submit={submit}>
+<form method="POST" action="//api.bron.live/users/login" onsubmit={submit}>
   <input type="email" name="email" placeholder="E-mail" />
   <input type="password" name="password" placeholder="Wachtwoord" />
   <button class="btn btn-primary">Inloggen</button>

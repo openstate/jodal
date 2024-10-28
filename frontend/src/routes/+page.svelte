@@ -10,11 +10,12 @@
   <div class="page">
     <p>Welkom, <b>{$identity.email}</b>!</p>
     <ul>
+      <li><a href="/dossiers/">Dossiers</a></li>
       <li><a href="/archief/">Archief</a></li>
       <li>...</li>
     </ul>
   </div>
-  <button on:click={logout} class="btn btn-primary">Uitloggen</button>
+  <button onclick={logout} class="btn btn-primary">Uitloggen</button>
 {:else}
   <p>
     Je bent momenteel niet ingelogd. Druk op de knop hieronder om naar de login
