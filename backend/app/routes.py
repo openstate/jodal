@@ -360,7 +360,7 @@ def api_verify():
     client = setup_fa()
     clients_response = client.verify_registration(request.args.get('id'))
     if clients_response.was_successful():
-        return redirect(app.config['BRON_APP_URL'])
+        return redirect(app.config['JODAL_URL'])
     else:
         return jsonify({"error": "Some kind of error: %s" % (clients_response.error_response,)}), 400
 
