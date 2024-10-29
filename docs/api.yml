@@ -22,8 +22,15 @@ paths:
         required: true
         example: "breyten@openstate.eu"
       responses:
-        301:
-          description: "The email was succesfully sent. Redirect to front page."
+        200:
+          description: "Successfully sent out the password lost email"
+          schema:
+            type: "object"
+            success:
+              type: "string"
+              example: "true"
+          examples:
+            application/json: {"success": "true"}
         400:
           description: "Something went wrong sending out the password lost email"
           schema:

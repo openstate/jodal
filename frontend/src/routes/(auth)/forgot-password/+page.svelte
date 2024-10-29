@@ -1,11 +1,11 @@
 <script lang="ts">
-  let errorMessage: false | string = $state(false);
+  let successMessage: false | string = $state(false);
 
   async function submit(e: SubmitEvent) {
     e.preventDefault();
     const node = e.target as HTMLFormElement;
 
-    errorMessage = false;
+    successMessage = false;
 
     const response = await fetch(node.action, {
       method: node.method,
@@ -16,14 +16,18 @@
     const json = await response.json();
 
     console.log(json)
+
+    if (json.success) {
+      successMessage = "Bevestigingsmail verstuurd.";
+    }
   }
 </script>
 
 <h1>Wachtwoord vergeten</h1>
 
-{#if errorMessage}
-  <div class="alert alert-danger" role="alert">
-    {errorMessage}
+{#if successMessage}
+  <div class="alert alert-success" role="alert">
+    {successMessage}
   </div>
 {/if}
 
