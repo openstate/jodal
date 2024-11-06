@@ -165,9 +165,10 @@ def subscriptions_new():
             return jsonify(client_response.error_response)
         else:
             # TODO: add sending passwordless login here
-            res = _passwordless_start(client, email)
-            if (res is not None) and ('error' in res):
-                return jsonify(res)
+            # res = _passwordless_start(client, email)
+            # if (res is not None) and ('error' in res):
+            #     return jsonify(res)
+            return jsonify(resp.json())
     return jsonify(resp.json())
 
 @app.route("/subscriptions/delete", methods=["GET"])
