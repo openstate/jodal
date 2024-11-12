@@ -6,9 +6,6 @@
   import '../scss/app.scss';
   import { browser } from '$app/environment';
   import NavBar from '$lib/NavBar.svelte';
-  import { QueryClientProvider, QueryClient } from '@tanstack/svelte-query';
-
-  const queryClient = new QueryClient({});
 
   let { children } = $props();
 
@@ -25,11 +22,9 @@
   <meta property="og:title" content="Bron" />
 </svelte:head>
 
-<QueryClientProvider client={queryClient}>
-  <NavBar />
-  <main class="mt-3 mb-5">
-    <div class="container">
-      {@render children?.()}
-    </div>
-  </main>
-</QueryClientProvider>
+<NavBar />
+<main class="mt-3 mb-5">
+  <div class="container">
+    {@render children?.()}
+  </div>
+</main>

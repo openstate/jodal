@@ -44,7 +44,6 @@
 	"dependencies": {
 		"@tabler/core": "^1.0.0-beta20",
 		"@tabler/icons-svelte": "^3.20.0",
-		"@tanstack/svelte-query": "^5.59.16",
 		"svelte-bootstrap-icons": "^3.1.1",
 		"svelte-preprocess": "^6.0.0"
 	}
