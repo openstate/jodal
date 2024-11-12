@@ -1,4 +1,5 @@
-import { readable, writable } from 'svelte/store';
+import { page } from '$app/stores';
+import { derived, readable } from 'svelte/store';
 
 export const apiDomainName = readable('api.bron.live');
 
@@ -12,4 +13,4 @@ export type Identity = {
   sub: string;
 };
 
-export const identity = writable<Identity>(null);
+export const identity = derived(page, ($page) => $page.data.identity);

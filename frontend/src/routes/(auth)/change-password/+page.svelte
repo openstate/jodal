@@ -1,54 +1,25 @@
 <script lang="ts">
-  import { goto } from '$app/navigation';
+  import { enhance } from '$app/forms';
   import { page } from '$app/stores';
 
-  let errorMessage: false | string = $state(false);
+  const id = $derived($page.url.searchParams.get('id'));
 
-  let id = $derived($page.url.searchParams.get('id'));
-
-  $effect(() => {
-    if (!id)
-      errorMessage =
-        'Je kan niet je wachtwoord veranderen zonder geldige code.';
-  });
-
-  async function submit(e: SubmitEvent) {
-    e.preventDefault();
-    const node = e.target as HTMLFormElement;
-
-    const response = await fetch(node.action, {
-      method: node.method,
-      body: new FormData(node),
-      cache: 'no-cache',
-    });
-
-    const json = await response.json();
-
-    if ('error' in json) {
-      errorMessage = json.error;
-      return;
-    } else {
-      errorMessage = false;
-      goto('/login');
-    }
-
-    console.log(json);
-  }
+  let { form } = $props();
 </script>
 
 <h1>Wachtwoord veranderen</h1>
 
-{#if errorMessage}
-  <div class="alert alert-danger" role="alert">
-    {errorMessage}
+{#if form?.message || !id}
+  <div class="alert alert-danger">
+    {#if !id}
+      <p>Je kan niet je wachtwoord veranderen zonder geldige code.</p>
+    {:else}
+      <p>{form?.message}</p>
+    {/if}
   </div>
 {/if}
 
-<form
-  method="POST"
-  action="//api.bron.live/users/change-password"
-  onsubmit={submit}
->
+<form method="POST" use:enhance>
   <input type="hidden" name="changePasswordId" value={id} />
   <input type="password" name="password" placeholder="Nieuw wachtwoord" />
   <input

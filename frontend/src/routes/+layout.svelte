@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount, type Snippet } from 'svelte';
+  import { onMount } from 'svelte';
   import '../scss/variables.scss';
   //import "../scss/bootstrap.scss";
   import '../scss/tabler.scss';
@@ -8,9 +8,9 @@
   import NavBar from '$lib/NavBar.svelte';
   import { QueryClientProvider, QueryClient } from '@tanstack/svelte-query';
 
-  const queryClient = new QueryClient({})
+  const queryClient = new QueryClient({});
 
-  let { children }: { children: Snippet }= $props();
+  let { children } = $props();
 
   onMount(async () => {
     if (!browser) return;

@@ -1,9 +1,6 @@
 <script lang="ts">
   import { identity } from '$lib/stores';
-  import { dev } from '$app/environment';
-  import { logout } from '$lib/utils';
-
-  console.log(dev);
+  import { enhance } from '$app/forms';
 </script>
 
 {#if $identity}
@@ -15,7 +12,9 @@
       <li>...</li>
     </ul>
   </div>
-  <button onclick={logout} class="btn btn-primary">Uitloggen</button>
+  <form action="/logout" method="POST" use:enhance>
+    <button class="btn btn-primary">Uitloggen</button>
+  </form>
 {:else}
   <p>
     Je bent momenteel niet ingelogd. Druk op de knop hieronder om naar de login

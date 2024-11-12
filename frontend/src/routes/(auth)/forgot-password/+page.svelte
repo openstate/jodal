@@ -1,37 +1,18 @@
 <script lang="ts">
-  let successMessage: false | string = $state(false);
+  import { enhance } from '$app/forms';
 
-  async function submit(e: SubmitEvent) {
-    e.preventDefault();
-    const node = e.target as HTMLFormElement;
-
-    successMessage = false;
-
-    const response = await fetch(node.action, {
-      method: node.method,
-      body: new FormData(node),
-      cache: 'no-cache',
-    });
-
-    const json = await response.json();
-
-    console.log(json)
-
-    if (json.success) {
-      successMessage = "Bevestigingsmail verstuurd.";
-    }
-  }
+  let { form } = $props();
 </script>
 
 <h1>Wachtwoord vergeten</h1>
 
-{#if successMessage}
-  <div class="alert alert-success" role="alert">
-    {successMessage}
+{#if form?.message}
+  <div class="alert alert-success" class:alert-danger={form.success === false}>
+    <p>{form.message}</p>
   </div>
 {/if}
 
-<form method="POST" action="//api.bron.live/users/forgot-password" onsubmit={submit}>
+<form method="POST" use:enhance>
   <input type="email" name="email" placeholder="E-mail" />
   <button class="btn btn-primary">Verstuur bevestigingsmail</button>
 </form>
