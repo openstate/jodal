@@ -2,14 +2,26 @@
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
 
-  let queryInput = $state($page.url.searchParams.get('q') ?? '');
-
-  $effect(() => void goto(`/dossiers/?q=${queryInput}`, { keepFocus: true }));
-
   let { data } = $props();
+
+  const getQueryParam = () => $page.url.searchParams.get('zoek') ?? '';
+
+  let queryInput = $state(getQueryParam());
+
+  $effect(() => {
+    queryInput = getQueryParam();
+  });
+
+  function search(e: SubmitEvent) {
+    e.preventDefault();
+    goto(`/dossiers/?zoek=${queryInput}`, { keepFocus: true });
+  }
 </script>
 
-<input type="search" bind:value={queryInput} />
+<form onsubmit={search}>
+  <input type="search" name="zoek" bind:value={queryInput} />
+  <button type="submit" class="btn btn-primary">Zoeken</button>
+</form>
 
 {#each data.documents?.hits.hits ?? [] as hit}
   <div>

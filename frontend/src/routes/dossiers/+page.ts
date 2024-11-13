@@ -1,7 +1,7 @@
 import type { ElasticSearchResponse } from '$lib/types/elastic-search.js';
 
 export async function load(event) {
-  const search = event.url.searchParams.get('q');
+  const search = event.url.searchParams.get("zoek");
 
   if (!search) return { documents: null };
 
