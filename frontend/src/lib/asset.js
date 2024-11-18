@@ -1,9 +1,8 @@
-import { apiDomainName } from '$lib/stores';
-import { get } from 'svelte/store';
+import { API_URL } from '$lib/api';
 import { identity } from '$lib/stores';
 
 export function createAsset(url, external_id) {
-  var asset_url = '//' + get(apiDomainName) + '/assets';
+  var asset_url = API_URL + '/assets';
 
   var params = {
     user_id: identity.sub,
@@ -25,7 +24,7 @@ export function createAsset(url, external_id) {
 }
 
 export function getAssets() {
-  var asset_url = '//' + get(apiDomainName) + '/assets';
+  var asset_url = API_URL + '/assets';
 
   var params = {
     user_id: identity.sub

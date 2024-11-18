@@ -1,9 +1,10 @@
 <script>
 import { onMount } from 'svelte';
 import { invalidateAll } from '$app/navigation';
-import { identity, apiDomainName } from '$lib/stores';
+import { identity } from '$lib/stores';
 import { warcCreate, warcStatus, warcDownloadURL } from '$lib/archive';
 import { createAsset } from '$lib/asset';
+import { API_URL } from '$lib/api';
 
 
   /**
@@ -107,7 +108,7 @@ Verstuur
       <tr>
         <td><a href="{a.url}" target="_blank">{a.url}</a></td>
         {#if (typeof(a.status) !== 'undefined') && (typeof(a.status.job) !== 'undefined') && (a.status.job.isRunning == 'false')}
-        <td><a href="//{$apiDomainName}/archive/warc/download/{a.external_id}" class="btn btn-primary">downloaden</a></td>
+        <td><a href="{API_URL}/archive/warc/download/{a.external_id}" class="btn btn-primary">downloaden</a></td>
         {:else}
         <td class="text-secondary"><span class="status status-azure">bezig...</span></td>
         {/if}

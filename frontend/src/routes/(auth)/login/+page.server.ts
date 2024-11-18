@@ -1,5 +1,6 @@
 import { dev } from '$app/environment';
 import { fail, redirect, type Actions, type Cookies } from '@sveltejs/kit';
+import { API_URL } from '$lib/api';
 
 type SetCookie = Parameters<Cookies['set']>;
 
@@ -26,7 +27,7 @@ export const actions = {
   default: async ({ fetch, request, cookies }) => {
     const data = await request.formData();
 
-    const response = await fetch('//api.bron.live/users/login', {
+    const response = await fetch(API_URL + '/users/login', {
       method: 'POST',
       credentials: 'include',
       body: data,

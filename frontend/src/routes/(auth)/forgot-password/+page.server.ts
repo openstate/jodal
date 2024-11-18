@@ -1,10 +1,11 @@
 import { fail, type Actions } from '@sveltejs/kit';
+import { API_URL } from '$lib/api';
 
 export const actions = {
   default: async ({ fetch, request }) => {
     const data = await request.formData();
 
-    const response = await fetch('//api.bron.live/users/forgot-password', {
+    const response = await fetch(API_URL + '/users/forgot-password', {
       method: 'POST',
       body: data,
     });

@@ -1,8 +1,6 @@
 import { page } from '$app/stores';
 import { derived, readable } from 'svelte/store';
 
-export const apiDomainName = readable('api.bron.live');
-
 export type Identity = {
   applicationId: string;
   email: string;

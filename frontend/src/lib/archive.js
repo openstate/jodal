@@ -1,13 +1,12 @@
-import { apiDomainName } from '$lib/stores';
-import { get } from 'svelte/store';
+import { API_URL } from '$lib/api';
 
 export function warcDownloadURL(archive_id) {
-  var url = '//' + get(apiDomainName) + '/archive/warc/download/' + archive_id;
+  var url = API_URL + '/archive/warc/download/' + archive_id;
   return url;
 }
 export function warcCreate(url) {
   console.log('should create warc now!');
-  var url = '//' + get(apiDomainName) + '/archive/warc/create?' + new URLSearchParams({
+  var url = API_URL + '/archive/warc/create?' + new URLSearchParams({
     url: url
   });
   return fetch(
@@ -29,7 +28,7 @@ export function warcCreate(url) {
 
 export function warcStatus(archive_id) {
   console.log('should retrieve status of warc now!');
-  var url = '//' + get(apiDomainName) + '/archive/warc/' + archive_id;
+  var url = API_URL + '/archive/warc/' + archive_id;
   return fetch(
     url, {credentials: "include", cache: 'no-cache'}).then(
       response => response.json()
@@ -49,7 +48,7 @@ export function warcStatus(archive_id) {
 
 export function warcStatuses(archive_ids) {
   console.log('should retrieve statuses warc now!');
-  var url = '//' + get(apiDomainName) + '/archive/warcs/' + archive_ids;
+  var url = API_URL + '/archive/warcs/' + archive_ids;
   return fetch(
     url, {credentials: "include", cache: 'no-cache'}).then(
       response => response.json()
