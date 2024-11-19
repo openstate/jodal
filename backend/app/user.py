@@ -1,4 +1,4 @@
-from app import db
+from app.extensions import db
 from app.models import Column
 
 def delete_user_data(user_id):

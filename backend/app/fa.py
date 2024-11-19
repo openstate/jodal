@@ -1,6 +1,6 @@
 from fusionauth.fusionauth_client import FusionAuthClient
 
-from app import app, db, AppError
+from flask import current_app as app
 
 fa = None
 

@@ -1,12 +1,8 @@
 import logging
 
-from app import app, AppError, load_object
-from app.utils import html2text
-
-
-app_name = app.config['NAME_OF_APP']
-setup_es = load_object('%s.es.setup_elasticsearch' % (app_name,))
-es = setup_es(app.config[app_name])
+from app.utils import html2text, load_object
+from flask import current_app as app
+import time
 
 def clean_results(results):
     if len(results.get('hits', {}).get('hits', [])) <= 0:
@@ -18,6 +14,9 @@ def clean_results(results):
     return results
 
 def perform_query(term, filter_string, page, page_size, sort, includes, excludes, default_operator='or', index_name=None):
+    app_name = app.config['NAME_OF_APP']
+    setup_es = load_object('%s.es.setup_elasticsearch' % (app_name,))
+    es = setup_es(app.config[app_name])
 
     filters = parse_filters(filter_string)
     logging.info(filters)

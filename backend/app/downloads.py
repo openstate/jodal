@@ -1,17 +1,13 @@
 import os
 import os.path
 import json
-from functools import wraps
 import logging
-from io import StringIO, BytesIO
+from io import StringIO
 import csv
 
-from flask import Flask, session, render_template, request, redirect, url_for, flash, Markup, jsonify, send_file, Response
+from flask import current_app as app, jsonify, Response
 
-from app import app, AppError, load_object
-from app.search import perform_query
-from app.models import Column
-from app.utils import html2text
+from app.utils import html2text, load_object
 
 from jodal.openspending import OpenSpendingDocumentScraperRunner
 from jodal.poliflw import PoliflwDocumentScraperRunner

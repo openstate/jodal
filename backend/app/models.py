@@ -1,6 +1,6 @@
 from sqlalchemy.sql import func
 
-from app import app, db
+from app.extensions import db
 
 from jodal.db import BinaryUUID
 

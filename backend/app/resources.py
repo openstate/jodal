@@ -5,8 +5,8 @@ from flask import request, session
 import flask_restful
 from flask_restful import Resource
 
-from app import db
-from app.models import Column, ColumnSource, Asset
+from app.extensions import db
+from app.models import Column, Asset
 from app.schemas import (
     column_schema, columns_schema, asset_schema, assets_schema)
 
