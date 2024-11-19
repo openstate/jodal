@@ -21,6 +21,9 @@
 <form onsubmit={search}>
   <input type="search" name="zoek" bind:value={queryInput} />
   <button type="submit" class="btn btn-primary">Zoeken</button>
+  {#if data.documents}
+    <a href="/feeds?zoek={queryInput}" class="btn btn-primary">Nieuwe feed</a>
+  {/if}
 </form>
 
 {#each data.documents?.hits.hits ?? [] as hit}
