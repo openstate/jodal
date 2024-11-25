@@ -1127,6 +1127,11 @@ paths:
         description: For paginated search queries.
         example: 1
         required: false
+      - name: limit
+        in: query
+        description: The number of results to return. Defaults to 10.
+        example: 10
+        required: false
       - name: default_operator
         in: query
         description: The default operator of the search query. Can be 'and' or 'or'. Defaults to 'or'
@@ -1235,6 +1240,11 @@ paths:
         in: query
         description: For paginated search queries.
         example: 1
+        required: false
+      - name: limit
+        in: query
+        description: The number of results to return. Defaults to 10.
+        example: 10
         required: false
       - name: default_operator
         in: query
