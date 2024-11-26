@@ -1,0 +1,9 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+
+@theme {
+  --font-*: initial;
+  --font-sans: Inter, sans-serif;
+
+  --color-bron: #2260ff;
+}

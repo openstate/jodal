@@ -1,4 +1,6 @@
 <script lang="ts">
+  import "../app.css";
+
   import { onMount } from 'svelte';
   import '../scss/variables.scss';
   //import "../scss/bootstrap.scss";

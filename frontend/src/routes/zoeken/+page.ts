@@ -34,7 +34,7 @@ async function fetchDocuments(
       .join(',');
   }
 
-  const filter = organisations ? `location.raw:${organisations}` : '';
+  const filter = organisations && !organisations.includes("*") ? `location.raw:${organisations}` : '';
 
   const path = `/documents/search?query=${query}&filter=${filter}&sort=published:desc&page=0&limit=20`;
 
