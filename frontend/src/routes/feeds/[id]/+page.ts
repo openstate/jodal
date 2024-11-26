@@ -1,7 +1,6 @@
-import type { ElasticSearchResponse } from '$lib/types/elastic-search';
-import type { Feed } from '../types';
+import type { DocumentResponse, FeedResponse } from '$lib/types/api';
 import { API_URL } from '$lib/api';
-import { error, fail } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 
 export async function load(event) {
   const [query, id] = event.params.id.split('~');
@@ -22,8 +21,8 @@ export async function load(event) {
 
   if (!searchResponse.ok || !feedResponse.ok) error(400);
 
-  const documents: ElasticSearchResponse = await searchResponse.json();
-  const feed: Feed = await feedResponse.json();
+  const documents: DocumentResponse = await searchResponse.json();
+  const feed: FeedResponse = await feedResponse.json();
 
   if (feed.user_query !== query) error(404);
 

@@ -8,7 +8,7 @@
     <p>Welkom, <b>{$identity.email}</b>!</p>
     <ul>
       <li><a href="/feeds/">Feeds</a></li>
-      <li><a href="/dossiers/">Zoeken</a></li>
+      <li><a href="/zoeken/">Zoeken</a></li>
       <li><a href="/archief/">Archief</a></li>
       <li>...</li>
     </ul>

@@ -1,25 +1,46 @@
 <script lang="ts">
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
+  import Select from 'svelte-select';
 
   let { data } = $props();
 
-  const getQueryParam = () => $page.url.searchParams.get('zoek') ?? '';
-
-  let queryInput = $state(getQueryParam());
+  let queryInput = $state($page.url.searchParams.get('zoek') ?? '');
+  let locationInput = $state([{ value: '*', label: 'Alles' }]);
 
   $effect(() => {
-    queryInput = getQueryParam();
+    queryInput = $page.url.searchParams.get('zoek') ?? '';
+    locationInput = $page.url.searchParams
+      .get('organisaties')
+      ?.split(',')
+      .map((id) => locationItems.find((item) => item.value === id)!) ?? [
+      { value: '*', label: 'Alles' },
+    ];
   });
+
+  const locationItems = $derived(
+    data.locations.hits.hits.map((hit) => ({
+      value: hit._source.id,
+      label: hit._source.name,
+    }))
+  );
+
+  const locationIds = $derived(locationInput.map((v) => v.value).join(','));
 
   function search(e: SubmitEvent) {
     e.preventDefault();
-    goto(`/dossiers/?zoek=${queryInput}`, { keepFocus: true });
+
+    goto(`?zoek=${queryInput}&organisaties=${locationIds}`, {
+      keepFocus: true,
+    });
   }
 </script>
 
 <form onsubmit={search}>
   <input type="search" name="zoek" bind:value={queryInput} />
+
+  <Select items={locationItems} multiple={true} bind:value={locationInput} />
+
   <button type="submit" class="btn btn-primary">Zoeken</button>
   {#if data.documents}
     <a href="/feeds?zoek={queryInput}" class="btn btn-primary">Nieuwe feed</a>

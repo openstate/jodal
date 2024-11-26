@@ -1,5 +1,6 @@
 import { page } from '$app/stores';
-import { derived, readable } from 'svelte/store';
+import { derived } from 'svelte/store';
+import type { LocationResponse } from './types/api';
 
 export type Identity = {
   applicationId: string;
@@ -11,4 +12,6 @@ export type Identity = {
   sub: string;
 };
 
-export const identity = derived(page, ($page) => $page.data.identity);
+export const identity = derived(page, ($page) => $page.data?.identity);
+
+export const locations = derived(page, ($page) => $page.data?.locations as LocationResponse | null);
