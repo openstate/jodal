@@ -66,7 +66,7 @@ export type LocationSource = {
     name: string;
     source: string;
   }>;
-  type: string[];
+  type: string[] | string;
 };
 
 export type LocationResponse = ElasticResponse<LocationSource>;
