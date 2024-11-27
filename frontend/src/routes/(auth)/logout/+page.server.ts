@@ -1,4 +1,4 @@
-import type { Actions } from '@sveltejs/kit';
+import { redirect, type Actions } from '@sveltejs/kit';
 import { dev } from '$app/environment';
 
 export const actions = {
@@ -8,5 +8,7 @@ export const actions = {
       secure: !dev,
       domain: 'bron.live',
     });
+
+    redirect(307, '/');
   },
 } satisfies Actions;
