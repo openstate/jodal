@@ -1,9 +1,14 @@
 @import 'tailwindcss';
-@plugin '@tailwindcss/forms';
+/* @plugin '@tailwindcss/forms'; */
 
 @theme {
   --font-*: initial;
-  --font-sans: Inter, sans-serif;
+  --font-sans: Funnel Sans, system-ui, sans-serif;
+  --font-display: Funnel Display, system-ui, sans-serif;
 
   --color-bron: #2260ff;
+}
+
+:root {
+  background-color: var(--color-stone-50);
 }
