@@ -29,7 +29,7 @@
   />
   <div class="flex items-center justify-between">
     <a
-      href="/forgot-password"
+      href="/wachtwoord-vergeten"
       class="font-[350] text-stone-500 hover:underline"
     >
       Wachtwoord vergeten?
