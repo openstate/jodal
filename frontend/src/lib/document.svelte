@@ -10,6 +10,18 @@
   type Props = { document: DocumentResponse["hits"]["hits"][number] };
 
   let { document }: Props = $props();
+
+  function getDocumentDate() {
+    const dateKeys = ["processed", "published", "created"] as const;
+    const dates = dateKeys.map((key) => new Date(document._source[key]));
+    return dates.find((date) => date.toString() !== "Invalid Date") ?? null;
+  }
+
+  function formatDate(date: Date | null) {
+    return date?.toLocaleDateString("nl", { dateStyle: "long" }) ?? "Onbekende datum";
+  }
+
+  const date = $derived(getDocumentDate());
 </script>
 
 <a
@@ -20,9 +32,7 @@
   <h2 class="mb-1 font-semibold">{document._source.title}</h2>
   <div class="flex flex-wrap items-center gap-2 text-sm text-stone-800">
     <Calendar class="w-4" />
-    {new Date(document._source.processed).toLocaleDateString("nl", {
-      dateStyle: "long",
-    })}
+    {formatDate(date)}
     <Buildings class="ml-2 w-4" />
     {document._source.location_name}
     <Database class="ml-2 w-4" />
