@@ -11,7 +11,7 @@
 <ul>
   {#each data.feeds ?? [] as feed}
     <li>
-      <a href="/feeds/{encodeURIComponent(feed.query)}~{feed.public_id}">{feed.name}</a>
+      <a href="/feeds/{feed.public_id}">{feed.name}</a>
     </li>
   {:else}
     <p>Geen feeds gevonden.</p>

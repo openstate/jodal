@@ -2,7 +2,6 @@
   import BronLogo from "$lib/assets/bron-logo.svg";
   import Logout from "@tabler/icons-svelte/icons/logout";
 
-  import { identity } from "$lib/stores";
   import { enhance } from "$app/forms";
 
   let { data, children } = $props();
@@ -31,6 +30,12 @@
       {@render link("/", "Home")}
       {@render link("/zoeken", "Zoeken")}
       {@render link("/feeds", "Feeds")}
+      {#each data.feeds ?? [] as feed}
+        {@render link(
+          `/feeds/${feed.public_id}`,
+          `Feed '${feed.name}'`,
+        )}
+      {/each}
     </div>
     <div>
       {#if data.identity}
