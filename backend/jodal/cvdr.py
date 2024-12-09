@@ -9,6 +9,7 @@ from copy import deepcopy
 from urllib.parse import urljoin
 from time import sleep
 import locale
+from datetime import datetime
 
 import requests
 from lxml import etree
@@ -135,7 +136,7 @@ class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseHtmlWebscraper):
                 title = None
                 try:
                     title = html.xpath('//meta[@name="DCTERMS.title"]/@content')[0].strip()
-                except Expetion as e:
+                except Exception as e:
                     pass
                 r = {
                     '_id': h_id.hexdigest(),
