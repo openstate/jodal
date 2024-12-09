@@ -7,7 +7,7 @@
   import Plus from "@tabler/icons-svelte/icons/plus";
 
   import { allSources } from "./sources";
-  import Document from "./document.svelte";
+  import Document from "../../../lib/document.svelte";
   import { composeFilters } from "./filters";
   let { data } = $props();
 
@@ -54,7 +54,7 @@
   <div class="space-y-4">
     <form
       onsubmit={search}
-      class="flex w-full items-center rounded-lg outline-2 outline-gray-200 focus-within:outline-gray-300"
+      class="flex w-full items-center rounded-lg outline-2 outline-stone-200 focus-within:outline-stone-300 bg-white"
     >
       <input
         class="grow rounded-lg border-0 px-4 py-3 ring-0"
@@ -90,7 +90,7 @@
       <Plus class="w-5" />
       Sla zoekopdracht op
     </button>
-    <hr class="border-gray-200" />
+    <hr class="border-stone-200" />
     <div class="space-y-1">
       <h2 class="mb-3 font-bold">Bronnen</h2>
       <div class="flex items-center gap-2">
@@ -102,7 +102,7 @@
           onchange={(e) =>
             onSourceChange(e.currentTarget.name, e.currentTarget.checked)}
         />
-        <label for="all-sources">Alles</label>
+        <label for="all-sources">Alle bronnen</label>
       </div>
       {#each allSources as source}
         <div class="flex items-center gap-2">
@@ -118,7 +118,7 @@
         </div>
       {/each}
     </div>
-    <hr class="border-gray-200" />
+    <hr class="border-stone-200" />
     <div class="space-y-1">
       <h2 class="mb-3 font-bold">Organisaties</h2>
       <Select
@@ -140,6 +140,6 @@
         }}
       />
     </div>
-    <hr class="border-gray-200" />
+    <hr class="border-stone-200" />
   </aside>
 </div>

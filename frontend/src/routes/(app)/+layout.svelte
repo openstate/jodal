@@ -23,7 +23,7 @@
 {/snippet}
 
 <main class="grid h-screen grid-cols-[16rem_1fr]">
-  <nav class="flex h-full flex-col border-r-2 border-stone-200 p-4">
+  <nav class="flex h-full flex-col border-r-2 border-stone-200 bg-white p-4">
     <div class="grow">
       <a class="inline-block p-4" href="/">
         <img src={BronLogo} class="w-42" alt="Bron Logo" />
@@ -48,6 +48,8 @@
     </div>
   </nav>
   <article class="overflow-y-scroll p-8">
-    {@render children?.()}
+    <div class="max-w-300 mx-auto">
+      {@render children?.()}
+    </div>
   </article>
 </main>

@@ -17,7 +17,7 @@ async function fetchDocuments(
   if (!query) return null;
 
   const filter = await parseFilters(event, locationPromise);
-  const path = `/documents/search?query=${query}&filter=${filter}&sort=published:desc&page=0&limit=20`;
+  const path = `/documents/search?query=${query}&filter=${filter}&sort=published:desc&page=0&limit=20&default_operator=AND`;
 
   return cacheFetch<DocumentResponse>(`documents:${event.url.search}`, () =>
     event.fetch(API_URL + path),
