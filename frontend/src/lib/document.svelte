@@ -18,7 +18,8 @@
   }
 
   function formatDate(date: Date | null) {
-    return date?.toLocaleDateString("nl", { dateStyle: "long" }) ?? "Onbekende datum";
+    if (!date) return "Onbekende datum";
+    return date.toLocaleDateString("nl", { dateStyle: "long" });
   }
 
   const date = $derived(getDocumentDate());
@@ -39,6 +40,18 @@
     {allSources.find((s) => s.value === document._source.source)?.label}
   </div>
   <p class="mt-2 line-clamp-3 text-stone-800">
-    {@html document.highlight.description?.join(" … ")}
+    …{@html document.highlight.description
+      ?.join(" … ")
+      .replace(/<(?!\/?em\b)[^>]+>/g, "")
+      .replace(/\.$/g, "")}…
   </p>
 </a>
+
+<style>
+  p :global(em) {
+    font-style: normal;
+    color: var(--color-purple-800);
+    font-weight: 500;
+    text-decoration: underline;
+  }
+</style>
