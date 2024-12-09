@@ -144,11 +144,12 @@ class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseHtmlWebscraper):
                     'identifier': r_uri,
                     'url': full_url,
                     'location': self.cvdr_locations[name],
-                    'title': title, 
+                    'title': title,
                     'description': description,
                     'created': date,
                     'modified': date,
                     'published': date,
+                    'processed': datetime.now().isoformat(),
                     'source': self.name,
                     'type': 'Bericht',
                     'data': data
