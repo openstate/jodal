@@ -10,15 +10,15 @@ from app.models import Column, ColumnSource, Asset, Feed
 
 
 
-class LocationsField(fields.Field):
-    """Field that serializes to a string of numbers and deserializes
-    to a list of numbers.
+class ListField(fields.Field):
+    """Field that serializes to a string and deserializes
+    to a list.
     """
 
     def _serialize(self, value, attr, obj, **kwargs):
         if value is None:
             return []
-        return re.split('\s*,\s*', value)
+        return list(filter(lambda item: item != "", re.split('\s*,\s*', value)))
 
     def _deserialize(self, value, attr, data, **kwargs):
         try:
@@ -26,7 +26,7 @@ class LocationsField(fields.Field):
         except ValueError as error:
             raise ValidationError("-") from error
 
-class ReadCountsField(fields.Field):
+class ObjectField(fields.Field):
     """Field that serializes to a json and deserializes
     to a string
     """
@@ -47,8 +47,8 @@ class FeedSchema(ma.Schema):
         fields = ("id", "public_id", "user_id", "name", "query", "locations", "sources")
         model = Feed
 
-    locations = LocationsField()
-    sources = LocationsField()
+    locations = ListField()
+    sources = ListField()
 
 class ColumnSourceSchema(ma.Schema):
     class Meta:
@@ -64,8 +64,8 @@ class ColumnSchema(ma.Schema):
             "src_cvdr", "sort", "sort_order", "date_start",  "date_end",
             "read_counts")
         model = Column
-    read_counts = ReadCountsField()
-    locations = LocationsField()  # fields.Str()
+    read_counts = ObjectField()
+    locations = ListField()  # fields.Str()
     date_start = fields.DateTime(allow_none=True, default=None)
     date_end = fields.DateTime(allow_none=True, default=None)
 
