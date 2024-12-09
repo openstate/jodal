@@ -5,7 +5,7 @@ import json
 from marshmallow import fields, ValidationError
 
 from app import ma
-from app.models import Column, ColumnSource, Asset
+from app.models import Column, ColumnSource, Asset, Feed
 
 
 
@@ -42,12 +42,19 @@ class ReadCountsField(fields.Field):
         except ValueError as error:
             raise ValidationError("-") from error
 
+class FeedSchema(ma.Schema):
+    class Meta:
+        fields = ("id", "public_id", "user_id", "name", "query", "locations", "sources")
+        model = Feed
+
+    locations = LocationsField()
+    sources = LocationsField()
+
 class ColumnSourceSchema(ma.Schema):
     class Meta:
         fields = (
             "id", "column_id", "source", "enabled")
         model = ColumnSource
-
 
 class ColumnSchema(ma.Schema):
     class Meta:
@@ -71,7 +78,8 @@ class AssetSchema(ma.Schema):
     date_start = fields.DateTime(allow_none=True, default=None)
     date_end = fields.DateTime(allow_none=True, default=None)
 
-
+feed_schema = FeedSchema()
+feeds_schema = FeedSchema(many=True)
 column_schema = ColumnSchema()
 columns_schema = ColumnSchema(many=True)
 column_source_schema = ColumnSourceSchema()

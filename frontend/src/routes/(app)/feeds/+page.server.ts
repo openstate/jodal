@@ -5,7 +5,7 @@ export const actions = {
   default: async ({ fetch, request }) => {
     const formData = await request.formData();
 
-    const response = await fetch(API_URL + '/columns', {
+    const response = await fetch(API_URL + '/feeds', {
       credentials: 'include',
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

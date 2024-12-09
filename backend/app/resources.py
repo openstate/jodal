@@ -6,9 +6,16 @@ import flask_restful
 from flask_restful import Resource
 
 from app.extensions import db
-from app.models import Column, Asset
+from app.models import Column, Asset, Feed
 from app.schemas import (
-    column_schema, columns_schema, asset_schema, assets_schema)
+    feed_schema, feeds_schema, column_schema, columns_schema, asset_schema, assets_schema)
+from app.search import perform_query
+
+from sqlalchemy import select
+
+from nanoid import generate
+
+NANOID_ALPHABET = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 
 def authenticate(func):
     @wraps(func)
@@ -26,6 +33,58 @@ def authenticate(func):
 
         flask_restful.abort(401)
     return wrapper
+
+class FeedResource(Resource):
+    method_decorators = [authenticate]
+
+    def get(self, feed_id):
+        user_id = session['user']['sub']
+        stmt = select(Feed).where(Feed.user_id==user_id, Feed.public_id==feed_id)
+        feed = db.session.execute(stmt).scalar()
+        return feed_schema.dump(feed)
+
+    def post(self, feed_id):
+        user_id = session['user']['sub']
+        stmt = select(Feed).where(Feed.user_id==user_id, Feed.public_id==feed_id)
+        feed = db.session.execute(stmt).scalar()
+        updated_feed = feed_schema.load(request.json)
+        editable = ['name', 'query', 'locations', 'sources']
+        for f in editable:
+            if f in request.json:
+                setattr(feed, f, updated_feed[f])
+        db.session.commit()
+        return feed_schema.dump(feed)
+
+    def delete(self, feed_id):
+        user_id = session['user']['sub']
+        stmt = select(Feed).where(Feed.user_id==user_id, Feed.public_id==feed_id)
+        feed = db.session.execute(stmt).scalar()
+        db.session.delete(feed)
+        db.session.commit()
+        return '', 204
+
+class FeedListResource(Resource):
+    method_decorators = [authenticate]
+
+    def get(self):
+        user_id = session['user']['sub']
+        stmt = select(Feed).where(Feed.user_id==user_id)
+        feeds = db.session.execute(stmt).scalars().all()
+        return feeds_schema.dump(feeds)
+
+    def post(self):
+        user_id = session['user']['sub']
+        new_feed = Feed(
+            public_id=generate(NANOID_ALPHABET, 12),
+            user_id=user_id,
+            name=request.json['name'],
+            query=request.json['query'],
+            locations=",".join(request.json['locations']),
+            sources=",".join(request.json['sources'])
+        )
+        db.session.add(new_feed)
+        db.session.commit()
+        return feed_schema.dump(new_feed)
 
 class ColumnListResource(Resource):
     method_decorators = [authenticate]

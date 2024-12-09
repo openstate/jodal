@@ -73,18 +73,10 @@ export type LocationResponse = ElasticResponse<LocationSource>;
 
 export type FeedResponse = {
   id: number;
+  public_id: string;
   user_id: string;
+  query: string;
   name: string;
   locations: string[];
-  user_query: string;
-  order: number;
-  src_poliflw: boolean;
-  src_openspending: boolean;
-  src_openbesluitvorming: boolean;
-  src_cvdr: boolean;
-  sort: string;
-  sort_order: string;
-  date_start: string | null;
-  date_end: string | null;
-  read_counts: Record<string, number>;
+  sources: string[];
 };

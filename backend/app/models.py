@@ -4,6 +4,15 @@ from app.extensions import db
 
 from jodal.db import BinaryUUID
 
+class Feed(db.Model):
+    __tablename__ = 'feed'
+    id = db.Column('id', db.Integer, primary_key=True)
+    public_id = db.Column('public_id', db.String(12), unique=True, index=True, nullable=False)
+    user_id = db.Column('user_id', BinaryUUID())
+    name = db.Column('name', db.String(100), nullable=False)
+    query = db.Column('query', db.String(100), nullable=False)
+    locations = db.Column('locations', db.String(1024), default='', nullable=False)
+    sources = db.Column('sources', db.String(1024), default='', nullable=False)
 
 class Column(db.Model):
     __tablename__ = 'column'

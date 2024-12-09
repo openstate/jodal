@@ -60,11 +60,13 @@ def list_entities(entity):
 if __name__ == "__main__":
     app.run(threaded=True)
 
-# TODO: Remove resources in favour of regular Flask API routes
+# TODO: Remove resources in favour of regular Flask API routes (or better: use SvelteKit)
 
-from app.resources import ColumnListResource, ColumnResource, AssetListResource, AssetResource
+from app.resources import ColumnListResource, ColumnResource, AssetListResource, AssetResource, FeedListResource, FeedResource
 
 api = Api(app)
+api.add_resource(FeedListResource, '/feeds')
+api.add_resource(FeedResource, '/feeds/<string:feed_id>')
 api.add_resource(ColumnListResource, '/columns')
 api.add_resource(ColumnResource, '/columns/<int:column_id>')
 api.add_resource(AssetListResource, '/assets')
