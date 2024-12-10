@@ -22,7 +22,7 @@ export type ElasticResponse<TSource, THighlight = {}> = {
         _source: TSource;
         _type: string;
         sort: number[];
-      } & ({} extends THighlight ? {} : { highlight: THighlight })
+      } & ({} extends THighlight ? {} : { highlight?: THighlight })
     >;
     max_score: number | null;
     total: {

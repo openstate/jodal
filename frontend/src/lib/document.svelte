@@ -39,12 +39,14 @@
     <Database class="ml-2 w-4" />
     {allSources.find((s) => s.value === document._source.source)?.label}
   </div>
-  <p class="mt-2 line-clamp-3 text-stone-800">
-    …{@html document.highlight.description
-      ?.join(" … ")
-      .replace(/<(?!\/?em\b)[^>]+>/g, "")
-      .replace(/\.$/g, "")}…
-  </p>
+  {#if document.highlight?.description && document.highlight.description.length > 0}
+    <p class="mt-2 line-clamp-3 text-stone-800">
+      …{@html document.highlight.description
+        ?.join(" … ")
+        .replace(/<(?!\/?em\b)[^>]+>/g, "")
+        .replace(/\.$/g, "")}…
+    </p>
+  {/if}
 </a>
 
 <style>
