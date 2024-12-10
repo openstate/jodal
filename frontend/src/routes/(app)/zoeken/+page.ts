@@ -24,13 +24,8 @@ async function fetchDocuments(
 }
 
 export async function load(event) {
-  const locationPromise = fetchLocations(event);
-  const documentPromise = fetchDocuments(event, locationPromise);
-
-  const [documents, locations] = await Promise.all([
-    documentPromise,
-    locationPromise,
-  ]);
+  const locations = fetchLocations(event);
+  const documents = fetchDocuments(event, locations);
 
   return { documents, locations };
 }

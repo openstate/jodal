@@ -7,6 +7,7 @@
   import Document from "../../../lib/document.svelte";
   import { createQueryState } from "./state.svelte";
   import { debounce } from "$lib/utils";
+  import SkeletonDocument from "$lib/skeleton-document.svelte";
 
   let { data } = $props();
 
@@ -26,8 +27,8 @@
     else query.sources = query.sources.filter((v) => v !== value);
   }
 
-  const organisationItems = $derived(
-    data.locations.hits.hits.map((hit) => ({
+  const organisationItems = $derived.by(async () =>
+    (await data.locations).hits.hits.map((hit) => ({
       value: hit._source.id,
       label: hit._source.name,
     })),
@@ -52,7 +53,7 @@
       </button>
     </form>
 
-    <p class="font-medium">
+    <!-- <p class="font-medium">
       {#if !data.documents}
         Zoek naar bijvoorbeeld 'fietsers' om documenten te vinden.
       {:else if data.documents.hits.total.value === 0}
@@ -61,11 +62,17 @@
         {data.documents.hits.total.value}
         {#if data.documents.hits.total.value === 1}resultaat{:else}resultaten{/if}
       {/if}
-    </p>
+    </p> -->
 
-    {#each data.documents?.hits.hits ?? [] as document}
-      <Document {document} />
-    {/each}
+    {#await data.documents}
+      {#each { length: 20 } as _}
+        <SkeletonDocument />
+      {/each}
+    {:then documents}
+      {#each documents?.hits.hits ?? [] as document}
+        <Document {document} />
+      {/each}
+    {/await}
   </div>
   <aside class="space-y-6">
     <button
@@ -105,22 +112,28 @@
     <hr class="border-stone-200" />
     <div class="space-y-1">
       <h2 class="mb-3 font-bold">Organisaties</h2>
-      <Select
-        multiple
-        placeholder="Zoek organisaties..."
-        items={organisationItems}
-        value={organisationItems.filter((item) =>
-          query.organisations.includes(item.value),
-        )}
-        on:change={(e) => {
-          query.organisations = e.detail.map((v: { value: string }) => v.value);
-        }}
-        on:clear={(e) => {
-          query.organisations = query.organisations.filter(
-            (v) => v !== e.detail.value,
-          );
-        }}
-      />
+      {#await organisationItems}
+        <Select multiple placeholder="Zoek organisaties..." />
+      {:then organisationItems}
+        <Select
+          multiple
+          placeholder="Zoek organisaties..."
+          items={organisationItems}
+          value={organisationItems.filter((item) =>
+            query.organisations.includes(item.value),
+          )}
+          on:change={(e) => {
+            query.organisations = e.detail.map(
+              (v: { value: string }) => v.value,
+            );
+          }}
+          on:clear={(e) => {
+            query.organisations = query.organisations.filter(
+              (v) => v !== e.detail.value,
+            );
+          }}
+        />
+      {/await}
     </div>
     <hr class="border-stone-200" />
   </aside>
