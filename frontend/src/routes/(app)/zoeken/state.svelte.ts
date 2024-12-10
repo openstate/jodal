@@ -1,33 +1,36 @@
-// const getSelectedOrganisations = () =>
-//   $page.url.searchParams.get("organisaties")?.split(",") ?? [];
+import { goto } from "$app/navigation";
+import { page } from "$app/stores";
+import { get } from "svelte/store";
 
-// const getSelectedSources = () =>
-//   $page.url.searchParams.get("bronnen")?.split(",") ?? [];
-
-// let queryInput = $state($page.url.searchParams.get("zoek") ?? "");
-// let selectedOrganisations = $state(getSelectedOrganisations());
-// let selectedSources = $state(getSelectedSources());
-
-// $effect(() => {
-//   queryInput = $page.url.searchParams.get("zoek") ?? "";
-//   selectedOrganisations = getSelectedOrganisations();
-//   selectedSources = getSelectedSources();
-// });
-
-export function createQueryState(url: URL) {
-  let query = $state({
+/** Creates a query state object that synchronizes with URL search parameters. */
+export function createQueryState() {
+  const parseStateFromParams = (url: URL) => ({
     term: url.searchParams.get("zoek") ?? "",
     sources: url.searchParams.get("bronnen")?.split(",") ?? [],
     organisations: url.searchParams.get("organisaties")?.split(",") ?? [],
   });
 
-  $effect(() => {
-    query = {
-      term: url.searchParams.get("zoek") ?? "",
-      sources: url.searchParams.get("bronnen")?.split(",") ?? [],
-      organisations: url.searchParams.get("organisaties")?.split(",") ?? [],
-    };
-  });
+  const setParamsFromState = (key: string, value: string | string[]) => {
+    const url = get(page).url;
+    const encodedValue = typeof value === "string" ? value : value.join(",");
+    if (encodedValue === "") url.searchParams.delete(key);
+    else url.searchParams.set(key, encodedValue);
+    if (url.search === "") url.search = "?";
+    goto(url.search === "" ? "?" : url.search, {
+      keepFocus: true,
+      noScroll: true,
+      replaceState: true,
+      invalidateAll: true,
+    });
+  };
 
-  return query;
+  let state = $state(parseStateFromParams(get(page).url));
+
+  $effect(() => setParamsFromState("zoek", state.term));
+  $effect(() => setParamsFromState("bronnen", state.sources));
+  $effect(() => setParamsFromState("organisaties", state.organisations));
+
+  return state;
 }
+
+export type Query = ReturnType<typeof createQueryState>;

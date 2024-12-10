@@ -13,8 +13,7 @@ async function fetchDocuments(
   event: PageLoadEvent,
   locationPromise: Promise<LocationResponse>,
 ) {
-  const query = event.url.searchParams.get("zoek");
-  if (!query) return null;
+  const query = event.url.searchParams.get("zoek") ?? "*";
 
   const filter = await parseFilters(event, locationPromise);
   const path = `/documents/search?query=${query}&filter=${filter}&sort=published:desc&page=0&limit=20&default_operator=AND`;

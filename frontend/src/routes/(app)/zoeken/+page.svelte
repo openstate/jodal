@@ -1,45 +1,29 @@
 <script lang="ts">
-  import { page } from "$app/stores";
-  import { goto } from "$app/navigation";
-
   import Select from "svelte-select";
   import Search from "@tabler/icons-svelte/icons/search";
   import Plus from "@tabler/icons-svelte/icons/plus";
 
   import { allSources } from "./sources";
   import Document from "../../../lib/document.svelte";
-  import { composeFilters } from "./filters";
+  import { createQueryState } from "./state.svelte";
+  import { debounce } from "$lib/utils";
+
   let { data } = $props();
 
-  const getSelectedOrganisations = () =>
-    $page.url.searchParams.get("organisaties")?.split(",") ?? [];
+  const query = createQueryState();
 
-  const getSelectedSources = () =>
-    $page.url.searchParams.get("bronnen")?.split(",") ?? [];
+  let searchInput = $state(query.term);
 
-  let queryInput = $state($page.url.searchParams.get("zoek") ?? "");
-  let selectedOrganisations = $state(getSelectedOrganisations());
-  let selectedSources = $state(getSelectedSources());
+  const setQueryTerm = debounce((v) => {
+    if (v !== query.term) query.term = v;
+  }, 500);
 
-  $effect(() => {
-    queryInput = $page.url.searchParams.get("zoek") ?? "";
-    selectedOrganisations = getSelectedOrganisations();
-    selectedSources = getSelectedSources();
-  });
-
-  function search(e: SubmitEvent) {
-    e.preventDefault();
-    const filters = composeFilters(selectedSources, selectedOrganisations);
-    const url = "?zoek=" + queryInput + filters;
-    goto(url, { keepFocus: true });
-  }
+  $effect(() => setQueryTerm(searchInput));
 
   function onSourceChange(value: string, checked: boolean) {
-    if (value === "*" && checked)
-      selectedSources = allSources.map((s) => s.value);
-    else if (value === "*" && !checked) selectedSources = [];
-    else if (checked) selectedSources.push(value);
-    else selectedSources = selectedSources.filter((v) => v !== value);
+    if (value === "*") query.sources = [];
+    else if (checked) query.sources.push(value);
+    else query.sources = query.sources.filter((v) => v !== value);
   }
 
   const organisationItems = $derived(
@@ -53,15 +37,15 @@
 <div class="grid grid-cols-[2fr_1fr] gap-16">
   <div class="space-y-4">
     <form
-      onsubmit={search}
-      class="flex w-full items-center rounded-lg outline-2 outline-stone-200 focus-within:outline-stone-300 bg-white"
+      onsubmit={(e) => (e.preventDefault(), (query.term = searchInput))}
+      class="flex w-full items-center rounded-lg bg-white outline-2 outline-stone-200 focus-within:outline-stone-300"
     >
       <input
         class="grow rounded-lg border-0 px-4 py-3 ring-0"
         type="search"
         name="zoek"
         placeholder="Zoek documenten..."
-        bind:value={queryInput}
+        bind:value={searchInput}
       />
       <button type="submit" class="mx-2 cursor-pointer p-2">
         <Search />
@@ -98,7 +82,7 @@
           type="checkbox"
           id="all-sources"
           name="*"
-          checked={selectedSources.length === allSources.length}
+          checked={query.sources.length === allSources.length}
           onchange={(e) =>
             onSourceChange(e.currentTarget.name, e.currentTarget.checked)}
         />
@@ -110,7 +94,7 @@
             type="checkbox"
             id={source.value}
             name={source.value}
-            checked={selectedSources.includes(source.value)}
+            checked={query.sources.includes(source.value)}
             onchange={(e) =>
               onSourceChange(e.currentTarget.name, e.currentTarget.checked)}
           />
@@ -126,15 +110,13 @@
         placeholder="Zoek organisaties..."
         items={organisationItems}
         value={organisationItems.filter((item) =>
-          selectedOrganisations.includes(item.value),
+          query.organisations.includes(item.value),
         )}
         on:change={(e) => {
-          selectedOrganisations = e.detail.map(
-            (v: { value: string }) => v.value,
-          );
+          query.organisations = e.detail.map((v: { value: string }) => v.value);
         }}
         on:clear={(e) => {
-          selectedOrganisations = selectedOrganisations.filter(
+          query.organisations = query.organisations.filter(
             (v) => v !== e.detail.value,
           );
         }}
