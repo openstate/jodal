@@ -21,9 +21,9 @@ export async function parseFilters(
 ) {
   let filters: Array<string> = [];
 
-  const sources = event.url.searchParams.get("bronnen");
-  if (sources && !(include?.sources === false))
-    filters.push(`source:${sources}`);
+  let sources = event.url.searchParams.get("bronnen");
+  if (!sources) sources = allSources.map((s) => s.value).join(",");
+  if (!(include?.sources === false)) filters.push(`source:${sources}`);
 
   // The API does not currently support looking up documents by location type.
   // Therefore, we manually include each location matching a certain location type.
