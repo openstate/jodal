@@ -35,6 +35,13 @@
   );
 
   const numberFormatter = new Intl.NumberFormat("nl-NL");
+
+  const countBySource = $derived.by(async () =>
+    (await data.aggregations).aggregations.source.buckets.reduce(
+      (acc, bucket) => ({ ...acc, [bucket.key]: bucket.doc_count }),
+      {} as Record<string, number>,
+    ),
+  );
 </script>
 
 <div class="grid grid-cols-[2fr_1fr] gap-16">
@@ -110,7 +117,18 @@
             onchange={(e) =>
               onSourceChange(e.currentTarget.name, e.currentTarget.checked)}
           />
-          <label for={source.value}>{source.label}</label>
+          <label for={source.value} class="flex gap-2">
+            <div>{source.label}</div>
+            {#await countBySource then countBySource}
+              {#if countBySource[source.value] > 0}
+                <div
+                  class="rounded-full bg-purple-100/80 px-2.5 py-0.5 text-sm text-purple-950"
+                >
+                  {numberFormatter.format(countBySource[source.value])}
+                </div>
+              {/if}
+            {/await}
+          </label>
         </div>
       {/each}
     </div>

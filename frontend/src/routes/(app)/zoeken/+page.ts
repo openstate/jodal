@@ -23,10 +23,24 @@ async function fetchDocuments(
   );
 }
 
+async function fetchAggregations(
+  event: PageLoadEvent,
+  locationPromise: Promise<LocationResponse>,
+) {
+  const query = event.url.searchParams.get("zoek") ?? "*";
+
+  const filter = await parseFilters(event, locationPromise, { sources: false });
+  const path = `/documents/search?query=${query}&filter=${filter}&sort=processed:desc,published:desc&limit=0&default_operator=AND`;
+
+  return cacheFetch<DocumentResponse>(`aggregations:${query}:${filter}`, () =>
+    event.fetch(API_URL + path),
+  );
+}
+
 export async function load(event) {
   const locations = fetchLocations(event);
   const documents = fetchDocuments(event, locations);
+  const aggregations = fetchAggregations(event, locations);
 
-
-  return { documents, locations };
+  return { documents, locations, aggregations };
 }

@@ -17,11 +17,13 @@ export function composeFilters(sources: string[], organisations: string[]) {
 export async function parseFilters(
   event: PageLoadEvent,
   locationPromise: Promise<LocationResponse>,
+  include?: { sources?: boolean; organisations?: boolean },
 ) {
   let filters: Array<string> = [];
 
   const sources = event.url.searchParams.get("bronnen");
-  if (sources) filters.push(`source:${sources}`);
+  if (sources && !(include?.sources === false))
+    filters.push(`source:${sources}`);
 
   // The API does not currently support looking up documents by location type.
   // Therefore, we manually include each location matching a certain location type.
@@ -42,7 +44,11 @@ export async function parseFilters(
       .join(",");
   }
 
-  if (organisations && !organisations.includes("*"))
+  if (
+    organisations &&
+    !organisations.includes("*") &&
+    !(include?.organisations === false)
+  )
     filters.push(`location.raw:${organisations}`);
 
   return filters.join("|");

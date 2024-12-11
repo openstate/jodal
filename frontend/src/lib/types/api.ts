@@ -6,9 +6,9 @@ export type ElasticResponse<TSource, THighlight = {}> = {
     total: number;
   };
   aggregations: Record<
-    string,
+    "source" | "location",
     {
-      buckets: unknown[];
+      buckets: { doc_count: number; key: string }[];
       doc_count_error_upper_bound: number;
       sum_other_doc_count: number;
     }
