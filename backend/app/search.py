@@ -131,4 +131,8 @@ def get_basic_query(filters, term, page, page_size, sort, includes, excludes, de
         if len(sort_clause) > 0:
             query['sort'] = sort_clause
 
+        query["track_total_hits"] = True
+
+        logging.info(query)
+
         return query

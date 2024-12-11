@@ -30,23 +30,35 @@
   href={document._source.doc_url ?? document._source.url}
   class="block rounded-lg border-2 border-stone-200 bg-white p-4"
 >
-  <h2 class="mb-1 font-semibold">{document._source.title}</h2>
-  <div class="flex flex-wrap items-center gap-2 text-sm text-stone-800">
-    <Calendar class="w-4" />
-    {formatDate(date)}
-    <Buildings class="ml-2 w-4" />
-    {document._source.location_name}
-    <Database class="ml-2 w-4" />
-    {allSources.find((s) => s.value === document._source.source)?.label}
-  </div>
+  <h2 class="mb-2 font-semibold">{document._source.title}</h2>
   {#if document.highlight?.description && document.highlight.description.length > 0}
-    <p class="mt-2 line-clamp-3 text-stone-800">
+    <p class="my-2 line-clamp-3 text-stone-800">
       …{@html document.highlight.description
         ?.join(" … ")
         .replace(/<(?!\/?em\b)[^>]+>/g, "")
         .replace(/\.$/g, "")}…
     </p>
   {/if}
+  <div class="flex flex-wrap items-center gap-2 text-sm">
+    <div
+      class="flex items-center gap-2 rounded-md bg-purple-100/80 px-2 py-0.5 text-purple-950"
+    >
+      <Calendar class="w-4" />
+      {formatDate(date)}
+    </div>
+    <div
+      class="flex items-center gap-2 rounded-md bg-purple-100/80 px-2 py-0.5 text-purple-950"
+    >
+      <Buildings class="ml-2 w-4" />
+      {document._source.location_name}
+    </div>
+    <div
+      class="flex items-center gap-2 rounded-md bg-purple-100/80 px-2 py-0.5 text-purple-950"
+    >
+      <Database class="ml-2 w-4" />
+      {allSources.find((s) => s.value === document._source.source)?.label}
+    </div>
+  </div>
 </a>
 
 <style>

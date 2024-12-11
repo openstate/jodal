@@ -39,10 +39,12 @@
   <div class="space-y-4">
     <form
       onsubmit={(e) => (e.preventDefault(), (query.term = searchInput))}
-      class="flex w-full items-center rounded-lg bg-white outline-2 outline-stone-200 focus-within:outline-stone-300"
+      class="flex w-full items-center rounded-lg bg-white outline-2 outline-stone-200 transition-[outline] focus-within:outline-stone-300"
     >
+      <!-- svelte-ignore a11y_autofocus -- search is legitimate use of autofocus -->
       <input
-        class="grow rounded-lg border-0 px-4 py-3 ring-0"
+        autofocus={true}
+        class="grow rounded-lg border-0 px-4 py-3 outline-0 ring-0"
         type="search"
         name="zoek"
         placeholder="Zoek documenten..."
@@ -53,22 +55,23 @@
       </button>
     </form>
 
-    <!-- <p class="font-medium">
-      {#if !data.documents}
-        Zoek naar bijvoorbeeld 'fietsers' om documenten te vinden.
-      {:else if data.documents.hits.total.value === 0}
-        Geen resultaten
-      {:else}
-        {data.documents.hits.total.value}
-        {#if data.documents.hits.total.value === 1}resultaat{:else}resultaten{/if}
-      {/if}
-    </p> -->
-
     {#await data.documents}
+      <div class="my-5 h-4 w-36 rounded-lg bg-stone-200 animate-pulse"></div>
       {#each { length: 20 } as _}
         <SkeletonDocument />
       {/each}
     {:then documents}
+      <p>
+        {#if !documents}
+          Zoek naar bijvoorbeeld 'fietsers' om documenten te vinden.
+        {:else if documents.hits.total.value === 0}
+          Geen resultaten
+        {:else}
+          {documents.hits.total.value}
+          {#if documents.hits.total.value === 1}resultaat{:else}resultaten{/if}
+        {/if}
+      </p>
+
       {#each documents?.hits.hits ?? [] as document}
         <Document {document} />
       {/each}

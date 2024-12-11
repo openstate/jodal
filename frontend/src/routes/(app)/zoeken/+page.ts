@@ -16,7 +16,7 @@ async function fetchDocuments(
   const query = event.url.searchParams.get("zoek") ?? "*";
 
   const filter = await parseFilters(event, locationPromise);
-  const path = `/documents/search?query=${query}&filter=${filter}&sort=published:desc&page=0&limit=20&default_operator=AND`;
+  const path = `/documents/search?query=${query}&filter=${filter}&sort=processed:desc,published:desc&page=0&limit=20&default_operator=AND`;
 
   return cacheFetch<DocumentResponse>(`documents:${event.url.search}`, () =>
     event.fetch(API_URL + path),
@@ -26,6 +26,7 @@ async function fetchDocuments(
 export async function load(event) {
   const locations = fetchLocations(event);
   const documents = fetchDocuments(event, locations);
+
 
   return { documents, locations };
 }

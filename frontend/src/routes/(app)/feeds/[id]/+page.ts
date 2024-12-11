@@ -19,14 +19,10 @@ export async function load(event) {
     filters.push(`source:${feed.sources.join(",")}`);
   }
 
-  console.log(
-    `/documents/search?page=0&filter=${filters.join("|")}&published_to:now&sort=published:desc&limit=50&query=${feed.query}`,
-  );
-
   const documents = await event
     .fetch(
       API_URL +
-        `/documents/search?page=0&filter=${filters.join("|")}&published_to:now&sort=published:desc&limit=50&query=${feed.query}`,
+        `/documents/search?page=0&filter=${filters.join("|")}&published_to:now&sort=processed:desc,published:desc&limit=50&query=${feed.query}`,
     )
     .then((r) => r.json());
 
