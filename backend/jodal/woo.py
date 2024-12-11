@@ -88,8 +88,8 @@ class DocumentsScraper(ElasticsearchMixin, BaseWebScraper):
         result = []
         for n in names:
             if ((item['foi_retrievedDate'] is not None) and
-                ((item['foi_retrievedDate'] < self.date_from) or
-                (item['foi_retrievedDate'] > self.date_to))):
+                ((item['foi_retrievedDate'] < str(self.date_from)) or
+                (item['foi_retrievedDate'] > str(self.date_to)))):
                     continue
             data = {}
             r_uri = item['dc_identifier']
