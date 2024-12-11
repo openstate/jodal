@@ -33,6 +33,8 @@
       label: hit._source.name,
     })),
   );
+
+  const numberFormatter = new Intl.NumberFormat("nl-NL");
 </script>
 
 <div class="grid grid-cols-[2fr_1fr] gap-16">
@@ -56,18 +58,18 @@
     </form>
 
     {#await data.documents}
-      <div class="my-5 h-4 w-36 rounded-lg bg-stone-200 animate-pulse"></div>
+      <div class="my-5 h-4 w-36 animate-pulse rounded-lg bg-stone-200"></div>
       {#each { length: 20 } as _}
         <SkeletonDocument />
       {/each}
     {:then documents}
       <p>
-        {#if !documents}
-          Zoek naar bijvoorbeeld 'fietsers' om documenten te vinden.
-        {:else if documents.hits.total.value === 0}
+        {#if documents.hits.total.value === 0}
           Geen resultaten
         {:else}
-          {documents.hits.total.value}
+          {numberFormatter.format(
+            documents.hits.total.value,
+          )}{#if documents.hits.total.relation === "gte"}+{/if}
           {#if documents.hits.total.value === 1}resultaat{:else}resultaten{/if}
         {/if}
       </p>
