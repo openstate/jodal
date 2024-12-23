@@ -51,7 +51,7 @@ class DocumentsScraper(ElasticsearchMixin, BaseWebScraper):
             cbs_id = l['_id']
             for p in l['_source'].get('sources', []):
                 if p['source'] == self.name:
-                    result[p['id']] = cbs_id
+                    result[p['id']] = { "id": cbs_id, "name": p['name'] }
         return result
 
     def next(self):
@@ -111,7 +111,8 @@ class DocumentsScraper(ElasticsearchMixin, BaseWebScraper):
                     'id': h_id,
                     'identifier': r_uri,
                     'url': 'https://pid.wooverheid.nl/?doi=%s' % (r_uri,),
-                    'location': self.locations[item['dc_publisher']],
+                    'location': self.locations[item['dc_publisher']]["id"],
+                    'location_name': self.locations[item['dc_publisher']]["name"],
                     'title': title,
                     'description': description,
                     'created': item['foi_retrievedDate'],
@@ -171,6 +172,9 @@ def fetch_attachments(result_item, documents):
             result_item['description'] += "\n\n" + fd['dc_title'] + "\n\n" + t.get('text', '')
             converted_documents += 1
         sleep(1)
+
+    logging.info('Converted %s documents' % (converted_documents,))
+    logging.info("Result item: %s" % (result_item,))
     # only index when there are in fact attached pdfs
     if converted_documents > 0:
         bulk(es, [result_item], False)
