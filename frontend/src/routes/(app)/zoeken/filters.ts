@@ -2,18 +2,6 @@ import type { LocationResponse } from "$lib/types/api";
 import type { PageLoadEvent } from "./$types";
 import { allSources } from "./sources";
 
-export function composeFilters(sources: string[], organisations: string[]) {
-  let filters: Array<string> = [""];
-
-  if (sources.length < allSources.length && sources.length > 0)
-    filters.push(`bronnen=${sources.join(",")}`);
-
-  if (organisations.length > 0 && !organisations.includes("*"))
-    filters.push(`organisaties=${organisations.join(",")}`);
-
-  return filters.join("&");
-}
-
 export async function parseFilters(
   event: PageLoadEvent,
   locationPromise: Promise<LocationResponse>,
@@ -50,6 +38,12 @@ export async function parseFilters(
     !(include?.organisations === false)
   )
     filters.push(`location.raw:${organisations}`);
+
+  let dateFrom = event.url.searchParams.get("van");
+  if (dateFrom) filters.push(`processed_from:${dateFrom}`);
+
+  let dateTo = event.url.searchParams.get("tot");
+  if (dateTo) filters.push(`processed_to:${dateTo}`);
 
   return filters.join("|");
 }

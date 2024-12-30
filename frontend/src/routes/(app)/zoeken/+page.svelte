@@ -8,6 +8,8 @@
   import { createQueryState } from "./state.svelte";
   import { debounce } from "$lib/utils";
   import SkeletonDocument from "$lib/skeleton-document.svelte";
+  import DateInput from "./date-input.svelte";
+  import { dev } from "$app/environment";
 
   let { data } = $props();
 
@@ -42,6 +44,8 @@
       {} as Record<string, number>,
     ),
   );
+
+  if (dev) $inspect(data.documents).with(async (_, d) => console.log(await d));
 </script>
 
 <div class="grid grid-cols-[2fr_1fr] gap-16">
@@ -157,6 +161,15 @@
           }}
         />
       {/await}
+    </div>
+    <hr class="border-stone-200" />
+    <div class="space-y-1">
+      <h2 class="mb-3 font-bold">Datum</h2>
+      <div class="flex items-center gap-2">
+        <DateInput bind:value={query.dateFrom} placeholder="Startdatum" />
+        <span class="px-2 text-stone-600">&mdash;</span>
+        <DateInput bind:value={query.dateTo} placeholder="Einddatum" />
+      </div>
     </div>
     <hr class="border-stone-200" />
   </aside>

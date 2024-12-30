@@ -7,7 +7,7 @@ const GOTO_PROPS = {
   noScroll: true,
   replaceState: true,
   invalidateAll: true,
-}
+};
 
 /** Creates a query state object that synchronizes with URL search parameters. */
 export function createQueryState() {
@@ -15,13 +15,18 @@ export function createQueryState() {
     term: url.searchParams.get("zoek") ?? "",
     sources: url.searchParams.get("bronnen")?.split(",") ?? [],
     organisations: url.searchParams.get("organisaties")?.split(",") ?? [],
+    dateFrom: parseDateString(url.searchParams.get("van")),
+    dateTo: parseDateString(url.searchParams.get("tot")),
   });
 
-  const setParamsFromState = (key: string, value: string | string[]) => {
+  const setParamsFromState = (
+    key: string,
+    value: string | string[] | undefined,
+  ) => {
     const url = get(page).url;
-    const encodedValue = typeof value === "string" ? value : value.join(",");
+    const encodedValue = typeof value === "string" ? value : value?.join(",");
 
-    if (encodedValue === "") url.searchParams.delete(key);
+    if (encodedValue === "" || !encodedValue) url.searchParams.delete(key);
     else url.searchParams.set(key, encodedValue);
 
     goto(url.search === "" ? "?" : url.search, GOTO_PROPS);
@@ -32,8 +37,23 @@ export function createQueryState() {
   $effect(() => setParamsFromState("zoek", state.term));
   $effect(() => setParamsFromState("bronnen", state.sources));
   $effect(() => setParamsFromState("organisaties", state.organisations));
+  $effect(() => setParamsFromState("van", stringifyDate(state.dateFrom)));
+  $effect(() => setParamsFromState("tot", stringifyDate(state.dateTo)));
 
   return state;
 }
 
 export type Query = ReturnType<typeof createQueryState>;
+
+function parseDateString(dateString: string | null) {
+  if (!dateString) return undefined;
+  return new Date(dateString);
+}
+
+function stringifyDate(date: Date | undefined) {
+  if (!date) return undefined;
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
