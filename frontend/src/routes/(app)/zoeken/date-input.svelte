@@ -8,6 +8,7 @@
 
 <DateInput
   bind:value
+  max={new Date()}
   placeholder={placeholder ?? new Date().toLocaleDateString("nl-NL")}
   format="dd-MM-yyyy"
   locale={{
