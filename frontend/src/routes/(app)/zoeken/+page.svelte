@@ -1,14 +1,15 @@
 <script lang="ts">
-  import Select from "svelte-select";
   import Search from "@tabler/icons-svelte/icons/search";
-  import Plus from "@tabler/icons-svelte/icons/plus";
+  import Select from "svelte-select";
+
+  import Document from "$lib/components/document.svelte";
+  import SkeletonDocument from "$lib/components/skeleton-document.svelte";
+  import DateInput from "$lib/components/date-input.svelte";
+  import MakeFeed from "$lib/components/make-feed.svelte";
 
   import { allSources } from "./sources";
-  import Document from "../../../lib/document.svelte";
   import { createQueryState } from "./state.svelte";
   import { debounce } from "$lib/utils";
-  import SkeletonDocument from "$lib/skeleton-document.svelte";
-  import DateInput from "./date-input.svelte";
   import { dev } from "$app/environment";
 
   let { data } = $props();
@@ -91,12 +92,7 @@
     {/await}
   </div>
   <aside class="space-y-6">
-    <button
-      class="flex cursor-pointer items-center gap-4 rounded-lg bg-black px-4 py-3 font-semibold text-white"
-    >
-      <Plus class="w-5" />
-      Sla zoekopdracht op
-    </button>
+    <MakeFeed {query} />
     <hr class="border-stone-200" />
     <div class="space-y-1">
       <h2 class="mb-3 font-bold">Bronnen</h2>

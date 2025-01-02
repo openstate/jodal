@@ -19,15 +19,6 @@
   <meta property="og:title" content="Bron" />
 </svelte:head>
 
-{#snippet link(href: string, name: string)}
-  <a
-    class="block rounded px-4 py-2 font-medium transition-colors hover:bg-stone-100"
-    {href}
-  >
-    {name}
-  </a>
-{/snippet}
-
 <main class="grid h-screen grid-cols-[16rem_1fr]">
   <nav class="flex h-full flex-col border-r-2 border-stone-200 bg-white p-4">
     <div class="grow font-display">
@@ -36,7 +27,7 @@
       </a>
       <a
         href="/zoeken"
-        class="mx-2 my-2 flex cursor-pointer gap-2.5 rounded-lg border border-2 border-stone-200 bg-white px-3 py-2 text-stone-700 transition-colors hover:border-stone-300"
+        class="mx-2 my-2 flex cursor-pointer gap-2.5 rounded-lg border-2 border-stone-200 bg-white px-3 py-2 text-stone-700 transition-colors hover:border-stone-300"
       >
         <Search class="w-4.5" />
         Zoeken
