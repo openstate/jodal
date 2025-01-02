@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Document from "$lib/document.svelte";
+  import Document from "$lib/components/document.svelte";
 
   let { data } = $props();
 </script>

@@ -5,7 +5,7 @@
   import Calendar from "@tabler/icons-svelte/icons/calendar";
   import Database from "@tabler/icons-svelte/icons/database";
 
-  import { allSources } from "../routes/(app)/zoeken/sources";
+  import { allSources } from "../../routes/(app)/zoeken/sources";
 
   type Props = { document: DocumentResponse["hits"]["hits"][number] };
 
