@@ -21,7 +21,7 @@
 </a>
 <a
   class="mx-2 flex items-center gap-2.5 rounded px-2 py-2 transition-colors hover:bg-stone-100"
-  href="/"
+  href="/app"
   {onclick}
 >
   <Home_2 class="w-5 text-stone-800" />
@@ -29,7 +29,7 @@
 </a>
 <a
   class="mx-2 flex items-center gap-2.5 rounded px-2 py-2 transition-colors hover:bg-stone-100"
-  href="/"
+  href="/app"
   {onclick}
 >
   <Planet class="w-5 text-stone-800" />

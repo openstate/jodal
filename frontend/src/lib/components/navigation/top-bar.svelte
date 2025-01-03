@@ -15,13 +15,16 @@
 </script>
 
 <nav
-  class="z-50 flex items-center justify-between border-b-2 border-stone-200 bg-white px-4 sm:hidden"
+  class={[
+    "z-50 flex items-center justify-between border-b-2 bg-white px-6 transition sm:hidden",
+    menuOpen ? "border-white" : "border-stone-200",
+  ]}
 >
   <a class="inline-block" href="/">
     <img src={BronLogo} class="w-30" alt="Bron Logo" />
   </a>
   <button
-    class="relative flex h-10 w-10 items-center justify-center"
+    class="relative flex h-7 w-7 items-center justify-center"
     onclick={() => (menuOpen = !menuOpen)}
   >
     <div class="absolute transition {menuClass}">
@@ -35,7 +38,7 @@
 
 <div
   class={[
-    "fixed left-0 top-16 z-40 w-full border-b-2 border-stone-200 bg-white p-4 transition duration-300 sm:hidden",
+    "fixed left-0 top-16 z-40 w-full border-b-2 border-stone-200 bg-white p-4 pt-0 transition duration-300 sm:hidden",
     !menuOpen && "-translate-y-full",
   ]}
 >

@@ -9,5 +9,6 @@ declare namespace App {
 
   interface PageData {
     identity: import("$lib/stores").Identity | null;
+    feeds: import("$lib/types/api").FeedResponse[] | null;
   }
 }

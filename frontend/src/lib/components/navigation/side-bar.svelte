@@ -1,11 +1,10 @@
 <script lang="ts">
-  import BronLogo from "$lib/assets/bron-logo.svg";
-  import Logout from "@tabler/icons-svelte/icons/logout";
-
+  import { page } from "$app/state";
   import { enhance } from "$app/forms";
 
+  import Logout from "@tabler/icons-svelte/icons/logout";
+  import BronLogo from "$lib/assets/bron-logo.svg";
   import Items from "./items.svelte";
-    import { page } from "$app/state";
 </script>
 
 <nav
