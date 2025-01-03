@@ -1,7 +1,8 @@
 <script lang="ts">
-  import Navigation from "./navigation.svelte";
+  import SideBar from "$lib/components/navigation/side-bar.svelte";
+  import TopBar from "$lib/components/navigation/top-bar.svelte";
 
-  let { data, children } = $props();
+  let { children } = $props();
 </script>
 
 <svelte:head>
@@ -10,7 +11,8 @@
 </svelte:head>
 
 <main class="grid h-dvh">
-  <Navigation {data} />
+  <TopBar />
+  <SideBar />
   <article class="overflow-y-scroll p-4">
     <div class="sm:max-w-300 sm:mx-auto">
       {@render children?.()}
