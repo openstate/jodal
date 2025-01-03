@@ -62,7 +62,7 @@
       <input
         name="name"
         type="text"
-        placeholder="Geef je feed een herkenbare naam..."
+        placeholder="Geef je feed een naam..."
         class="w-full rounded border-2 border-stone-200 px-3 py-2 text-stone-700 outline-0 focus:border-stone-300"
       />
     </label>

@@ -12,6 +12,8 @@
   import LayersSubtract from "@tabler/icons-svelte/icons/layers-subtract";
 
   let { data, children } = $props();
+
+  const MAX_SIDEBAR_FEEDS = 5;
 </script>
 
 <svelte:head>
@@ -21,7 +23,7 @@
 
 <main class="grid h-screen grid-cols-[16rem_1fr]">
   <nav class="flex h-full flex-col border-r-2 border-stone-200 bg-white p-4">
-    <div class="grow font-display">
+    <div class="font-display grow">
       <a class="inline-block p-4" href="/">
         <img src={BronLogo} class="w-36" alt="Bron Logo" />
       </a>
@@ -53,8 +55,10 @@
         <LayersSubtract class="w-5 text-stone-800" />
         Feeds
       </a>
-      <div class="my-1 font-sans ml-6 border-l-2 border-l-stone-200 pl-2 text-stone-700">
-        {#each data.feeds ?? [] as feed}
+      <div
+        class="my-1 ml-6 border-l-2 border-l-stone-200 pl-2 font-sans text-stone-700"
+      >
+        {#each data.feeds?.slice(0, MAX_SIDEBAR_FEEDS) ?? [] as feed}
           <a
             class="block rounded px-3 py-1 text-sm capitalize transition-colors hover:bg-stone-50"
             href="/feeds/{feed.public_id}"
@@ -62,6 +66,14 @@
             {feed.name}
           </a>
         {/each}
+        {#if data.feeds && data.feeds.length > MAX_SIDEBAR_FEEDS}
+          <a
+            class="block rounded px-3 py-1 text-sm font-medium transition-colors hover:bg-stone-50"
+            href="/feeds"
+          >
+            Alle {data.feeds.length} feeds...
+          </a>
+        {/if}
       </div>
       <a
         class="flex items-center gap-2.5 rounded px-4 py-2 transition-colors hover:bg-stone-100"
