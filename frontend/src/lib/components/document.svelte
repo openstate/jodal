@@ -49,13 +49,13 @@
     <div
       class="flex items-center gap-2 rounded-md bg-purple-100/80 px-2 py-0.5 text-purple-950"
     >
-      <Buildings class="ml-2 w-4" />
+      <Buildings class="w-4" />
       {document._source.location_name}
     </div>
     <div
       class="flex items-center gap-2 rounded-md bg-purple-100/80 px-2 py-0.5 text-purple-950"
     >
-      <Database class="ml-2 w-4" />
+      <Database class="w-4" />
       {allSources.find((s) => s.value === document._source.source)?.label}
     </div>
   </div>
