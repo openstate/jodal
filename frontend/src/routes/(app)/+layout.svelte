@@ -14,7 +14,7 @@
   <TopBar />
   <SideBar />
   <article class="overflow-y-scroll p-4">
-    <div class="sm:max-w-300 sm:mx-auto">
+    <div class="lg:max-w-300 lg:mx-auto">
       {@render children?.()}
     </div>
   </article>
@@ -22,11 +22,11 @@
 
 <style>
   main {
-    @media (width < 40rem) {
+    @media (width < 64rem) {
       grid-template-rows: 4rem 1fr;
     }
 
-    @media (width >= 40rem) {
+    @media (width >= 64rem) {
       grid-template-columns: 18rem 1fr;
     }
   }

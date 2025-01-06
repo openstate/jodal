@@ -16,7 +16,7 @@
 
 <nav
   class={[
-    "z-50 flex items-center justify-between border-b-2 bg-white px-6 transition sm:hidden",
+    "z-50 flex items-center justify-between border-b-2 bg-white px-6 transition lg:hidden",
     menuOpen ? "border-white" : "border-stone-200",
   ]}
 >
@@ -38,7 +38,7 @@
 
 <div
   class={[
-    "fixed left-0 top-16 z-40 w-full border-b-2 border-stone-200 bg-white p-4 pt-0 transition duration-300 sm:hidden",
+    "fixed left-0 top-16 z-40 w-full border-b-2 border-stone-200 bg-white p-4 pt-0 transition duration-300 lg:hidden",
     !menuOpen && "-translate-y-full",
   ]}
 >
@@ -48,7 +48,7 @@
 <div
   onclick={() => (menuOpen = false)}
   class={[
-    "fixed z-30 h-dvh w-dvw bg-black/50 transition duration-300 sm:hidden",
+    "fixed z-30 h-dvh w-dvw bg-black/50 transition duration-300 lg:hidden",
     menuOpen ? "" : "pointer-events-none opacity-0",
   ]}
 ></div>

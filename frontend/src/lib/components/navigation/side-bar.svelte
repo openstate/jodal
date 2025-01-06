@@ -8,7 +8,7 @@
 </script>
 
 <nav
-  class="flex h-full flex-col border-r-2 border-stone-200 bg-white p-4 max-sm:hidden"
+  class="flex h-full flex-col border-r-2 border-stone-200 bg-white p-4 max-lg:hidden"
 >
   <div class="font-display grow">
     <a class="inline-block p-4" href="/">

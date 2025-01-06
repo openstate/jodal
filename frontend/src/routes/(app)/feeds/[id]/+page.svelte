@@ -1,8 +1,10 @@
 <script lang="ts">
+    import { dev } from "$app/environment";
   import Document from "$lib/components/document.svelte";
   import SkeletonDocument from "$lib/components/skeleton-document.svelte";
 
   let { data } = $props();
+  if (dev) $inspect(data.documents).with(async (_, d) => console.log(await d));
 </script>
 
 <div class="space-y-4">

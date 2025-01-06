@@ -15,6 +15,11 @@
     n + " " + (n === 1 ? singular : plural);
 
   let queryDescription = $derived.by(() => {
+    let documents =
+      query.term === ""
+        ? "alle documenten"
+        : `documenten met de term "${query.term}"`;
+
     let sources = [0, allSources.length].includes(query.sources.length)
       ? "alle bronnen"
       : pluralize(query.sources.length, "bron", "bronnen");
@@ -24,7 +29,7 @@
         ? "alle organisaties"
         : pluralize(query.organisations.length, "organisatie", "organisaties");
 
-    return `met de term "${query.term}" uit ${sources} van ${organisations}`;
+    return `${documents} uit ${sources} van ${organisations}`;
   });
 </script>
 
@@ -87,11 +92,10 @@
         <option value="weekly">Wekelijkse meldingen</option>
       </select>
     </label>
-    <div class="my-4 rounded-md bg-purple-100/80 px-4 py-3 text-purple-950">
-      <p class="mb-1 flex items-center gap-2 font-medium">Jouw zoekopdracht</p>
-      <p class="text-purple-950/80">
-        Je nieuwe feed zal worden gevuld met documenten {queryDescription}.
-      </p>
+    <div
+      class="my-4 rounded-md bg-purple-100/80 px-4 py-3 text-sm text-purple-950"
+    >
+      Je nieuwe feed zal worden gevuld met {queryDescription}.
     </div>
     <div class="flex justify-end gap-4">
       <button

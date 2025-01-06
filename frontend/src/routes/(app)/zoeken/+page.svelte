@@ -11,6 +11,11 @@
   import { createQueryState } from "./state.svelte";
   import { debounce } from "$lib/utils";
   import { dev } from "$app/environment";
+  import {
+    IconBookmark,
+    IconFilter,
+    IconFilterFilled,
+  } from "@tabler/icons-svelte";
 
   let { data } = $props();
 
@@ -49,49 +54,71 @@
   if (dev) $inspect(data.documents).with(async (_, d) => console.log(await d));
 </script>
 
-<div class="grid grid-cols-[2fr_1fr] gap-16">
-  <div class="space-y-4">
+<div class="md:grid md:grid-cols-[2fr_1fr] md:py-4 md:gap-8 xl:gap-12">
+  <div>
     <form
-      onsubmit={(e) => (e.preventDefault(), (query.term = searchInput))}
-      class="flex w-full items-center rounded-lg bg-white outline-2 outline-stone-200 transition-[outline] focus-within:outline-stone-300"
+      class="border-stone-200 bg-stone-50 max-md:p-4 max-md:sticky max-md:-top-4 max-md:-m-4 max-md:w-screen max-md:border-b-2"
     >
-      <!-- svelte-ignore a11y_autofocus -- search is legitimate use of autofocus -->
-      <input
-        autofocus={true}
-        class="grow rounded-lg border-0 px-4 py-3 outline-0 ring-0"
-        type="search"
-        name="zoek"
-        placeholder="Zoek documenten..."
-        bind:value={searchInput}
-      />
-      <button type="submit" class="mx-2 cursor-pointer p-2">
-        <Search />
-      </button>
+      <div
+        onsubmit={(e) => (e.preventDefault(), (query.term = searchInput))}
+        class="flex w-full items-center rounded-lg border-2 border-stone-200 bg-white outline-0 transition focus-within:border-stone-300"
+      >
+        <!-- svelte-ignore a11y_autofocus -- search is legitimate use of autofocus -->
+        <input
+          autofocus={true}
+          class="grow rounded-lg border-0 px-4 py-3 outline-0 ring-0"
+          type="search"
+          name="zoek"
+          placeholder="Zoek documenten..."
+          bind:value={searchInput}
+        />
+        <button type="submit" class="mx-2 cursor-pointer p-2">
+          <Search />
+        </button>
+      </div>
+
+      <div class="mt-2 flex justify-between gap-3 md:hidden">
+        <button
+          class="flex grow items-center justify-center gap-1.5 rounded-lg border-2 border-stone-200 bg-white px-2.5 py-1.5 text-stone-800"
+        >
+          <IconFilter class="-ml-1 size-4" />
+          Filter
+        </button>
+        <!-- <div class="border-r-2 border-stone-200"></div> -->
+        <button
+          class="flex grow items-center justify-center gap-1.5 rounded-lg bg-purple-200/80 px-2.5 py-1.5 text-purple-900"
+        >
+          <IconBookmark class="-ml-1 size-4" />
+          Bewaar
+        </button>
+      </div>
     </form>
 
-    {#await data.documents}
-      <div class="my-5 h-4 w-36 animate-pulse rounded-lg bg-stone-200"></div>
-      {#each { length: 20 } as _}
-        <SkeletonDocument />
-      {/each}
-    {:then documents}
-      <p>
-        {#if documents.hits.total.value === 0}
-          Geen resultaten
-        {:else}
-          {numberFormatter.format(
-            documents.hits.total.value,
-          )}{#if documents.hits.total.relation === "gte"}+{/if}
-          {#if documents.hits.total.value === 1}resultaat{:else}resultaten{/if}
-        {/if}
-      </p>
+    <div class="mt-10 md:mt-6 space-y-4">
+      {#await data.documents}
+        <div class="my-5 h-4 w-36 animate-pulse rounded-lg bg-stone-200"></div>
+        {#each { length: 20 } as _}
+          <SkeletonDocument />
+        {/each}
+      {:then documents}
+        <p>
+          {#if documents.hits.total.value === 0}
+            Geen resultaten
+          {:else}
+            {numberFormatter.format(
+              documents.hits.total.value,
+            )}{#if documents.hits.total.relation === "gte"}+{/if}
+            {#if documents.hits.total.value === 1}resultaat{:else}resultaten{/if}
+          {/if}
+        </p>
 
-      {#each documents?.hits.hits ?? [] as document}
-        <Document {document} />
-      {/each}
-    {/await}
+        {#each documents?.hits.hits ?? [] as document}
+          <Document {document} />
+        {/each}
+      {/await}
+    </div>
   </div>
-  <aside class="space-y-6">
+  <aside class="space-y-6 max-md:hidden">
     <MakeFeed {query} />
     <hr class="border-stone-200" />
     <div class="space-y-1">
