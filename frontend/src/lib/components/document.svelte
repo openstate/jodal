@@ -32,7 +32,7 @@
 >
   <h2 class="mb-2 font-semibold">{document._source.title}</h2>
   {#if document.highlight?.description && document.highlight.description.length > 0}
-    <p class="my-2 line-clamp-3 text-stone-800">
+    <p class="my-2 line-clamp-5 text-stone-800">
       …{@html document.highlight.description
         ?.join(" … ")
         .replace(/<(?!\/?em\b)[^>]+>/g, "")
@@ -41,19 +41,19 @@
   {/if}
   <div class="flex flex-wrap items-center gap-2 text-sm">
     <div
-      class="flex items-center gap-2 rounded-md bg-purple-100/80 px-2 py-0.5 text-purple-950"
+      class="flex items-center gap-2 rounded-md bg-purple-100/80 px-2 py-0.5 text-purple-900 font-medium"
     >
       <Calendar class="w-4" />
       {formatDate(date)}
     </div>
     <div
-      class="flex items-center gap-2 rounded-md bg-purple-100/80 px-2 py-0.5 text-purple-950"
+      class="flex items-center gap-2 rounded-md bg-purple-100/80 px-2 py-0.5 text-purple-900 font-medium"
     >
       <Buildings class="w-4" />
       {document._source.location_name}
     </div>
     <div
-      class="flex items-center gap-2 rounded-md bg-purple-100/80 px-2 py-0.5 text-purple-950"
+      class="flex items-center gap-2 rounded-md bg-purple-100/80 px-2 py-0.5 text-purple-900 font-medium"
     >
       <Database class="w-4" />
       {allSources.find((s) => s.value === document._source.source)?.label}

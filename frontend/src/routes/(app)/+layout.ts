@@ -4,7 +4,7 @@ import type { FeedResponse } from "$lib/types/api";
 export async function load(event) {
   const feeds: Array<FeedResponse> = await event
     .fetch(API_URL + "/feeds", { credentials: "include" })
-    .then((r) => r.json());
+    .then((r) => (r.status === 200 ? r.json() : null));
 
   return { feeds };
 }

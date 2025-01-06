@@ -1,6 +1,5 @@
 import type { DocumentResponse, FeedResponse } from "$lib/types/api";
 import { API_URL } from "$lib/api";
-import { error } from "@sveltejs/kit";
 
 export async function load(event) {
   const feed: FeedResponse = await event
@@ -9,7 +8,7 @@ export async function load(event) {
 
   let filters = [];
 
-  console.log(feed)
+  console.log(feed);
 
   if (feed.locations.length > 0) {
     filters.push(`location.raw:${feed.locations.join(",")}`);
@@ -19,7 +18,7 @@ export async function load(event) {
     filters.push(`source:${feed.sources.join(",")}`);
   }
 
-  const documents = await event
+  const documents: Promise<DocumentResponse> = event
     .fetch(
       API_URL +
         `/documents/search?page=0&filter=${filters.join("|")}&published_to:now&sort=processed:desc,published:desc&limit=50&query=${feed.query}`,

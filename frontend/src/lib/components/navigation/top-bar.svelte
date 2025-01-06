@@ -20,7 +20,7 @@
     menuOpen ? "border-white" : "border-stone-200",
   ]}
 >
-  <a class="inline-block" href="/">
+  <a class="inline-block" href="/" onclick={() => (menuOpen = false)}>
     <img src={BronLogo} class="w-30" alt="Bron Logo" />
   </a>
   <button
@@ -46,6 +46,7 @@
 </div>
 
 <div
+  onclick={() => (menuOpen = false)}
   class={[
     "fixed z-30 h-dvh w-dvw bg-black/50 transition duration-300 sm:hidden",
     menuOpen ? "" : "pointer-events-none opacity-0",
