@@ -94,6 +94,12 @@ class DocumentsScraper(ElasticsearchMixin, BaseWebScraper):
             data = {}
             r_uri = item['dc_identifier']
             h_id = self._get_hashed_id(r_uri)
+
+            # Only process WOO-besluiten
+            if item["dc_type"] != "2i":
+                continue
+            logging.info(f"Processing item {h_id} ({item['foi_retrievedDate']}) of type {item['dc_type']}")
+
             if item.get('dc_publisher', None) in self.locations:
                 description = item.get('dc_description', '').strip()
                 title = item.get('dc_title', '').strip()

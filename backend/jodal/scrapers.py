@@ -3,6 +3,8 @@ import logging
 import datetime
 
 import requests
+from requests.adapters import HTTPAdapter
+from urllib3 import Retry
 from elasticsearch.helpers import bulk
 from jodal.es import setup_elasticsearch
 from lxml import etree
@@ -195,6 +197,22 @@ class ElasticSearchScraper(BaseScraper):
         return item
 
 class BaseWebScraper(BaseScraper):
+    def __init__(self, *arg, **kwargs):
+        super().__init__(self, *arg, **kwargs)
+        self.session = self._create_session()
+
+    def _create_session(self):
+        session = requests.Session()
+        retries = Retry(
+            total=5,
+            backoff_factor=1,
+            status_forcelist=[500, 502, 503, 504],
+        )
+        adapter = HTTPAdapter(max_retries=retries)
+        session.mount("http://", adapter)
+        session.mount("https://", adapter)
+        return session
+
     def fetch(self):
         try:
             url = getattr(self, 'url', None)
@@ -207,10 +225,10 @@ class BaseWebScraper(BaseScraper):
                 logging.info('%s : %s , payload/params: %s' % (
                     method, url, payload or params))
                 if payload is not None:
-                    f = getattr(requests, method)
+                    f = getattr(self.session, method)
                     result = f(url, headers=headers, data=json.dumps(payload), timeout=20)
                 else:
-                    result = requests.get(url, headers=headers, params=params, timeout=20)
+                    result = self.session.get(url, headers=headers, params=params, timeout=20)
             self.result = result
             if result is not None:
                 self.result_json = result.json()
@@ -218,6 +236,7 @@ class BaseWebScraper(BaseScraper):
         except requests.exceptions.RequestException as e:
             self.result = None
             self.result_json = {}
+            logging.error('Error fetching %s: %s' % (self.url, e))
             pass
 
     def next(self):
