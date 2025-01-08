@@ -13,7 +13,7 @@
 </script>
 
 <dialog
-  class="[:modal]:max-w-screen [:modal]:max-h-screen [:modal]:size-full [:modal]:overflow-hidden relative bg-transparent backdrop:bg-black/50"
+  class="[:modal]:max-w-screen [:modal]:max-h-screen [:modal]:size-full [:modal]:overflow-hidden relative bg-transparent backdrop:bg-[black]/50"
   bind:this={dialog}
   onclose={() => (open = false)}
   oncancel={() => (open = false)}

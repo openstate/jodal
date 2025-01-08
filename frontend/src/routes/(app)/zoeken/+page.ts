@@ -9,27 +9,32 @@ function fetchLocations({ fetch }: PageLoadEvent) {
   );
 }
 
-async function fetchDocuments(
-  event: PageLoadEvent,
-  locationPromise: Promise<LocationResponse>,
-) {
-  const query = event.url.searchParams.get("zoek") ?? "*";
+async function fetchDocuments({
+  url,
+  locations,
+  fetch = window.fetch,
+}: {
+  url: URL;
+  locations: LocationResponse;
+  fetch?: typeof window.fetch;
+}) {
+  const query = url.searchParams.get("zoek") ?? "*";
 
-  const filter = await parseFilters(event, locationPromise);
+  const filter = await parseFilters(url, locations);
   const path = `/documents/search?query=${query}&filter=${filter}&sort=processed:desc,published:desc&page=0&limit=20&default_operator=AND`;
 
-  return cacheFetch<DocumentResponse>(`documents:${event.url.search}`, () =>
-    event.fetch(API_URL + path),
+  return cacheFetch<DocumentResponse>(`documents:${url.search}`, () =>
+    fetch(API_URL + path),
   );
 }
 
 async function fetchAggregations(
   event: PageLoadEvent,
-  locationPromise: Promise<LocationResponse>,
+  locations: LocationResponse,
 ) {
   const query = event.url.searchParams.get("zoek") ?? "*";
 
-  const filter = await parseFilters(event, locationPromise, { sources: false });
+  const filter = await parseFilters(event.url, locations, { sources: false });
   const path = `/documents/search?query=${query}&filter=${filter}&sort=processed:desc,published:desc&limit=0&default_operator=AND`;
 
   return cacheFetch<DocumentResponse>(`aggregations:${query}:${filter}`, () =>
@@ -38,8 +43,8 @@ async function fetchAggregations(
 }
 
 export async function load(event) {
-  const locations = fetchLocations(event);
-  const documents = fetchDocuments(event, locations);
+  const locations = await fetchLocations(event);
+  const documents = fetchDocuments({ ...event, locations });
   const aggregations = fetchAggregations(event, locations);
 
   return { documents, locations, aggregations };

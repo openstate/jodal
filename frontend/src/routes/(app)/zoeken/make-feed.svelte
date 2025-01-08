@@ -83,12 +83,12 @@
         <option value="weekly">Wekelijkse meldingen</option>
       </select>
     </label>
-    <div
+    <!-- <div
       class="my-4 rounded-md bg-purple-100/80 px-4 py-3 text-sm text-purple-950"
     >
       Je nieuwe feed zal worden gevuld met {queryDescription}.
-    </div>
-    <div class="flex justify-end gap-4">
+    </div> -->
+    <div class="flex justify-end mt-6 gap-4">
       <button
         type="button"
         onclick={(e) => {

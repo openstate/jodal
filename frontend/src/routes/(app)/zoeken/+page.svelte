@@ -1,9 +1,11 @@
 <script lang="ts">
   import {
     IconBookmark,
+    IconChevronRight,
     IconFilter,
     IconPlus,
     IconSearch,
+    IconX,
   } from "@tabler/icons-svelte";
 
   import Document from "$lib/components/document.svelte";
@@ -31,7 +33,7 @@
 
   if (dev) $inspect(data.documents).with(async (_, d) => console.log(await d));
 
-  let filtersOpen = $state(false);
+  let filtersOpen = $state(true);
   let newFeedsOpen = $state(false);
 </script>
 
@@ -104,26 +106,40 @@
   </div>
   <aside
     class={[
-      "max-md:top-50 space-y-6 bg-stone-50 duration-300 max-md:fixed max-md:inset-0 max-md:overflow-y-scroll max-md:p-6",
-      !filtersOpen && "max-md:translate-x-full",
+      "transition max-md:fixed max-md:inset-0 max-md:top-16  ",
+      filtersOpen ? "bg-black/50" : "pointer-events-none",
     ]}
   >
-    <button
-      class="flex cursor-pointer items-center gap-4 rounded-lg bg-black px-4 py-3 font-semibold text-white disabled:cursor-auto disabled:opacity-20 max-md:hidden"
-      onclick={() => (newFeedsOpen = true)}
+    <div
+      class={[
+        "pointer-events-auto relative h-full space-y-6 overflow-y-scroll bg-stone-50 transition duration-300 max-md:ml-10 max-md:border-l-2 max-md:border-stone-200 max-md:p-8",
+        !filtersOpen && "max-md:translate-x-full",
+      ]}
     >
-      <IconPlus class="w-5" />
-      Sla zoekopdracht op
-    </button>
+      <button
+        class="absolute right-8 top-8"
+        onclick={() => (filtersOpen = false)}
+      >
+        <IconX class="text-stone-800" />
+      </button>
 
-    <Filters {data} />
+      <button
+        class="flex cursor-pointer items-center gap-4 rounded-lg bg-black px-4 py-3 font-semibold text-white disabled:cursor-auto disabled:opacity-20 max-md:hidden"
+        onclick={() => (newFeedsOpen = true)}
+      >
+        <IconPlus class="w-5" />
+        Sla zoekopdracht op
+      </button>
 
-    <button
-      class="flex w-full cursor-pointer items-center justify-center gap-4 rounded-lg bg-black px-4 py-3 font-semibold text-white disabled:cursor-auto disabled:opacity-20 md:hidden"
-      onclick={() => (filtersOpen = false)}
-    >
-      Filters toepassen
-    </button>
+      <Filters {data} />
+
+      <button
+        class="flex w-full cursor-pointer items-center justify-center gap-4 rounded-lg bg-black px-4 py-3 font-semibold text-white disabled:cursor-auto disabled:opacity-20 md:hidden"
+        onclick={() => (filtersOpen = false)}
+      >
+        Filters toepassen
+      </button>
+    </div>
   </aside>
 </div>
 
