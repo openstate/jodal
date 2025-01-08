@@ -120,7 +120,8 @@ def get_basic_query(filters, term, page, page_size, sort, includes, excludes, de
             },
             "size": page_size,
             "from": start,
-            "aggs" : aggregations
+            "aggs" : aggregations,
+            "track_total_hits": True
         }
 
         if highlight is not None:
