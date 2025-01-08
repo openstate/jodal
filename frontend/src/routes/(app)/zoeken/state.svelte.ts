@@ -1,5 +1,6 @@
 import { goto } from "$app/navigation";
 import { page } from "$app/stores";
+import { getContext, setContext } from "svelte";
 import { get } from "svelte/store";
 
 const GOTO_PROPS = {
@@ -40,8 +41,12 @@ export function createQueryState() {
   $effect(() => setParamsFromState("van", stringifyDate(state.dateFrom)));
   $effect(() => setParamsFromState("tot", stringifyDate(state.dateTo)));
 
+  setContext("query", state);
+
   return state;
 }
+
+export const getQueryContext = () => getContext("query") as Query;
 
 export type Query = ReturnType<typeof createQueryState>;
 
@@ -53,7 +58,7 @@ function parseDateString(dateString: string | null) {
 function stringifyDate(date: Date | undefined) {
   if (!date) return undefined;
   const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
   return `${year}-${month}-${day}`;
 }

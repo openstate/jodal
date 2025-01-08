@@ -11,6 +11,7 @@
   max={new Date()}
   placeholder={placeholder ?? new Date().toLocaleDateString("nl-NL")}
   format="dd-MM-yyyy"
+  dynamicPositioning={true}
   locale={{
     // prettier-ignore
     months: ["januari", "februari", "maart", "april", "mei", "juni", "juli", "augustus", "september", "oktober", "november", "december"],
@@ -39,7 +40,7 @@
     }
 
     :global(.date-time-picker) {
-      margin-top: 6px !important;
+      margin-block: 6px !important;
       border: 1px solid var(--color-stone-300) !important;
       border-radius: 6px !important;
       padding: 1rem !important;

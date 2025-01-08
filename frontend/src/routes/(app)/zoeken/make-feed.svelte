@@ -1,14 +1,13 @@
 <script lang="ts">
-  import Plus from "@tabler/icons-svelte/icons/plus";
   import Dialog from "$lib/components/dialog.svelte";
-  import type { Query } from "../../routes/(app)/zoeken/state.svelte";
-  import { allSources } from "../../routes/(app)/zoeken/sources";
+  import { getQueryContext, type Query } from "./state.svelte";
+  import { allSources } from "./sources";
   import { enhance } from "$app/forms";
 
-  type Props = { query: Query };
-  let { query }: Props = $props();
+  type Props = { open: boolean };
+  let { open = $bindable() }: Props = $props();
 
-  let open = $state(false);
+  const query = getQueryContext();
   let selected = $state("");
 
   let pluralize = (n: number, singular: string, plural: string) =>
@@ -32,14 +31,6 @@
     return `${documents} uit ${sources} van ${organisations}`;
   });
 </script>
-
-<button
-  class="flex cursor-pointer items-center gap-4 rounded-lg bg-black px-4 py-3 font-semibold text-white disabled:cursor-auto disabled:opacity-20"
-  onclick={() => (open = true)}
->
-  <Plus class="w-5" />
-  Sla zoekopdracht op
-</button>
 
 <Dialog bind:open>
   <form
