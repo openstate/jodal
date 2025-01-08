@@ -13,7 +13,7 @@
 <main class="grid h-dvh">
   <TopBar />
   <SideBar />
-  <article class="overflow-y-scroll p-4">
+  <article id="scroll" class="overflow-y-scroll p-4">
     <div class="lg:max-w-300 lg:mx-auto">
       {@render children?.()}
     </div>

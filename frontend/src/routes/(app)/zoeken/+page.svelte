@@ -1,13 +1,15 @@
 <script lang="ts">
   import {
     IconBookmark,
-    IconChevronRight,
     IconFilter,
     IconPlus,
     IconSearch,
     IconX,
   } from "@tabler/icons-svelte";
 
+  import InfiniteScroll from "svelte-infinite-scroll";
+
+  import { type DocumentResponse } from "$lib/types/api";
   import Document from "$lib/components/document.svelte";
   import SkeletonDocument from "$lib/components/skeleton-document.svelte";
   import MakeFeed from "./make-feed.svelte";
@@ -16,6 +18,8 @@
   import { createQueryState } from "./state.svelte";
   import { debounce } from "$lib/utils";
   import { dev } from "$app/environment";
+  import { fetchDocuments } from "./loaders";
+  import { page } from "$app/state";
 
   let { data } = $props();
 
@@ -33,8 +37,27 @@
 
   if (dev) $inspect(data.documents).with(async (_, d) => console.log(await d));
 
-  let filtersOpen = $state(true);
+  let filtersOpen = $state(false);
   let newFeedsOpen = $state(false);
+
+  let documents = $state<DocumentResponse["hits"]["hits"]>([]);
+  let pageNumber = $state(0);
+
+  $effect(() => {
+    let documentPromise = data.documents.then((d) => d.hits.hits);
+    const loadDocuments = async () => (documents = await documentPromise);
+    loadDocuments();
+  });
+
+  async function onLoadMore() {
+    const newDocuments = await fetchDocuments({
+      url: page.url,
+      locations: data.locations,
+      pageNumber: ++pageNumber,
+    });
+
+    documents = documents.concat(newDocuments.hits.hits);
+  }
 </script>
 
 <div class="md:grid md:grid-cols-[2fr_1fr] md:gap-8 md:py-4 xl:gap-12">
@@ -86,21 +109,27 @@
         {#each { length: 20 } as _}
           <SkeletonDocument />
         {/each}
-      {:then documents}
+      {:then documentsData}
         <p>
-          {#if documents.hits.total.value === 0}
+          {#if documentsData.hits.total.value === 0}
             Geen resultaten
           {:else}
             {numberFormatter.format(
-              documents.hits.total.value,
-            )}{#if documents.hits.total.relation === "gte"}+{/if}
-            {#if documents.hits.total.value === 1}resultaat{:else}resultaten{/if}
+              documentsData.hits.total.value,
+            )}{#if documentsData.hits.total.relation === "gte"}+{/if}
+            {#if documentsData.hits.total.value === 1}resultaat{:else}resultaten{/if}
           {/if}
         </p>
 
-        {#each documents?.hits.hits ?? [] as document}
+        {#each documents as document}
           <Document {document} />
         {/each}
+
+        <InfiniteScroll
+          threshold={500}
+          on:loadMore={onLoadMore}
+          elementScroll={document.getElementById("scroll") ?? undefined}
+        />
       {/await}
     </div>
   </div>
@@ -117,7 +146,7 @@
       ]}
     >
       <button
-        class="absolute right-8 top-8"
+        class="absolute right-8 top-8 md:hidden"
         onclick={() => (filtersOpen = false)}
       >
         <IconX class="text-stone-800" />
@@ -128,7 +157,7 @@
         onclick={() => (newFeedsOpen = true)}
       >
         <IconPlus class="w-5" />
-        Sla zoekopdracht op
+        Bewaar zoekopdracht
       </button>
 
       <Filters {data} />
