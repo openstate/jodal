@@ -17,18 +17,23 @@
 
   import { createQueryState } from "./state.svelte";
   import { debounce } from "$lib/utils";
-  import { dev } from "$app/environment";
+  import { browser, dev } from "$app/environment";
   import { fetchDocuments } from "./loaders";
   import { page } from "$app/state";
 
   let { data } = $props();
+
+  const element = (browser && document?.getElementById("scroll")) || undefined;
 
   const query = createQueryState();
 
   let searchInput = $state(query.term);
 
   const setQueryTerm = debounce((v) => {
-    if (v !== query.term) query.term = v;
+    if (v !== query.term) {
+      query.term = v;
+      element?.scrollTo({ top: 0 });
+    }
   }, 500);
 
   $effect(() => setQueryTerm(searchInput));
@@ -49,7 +54,10 @@
     loadDocuments();
   });
 
+  let isLoading = $state(true);
+
   async function onLoadMore() {
+    isLoading = true;
     const newDocuments = await fetchDocuments({
       url: page.url,
       locations: data.locations,
@@ -57,6 +65,7 @@
     });
 
     documents = documents.concat(newDocuments.hits.hits);
+    isLoading = false;
   }
 </script>
 
@@ -106,31 +115,34 @@
     <div class="mt-10 space-y-4 md:mt-6">
       {#await data.documents}
         <div class="my-5 h-4 w-36 animate-pulse rounded-lg bg-stone-200"></div>
-        {#each { length: 20 } as _}
-          <SkeletonDocument />
-        {/each}
-      {:then documentsData}
+      {:then { hits }}
         <p>
-          {#if documentsData.hits.total.value === 0}
+          {#if hits.total.value === 0}
             Geen resultaten
           {:else}
             {numberFormatter.format(
-              documentsData.hits.total.value,
-            )}{#if documentsData.hits.total.relation === "gte"}+{/if}
-            {#if documentsData.hits.total.value === 1}resultaat{:else}resultaten{/if}
+              hits.total.value,
+            )}{#if hits.total.relation === "gte"}+{/if}
+            {#if hits.total.value === 1}resultaat{:else}resultaten{/if}
           {/if}
         </p>
-
-        {#each documents as document}
-          <Document {document} />
-        {/each}
-
-        <InfiniteScroll
-          threshold={500}
-          on:loadMore={onLoadMore}
-          elementScroll={document.getElementById("scroll") ?? undefined}
-        />
       {/await}
+
+      {#each documents as document}
+        <Document {document} />
+      {/each}
+
+      {#if isLoading}
+        {#each { length: documents.length === 0 ? 20 : 3 } as _}
+          <SkeletonDocument />
+        {/each}
+      {/if}
+
+      <InfiniteScroll
+        threshold={500}
+        on:loadMore={onLoadMore}
+        elementScroll={element}
+      />
     </div>
   </div>
   <aside
