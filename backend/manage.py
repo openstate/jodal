@@ -208,7 +208,7 @@ def openspending_openspendingcompare(path, templates, output, year1, period1, ye
 
 
 @command('poliflw')
-@click.option('-f', '--date-from', default=(datetime.now() - timedelta(minutes=360)))
+@click.option('-f', '--date-from', default=(datetime.now() - timedelta(weeks=1)))
 @click.option('-t', '--date-to', default=datetime.now())
 @click.option('-s', '--scroll', default=None)
 def scrapers_poliflw(date_from, date_to, scroll):
