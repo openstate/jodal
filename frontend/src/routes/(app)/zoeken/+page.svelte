@@ -46,10 +46,12 @@
   let newFeedsOpen = $state(false);
 
   // Wraps an async function to set `isLoading` before and after execution.
-  const wrapLoading = <T,>(fn: () => Promise<T>) => {
-    isLoading = true;
-    return () => fn().finally(() => (isLoading = false));
-  };
+  const wrapLoading =
+    <T,>(fn: () => Promise<T>) =>
+    () => {
+      isLoading = true;
+      fn().finally(() => (isLoading = false));
+    };
 
   // Effect to update `documents` with awaited `data.documents`, on load and when URL changes.
   $effect(() => {
