@@ -17,47 +17,51 @@
 
   import { createQueryState } from "./state.svelte";
   import { debounce } from "$lib/utils";
-  import { browser, dev } from "$app/environment";
+  import { browser } from "$app/environment";
   import { fetchDocuments } from "./loaders";
   import { page } from "$app/state";
 
-  let { data } = $props();
-
+  // Reference to the DOM element that scrolls, which differs from body.
   const element = (browser && document?.getElementById("scroll")) || undefined;
-
-  const query = createQueryState();
-
-  let searchInput = $state(query.term);
-
-  const setQueryTerm = debounce((v) => {
-    if (v !== query.term) {
-      query.term = v;
-      element?.scrollTo({ top: 0 });
-    }
-  }, 500);
-
-  $effect(() => setQueryTerm(searchInput));
 
   const numberFormatter = new Intl.NumberFormat("nl-NL");
 
-  if (dev) $inspect(data.documents).with(async (_, d) => console.log(await d));
-
-  let filtersOpen = $state(false);
-  let newFeedsOpen = $state(false);
+  let { data } = $props();
 
   let documents = $state<DocumentResponse["hits"]["hits"]>([]);
   let pageNumber = $state(0);
+  let isLoading = $state(true);
 
+  // State object for managing the entire search query, w/ reset of documents and scroll to the top on change.
+  const query = createQueryState({
+    onChange: () => {
+      isLoading = true;
+      documents = [];
+      element?.scrollTo(0, 0);
+    },
+  });
+
+  // Mobile-only visibility state.
+  let filtersOpen = $state(false);
+  let newFeedsOpen = $state(false);
+
+  // Wraps an async function to set `isLoading` before and after execution.
+  const wrapLoading = <T,>(fn: () => Promise<T>) => {
+    isLoading = true;
+    return () => fn().finally(() => (isLoading = false));
+  };
+
+  // Effect to update `documents` with awaited `data.documents`, on load and when URL changes.
   $effect(() => {
     let documentPromise = data.documents.then((d) => d.hits.hits);
-    const loadDocuments = async () => (documents = await documentPromise);
+    const loadDocuments = wrapLoading(async () => {
+      documents = await documentPromise;
+    });
     loadDocuments();
   });
 
-  let isLoading = $state(true);
-
-  async function onLoadMore() {
-    isLoading = true;
+  // Function to load more documents when the user scrolls to the bottom.
+  const onLoadMore = wrapLoading(async () => {
     const newDocuments = await fetchDocuments({
       url: page.url,
       locations: data.locations,
@@ -65,17 +69,28 @@
     });
 
     documents = documents.concat(newDocuments.hits.hits);
-    isLoading = false;
-  }
+  });
+
+  // Debounced function to set the query term on input bind.
+  const setQueryTerm = debounce((v) => {
+    if (v !== query.term) query.term = v;
+  }, 500);
+
+  $inspect(isLoading);
 </script>
+
+<MakeFeed bind:open={newFeedsOpen} />
 
 <div class="md:grid md:grid-cols-[2fr_1fr] md:gap-8 md:py-4 xl:gap-12">
   <div>
     <form
+      onsubmit={(e) => {
+        e.preventDefault();
+        query.term = new FormData(e.currentTarget).get("zoek") as string;
+      }}
       class="border-stone-200 bg-stone-50 max-md:sticky max-md:-top-4 max-md:-m-4 max-md:w-screen max-md:border-b-2 max-md:p-4"
     >
       <div
-        onsubmit={(e) => (e.preventDefault(), (query.term = searchInput))}
         class="flex w-full items-center rounded-lg border-2 border-stone-200 bg-white outline-0 transition focus-within:border-stone-300"
       >
         <!-- svelte-ignore a11y_autofocus -- search is legitimate use of autofocus -->
@@ -85,7 +100,8 @@
           type="search"
           name="zoek"
           placeholder="Zoek documenten..."
-          bind:value={searchInput}
+          value={query.term}
+          oninput={(e) => setQueryTerm(e.currentTarget.value)}
         />
         <button type="submit" class="mx-2 cursor-pointer p-2">
           <IconSearch />
@@ -133,7 +149,7 @@
       {/each}
 
       {#if isLoading}
-        {#each { length: documents.length === 0 ? 20 : 3 } as _}
+        {#each { length: documents.length === 0 ? 20 : 3 }}
           <SkeletonDocument />
         {/each}
       {/if}
@@ -183,5 +199,3 @@
     </div>
   </aside>
 </div>
-
-<MakeFeed bind:open={newFeedsOpen} />

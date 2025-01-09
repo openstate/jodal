@@ -11,7 +11,7 @@ const GOTO_PROPS = {
 };
 
 /** Creates a query state object that synchronizes with URL search parameters. */
-export function createQueryState() {
+export function createQueryState({ onChange }: { onChange?: () => void }) {
   const parseStateFromParams = (url: URL) => ({
     term: url.searchParams.get("zoek") ?? "",
     sources: url.searchParams.get("bronnen")?.split(",") ?? [],
@@ -31,6 +31,7 @@ export function createQueryState() {
     else url.searchParams.set(key, encodedValue);
 
     goto(url.search === "" ? "?" : url.search, GOTO_PROPS);
+    onChange?.();
   };
 
   let state = $state(parseStateFromParams(get(page).url));
