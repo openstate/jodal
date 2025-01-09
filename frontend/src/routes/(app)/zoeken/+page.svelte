@@ -1,8 +1,7 @@
 <script lang="ts">
   import {
-    IconBookmark,
+    IconBookmarkFilled,
     IconFilter,
-    IconPlus,
     IconSearch,
     IconX,
   } from "@tabler/icons-svelte";
@@ -90,7 +89,7 @@
         e.preventDefault();
         query.term = new FormData(e.currentTarget).get("zoek") as string;
       }}
-      class="border-stone-200 bg-stone-50 max-md:sticky max-md:-top-4 max-md:-m-4 max-md:w-screen max-md:border-b-2 max-md:p-4"
+      class="border-stone-200 bg-stone-50 max-md:sticky max-md:-top-4 max-md:z-10 max-md:-m-4 max-md:w-screen max-md:border-b-2 max-md:p-4"
     >
       <div
         class="flex w-full items-center rounded-lg border-2 border-stone-200 bg-white outline-0 transition focus-within:border-stone-300"
@@ -120,11 +119,11 @@
           Filter
         </button>
         <button
-          class="flex grow items-center justify-center gap-1.5 rounded-lg bg-purple-200/80 px-2.5 py-1.5 text-purple-900"
+          class="flex grow items-center justify-center gap-1.5 rounded-lg bg-black px-2.5 py-1.5 font-medium text-white"
           onclick={() => (newFeedsOpen = true)}
           type="button"
         >
-          <IconBookmark class="-ml-1 size-4" />
+          <IconBookmarkFilled class="-ml-1 size-4" />
           Bewaar
         </button>
       </div>
@@ -132,7 +131,9 @@
 
     <div class="mt-10 space-y-4 md:mt-6">
       {#await data.documents}
-        <div class="my-5 h-4 w-36 animate-pulse rounded-lg bg-stone-200"></div>
+        <div
+          class="my-5 h-4 w-36 animate-pulse rounded-lg bg-stone-200 font-medium"
+        ></div>
       {:then { hits }}
         <p>
           {#if hits.total.value === 0}
@@ -165,13 +166,13 @@
   </div>
   <aside
     class={[
-      "transition max-md:fixed max-md:inset-0 max-md:top-16  ",
+      "transition max-md:fixed max-md:inset-0 max-md:top-16 max-md:z-20  ",
       filtersOpen ? "bg-black/50" : "pointer-events-none",
     ]}
   >
     <div
       class={[
-        "pointer-events-auto relative h-full space-y-6 overflow-y-scroll bg-stone-50 transition duration-300 max-md:ml-10 max-md:border-l-2 max-md:border-stone-200 max-md:p-8",
+        "max-md:max-w-90 pointer-events-auto relative h-full space-y-6 overflow-y-scroll bg-stone-50 transition duration-300 max-md:ml-auto max-md:border-l-2 max-md:border-stone-200 max-md:p-8",
         !filtersOpen && "max-md:translate-x-full",
       ]}
     >
@@ -183,17 +184,17 @@
       </button>
 
       <button
-        class="flex cursor-pointer items-center gap-4 rounded-lg bg-black px-4 py-3 font-semibold text-white disabled:cursor-auto disabled:opacity-20 max-md:hidden"
+        class="flex cursor-pointer items-center gap-2 rounded-lg bg-black px-4 py-3 font-semibold text-white disabled:cursor-auto disabled:opacity-20 max-md:hidden"
         onclick={() => (newFeedsOpen = true)}
       >
-        <IconPlus class="w-5" />
+        <IconBookmarkFilled class="size-5" />
         Bewaar zoekopdracht
       </button>
 
       <Filters {data} />
 
       <button
-        class="flex w-full cursor-pointer items-center justify-center gap-4 rounded-lg bg-black px-4 py-3 font-semibold text-white disabled:cursor-auto disabled:opacity-20 md:hidden"
+        class="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-black px-4 py-3 font-semibold text-white disabled:cursor-auto disabled:opacity-20 md:hidden"
         onclick={() => (filtersOpen = false)}
       >
         Filters toepassen

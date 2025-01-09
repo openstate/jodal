@@ -32,7 +32,7 @@
   );
 </script>
 
-<hr class="border-stone-200 max-sm:hidden" />
+<hr class="border-stone-200 max-md:hidden" />
 <div class="space-y-1">
   <h2 class="mb-3 font-bold">Bronnen</h2>
   <div class="flex items-center gap-2">
