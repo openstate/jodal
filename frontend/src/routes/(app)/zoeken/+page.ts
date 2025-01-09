@@ -1,4 +1,8 @@
-import { fetchAggregations, fetchDocuments, fetchLocations } from "./loaders";
+import {
+  fetchAggregations,
+  fetchDocuments,
+  fetchLocations,
+} from "$lib/loaders";
 
 export async function load(event) {
   const locations = await fetchLocations(event);

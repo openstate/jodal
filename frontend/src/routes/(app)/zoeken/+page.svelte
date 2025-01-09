@@ -17,7 +17,7 @@
   import { createQueryState } from "./state.svelte";
   import { debounce } from "$lib/utils";
   import { browser } from "$app/environment";
-  import { fetchDocuments } from "./loaders";
+  import { fetchDocuments } from "$lib/loaders";
   import { page } from "$app/state";
 
   // Reference to the DOM element that scrolls, which differs from body.
@@ -67,6 +67,7 @@
       url: page.url,
       locations: data.locations,
       pageNumber: ++pageNumber,
+      fetch,
     });
 
     documents = documents.concat(newDocuments.hits.hits);

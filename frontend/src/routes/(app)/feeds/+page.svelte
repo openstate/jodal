@@ -1,8 +1,8 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
-  import { page } from "$app/stores";
+  import { page } from "$app/state";
 
-  const userQuery = $page.url.searchParams.get("zoek") ?? "";
+  const userQuery = $derived(page.url.searchParams.get("zoek") ?? "");
 
   let { data } = $props();
 </script>

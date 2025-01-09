@@ -1,5 +1,4 @@
 import type { LocationResponse } from "$lib/types/api";
-import type { PageLoadEvent } from "./$types";
 import { allSources } from "./sources";
 
 export async function parseFilters(

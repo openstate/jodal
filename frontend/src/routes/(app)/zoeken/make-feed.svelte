@@ -1,8 +1,8 @@
 <script lang="ts">
   import Dialog from "$lib/components/dialog.svelte";
-  import { getQueryContext, type Query } from "./state.svelte";
-  import { allSources } from "./sources";
+  import { getQueryContext } from "./state.svelte";
   import { enhance } from "$app/forms";
+  // import { allSources } from "$lib/sources";
 
   type Props = { open: boolean };
   let { open = $bindable() }: Props = $props();
@@ -10,26 +10,26 @@
   const query = getQueryContext();
   let selected = $state("");
 
-  let pluralize = (n: number, singular: string, plural: string) =>
-    n + " " + (n === 1 ? singular : plural);
+  // let pluralize = (n: number, singular: string, plural: string) =>
+  //   n + " " + (n === 1 ? singular : plural);
 
-  let queryDescription = $derived.by(() => {
-    let documents =
-      query.term === ""
-        ? "alle documenten"
-        : `documenten met de term "${query.term}"`;
+  // let queryDescription = $derived.by(() => {
+  //   let documents =
+  //     query.term === ""
+  //       ? "alle documenten"
+  //       : `documenten met de term "${query.term}"`;
 
-    let sources = [0, allSources.length].includes(query.sources.length)
-      ? "alle bronnen"
-      : pluralize(query.sources.length, "bron", "bronnen");
+  //   let sources = [0, allSources.length].includes(query.sources.length)
+  //     ? "alle bronnen"
+  //     : pluralize(query.sources.length, "bron", "bronnen");
 
-    let organisations =
-      query.organisations.length === 0
-        ? "alle organisaties"
-        : pluralize(query.organisations.length, "organisatie", "organisaties");
+  //   let organisations =
+  //     query.organisations.length === 0
+  //       ? "alle organisaties"
+  //       : pluralize(query.organisations.length, "organisatie", "organisaties");
 
-    return `${documents} uit ${sources} van ${organisations}`;
-  });
+  //   return `${documents} uit ${sources} van ${organisations}`;
+  // });
 </script>
 
 <Dialog bind:open>
@@ -88,7 +88,7 @@
     >
       Je nieuwe feed zal worden gevuld met {queryDescription}.
     </div> -->
-    <div class="flex justify-end mt-6 gap-4">
+    <div class="mt-6 flex justify-end gap-4">
       <button
         type="button"
         onclick={(e) => {

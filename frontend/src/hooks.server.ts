@@ -1,6 +1,6 @@
 import type { Handle, HandleFetch, RequestEvent } from "@sveltejs/kit";
 import type { Identity } from "$lib/stores";
-import { API_URL } from "$lib/api";
+import { API_URL } from "$lib/loaders";
 
 async function getIdentity(event: RequestEvent) {
   const response = await event.fetch(API_URL + "/users/simple/me", {

@@ -1,6 +1,6 @@
 import { dev } from '$app/environment';
 import { fail, redirect, type Actions, type Cookies } from '@sveltejs/kit';
-import { API_URL } from '$lib/api';
+import { API_URL } from '$lib/loaders';
 
 type SetCookie = Parameters<Cookies['set']>;
 

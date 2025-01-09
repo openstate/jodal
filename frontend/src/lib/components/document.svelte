@@ -5,24 +5,22 @@
   import Calendar from "@tabler/icons-svelte/icons/calendar";
   import Database from "@tabler/icons-svelte/icons/database";
 
-  import { allSources } from "../../routes/(app)/zoeken/sources";
+  import { allSources } from "$lib/sources";
 
   type Props = { document: DocumentResponse["hits"]["hits"][number] };
 
   let { document }: Props = $props();
 
-  function getDocumentDate() {
+  const date = $derived.by(() => {
     const dateKeys = ["processed", "published", "created"] as const;
     const dates = dateKeys.map((key) => new Date(document._source[key]));
     return dates.find((date) => date.toString() !== "Invalid Date") ?? null;
-  }
+  });
 
-  function formatDate(date: Date | null) {
+  const formattedDate = $derived.by(() => {
     if (!date) return "Onbekende datum";
     return date.toLocaleDateString("nl", { dateStyle: "long" });
-  }
-
-  const date = $derived(getDocumentDate());
+  });
 </script>
 
 <a
@@ -41,19 +39,19 @@
   {/if}
   <div class="flex flex-wrap items-center gap-2 text-sm">
     <div
-      class="flex items-center gap-2 rounded-md bg-purple-100/80 px-2 py-0.5 text-purple-900 font-medium"
+      class="flex items-center gap-2 rounded-md bg-purple-100/80 px-2 py-0.5 font-medium text-purple-900"
     >
       <Calendar class="w-4" />
-      {formatDate(date)}
+      {formattedDate}
     </div>
     <div
-      class="flex items-center gap-2 rounded-md bg-purple-100/80 px-2 py-0.5 text-purple-900 font-medium"
+      class="flex items-center gap-2 rounded-md bg-purple-100/80 px-2 py-0.5 font-medium text-purple-900"
     >
       <Buildings class="w-4" />
       {document._source.location_name}
     </div>
     <div
-      class="flex items-center gap-2 rounded-md bg-purple-100/80 px-2 py-0.5 text-purple-900 font-medium"
+      class="flex items-center gap-2 rounded-md bg-purple-100/80 px-2 py-0.5 font-medium text-purple-900"
     >
       <Database class="w-4" />
       {allSources.find((s) => s.value === document._source.source)?.label}

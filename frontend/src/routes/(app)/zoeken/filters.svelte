@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { allSources } from "./sources";
-  import { getQueryContext, type Query } from "./state.svelte";
+  import { allSources } from "$lib/sources";
+  import { getQueryContext } from "./state.svelte";
   import type { PageData } from "./$types";
   import Select from "svelte-select";
   import DateInput from "$lib/components/date-input.svelte";

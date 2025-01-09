@@ -1,5 +1,5 @@
 import { fail, type Actions } from '@sveltejs/kit';
-import { API_URL } from '$lib/api';
+import { API_URL } from '$lib/loaders';
 
 export const actions = {
   default: async ({ fetch, request }) => {

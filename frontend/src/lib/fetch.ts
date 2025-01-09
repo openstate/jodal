@@ -2,8 +2,6 @@ import { browser } from "$app/environment";
 import { error } from "@sveltejs/kit";
 import { LRUCache } from "lru-cache";
 
-export const API_URL = "//api.bron.live" as const;
-
 export const cache = new LRUCache({ max: 25 });
 
 export const cacheFetch = async <T>(
