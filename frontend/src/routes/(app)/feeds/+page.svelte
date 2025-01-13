@@ -10,13 +10,14 @@
     if (!date) return "Nog geen matches";
     const diff = new Date().getTime() - new Date(date).getTime();
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-    return days <= 7
-      ? pluralize(days, "dag geleden", "dagen geleden")
-      : new Date(date).toLocaleDateString("nl", {
-          day: "numeric",
-          month: "long",
-          year: "numeric",
-        });
+    if (days === 0) return "Vandaag";
+    if (days === 1) return "Gisteren";
+    if (days <= 30) return pluralize(days, "dag geleden", "dagen geleden");
+    return new Date(date).toLocaleDateString("nl", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
   }
 
   function formatFilterCount(count: number) {

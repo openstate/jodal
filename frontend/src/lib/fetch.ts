@@ -14,7 +14,10 @@ export const cacheFetch = async <T>(
 
   const result = await response.json();
 
-  if (!response.ok) throw error(response.status, result);
+  if (!response.ok) {
+    console.error(key, response.status, result);
+    throw error(response.status, result);
+  }
 
   cache.set(key, result);
 
