@@ -3,6 +3,12 @@
   import TopBar from "$lib/components/navigation/top-bar.svelte";
 
   let { children } = $props();
+
+  // Override default scroll restoration, because SvelteKit by default only
+  // fixes scroll for `window`, but `article#scroll` is our scroll container.
+  afterNavigate(() => {
+    document.getElementById("scroll")!.scrollTo(0, 0);
+  });
 </script>
 
 <svelte:head>
