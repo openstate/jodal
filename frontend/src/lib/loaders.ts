@@ -54,23 +54,21 @@ export async function fetchAggregations(
 }
 
 export async function fetchFeeds(event: Pick<LoadEvent, "fetch">) {
-  const response = await event.fetch(API_URL + `/feeds`, {
-    credentials: "include",
-  });
-
-  if (!response.ok) return null;
-
-  const feeds: FeedResponse[] = await response.json();
+  const feeds = cacheFetch<FeedResponse[]>("feeds", () =>
+    event.fetch(API_URL + `/feeds`, {
+      credentials: "include",
+    }),
+  );
 
   return feeds;
 }
 
 export async function fetchFeed(event: Pick<LoadEvent, "params" | "fetch">) {
-  const feed: FeedResponse = await event
-    .fetch(API_URL + `/feeds/${event.params.id}`, {
+  const feed = cacheFetch<FeedResponse>(`feed:${event.params.id}`, () =>
+    event.fetch(API_URL + `/feeds/${event.params.id}`, {
       credentials: "include",
-    })
-    .then((r) => r.json());
+    }),
+  );
 
   return feed;
 }
@@ -90,12 +88,14 @@ export async function fetchFeedDocuments(
     filters.push(`source:${event.feed.sources.join(",")}`);
   }
 
-  const documents: Promise<DocumentResponse> = event
-    .fetch(
-      API_URL +
-        `/documents/search?page=0&filter=${filters.join("|")}&published_to:now&sort=processed:desc,published:desc&limit=${event.limit}&query=${event.feed.query}`,
-    )
-    .then((r) => r.json());
+  const documents = cacheFetch<DocumentResponse>(
+    `feed-documents:${event.feed.public_id}:${event.limit}`,
+    () =>
+      event.fetch(
+        API_URL +
+          `/documents/search?page=0&filter=${filters.join("|")}&published_to:now&sort=processed:desc,published:desc&limit=${event.limit}&query=${event.feed.query}`,
+      ),
+  );
 
   return documents;
 }

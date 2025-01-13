@@ -83,7 +83,7 @@
 
 <MakeFeed bind:open={newFeedsOpen} />
 
-<div class="md:grid md:grid-cols-[2fr_1fr] md:gap-8 md:py-4 xl:gap-12">
+<div class="md:grid md:grid-cols-[2fr_1fr] md:gap-8 xl:gap-12">
   <div>
     <form
       onsubmit={(e) => {
