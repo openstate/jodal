@@ -48,7 +48,6 @@
     "@tabler/icons-svelte": "^3.20.0",
     "@tailwindcss/forms": "^0.5.9",
     "@tailwindcss/vite": "^4.0.0-beta.2",
-    "date-picker-svelte": "^2.15.1",
     "lru-cache": "^11.0.2",
     "marked": "^15.0.6",
     "svelte-bootstrap-icons": "^3.1.1",
