@@ -12,7 +12,10 @@
   import Document from "$lib/components/document.svelte";
   import SkeletonDocument from "$lib/components/skeleton-document.svelte";
   import MakeFeed from "./make-feed.svelte";
-  import Filters from "./filters.svelte";
+
+  import SourceFilter from "./filters/source.svelte";
+  import OrganisationsFilter from "./filters/organisations.svelte";
+  import DateFilter from "./filters/date.svelte";
 
   import { createQueryState } from "./state.svelte";
   import { debounce } from "$lib/utils";
@@ -20,10 +23,10 @@
   import { fetchDocuments } from "$lib/loaders";
   import { page } from "$app/state";
 
+  const { format: formatNumber } = new Intl.NumberFormat("nl-NL");
+
   // Reference to the DOM element that scrolls, which differs from body.
   const element = (browser && document?.getElementById("scroll")) || undefined;
-
-  const numberFormatter = new Intl.NumberFormat("nl-NL");
 
   let { data } = $props();
 
@@ -140,7 +143,7 @@
           {#if hits.total.value === 0}
             Geen resultaten
           {:else}
-            {numberFormatter.format(
+            {formatNumber(
               hits.total.value,
             )}{#if hits.total.relation === "gte"}+{/if}
             {#if hits.total.value === 1}resultaat{:else}resultaten{/if}
@@ -167,7 +170,7 @@
   </div>
   <aside
     class={[
-      "relative transition max-md:fixed max-md:inset-0 max-md:top-16 max-md:z-20 md:shrink-0 md:w-80",
+      "relative transition max-md:fixed max-md:inset-0 max-md:top-16 max-md:z-20 md:w-80 md:shrink-0",
       filtersOpen ? "max-md:bg-black/50" : "max-md:pointer-events-none",
     ]}
   >
@@ -192,7 +195,19 @@
         Bewaar zoekopdracht
       </button>
 
-      <Filters {data} />
+      <hr class="border-stone-200 max-md:hidden" />
+
+      <SourceFilter {data} />
+
+      <hr class="border-stone-200" />
+
+      <OrganisationsFilter {data} />
+
+      <hr class="border-stone-200" />
+
+      <DateFilter />
+
+      <hr class="border-stone-200" />
 
       <button
         class="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-black px-4 py-3 font-semibold text-white disabled:cursor-auto disabled:opacity-20 md:hidden"
