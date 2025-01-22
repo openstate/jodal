@@ -27,6 +27,6 @@ services:
     build:
       context: ../frontend
       dockerfile: Dockerfile-dev
+    command: bash -c "npm install && npm run dev"
     volumes:
-      - /opt/app/node_modules
       - ../frontend:/opt/app
