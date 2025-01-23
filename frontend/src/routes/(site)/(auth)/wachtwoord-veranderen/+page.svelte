@@ -8,7 +8,7 @@
 </script>
 
 <form method="POST" use:enhance class="space-y-4">
-  <h1 class="font-display text-lg font-medium">Wachtwoord veranderen</h1>
+  <h1 class="text-lg font-medium">Wachtwoord veranderen</h1>
 
   {#if form?.message || !id}
     <div
@@ -27,18 +27,18 @@
     type="password"
     name="password"
     placeholder="Nieuw wachtwoord"
-    class="w-full rounded border border-stone-200 px-4 py-3 focus:border-stone-400 focus:outline-0"
+    class="w-full rounded border border-stone-300 px-4 py-3 focus:border-stone-400 focus:outline-0"
   />
   <input
     type="password"
     name="password_repeat"
     placeholder="Herhaal nieuw wachtwoord"
-    class="w-full rounded border border-stone-200 px-4 py-3 focus:border-stone-400 focus:outline-0"
+    class="w-full rounded border border-stone-300 px-4 py-3 focus:border-stone-400 focus:outline-0"
   />
 
   <div class="flex justify-end">
     <button
-      class="pt-1.75 cursor-pointer rounded-lg bg-purple-700 px-4 pb-2 font-bold text-white"
+      class="pt-1.75 cursor-pointer rounded-lg bg-black px-4 pb-2 font-bold text-white"
     >
       Verander wachtwoord
     </button>

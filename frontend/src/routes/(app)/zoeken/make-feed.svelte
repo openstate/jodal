@@ -37,7 +37,7 @@
     method="POST"
     action="/feeds"
     use:enhance
-    class="-translate-1/2 absolute left-1/2 top-1/2 w-full max-w-[min(480px,calc(100%_-_48px))] rounded-lg border-2 border-stone-200 bg-white p-6"
+    class="-translate-1/2 absolute left-1/2 top-1/2 w-full max-w-[min(480px,calc(100%_-_48px))] rounded-lg border border-stone-300 bg-white p-6"
   >
     <input type="hidden" name="query" value={query.term} />
     <input type="hidden" name="sources" value={query.sources.join(",")} />
@@ -59,7 +59,7 @@
         name="name"
         type="text"
         placeholder="Geef je feed een naam..."
-        class="w-full rounded border-2 border-stone-200 px-3 py-2 text-stone-700 outline-0 focus:border-stone-300"
+        class="w-full rounded border border-stone-300 px-3 py-2 text-stone-700 outline-0 focus:border-stone-300"
       />
     </label>
     <label>
@@ -71,7 +71,7 @@
         name="notifications"
         bind:value={selected}
         class={[
-          "w-full rounded border-2 border-stone-200 px-3 py-2.5 outline-0 focus:border-stone-300",
+          "w-full rounded border border-stone-300 px-3 py-2.5 outline-0 focus:border-stone-300",
           selected ? "text-stone-700" : "text-stone-700/50",
         ]}
       >
@@ -84,7 +84,7 @@
       </select>
     </label>
     <!-- <div
-      class="my-4 rounded-md bg-purple-100/80 px-4 py-3 text-sm text-purple-950"
+      class="my-4 rounded-md bg-blue-100/80 px-4 py-3 text-sm text-blue-950"
     >
       Je nieuwe feed zal worden gevuld met {queryDescription}.
     </div> -->
@@ -95,7 +95,7 @@
           e.preventDefault();
           open = false;
         }}
-        class="cursor-pointer rounded-lg border-2 border-stone-200 px-4 py-3 font-medium text-stone-600 disabled:opacity-50"
+        class="cursor-pointer rounded-lg border border-stone-300 px-4 py-3 font-medium text-stone-600 disabled:opacity-50"
       >
         Annuleren
       </button>

@@ -16,6 +16,6 @@ export const actions = {
         message: 'Er is iets misgegaan. Probeer het opnieuw.',
       });
 
-    return redirect(307, '/');
+    return redirect(307, '/zoeken');
   },
 } satisfies Actions;

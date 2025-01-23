@@ -86,17 +86,17 @@
 
 <MakeFeed bind:open={newFeedsOpen} />
 
-<div class="flex md:gap-8 xl:gap-12">
+<div class="max-w-300 mx-auto grid gap-10 px-6 md:grid-cols-[1fr_20rem]">
   <div class="grow">
     <form
       onsubmit={(e) => {
         e.preventDefault();
         query.term = new FormData(e.currentTarget).get("zoek") as string;
       }}
-      class="border-stone-200 bg-stone-50 max-md:sticky max-md:-top-4 max-md:z-10 max-md:-m-4 max-md:w-screen max-md:border-b-2 max-md:p-4"
+      class="sticky -top-4 z-10 border-b border-stone-300 bg-stone-50 pb-4 pt-8 max-md:-m-4 max-md:w-screen max-md:px-4 md:top-0"
     >
       <div
-        class="flex w-full items-center rounded-lg border-2 border-stone-200 bg-white outline-0 transition focus-within:border-stone-300"
+        class="flex w-full items-center rounded-lg border border-stone-300 bg-white outline-0 transition focus-within:border-stone-300"
       >
         <!-- svelte-ignore a11y_autofocus -- search is legitimate use of autofocus -->
         <input
@@ -115,7 +115,7 @@
 
       <div class="mt-2 flex justify-between gap-3 md:hidden">
         <button
-          class="flex grow items-center justify-center gap-1.5 rounded-lg border-2 border-stone-200 bg-white px-2.5 py-1.5 text-stone-800"
+          class="flex grow items-center justify-center gap-1.5 rounded-lg border border-stone-300 bg-white px-2.5 py-1.5 text-stone-800"
           onclick={() => (filtersOpen = !filtersOpen)}
           type="button"
         >
@@ -170,13 +170,13 @@
   </div>
   <aside
     class={[
-      "relative transition max-md:fixed max-md:inset-0 max-md:top-16 max-md:z-20 md:w-80 md:shrink-0",
+      "relative pt-8 transition max-md:fixed max-md:inset-0 max-md:top-16 max-md:z-20 md:w-80 md:shrink-0",
       filtersOpen ? "max-md:bg-black/50" : "max-md:pointer-events-none",
     ]}
   >
     <div
       class={[
-        "max-md:max-w-90 pointer-events-auto h-full space-y-6 overflow-x-visible overflow-y-scroll bg-stone-50 transition duration-300 max-md:ml-auto max-md:border-l-2 max-md:border-stone-200 max-md:p-8 md:fixed md:w-80",
+        "max-md:max-w-90 pointer-events-auto h-full space-y-6 overflow-x-visible overflow-y-scroll bg-stone-50 transition duration-300 max-md:ml-auto max-md:border-l max-md:border-stone-300 max-md:p-8 md:fixed md:w-80",
         !filtersOpen && "max-md:translate-x-full",
       ]}
     >
@@ -195,19 +195,19 @@
         Bewaar zoekopdracht
       </button>
 
-      <hr class="border-stone-200 max-md:hidden" />
+      <hr class="border-stone-300 max-md:hidden" />
 
       <SourceFilter {data} />
 
-      <hr class="border-stone-200" />
+      <hr class="border-stone-300" />
 
       <OrganisationsFilter {data} />
 
-      <hr class="border-stone-200" />
+      <hr class="border-stone-300" />
 
       <DateFilter />
 
-      <hr class="border-stone-200" />
+      <hr class="border-stone-300" />
 
       <button
         class="flex w-full cursor-pointer items-center justify-center gap-2 rounded-lg bg-black px-4 py-3 font-semibold text-white disabled:cursor-auto disabled:opacity-20 md:hidden"

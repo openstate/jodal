@@ -20,10 +20,8 @@
 <main class="grid h-dvh">
   <TopBar />
   <SideBar />
-  <article id="scroll" class="overflow-y-scroll px-4 py-8">
-    <div class="lg:max-w-300 lg:mx-auto">
-      {@render children?.()}
-    </div>
+  <article id="scroll" class="overflow-y-scroll">
+    {@render children?.()}
   </article>
 </main>
 

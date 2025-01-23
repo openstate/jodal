@@ -51,7 +51,7 @@
         {#await countBySource then countBySource}
           {#if countBySource[source.value] > 0}
             <div
-              class="rounded-full bg-purple-100/80 px-2.5 py-0.5 text-sm text-purple-950"
+              class="rounded-full bg-blue-100/80 px-2.5 py-0.5 text-sm text-blue-950"
             >
               {formatNumber(countBySource[source.value])}
             </div>

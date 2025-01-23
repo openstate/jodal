@@ -33,7 +33,7 @@
   );
 
   let slicedItems = $derived(
-    filteredItems.slice(0, showMore && noSearch ? 14 : 4),
+    filteredItems.slice(0, showMore && !noSearch ? 14 : 4),
   );
 
   let selectedItems = $derived(
@@ -67,7 +67,7 @@
     type="text"
     bind:value={search}
     placeholder="Zoek organisaties..."
-    class="mb-4 w-full rounded-lg border-2 border-stone-200 bg-white px-4 py-3 outline-0 transition focus-within:border-stone-300"
+    class="mb-4 w-full rounded-lg border border-stone-300 bg-white px-4 py-3 outline-0 transition focus-within:border-stone-300"
   />
   {#each shownItems as item}
     <div class="flex items-center gap-2">
@@ -85,7 +85,7 @@
   {/each}
   {#if filteredItems.length > 4 && !noSearch}
     <button
-      class="cursor-pointer font-medium text-purple-700"
+      class="cursor-pointer font-medium text-blue-700"
       onclick={() => (showMore = !showMore)}
     >
       {#if showMore}Minder...{:else}Meer...{/if}

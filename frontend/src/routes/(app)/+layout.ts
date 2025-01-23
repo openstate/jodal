@@ -1,11 +1,13 @@
+import { getArticles } from "$lib/articles.js";
 import { fetchFeeds } from "$lib/loaders";
 
 export async function load(event) {
   const { identity } = await event.parent();
-  if (!identity) return { feeds: null };
+  const articles = await getArticles();
 
-  // These feeds are shown in navigation.
+  if (!identity) return { feeds: null, articles };
+
   const feeds = await fetchFeeds(event);
 
-  return { feeds };
+  return { feeds, articles };
 }

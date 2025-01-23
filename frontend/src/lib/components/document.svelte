@@ -26,7 +26,7 @@
 <a
   target="_blank"
   href={document._source.doc_url ?? document._source.url}
-  class="block rounded-lg border-2 border-stone-200 bg-white p-4"
+  class="block rounded-lg border border-stone-300 bg-white p-4"
 >
   <h2 class="mb-2 font-semibold">{document._source.title}</h2>
   {#if document.highlight?.description && document.highlight.description.length > 0}
@@ -39,19 +39,19 @@
   {/if}
   <div class="flex flex-wrap items-center gap-2 text-sm">
     <div
-      class="flex items-center gap-2 rounded-md bg-purple-100/80 px-2 py-0.5 font-medium text-purple-900"
+      class="flex items-center gap-2 rounded-md bg-blue-100/80 px-2 py-0.5 font-medium text-blue-900"
     >
       <Calendar class="w-4" />
       {formattedDate}
     </div>
     <div
-      class="flex items-center gap-2 rounded-md bg-purple-100/80 px-2 py-0.5 font-medium text-purple-900"
+      class="flex items-center gap-2 rounded-md bg-blue-100/80 px-2 py-0.5 font-medium text-blue-900"
     >
       <Buildings class="w-4" />
       {document._source.location_name}
     </div>
     <div
-      class="flex items-center gap-2 rounded-md bg-purple-100/80 px-2 py-0.5 font-medium text-purple-900"
+      class="flex items-center gap-2 rounded-md bg-blue-100/80 px-2 py-0.5 font-medium text-blue-900"
     >
       <Database class="w-4" />
       {allSources.find((s) => s.value === document._source.source)?.label}
@@ -62,7 +62,7 @@
 <style>
   p :global(em) {
     font-style: normal;
-    color: var(--color-purple-800);
+    color: var(--color-blue-800);
     font-weight: 500;
     text-decoration: underline;
   }

@@ -41,6 +41,6 @@ export const actions = {
 
     cookies.set(...getSessionCookie(response));
 
-    redirect(307, '/');
+    redirect(307, '/zoeken');
   },
 } satisfies Actions;

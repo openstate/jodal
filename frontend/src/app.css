@@ -1,5 +1,6 @@
 @import "tailwindcss";
 /* @plugin '@tailwindcss/forms'; */
+@plugin "@tailwindcss/typography";
 
 @theme {
   --font-*: initial;
@@ -9,6 +10,7 @@
   --color-bron: #2260ff;
 }
 
-:root {
+:root,
+body {
   background-color: var(--color-stone-50);
 }

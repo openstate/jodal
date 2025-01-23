@@ -11,7 +11,7 @@
     type="date"
     bind:value={query.dateFrom}
     class={[
-      "w-full rounded-lg border-2 border-stone-200 bg-white px-4 py-3 outline-0 transition focus-within:border-stone-300",
+      "w-full rounded-lg border border-stone-300 bg-white px-4 py-3 outline-0 transition focus-within:border-stone-300",
       query.dateFrom ? "text-stone-800" : "text-stone-500",
     ]}
   />
@@ -20,7 +20,7 @@
     type="date"
     bind:value={query.dateTo}
     class={[
-      "w-full rounded-lg border-2 border-stone-200 bg-white px-4 py-3 outline-0 transition focus-within:border-stone-300",
+      "w-full rounded-lg border border-stone-300 bg-white px-4 py-3 outline-0 transition focus-within:border-stone-300",
       query.dateTo ? "text-stone-800" : "text-stone-500",
     ]}
   />

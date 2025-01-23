@@ -1,34 +1,36 @@
-# Gezondheidszorg
-
-> Zorgverleners, instellingen en middelen die direct gericht zijn op het instandhouden of verbeteren van de gezondheidstoestand van de bevolking.
-
-![druppelkamer](https://images.unsplash.com/photo-1516575901726-efcb7a9895a0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)
+---
+title: Gezondheidszorg
+description: Zorgverleners, instellingen en middelen die direct gericht zijn op het instandhouden of verbeteren van de gezondheidstoestand van de bevolking.
+image: https://images.unsplash.com/photo-1516575901726-efcb7a9895a0?q=50&w=500
+feeds: [zorgverzekering, thuiszorg, vergrijzing, vaccinaties]
+highlight: Hoe lang zijn de GGZ-wachtlijsten in jouw regio? Zitten er grote verschillen tussen wachttijden, en zo ja, waarom?
+---
 
 Gezondheidszorg is een groot en complex thema, waarbij overheidsinstellingen samenwerken met private of commerciële partijen. Het omvat ouderenzorg, mantelzorg, thuiszorg, acute zorg, verslavingszorg, psychische zorg, jeugdzorg, en nog veel meer. Op deze pagina vind je mogelijke onderwerpen om te onderzoeken, bronnen, verantwoordelijke overheidsinstanties en relevante private organisaties.
 
 ## Onderwerpen
 
-##### Verzekeringsmaatschappijen
+#### Verzekeringsmaatschappijen
 
 In hoeverre houden verzekeringsmaatschappijen rekening met de regio waarin hun klanten zorg krijgen bij het aanbieden van hun diensten? Verschillen de afspraken tussen verzekeringsmaatschappijen en zorgaanbieders per regio? Zo ja, hoe komt dat?
 
-##### Thuiszorg en mantelzorg
+#### Thuiszorg en mantelzorg
 
 Hoe gaan verschillende regio’s om met thuis- en mantelzorg?
 
-##### Kwaliteit van de zorg
+#### Kwaliteit van de zorg
 
 Zijn er grote verschillen zichtbaar in de zorgkwaliteit van verschillende gemeenten, provincies of regio’s? Zo ja, hoe zijn die verschillende te verklaren? En welk type zorg is het best of slechtst in welke regio?
 
-##### Vergrijzing en toenemende zorgvraag
+#### Vergrijzing en toenemende zorgvraag
 
 Hoe anticiperen verschillende gemeenten, provincies en regio’s op de toenemende zorgvraag als gevolg van vergrijzing? Welke programma’s en diensten hebben lokale overheden (in samenwerking) georganiseerd voor de toenemende zorgvraag?
 
-##### COVID-19 beleid
+#### COVID-19 beleid
 
 Hoe reageerden gemeenten en provincies op de uitbraak van de corona pandemie? Welke (aanvullende) maatregelen namen regio’s ter bestrijding van het virus? Hoe zag de verdeling van corona-patiënten er per regio uit, en hoe is dat te verklaren? Welke lokale initiatieven tegen eenzaamheid, armoede, of voor vaccinatiecampagnes zagen we?
 
-##### Vaccinatiebeleid en vaccinatiegraad
+#### Vaccinatiebeleid en vaccinatiegraad
 
 Wat is de vaccinatiegraad voor corona, HPV, of de griepprik in jouw gemeente of provincie? Welke regio’s blijven achter als het gaat om vaccineren, en waarom? Wat zijn de gevolgen van een regionale lage vaccinatiegraad, bijvoorbeeld in een kleine gemeente?
 
