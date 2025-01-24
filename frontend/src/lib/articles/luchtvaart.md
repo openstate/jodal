@@ -51,6 +51,6 @@ De beveiligingseisen rondom veilige luchtvaart zijn hoog. Wat zijn die eisen voo
 | [Koninklijke Nederlandse Vereniging voor Luchtvaart (KNVvL) ](https://www.knvvl.nl/) | De KNVvL is een vereniging voor plezierluchtvaart en zogeheten luchtsport. |
 
 
-## Bronnen
+<!-- ## Bronnen
 | Naam      | Omschrijving |
-| ---------------------------- | --------------------------------------------------------------------------------------------------------------------- | ------------------- |
+| ---------------------------- | --------------------------------------------------------------------------------------------------------------------- | ------------------- | -->

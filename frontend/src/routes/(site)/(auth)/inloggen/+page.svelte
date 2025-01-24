@@ -4,7 +4,11 @@
   let { form } = $props();
 </script>
 
-<form method="POST" use:enhance class="space-y-4">
+<form
+  method="POST"
+  use:enhance
+  class="max-w-120 m-2 mx-auto mt-20 w-full space-y-4 rounded-lg border border-stone-300 bg-white p-8"
+>
   <h1 class="text-lg font-medium">Inloggen</h1>
 
   {#if form?.success === false}
@@ -30,7 +34,7 @@
   <div class="flex items-center justify-between">
     <a
       href="/wachtwoord-vergeten"
-      class="font-[350] text-stone-500 hover:underline"
+      class="font-[350] text-stone-600 hover:underline"
     >
       Wachtwoord vergeten?
     </a>
@@ -41,3 +45,5 @@
     </button>
   </div>
 </form>
+
+<p class="text-center mt-8 text-stone-600 font-[350]">Nog geen account? <a href="/registreren" class="underline">Registreer</a>.</p>

@@ -87,13 +87,13 @@
 <MakeFeed bind:open={newFeedsOpen} />
 
 <div class="max-w-300 mx-auto grid gap-10 px-6 md:grid-cols-[1fr_20rem]">
-  <div class="grow">
+  <div>
     <form
       onsubmit={(e) => {
         e.preventDefault();
         query.term = new FormData(e.currentTarget).get("zoek") as string;
       }}
-      class="sticky -top-4 z-10 border-b border-stone-300 bg-stone-50 pb-4 pt-8 max-md:-m-4 max-md:w-screen max-md:px-4 md:top-0"
+      class="sticky -top-4 z-10 border-b border-stone-300 bg-stone-50 pb-4 pt-8 max-md:-m-6 max-md:-mb-2 max-md:w-screen max-md:px-6 md:top-0"
     >
       <div
         class="flex w-full items-center rounded-lg border border-stone-300 bg-white outline-0 transition focus-within:border-stone-300"

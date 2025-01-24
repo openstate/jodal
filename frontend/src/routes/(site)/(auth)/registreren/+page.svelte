@@ -4,7 +4,7 @@
   let { form } = $props();
 </script>
 
-<form method="POST" use:enhance class="space-y-4">
+<form method="POST" use:enhance class="max-w-120 m-2 mx-auto mt-20 w-full rounded-lg border border-stone-300 bg-white p-8 space-y-4">
   <h1 class="text-lg font-medium">Registreren</h1>
 
   {#if form?.message}
@@ -37,3 +37,5 @@
     </button>
   </div>
 </form>
+
+<p class="text-center mt-8 text-stone-600 font-[350]">Al een account? <a href="/inloggen" class="underline">Log in</a>.</p>
