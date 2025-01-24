@@ -30,7 +30,7 @@
 >
   <h2 class="mb-2 font-semibold">{document._source.title}</h2>
   {#if document.highlight?.description && document.highlight.description.length > 0}
-    <p class="my-2 line-clamp-5 text-stone-800">
+    <p class="my-2 line-clamp-5 text-stone-800 [word-break:break-word]">
       …{@html document.highlight.description
         ?.join(" … ")
         .replace(/<(?!\/?em\b)[^>]+>/g, "")
