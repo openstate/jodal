@@ -7,6 +7,7 @@
   import Menu_2 from "@tabler/icons-svelte/icons/menu-2";
   import Close from "@tabler/icons-svelte/icons/x";
   import Items from "./items.svelte";
+  import Identity from "./identity.svelte";
 
   let menuOpen = $state(false);
 
@@ -43,12 +44,15 @@
   ]}
 >
   <Items onclick={() => (menuOpen = false)} maxFeeds={3} maxArticles={3} />
+
+  <div class="max-w-100 mt-6">
+    <Identity />
+  </div>
 </div>
 
 <div
-  onclick={() => (menuOpen = false)}
   class={[
     "fixed z-30 h-dvh w-dvw bg-black/50 transition duration-300 lg:hidden",
-    menuOpen ? "" : "pointer-events-none opacity-0",
+    !menuOpen && "pointer-events-none opacity-0",
   ]}
 ></div>

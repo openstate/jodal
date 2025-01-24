@@ -170,13 +170,13 @@
   </div>
   <aside
     class={[
-      "relative pt-8 transition max-md:fixed max-md:inset-0 max-md:top-16 max-md:z-20 md:w-80 md:shrink-0",
+      "relative transition max-md:fixed max-md:inset-0 max-md:top-16 max-md:z-20 md:w-80 md:shrink-0 md:pt-8",
       filtersOpen ? "max-md:bg-black/50" : "max-md:pointer-events-none",
     ]}
   >
     <div
       class={[
-        "max-md:max-w-90 pointer-events-auto h-full space-y-6 overflow-x-visible overflow-y-scroll bg-stone-50 transition duration-300 max-md:ml-auto max-md:border-l max-md:border-stone-300 max-md:p-8 md:fixed md:w-80",
+        "pointer-events-auto h-full space-y-6 overflow-x-visible overflow-y-scroll bg-stone-50 transition duration-300 max-md:ml-auto max-md:max-w-[90vw] max-md:border-l max-md:border-stone-300 max-md:p-8 md:fixed md:w-80",
         !filtersOpen && "max-md:translate-x-full",
       ]}
     >

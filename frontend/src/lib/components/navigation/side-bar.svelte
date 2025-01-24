@@ -1,12 +1,9 @@
 <script lang="ts">
-  import { page } from "$app/state";
-  import { enhance } from "$app/forms";
-
-  import Logout from "@tabler/icons-svelte/icons/logout";
   import BronLogo from "$lib/assets/bron-logo.svg";
   import Items from "./items.svelte";
   import { IconX } from "@tabler/icons-svelte";
   import { onMount } from "svelte";
+  import Identity from "./identity.svelte";
 
   let messageDismissed = $state(true);
 
@@ -36,7 +33,7 @@
   <div class="grid gap-3">
     {#if !messageDismissed}
       <div
-        class="fade-in rounded border border-stone-300 text-stone-800 px-4 py-2 "
+        class="fade-in rounded border border-stone-300 px-4 py-2 text-stone-800"
       >
         <div class="flex items-center justify-between">
           <p class="my-1 font-medium">Welkom bij Bron!</p>
@@ -57,18 +54,7 @@
         </p>
       </div>
     {/if}
-    {#if page.data.identity}
-      <div class="flex rounded border border-stone-300 py-2">
-        <p class="mx-2 grow truncate px-2 font-medium">
-          {page.data.identity.email}
-        </p>
-        <form method="POST" action="/uitloggen" use:enhance class="contents">
-          <button class="shrink-0 cursor-pointer" title="Uitloggen">
-            <Logout class="mx-2 w-5" />
-          </button>
-        </form>
-      </div>
-    {/if}
+    <Identity />
   </div>
 </nav>
 
