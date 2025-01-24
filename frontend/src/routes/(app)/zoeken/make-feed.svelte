@@ -2,6 +2,7 @@
   import Dialog from "$lib/components/dialog.svelte";
   import { getQueryContext } from "./state.svelte";
   import { enhance } from "$app/forms";
+  import { clearCache } from "$lib/fetch";
   // import { allSources } from "$lib/sources";
 
   type Props = { open: boolean };
@@ -36,7 +37,11 @@
   <form
     method="POST"
     action="/feeds"
-    use:enhance
+    use:enhance={() =>
+      ({ update }) => {
+        clearCache("feeds");
+        update();
+      }}
     class="-translate-1/2 absolute left-1/2 top-1/2 w-full max-w-[min(480px,calc(100%_-_48px))] rounded-lg border border-stone-300 bg-white p-6"
   >
     <input type="hidden" name="query" value={query.term} />

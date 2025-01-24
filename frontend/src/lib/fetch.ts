@@ -23,3 +23,5 @@ export const cacheFetch = async <T>(
 
   return result as T;
 };
+
+export const clearCache = (key: string) => cache.delete(key);

@@ -12,8 +12,8 @@ export const actions = {
       body: JSON.stringify({
         name: data.get("name"),
         query: data.get("query"),
-        sources: data.get("sources"),
-        locations: data.get("locations"),
+        sources: data.getAll("sources"),
+        locations: data.getAll("locations"),
       }),
     });
 

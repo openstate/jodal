@@ -188,7 +188,7 @@
       </button>
 
       <button
-        class="flex cursor-pointer items-center gap-2 rounded-lg bg-black px-4 py-3 font-semibold text-white disabled:cursor-auto disabled:opacity-20 max-md:hidden"
+        class="flex cursor-pointer items-center gap-2 rounded-lg bg-black px-4 py-3 font-semibold text-white disabled:cursor-auto disabled:opacity-20 mb-4.5 max-md:hidden"
         onclick={() => (newFeedsOpen = true)}
       >
         <IconBookmarkFilled class="size-5" />
