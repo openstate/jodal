@@ -91,14 +91,13 @@ Hoe is jeugdzorg geregeld in verschillende gemeenten, en wat kunnen we leren van
 | [MOVISIE](https://www.movisie.nl/)                                                                             |                                                                                              |
 
 ## Bronnen
-
-| Bron                                           | Omschrijving                                                                                  | Link                                                                                                 |
-| :--------------------------------------------- | :-------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------- |
-| Zorgkaart Nederland                            | Overzicht van alle zorgaanbieders Nederland                                                   | https://www.zorgkaartnederland.nl/                                                                   |
-| BIG register                                   | Hier moeten zorgverleners zich in registreren                                                 | https://www.bigregister.nl/                                                                          |
-| De gezondheidswet                              | Het wettelijke kader voor het nemen van gezondheidsbevorderende en -beschermende maatregelen. | https://wetten.overheid.nl/BWBR0002202/2025-01-01                                                    |
-| LUMC                                           | Jaarverslagen en -rekeningen                                                                  | https://www.lumc.nl/over-het-lumc/het-lumc/bestuur-en-organisatie/jaarverslagen/                     |
-| Inspectie Gezondheidszorg en Jeugd             | Inspectierapporten                                                                            | https://toezichtdocumenten.igj.nl/                                                                   |
-| Boetes van de Nederlandse Zorgautoriteit (NZa) | bij fusering zonder vooraf goedkeuring te vragen                                              | https://www.nza.nl/actueel/nieuws/2023/11/28/boetes-voor-overnames-zonder-goedkeuring-vooraf-van-nza |
-| Publicaties Sociaal-economische Raad (SER)     | Populatiebrede onderzoeken                                                                    | https://www.ser.nl/nl/Publicaties                                                                    |
-| Publicaties Sociaal en Cultureel Planbureau    | Alle publicaties vanaf 2020 tot heden                                                         | https://www.ser.nl/nl/Publicaties                                                                    |
+| Bron                                                                                                          | Omschrijving                                                                                  |
+| :------------------------------------------------------------------------------------------------------------ | :-------------------------------------------------------------------------------------------- |
+| [Zorgkaart Nederland](https://www.zorgkaartnederland.nl/)                                                    | Overzicht van alle zorgaanbieders Nederland                                                   |
+| [BIG register](https://www.bigregister.nl/)                                                                  | Hier moeten zorgverleners zich in registreren                                                 |
+| [De gezondheidswet](https://wetten.overheid.nl/BWBR0002202/2025-01-01)                                      | Het wettelijke kader voor het nemen van gezondheidsbevorderende en -beschermende maatregelen. |
+| [LUMC](https://www.lumc.nl/over-het-lumc/het-lumc/bestuur-en-organisatie/jaarverslagen/)                    | Jaarverslagen en -rekeningen                                                                  |
+| [Inspectie Gezondheidszorg en Jeugd](https://toezichtdocumenten.igj.nl/)                                    | Inspectierapporten                                                                            |
+| [Boetes van de Nederlandse Zorgautoriteit (NZa)](https://www.nza.nl/actueel/nieuws/2023/11/28/boetes-voor-overnames-zonder-goedkeuring-vooraf-van-nza) | bij fusering zonder vooraf goedkeuring te vragen                                              |
+| [Publicaties Sociaal-economische Raad (SER)](https://www.ser.nl/nl/Publicaties)                              | Populatiebrede onderzoeken                                                                    |
+| [Publicaties Sociaal en Cultureel Planbureau](https://www.ser.nl/nl/Publicaties)                             | Alle publicaties vanaf 2020 tot heden                                                         |
