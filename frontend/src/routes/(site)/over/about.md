@@ -54,7 +54,7 @@ Deze bron omvat algemeen verbindende voorschriften, beleidsregels en andere besl
 
 Deze bron richt zich specifiek op onderzoeken en rapporten van de Rijksoverheid. Alleen documenten van specifieke documentsoorten worden opgenomen, wat de zoekmachine in staat stelt om kwalitatieve en relevante analyses te bieden.
 
-Bron is een dynamisch en voortdurend innoverend platform dat zich inzet voor hoogwaardige informatievoorziening. Dit betekent dat we continu nieuwe bronnen toevoegen en de kwaliteit van bestaande bronnen blijven verbeteren. Mis je specifieke informatie of zie je ruimte voor verbetering? [Neem dan contact op.](#heading-contact)
+Bron is een dynamisch en voortdurend innoverend platform dat zich inzet voor hoogwaardige informatievoorziening. Dit betekent dat we continu nieuwe bronnen toevoegen en de kwaliteit van bestaande bronnen blijven verbeteren. Mis je specifieke informatie of zie je ruimte voor verbetering? [Neem dan contact op.](#heading-neem-contact-op)
 
 
 ## Wie heeft Bron opgezet?
