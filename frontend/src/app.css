@@ -14,3 +14,7 @@
 body {
   background-color: var(--color-stone-50);
 }
+
+* {
+  scroll-margin-top: 5rem;
+}

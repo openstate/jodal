@@ -1,7 +1,7 @@
 <script lang="ts">
   import BronLogo from "$lib/assets/bron-logo.svg?raw";
 
-  let { children } = $props();
+  let { data, children } = $props();
 </script>
 
 <div
@@ -13,19 +13,28 @@
     <a href="/" class="px-5">
       {@html BronLogo}
     </a>
-    <div class="flex gap-2 text-lg">
+    <div class="flex gap-2 md:text-lg">
       <a
-        href="/inloggen"
+        href={data.identity ? "/gids" : "/inloggen"}
         class="flex items-center rounded-full border border-stone-300 px-5 py-2 text-stone-800 transition hover:bg-stone-50 max-sm:hidden"
       >
-        Inloggen
+        {#if data.identity}
+          Ontdekken
+        {:else}
+          Inloggen
+        {/if}
       </a>
       <a
-        href="/registreren"
+        href={data.identity ? "/zoeken" : "/registreren"}
         class="flex items-center rounded-full bg-stone-900 px-6 py-2 font-semibold text-white transition hover:bg-stone-800"
       >
-        <span class="max-sm:hidden">Maak gratis account</span>
-        <span class="sm:hidden">Aanmelden</span>
+        {#if data.identity}
+        <span class="max-sm:hidden">Begin met zoeken</span>
+        <span class="sm:hidden">Zoeken</span>
+        {:else}
+          <span class="max-sm:hidden">Maak gratis account</span>
+          <span class="sm:hidden">Aanmelden</span>
+        {/if}
       </a>
     </div>
   </nav>
@@ -44,7 +53,7 @@
       </a>
       <div class="flex flex-col gap-2 font-semibold">
         <a href="/over">Over Bron</a>
-        <a href="/contact">Contact</a>
+        <a href="/over#heading-neem-contact-op">Contact</a>
         <a href="https://github.com/openstate/jodal" target="_blank">GitHub</a>
       </div>
     </div>

@@ -2,6 +2,7 @@
   import {
     IconBookmarkFilled,
     IconFilter,
+    IconQuestionMark,
     IconSearch,
     IconX,
   } from "@tabler/icons-svelte";
@@ -108,7 +109,7 @@
           value={query.term}
           oninput={(e) => setQueryTerm(e.currentTarget.value)}
         />
-        <button type="submit" class="mx-2 cursor-pointer p-2">
+        <button type="submit" class="mx-2 cursor-pointer p-2 text-stone-700">
           <IconSearch />
         </button>
       </div>
@@ -134,22 +135,30 @@
     </form>
 
     <div class="mt-10 space-y-4 md:mt-6">
-      {#await data.documents}
-        <div
-          class="my-5 h-4 w-36 animate-pulse rounded-lg bg-stone-200 font-medium"
-        ></div>
-      {:then { hits }}
-        <p>
-          {#if hits.total.value === 0}
-            Geen resultaten
-          {:else}
-            {formatNumber(
-              hits.total.value,
-            )}{#if hits.total.relation === "gte"}+{/if}
-            {#if hits.total.value === 1}resultaat{:else}resultaten{/if}
-          {/if}
-        </p>
-      {/await}
+      <div class="flex flex-wrap gap-2 justify-between">
+        {#await data.documents}
+          <div
+            class="my-1 h-4 w-32 animate-pulse rounded-lg bg-stone-200 font-medium"
+          ></div>
+        {:then { hits }}
+          <p>
+            {#if hits.total.value === 0}
+              Geen resultaten
+            {:else}
+              {formatNumber(
+                hits.total.value,
+              )}{#if hits.total.relation === "gte"}+{/if}
+              {#if hits.total.value === 1}resultaat{:else}resultaten{/if}
+            {/if}
+          </p>
+        {/await}
+        <a
+          href="/over"
+          class="text-stone-600 underline transition hover:text-stone-800"
+        >
+          Hoe werkt Bron?
+        </a>
+      </div>
 
       {#each documents as document}
         <Document {document} />
@@ -188,7 +197,7 @@
       </button>
 
       <button
-        class="flex cursor-pointer items-center gap-2 rounded-lg bg-black px-4 py-3 font-semibold text-white disabled:cursor-auto disabled:opacity-20 mb-4.5 max-md:hidden"
+        class="mb-4.5 flex cursor-pointer items-center gap-2 rounded-lg bg-black px-4 py-3 font-semibold text-white disabled:cursor-auto disabled:opacity-20 max-md:hidden"
         onclick={() => (newFeedsOpen = true)}
       >
         <IconBookmarkFilled class="size-5" />
