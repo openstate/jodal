@@ -25,7 +25,7 @@
   }
 </script>
 
-<div class="lg:max-w-300 px-6 py-8 lg:mx-auto">
+<div class="lg:max-w-300 px-6 py-12 lg:mx-auto">
   <h1 class="font-display mb-6 text-2xl font-medium">Jouw feeds</h1>
   <p class="mb-10 text-lg text-stone-700">
     Met feeds blijf je altijd op de hoogte van de nieuwste overheidsdocumenten
@@ -38,15 +38,15 @@
         <thead>
           <tr>
             <th class="px-2 py-4 text-left font-semibold">Naam</th>
-            <th class="px-2 py-4 text-left font-semibold max-md:hidden"
-              >Zoekterm</th
-            >
-            <th class="px-2 py-4 text-left font-semibold max-xl:hidden"
-              >Filters</th
-            >
-            <th class="px-2 py-4 text-left font-semibold max-sm:hidden"
-              >Laatste match</th
-            >
+            <th class="px-2 py-4 text-left font-semibold max-md:hidden">
+              Zoekterm
+            </th>
+            <th class="px-2 py-4 text-left font-semibold max-xl:hidden">
+              Filters
+            </th>
+            <th class="px-2 py-4 text-left font-semibold max-sm:hidden">
+              Laatste match
+            </th>
             <th class="px-2 py-4 text-left font-semibold"></th>
           </tr>
         </thead>
@@ -60,9 +60,12 @@
                 {feed.name}
               </td>
               <td
-                class="border-y border-stone-300 px-2 py-4 group-last-of-type:border-b-0 max-md:hidden"
+                class={[
+                  "border-y border-stone-300 px-2 py-4 group-last-of-type:border-b-0 max-md:hidden",
+                  feed.query.length === 0 && "text-stone-500",
+                ]}
               >
-                {feed.query}
+                {#if feed.query.length > 0}{feed.query}{:else}Geen zoekterm{/if}
               </td>
               <td
                 class="border-y border-stone-300 px-2 py-4 group-last-of-type:border-b-0 max-xl:hidden"
@@ -81,13 +84,13 @@
                 {/await}
               </td>
               <td
-                class="border-y border-stone-300 px-2 py-4 pr-5 font-semibold text-blue-700 group-last-of-type:border-b-0"
+                class="border-y border-stone-300 px-2 py-4 pr-5 font-semibold group-last-of-type:border-b-0"
               >
                 <a
                   href="/feeds/{feed.public_id}"
-                  class="ml-auto flex w-fit cursor-pointer items-center gap-1 rounded-lg bg-blue-100 px-3 py-1.5 pr-4 transition hover:bg-blue-100"
+                  class="ml-auto flex w-fit cursor-pointer items-center gap-2 rounded-lg bg-black text-white px-3 py-1.5 pr-4 transition hover:bg-stone-800"
                 >
-                  <IconArrowNarrowRight />
+                  <IconArrowNarrowRight class="w-5" />
                   Bekijken
                 </a>
               </td>

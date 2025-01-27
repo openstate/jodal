@@ -4,6 +4,7 @@ from functools import wraps
 from flask import request, session
 import flask_restful
 from flask_restful import Resource
+import requests
 
 from app.extensions import db
 from app.models import Column, Asset, Feed
@@ -63,6 +64,40 @@ class FeedResource(Resource):
         db.session.commit()
         return '', 204
 
+def build_subscription_query(sources, locations, user_query):
+    clauses = []
+
+    # Handle sources
+    if sources:
+        sources_part = [
+            {"term": {"data.key": "source"}},
+            {"terms": {"data.value": sources}}
+        ]
+        clauses.append({
+            "nested": { "path": "data", "query": { "bool": { "must": sources_part } } }
+        })
+
+    # Handle locations
+    if locations:
+        locations_part = [
+            {"term": {"data.key": "location"}},
+            {"terms": {"data.value": locations}}
+        ]
+        clauses.append({
+            "nested": { "path": "data", "query": { "bool": { "must": locations_part } } }
+        })
+
+    # Add user query
+    clauses.append({
+        "simple_query_string": {
+            "fields": ["title", "description"],
+            "query": user_query,
+            "default_operator": "and"
+        }
+    })
+
+    return { "query": { "bool": { "must": clauses } } }
+
 class FeedListResource(Resource):
     method_decorators = [authenticate]
 
@@ -73,15 +108,37 @@ class FeedListResource(Resource):
         return feeds_schema.dump(feeds)
 
     def post(self):
+        data = request.json
+        send_binoas = data['frequency'] != "NONE"
         user_id = session['user']['sub']
+
+        binoas_feed = {}
+        if send_binoas:
+            query = build_subscription_query(data['sources'], data['locations'], data['query'])
+
+            binoas_feed = requests.post(
+                'http://binoas.openstate.eu/subscriptions/new',
+                json={
+                    "application": "ood",
+                    "email": session['user']['email'],
+                    "frequency": data['frequency'],
+                    "description": data['name'],
+                    "query": query
+                }
+            ).json()
+
         new_feed = Feed(
             public_id=generate(NANOID_ALPHABET, 12),
             user_id=user_id,
-            name=request.json['name'],
-            query=request.json['query'],
-            locations=",".join(request.json['locations']),
-            sources=",".join(request.json['sources'])
+            name=data['name'],
+            query=data['query'],
+            locations=",".join(data['locations']),
+            sources=",".join(data['sources']),
+            binoas_feed_id=binoas_feed.get('query', {}).get('id'),
+            binoas_user_id=binoas_feed.get('user', {}).get('id'),
+            binoas_frequency=data['frequency'] if send_binoas else None
         )
+
         db.session.add(new_feed)
         db.session.commit()
         return feed_schema.dump(new_feed)

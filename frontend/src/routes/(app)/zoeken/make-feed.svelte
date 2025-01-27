@@ -78,7 +78,7 @@
         Ontvang een mail als we nieuwe documenten gevonden hebben.
       </p>
       <select
-        name="notifications"
+        name="frequency"
         bind:value={selected}
         required
         class={[
@@ -87,11 +87,10 @@
         ]}
       >
         <option disabled selected value="">Kies een optie...</option>
-        <option value="none">Geen meldingen</option>
-        <option value="immediate">Directe meldingen</option>
-        <option value="hourly">Uurlijkse meldingen</option>
-        <option value="daily">Dagelijkse meldingen</option>
-        <option value="weekly">Wekelijkse meldingen</option>
+        <option value="NONE">Geen meldingen</option>
+        <option value="IMMEDIATE">Directe meldingen</option>
+        <option value="1d">Dagelijkse meldingen</option>
+        <option value="1w">Wekelijkse meldingen</option>
       </select>
     </label>
     <!-- <div

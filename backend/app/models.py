@@ -10,9 +10,12 @@ class Feed(db.Model):
     public_id = db.Column('public_id', db.String(12), unique=True, index=True, nullable=False)
     user_id = db.Column('user_id', BinaryUUID())
     name = db.Column('name', db.String(100), nullable=False)
-    query = db.Column('query', db.String(100), nullable=False)
+    query = db.Column('query', db.String(1024), nullable=False)
     locations = db.Column('locations', db.String(1024), default='', nullable=False)
     sources = db.Column('sources', db.String(1024), default='', nullable=False)
+    binoas_frequency = db.Column('binoas_frequency', db.String(100), nullable=True)
+    binoas_feed_id = db.Column('binoas_feed_id', db.String(100), nullable=True)
+    binoas_user_id = db.Column('binoas_user_id', db.Integer, nullable=True)
 
 class Column(db.Model):
     __tablename__ = 'column'

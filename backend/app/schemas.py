@@ -44,7 +44,7 @@ class ObjectField(fields.Field):
 
 class FeedSchema(ma.Schema):
     class Meta:
-        fields = ("id", "public_id", "user_id", "name", "query", "locations", "sources")
+        fields = ("id", "public_id", "user_id", "name", "query", "locations", "sources", "binoas_feed_id", "binoas_user_id", "binoas_frequency")
         model = Feed
 
     locations = ListField()
