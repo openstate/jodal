@@ -9,7 +9,10 @@
   let { open = $bindable() }: Props = $props();
 
   const query = getQueryContext();
+
+  let name = $state("");
   let selected = $state("");
+  let disabled = $derived(!name || !selected);
 
   // let pluralize = (n: number, singular: string, plural: string) =>
   //   n + " " + (n === 1 ? singular : plural);
@@ -63,6 +66,8 @@
       <input
         name="name"
         type="text"
+        bind:value={name}
+        required
         placeholder="Geef je feed een naam..."
         class="w-full rounded border border-stone-300 px-3 py-2 text-stone-700 outline-0 focus:border-stone-300"
       />
@@ -75,6 +80,7 @@
       <select
         name="notifications"
         bind:value={selected}
+        required
         class={[
           "w-full rounded border border-stone-300 px-3 py-2.5 outline-0 focus:border-stone-300",
           selected ? "text-stone-700" : "text-stone-700/50",
@@ -106,7 +112,8 @@
       </button>
       <button
         type="submit"
-        class="cursor-pointer rounded-lg bg-black px-4 py-3 font-semibold text-white disabled:opacity-50"
+        class="cursor-pointer rounded-lg bg-black px-4 py-3 font-semibold text-white disabled:cursor-not-allowed disabled:opacity-50"
+        {disabled}
       >
         Aanmaken
       </button>

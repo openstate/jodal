@@ -4,8 +4,20 @@
   let { form } = $props();
 </script>
 
-<form method="POST" use:enhance class="max-w-120 m-2 mx-auto mt-20 w-full rounded-lg border border-stone-300 bg-white p-8 space-y-4">
-  <h1 class="text-lg font-medium">Registreren</h1>
+<form
+  method="POST"
+  use:enhance
+  class="max-w-120 m-2 mx-auto mt-20 grid w-full gap-y-4 rounded-lg border border-stone-300 bg-white p-8"
+>
+  <div class="mb-2">
+    <h1 class="mb-2 text-lg font-medium">Registreren</h1>
+
+    <p class="text-stone-700">
+      Met een gratis Bron-account kun je oneindig vaak documenten uit alle
+      bestuurslagen doorzoeken en blijf je via feeds altijd op de hoogte van
+      nieuwe documenten.
+    </p>
+  </div>
 
   {#if form?.message}
     <div
@@ -26,7 +38,7 @@
   <input
     type="password"
     name="password"
-    placeholder="Wachtwoord"
+    placeholder="Nieuw wachtwoord"
     class="w-full rounded border border-stone-300 px-4 py-3 focus:border-stone-400 focus:outline-0"
   />
   <div class="flex justify-end">
@@ -38,4 +50,6 @@
   </div>
 </form>
 
-<p class="text-center mt-8 text-stone-600 font-[350]">Al een account? <a href="/inloggen" class="underline">Log in</a>.</p>
+<p class="mt-8 text-center font-[350] text-stone-600">
+  Al een account? <a href="/inloggen" class="underline">Log in</a>.
+</p>

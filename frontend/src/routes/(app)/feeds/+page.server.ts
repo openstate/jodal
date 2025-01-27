@@ -19,6 +19,10 @@ export const actions = {
 
     const feed = await response.json();
 
+    if (response.status === 401) {
+      throw redirect(307, "/registreren");
+    }
+
     throw redirect(307, `/feeds/${feed.public_id}`);
   },
 } satisfies Actions;
