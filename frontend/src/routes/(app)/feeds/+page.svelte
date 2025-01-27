@@ -25,6 +25,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>Feeds &ndash; Bron</title>
+</svelte:head>
+
 <div class="lg:max-w-300 px-6 py-12 lg:mx-auto">
   <h1 class="font-display mb-6 text-2xl font-medium">Jouw feeds</h1>
   <p class="mb-10 text-lg text-stone-700">
@@ -88,7 +92,7 @@
               >
                 <a
                   href="/feeds/{feed.public_id}"
-                  class="ml-auto flex w-fit cursor-pointer items-center gap-2 rounded-lg bg-black text-white px-3 py-1.5 pr-4 transition hover:bg-stone-800"
+                  class="ml-auto flex w-fit cursor-pointer items-center gap-2 rounded-lg bg-black px-3 py-1.5 pr-4 text-white transition hover:bg-stone-800"
                 >
                   <IconArrowNarrowRight class="w-5" />
                   Bekijken

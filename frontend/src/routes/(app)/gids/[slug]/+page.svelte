@@ -1,9 +1,13 @@
 <script lang="ts">
   import { page } from "$app/state";
-    import ArrowRight from "@tabler/icons-svelte/icons/arrow-right";
+  import ArrowRight from "@tabler/icons-svelte/icons/arrow-right";
 
   let { data } = $props();
 </script>
+
+<svelte:head>
+  <title>{data.attributes.title} &ndash; Bron</title>
+</svelte:head>
 
 <div class="relative mb-6 h-80">
   <img
@@ -78,7 +82,7 @@
       {#each data.attributes.feeds as feed}
         <a
           href="/zoeken?zoek={feed}"
-          class="ml-au flex w-fit items-center gap-2 rounded-full capitalize bg-blue-100 px-3 py-0.5 text-blue-900"
+          class="ml-au flex w-fit items-center gap-2 rounded-full bg-blue-100 px-3 py-0.5 capitalize text-blue-900"
         >
           <ArrowRight class="size-4" /> {feed}</a
         >

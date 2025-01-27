@@ -29,8 +29,8 @@
         class="flex items-center rounded-full bg-stone-900 px-6 py-2 font-semibold text-white transition hover:bg-stone-800"
       >
         {#if data.identity}
-        <span class="max-sm:hidden">Begin met zoeken</span>
-        <span class="sm:hidden">Zoeken</span>
+          <span class="max-sm:hidden">Begin met zoeken</span>
+          <span class="sm:hidden">Zoeken</span>
         {:else}
           <span class="max-sm:hidden">Maak gratis account</span>
           <span class="sm:hidden">Aanmelden</span>

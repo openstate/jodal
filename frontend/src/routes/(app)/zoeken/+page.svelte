@@ -85,6 +85,10 @@
   $inspect(isLoading);
 </script>
 
+<svelte:head>
+  <title>Zoeken &ndash; Bron</title>
+</svelte:head>
+
 <MakeFeed bind:open={newFeedsOpen} />
 
 <div class="max-w-300 mx-auto grid gap-10 px-6 md:grid-cols-[1fr_20rem]">
@@ -135,7 +139,7 @@
     </form>
 
     <div class="mt-10 space-y-4 md:mt-6">
-      <div class="flex flex-wrap gap-2 justify-between">
+      <div class="flex flex-wrap justify-between gap-2">
         {#await data.documents}
           <div
             class="my-1 h-4 w-32 animate-pulse rounded-lg bg-stone-200 font-medium"

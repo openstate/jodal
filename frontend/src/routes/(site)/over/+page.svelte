@@ -4,6 +4,10 @@
   let { data } = $props();
 </script>
 
+<svelte:head>
+  <title>Over &ndash; Bron</title>
+</svelte:head>
+
 <header class="h-100 md:h-120 relative overflow-hidden">
   <enhanced:img
     src="$lib/assets/hero.png?quality=90"
@@ -37,7 +41,9 @@
   >
     <h2 class="mb-3 text-lg font-bold">Op deze pagina</h2>
 
-    <ul class="flex list-inside list-disc max-lg:flex-wrap lg:flex-col gap-x-6 gap-y-3">
+    <ul
+      class="flex list-inside list-disc gap-x-6 gap-y-3 max-lg:flex-wrap lg:flex-col"
+    >
       {#each data.headings as heading}
         <li>
           <a href="#{heading.id}" class="text-stone-800 underline">
