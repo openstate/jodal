@@ -4,8 +4,8 @@ const examples = [
     query: "windmolens&organisaties=PV27",
   },
   {
-    name: "Sociale huur in Rotterdam",
-    query: '"sociale huur"&organisaties=GM0599',
+    name: "Sociale huur in Zoetermeer",
+    query: "sociale huur&organisaties=GM0637",
   },
   {
     name: "Onderwijs in Utrecht",
@@ -17,20 +17,15 @@ const examples = [
   },
   {
     name: "Fietsbeleid in Amsterdam",
-    query:
-      "fiets&organisaties=GM0363,GM0363S56,GM0363S90,GM0363S10,GM0363S88,GM0363S91,GM0363S89,GM0363S17",
+    query: "fiets&organisaties=GM0363",
   },
   {
-    name: "Waterveiligheid in Zeeland",
-    query: "waterveiligheid&organisaties=PV29",
+    name: "Haven in Rotterdam",
+    query: "haven&organisaties=GM0599",
   },
   {
-    name: "Monumenten in Leiden",
-    query: "monumenten&organisaties=GM0546",
-  },
-  {
-    name: "Bosbeheer in Gelderland",
-    query: "bosbeheer&organisaties=PV25",
+    name: "Monumenten in Groningen",
+    query: "monumenten&organisaties=GM0014",
   },
   {
     name: "Toerisme op Texel",
@@ -41,24 +36,45 @@ const examples = [
     query: "cultuur&organisaties=GM0935",
   },
   {
-    name: "Toegankelijkheid",
-    query: "toegankelijkheid",
+    name: "Bouw in Den Haag",
+    query: "Bouw&organisaties=GM0518",
   },
   {
-    name: "Cybercrime",
-    query: "cybercrime",
+    name: "Mobiliteit in Breda",
+    query: "mobiliteit&organisaties=GM0758",
+  },
+
+  {
+    name: "Veiligheid in Zwolle",
+    query: "veiligheid&organisaties=GM0193",
   },
   {
-    name: "Luchtkwaliteit",
-    query: 'luchtkwaliteit',
+    name: "Natuur in Zutphen",
+    query: "natuur&organisaties=GM0301",
+  },
+  {
+    name: "Werkgelegenheid",
+    query: "werkgelegenheid",
+  },
+  {
+    name: "Toegankelijkheid in Enschede",
+    query: "toegankelijkheid&organisaties=GM0153",
+  },
+  {
+    name: "Luchtkwaliteit in Rheden",
+    query: "luchtkwaliteit&organisaties=GM0275",
+  },
+  {
+    name: "Digitalisering in Apeldoorn",
+    query: "digitalisering&organisaties=GM0200",
   },
   {
     name: "Zwerfafval",
     query: "zwerfafval",
   },
   {
-    name: "Digitalisering",
-    query: "digitalisering",
+    name: "Cybercrime",
+    query: "cybercrime",
   },
   {
     name: "Verkeersveiligheid",
@@ -83,22 +99,6 @@ const examples = [
   {
     name: "Energietransitie",
     query: "energietransitie",
-  },
-  {
-    name: "Woningbouw in Den Haag",
-    query: "woningbouw&organisaties=GM0518",
-  },
-  {
-    name: "Mobiliteit in Breda",
-    query: "mobiliteit&organisaties=GM0758",
-  },
-  {
-    name: "Werkgelegenheid",
-    query: "werkgelegenheid",
-  },
-  {
-    name: "Veiligheid in Zwolle",
-    query: "veiligheid&organisaties=GM0193",
   },
 ];
 
