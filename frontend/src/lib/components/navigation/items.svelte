@@ -16,6 +16,7 @@
 {#snippet link(href: string, label: string, Icon: typeof Search)}
   <a
     class="mx-2 flex items-center gap-2.5 rounded px-2 py-2 transition-colors hover:bg-stone-100"
+    target={href.startsWith("//") ? "_blank" : undefined}
     {onclick}
     {href}
   >
