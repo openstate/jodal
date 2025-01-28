@@ -37,12 +37,12 @@
   </article>
 
   <div
-    class="max-lg:order-0 h-fit rounded border border-stone-300 bg-white p-6 text-stone-700"
+    class="max-lg:hidden h-fit rounded border border-stone-300 bg-white p-6 text-stone-700"
   >
     <h2 class="mb-3 text-lg font-bold">Op deze pagina</h2>
 
     <ul
-      class="flex list-inside list-disc gap-x-6 gap-y-3 max-lg:flex-wrap lg:flex-col"
+      class="grid list-inside list-disc gap-3"
     >
       {#each data.headings as heading}
         <li>
