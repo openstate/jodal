@@ -34,7 +34,7 @@ De grootste databron in onze zoekmachine is Openbesluitvorming.nl, met meer dan 
 
 Voor journalisten biedt Openbesluitvorming.nl een uniek en diepgaand inzicht in het besluitvormingsproces op lokaal niveau. Het is dé sleutel tot het blootleggen van belangrijke ontwikkelingen en het controleren van macht op het niveau waar beleid direct invloed heeft op burgers. Met deze bron heb je toegang tot cruciale informatie om verhalen scherp, relevant en volledig te maken.
 
-1. **PoliFLW**
+2. **PoliFLW**
 
 PoliFLW verzamelt artikelen van nieuwspagina’s en blogs van politieke partijen, waarmee inzicht wordt gegeven in de actuele focus van partijen en hun aanpak van maatschappelijke vraagstukken. Met meer dan 500.000 artikelen, afkomstig van ruim 3.000 bronnen zoals websites en Facebookpagina’s van lokale politieke partijen, biedt deze bron een rijke historische en actuele context.
 
@@ -42,15 +42,15 @@ PoliFLW verzamelt artikelen van nieuwspagina’s en blogs van politieke partijen
 
 Deze bron omvat de officiële publicaties van het Staatsblad, de Staatscourant, het Tractatenblad, en diverse regionale bladen zoals Gemeentebladen en Provinciale bladen. Ook parlementaire publicaties worden hier opgenomen. De informatie wordt rechtstreeks ingeladen van Officiëlebekendmakingen.nl, wat zorgt voor een betrouwbare en up-to-date weergave van regelgeving en besluiten.
 
-4. **Woo-besluiten** (via Woogle)
+<!-- 4. **Woo-besluiten** (via Woogle)
 
-Woo-besluiten (Wet open overheid) worden via Woogle verzameld. Deze besluiten zijn afkomstig van gemeentelijke websites en bieden inzicht in documenten die door middel van Woo-verzoeken openbaar zijn gemaakt.
+Woo-besluiten (Wet open overheid) worden via Woogle verzameld. Deze besluiten zijn afkomstig van gemeentelijke websites en bieden inzicht in documenten die door middel van Woo-verzoeken openbaar zijn gemaakt. -->
 
-5. **Lokale wet- en regelgeving** (Overheid.nl)
+4. **Lokale wet- en regelgeving** (Overheid.nl)
 
 Deze bron omvat algemeen verbindende voorschriften, beleidsregels en andere besluiten van lokale overheden. De gegevens worden ingeladen van Overheid.nl en bieden een gedetailleerd overzicht van de regelgeving op lokaal niveau.
 
-6. **Rapporten van Ministeries** (Overheid.nl)
+5. **Rapporten van Ministeries** (Overheid.nl)
 
 Deze bron richt zich specifiek op onderzoeken en rapporten van de Rijksoverheid. Alleen documenten van specifieke documentsoorten worden opgenomen, wat de zoekmachine in staat stelt om kwalitatieve en relevante analyses te bieden.
 
