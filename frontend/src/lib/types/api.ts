@@ -79,4 +79,7 @@ export type FeedResponse = {
   name: string;
   locations: string[];
   sources: string[];
+  binoas_feed_id: string;
+  binoas_user_id: number;
+  binoas_frequency: string | null;
 };

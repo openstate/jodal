@@ -8,13 +8,13 @@
   let messageDismissed = $state(true);
 
   onMount(() => {
-    if (!localStorage.getItem("bron-welcome-message-dismissed")) {
+    if (!sessionStorage.getItem("bron-welcome-message-dismissed")) {
       messageDismissed = false;
     }
   });
 
   let dismissMessage = () => {
-    localStorage.setItem("bron-welcome-message-dismissed", "true");
+    sessionStorage.setItem("bron-welcome-message-dismissed", "true");
     messageDismissed = true;
   };
 

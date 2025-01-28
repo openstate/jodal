@@ -60,6 +60,15 @@ class FeedResource(Resource):
         user_id = session['user']['sub']
         stmt = select(Feed).where(Feed.user_id==user_id, Feed.public_id==feed_id)
         feed = db.session.execute(stmt).scalar()
+
+        resp = requests.delete(
+            f'http://binoas.openstate.eu/subscriptions/delete',
+            json={ "user_id": feed.binoas_user_id, "query_id": feed.binoas_feed_id }
+        )
+
+        if resp.status_code != 200:
+            return 'Error deleting from Binoas', 500
+
         db.session.delete(feed)
         db.session.commit()
         return '', 204

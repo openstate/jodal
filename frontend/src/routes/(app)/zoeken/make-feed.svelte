@@ -3,7 +3,6 @@
   import { getQueryContext } from "./state.svelte";
   import { enhance } from "$app/forms";
   import { clearCache } from "$lib/fetch";
-  // import { allSources } from "$lib/sources";
 
   type Props = { open: boolean };
   let { open = $bindable() }: Props = $props();
@@ -13,27 +12,6 @@
   let name = $state("");
   let selected = $state("");
   let disabled = $derived(!name || !selected);
-
-  // let pluralize = (n: number, singular: string, plural: string) =>
-  //   n + " " + (n === 1 ? singular : plural);
-
-  // let queryDescription = $derived.by(() => {
-  //   let documents =
-  //     query.term === ""
-  //       ? "alle documenten"
-  //       : `documenten met de term "${query.term}"`;
-
-  //   let sources = [0, allSources.length].includes(query.sources.length)
-  //     ? "alle bronnen"
-  //     : pluralize(query.sources.length, "bron", "bronnen");
-
-  //   let organisations =
-  //     query.organisations.length === 0
-  //       ? "alle organisaties"
-  //       : pluralize(query.organisations.length, "organisatie", "organisaties");
-
-  //   return `${documents} uit ${sources} van ${organisations}`;
-  // });
 </script>
 
 <Dialog bind:open>

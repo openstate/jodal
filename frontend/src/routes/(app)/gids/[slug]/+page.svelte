@@ -19,7 +19,7 @@
   <div
     class="backdrop-blur-xs absolute inset-0 bg-gradient-to-t from-black/70 from-20% to-black/10"
   ></div>
-  <div class="absolute bottom-12 left-1/2 -translate-x-1/2 sm:bottom-16">
+  <div class="absolute bottom-12 left-1/2 -translate-x-1/2 xl:[translate:calc(-12.25rem_-_50%)_0] sm:bottom-16">
     <h1 class="font-display mb-4 text-center text-4xl text-white">
       {data.attributes.title}
     </h1>

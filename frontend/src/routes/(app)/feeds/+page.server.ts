@@ -1,8 +1,16 @@
 import { API_URL } from "$lib/loaders";
 import { redirect, type Actions } from "@sveltejs/kit";
 
+const getFormArray = (data: FormData, key: string) => {
+  const value = data.get(key);
+  if (typeof value !== "string") return [];
+  return value.split(",").filter((item) => item !== "");
+};
+
 export const actions = {
-  default: async ({ fetch, request }) => {
+  default: async ({ fetch, request, locals }) => {
+    if (!locals.identity) throw redirect(307, "/registreren");
+
     const data = await request.formData();
 
     let frequency = data.get("frequency");
@@ -11,8 +19,8 @@ export const actions = {
     const body = JSON.stringify({
       name: data.get("name"),
       query: data.get("query"),
-      sources: data.getAll("sources"),
-      locations: data.getAll("locations"),
+      sources: getFormArray(data, "sources"),
+      locations: getFormArray(data, "locations"),
       frequency,
     });
 
