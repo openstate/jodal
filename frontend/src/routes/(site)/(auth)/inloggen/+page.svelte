@@ -43,11 +43,13 @@
       Wachtwoord vergeten?
     </a>
     <button
-      class="pt-1.75 cursor-pointer rounded-lg bg-black px-4 pb-2 font-bold text-white"
+      class="pt-1.75 cursor-pointer rounded-lg bg-stone-900 px-4 pb-2 font-bold text-white transition hover:bg-stone-800"
     >
       Log in
     </button>
   </div>
 </form>
 
-<p class="text-center mt-8 text-stone-600 font-[350]">Nog geen account? <a href="/registreren" class="underline">Registreer</a>.</p>
+<p class="mt-8 text-center font-[350] text-stone-600">
+  Nog geen account? <a href="/registreren" class="underline">Registreer</a>.
+</p>

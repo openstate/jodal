@@ -130,11 +130,9 @@ def api_logout():
 @users_bp.route("/users/verify", methods=["GET"])
 def api_verify():
     client = setup_fa()
-    clients_response = client.verify_registration(request.args.get('id'))
-    if clients_response.was_successful():
-        return redirect(app.config['JODAL_URL'])
-    else:
-        return jsonify({"error": "Some kind of error: %s" % (clients_response.error_response,)}), 400
+    clients_response = client.verify_email(request.args.get('id'))
+    success = clients_response.was_successful()
+    return jsonify({ "success": success }), 200 if success else 400
 
 @users_bp.route("/users/simple/me")
 def do_me():

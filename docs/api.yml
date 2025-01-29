@@ -303,16 +303,18 @@ paths:
         required: true
         example: "6e11ceb9-2b26-4c40-b399-182d4f9b97b6"
       responses:
-        301:
-          description: "The user was verified successfully. Redirect to front page."
+        200:
+          description: "The user was verified successfully."
+          schema:
+            type: "object"
+            success:
+              type: "boolean"
         400:
           description: "Something went wrong verifying the user."
           schema:
             type: "object"
-            error:
-              type: "string"
-          examples:
-            application/json: {"error": "Something went wrong."}
+            success:
+              type: "boolean"
   /users/logout:
     post:
       tags:

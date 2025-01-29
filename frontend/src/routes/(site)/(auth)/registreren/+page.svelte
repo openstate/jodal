@@ -47,7 +47,7 @@
   />
   <div class="flex justify-end">
     <button
-      class="pt-1.75 cursor-pointer rounded-lg bg-black px-4 pb-2 font-bold text-white"
+      class="pt-1.75 cursor-pointer rounded-lg bg-stone-900 px-4 pb-2 font-bold text-white transition hover:bg-stone-800"
     >
       Registreer
     </button>

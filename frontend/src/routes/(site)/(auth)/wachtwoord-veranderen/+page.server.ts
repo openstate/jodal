@@ -16,6 +16,9 @@ export const actions = {
         message: 'Er is iets misgegaan. Probeer het opnieuw.',
       });
 
-    return redirect(307, '/zoeken');
+    return {
+      success: true,
+      message: 'Je hebt je wachtwoord veranderd.',
+    }
   },
 } satisfies Actions;
