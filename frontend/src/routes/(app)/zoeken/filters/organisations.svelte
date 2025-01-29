@@ -2,6 +2,7 @@
   import { getQueryContext } from "../state.svelte";
   import type { PageData } from "../$types";
   import Fuse from "fuse.js";
+  import type { LocationResponse } from "$lib/types/api";
 
   let { data }: { data: PageData } = $props();
 
@@ -12,13 +13,20 @@
 
   let showMore = $state(false);
 
+  function getOrganisationName(hit: LocationResponse["hits"]["hits"][number]) {
+    return hit._source.kind === "municipality" &&
+      !hit._source.name.startsWith("Alle")
+      ? `Gemeente ${hit._source.name}`
+      : hit._source.name;
+  }
+
   const items = $derived(
     data.locations.hits.hits
       .map((hit) => ({
         value: hit._source.id,
-        label: hit._source.name,
+        label: getOrganisationName(hit),
       }))
-      .toSorted((a, b) => {
+      .sort((a, b) => {
         const [allA, allB] = [a, b].map((i) => i.label.startsWith("Alle"));
         if (allA && !allB) return -1;
         if (!allA && allB) return 1;

@@ -82,7 +82,7 @@
     if (v !== query.term) query.term = v;
   }, 500);
 
-  $inspect(isLoading);
+  $inspect(data.locations);
 </script>
 
 <svelte:head>
