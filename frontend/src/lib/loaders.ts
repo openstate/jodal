@@ -36,6 +36,17 @@ export async function fetchDocuments(
   );
 }
 
+export async function fetchDocument(
+  event: Pick<LoadEvent, "fetch" | "params">,
+) {
+  const id = event.params.id;
+  if (!id) return;
+
+  return cacheFetch<DocumentResponse>(`document:${id}`, () =>
+    event.fetch(API_URL + `/documents/search?query=id:${id}`),
+  );
+}
+
 export async function fetchAggregations(
   event: Pick<LoadEvent, "fetch" | "url"> & {
     locations: LocationResponse;

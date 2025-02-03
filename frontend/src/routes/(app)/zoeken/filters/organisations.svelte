@@ -28,9 +28,7 @@
       }))
       .sort((a, b) => {
         const [allA, allB] = [a, b].map((i) => i.label.startsWith("Alle"));
-        if (allA && !allB) return -1;
-        if (!allA && allB) return 1;
-        return 0;
+        return Number(allA) - Number(allB);
       }),
   );
 

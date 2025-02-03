@@ -81,8 +81,6 @@
   const setQueryTerm = debounce((v) => {
     if (v !== query.term) query.term = v;
   }, 500);
-
-  $inspect(data.locations);
 </script>
 
 <svelte:head>
