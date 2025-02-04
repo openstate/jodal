@@ -11,7 +11,7 @@
     Onderzoek nieuwe onderwerpen
   </h2>
   <h3 class="max-w-150 mx-auto text-center text-xl text-stone-500">
-    Ontdek nieuwe onderwerpen en abonneer je op gecureerde feeds
+    Ontdek nieuwe onderwerpen en volg gerelateerde feeds.
   </h3>
 
   <div class="max-w-300 mx-auto my-16 grid gap-6 md:grid-cols-3">

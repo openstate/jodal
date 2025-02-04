@@ -4,7 +4,7 @@
 
 <article class="my-30 px-6 text-stone-800">
   <h2 class="font-display mb-4 text-balance text-center text-4xl">
-    Mis nooit meer dat ene document
+    Sluit je aan bij Bron
   </h2>
 
   <h3

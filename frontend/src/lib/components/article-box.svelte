@@ -21,7 +21,7 @@
     <img
       src={image}
       alt={title}
-      class="h-32 w-full rounded-t-2xl object-cover opacity-75 transition group-hover:opacity-90"
+      class="h-36 w-full rounded-t-2xl object-cover opacity-75 transition group-hover:opacity-90"
       loading="lazy"
     />
   </div>

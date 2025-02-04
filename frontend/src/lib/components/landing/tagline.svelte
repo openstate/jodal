@@ -1,25 +1,23 @@
-<article class="space-y-10 bg-stone-900 py-14 text-lg text-white">
-  <p class="max-w-200 mx-auto text-balance px-6 sm:text-center">
-    Journalisten zijn de waakhonden van onze democratie, maar de versnipperde
-    toegang tot overheidsinformatie brengt kwaliteitsjournalistiek in gevaar.
-    Bron verandert dat. Wij zorgen voor een revolutie in hoe informatie
-    toegankelijk wordt gemaakt.
-  </p>
+<script lang="ts">
+  import { IconArrowNarrowRight, IconArrowRight } from "@tabler/icons-svelte";
+</script>
 
-  <div
-    class="max-w-200 max-sm:max-w-100 mx-auto flex max-sm:flex-wrap items-center justify-center gap-10 px-6 font-semibold"
-  >
-    <a href="/over" class="cursor-pointer font-bold hover:underline">
-      Hoe werkt Bron?
-    </a>
+<article class="space-y-10 bg-stone-900 px-6 py-14 text-lg text-white">
+  <div class="max-w-200 relative mx-auto px-4">
+    <p class="text-balance sm:text-center">
+      Journalisten zijn de waakhonden van onze democratie, maar de versnipperde
+      toegang tot overheidsinformatie brengt kwaliteitsjournalistiek in gevaar.
+      Bron verandert dat. Wij zorgen voor een revolutie in hoe informatie
+      toegankelijk wordt gemaakt.
+    </p>
+  </div>
+  <div class="max-w-150 relative mx-auto px-4">
+    <hr class="border-white opacity-20" />
     <a
-      href="/registreren"
-      class="cursor-pointer max-sm:order-last rounded-full bg-white px-6 py-2.5 text-stone-800 transition hover:bg-stone-200"
+      href="/over"
+      class="-translate-1/2 absolute left-1/2 top-1/2 block w-max bg-stone-900 px-6 text-lg font-bold hover:underline"
     >
-      Sluit je aan
-    </a>
-    <a href="/over" class="cursor-pointer font-bold hover:underline">
-      Wat beweegt ons?
+      Ontdek meer...
     </a>
   </div>
 </article>
