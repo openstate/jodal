@@ -9,7 +9,7 @@ export default defineConfig({
   server: {
     port: 3000,
     hmr: {
-      host: "app.bron.live",
+      host: "bron.live",
     },
     fs: {
       allow: ["static"],
