@@ -6,7 +6,7 @@ Bij Bron kennen we maar al te goed de frustratie waar journalisten mee te maken 
 
 Als zusje van [Open State Foundation](https://openstate.eu/nl) is onze missie het bijdragen aan een controleerbare en vitale democratie. Journalisten staan aan de frontlinie als het aankomt op het controleren van de overheid. Een vrije pers die toegang heeft tot informatie brengt het publieke debat op gang en zorgt voor een actieve maatschappij. Zo wordt de overheid verantwoordelijk gehouden en uiteindelijk sterker en weerbaarder.
 
-Bron staat voor openheid; in de maatschappij maar ook in onze eigen organisatie. We werken open source, want publieke informatie is van iedereen. We zijn open over de beperkingen van Bron, juist omdat we altijd willen vernieuwen en groeien. Dit doen we graag met jou als journalist samen. Bij Bron kan het nog alle kanten op, we zijn altijd in beweging.
+Bron staat voor openheid; in de maatschappij maar ook in onze eigen organisatie. We werken [open source](https://github.com/openstate/jodal), want publieke informatie is van iedereen. We zijn open over de beperkingen van Bron, juist omdat we altijd willen vernieuwen en groeien. Dit doen we graag met jou als journalist samen. Bij Bron kan het nog alle kanten op, we zijn altijd in beweging.
 
 ## Hoe werkt Bron?
 
@@ -61,7 +61,7 @@ Bron is een dynamisch en voortdurend innoverend platform dat zich inzet voor hoo
 
 Bron is begonnen als één van de projecten van [Open State Foundation](https://openstate.eu/nl) maar is inmiddels uitgegroeid tot een eigen platform. Een jaar geleden is Bron gelanceerd als een trial, maar in 2025 kunnen we echt volledig van start. Met een team van 7 leden timmeren we hard aan de weg.
 
-Ons team van 4 toegewijde leden werkt met passie aan de groei en optimalisatie van Bron. Daarbij worden we versterkt door drie leden van het SVDJ Incubator-programma, die zich samen met ons richten op het verbeteren van Bron Chat. Met deze innovatieve tool willen we het zoeken, filteren en analyseren van informatie nóg sneller en eenvoudiger maken.
+Ons team van 4 toegewijde leden werkt met passie aan de groei en optimalisatie van Bron. Daarbij worden we versterkt door drie leden van het [SVDJ](https://svdj.nl/) Incubator-programma, die zich samen met ons richten op het verbeteren van [Bron Chat](https://chat.bron.live). Met deze innovatieve tool willen we het zoeken, filteren en analyseren van informatie nóg sneller en eenvoudiger maken.
 Met deze combinatie van expertise en toewijding bouwen we samen aan een revolutie in de toegankelijkheid van overheidsinformatie.
 
 ## Neem contact op
@@ -72,6 +72,6 @@ Sluit je aan en maak het verschil. Samen maken we Bron sterker.
 
 ## Sluit je aan
 
-Bij Bron geloven we in de kracht van samenwerking om journalistiek sterker en toegankelijker te maken. Door je aan te sluiten bij Bron, krijg je niet alleen toegang tot miljoenen documenten en krachtige tools, maar word je ook onderdeel van een groeiende community van professionals die samen bouwen aan de toekomst van onderzoeksjournalistiek. Met een profiel op Bron kun je eenvoudig zoeken, documenten opslaan en je onderzoek organiseren. Je krijgt toegang tot exclusieve functies en blijft op de hoogte van updates en nieuwe bronnen die we aan ons platform toevoegen.
+Bij Bron geloven we in de kracht van samenwerking om journalistiek sterker en toegankelijker te maken. Door je aan te sluiten bij Bron, krijg je niet alleen toegang tot miljoenen documenten en krachtige tools, maar word je ook onderdeel van een groeiende community van professionals die samen bouwen aan de toekomst van onderzoeksjournalistiek. Met een profiel op Bron kun je eenvoudig zoeken, feeds aanmaken en je onderzoek organiseren. Je krijgt toegang tot exclusieve functies en blijft op de hoogte van updates en nieuwe bronnen die we aan ons platform toevoegen.
 
 
