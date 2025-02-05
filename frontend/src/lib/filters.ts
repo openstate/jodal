@@ -37,10 +37,10 @@ export async function parseFilters(
     filters.push(`location.raw:${organisations}`);
 
   let dateFrom = url.searchParams.get("van");
-  if (dateFrom) filters.push(`processed_from:${dateFrom}`);
+  if (dateFrom) filters.push(`published_from:${dateFrom}`);
 
   let dateTo = url.searchParams.get("tot");
-  if (dateTo) filters.push(`processed_to:${dateTo}`);
+  if (dateTo) filters.push(`published_to:${dateTo}`);
 
   return filters.join("|");
 }
