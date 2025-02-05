@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { DocumentResponse } from "$lib/types/api";
+  import type { DocumentResponse, DocumentSource } from "$lib/types/api";
 
   import Buildings from "@tabler/icons-svelte/icons/buildings";
   import Calendar from "@tabler/icons-svelte/icons/calendar";
@@ -7,13 +7,15 @@
 
   import { allSources } from "$lib/sources";
 
-  type Props = { document: DocumentResponse["hits"]["hits"][number] };
+  type Props = {
+    document: DocumentResponse["hits"]["hits"][number];
+    datePriority?: Array<"processed" | "modified" | "created" | "published">;
+  };
 
-  let { document }: Props = $props();
+  let { document, datePriority = ["published", "processed"] }: Props = $props();
 
   const date = $derived.by(() => {
-    const dateKeys = ["processed", "published", "created"] as const;
-    const dates = dateKeys.map((key) => new Date(document._source[key]));
+    const dates = datePriority.map((key) => new Date(document._source[key]));
     return dates.find((date) => date.toString() !== "Invalid Date") ?? null;
   });
 

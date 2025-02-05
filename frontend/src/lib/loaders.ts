@@ -26,7 +26,7 @@ export async function fetchDocuments(
   const query = event.url.searchParams.get("zoek") ?? "*";
 
   const filter = await parseFilters(event.url, event.locations);
-  const path = `/documents/search?query=${query}&filter=${filter}&sort=processed:desc,published:desc&page=${event.pageNumber}&limit=20&default_operator=AND`;
+  const path = `/documents/search?query=${query}&filter=${filter}&sort=published:desc,processed:desc&page=${event.pageNumber}&limit=20&default_operator=AND`;
 
   console.log(API_URL + path);
 

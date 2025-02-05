@@ -83,7 +83,7 @@
       {/each}
     {:then documents}
       {#each documents?.hits.hits ?? [] as document}
-        <Document {document} />
+        <Document {document} datePriority={["processed", "published"]} />
       {:else}
         <p>Geen documenten gevonden voor deze feed.</p>
       {/each}
