@@ -4,7 +4,11 @@ import { allSources } from "./sources";
 export async function parseFilters(
   url: URL,
   locations: LocationResponse,
-  include?: { sources?: boolean; organisations?: boolean },
+  include?: {
+    sources?: boolean;
+    organisations?: boolean;
+    untilToday?: boolean;
+  },
 ) {
   let filters: Array<string> = [];
 
@@ -41,6 +45,8 @@ export async function parseFilters(
 
   let dateTo = url.searchParams.get("tot");
   if (dateTo) filters.push(`published_to:${dateTo}`);
+  else if (include?.untilToday)
+    filters.push(`published_to:${new Date().toISOString().split("T")[0]}`);
 
   return filters.join("|");
 }
