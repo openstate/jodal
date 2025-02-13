@@ -6,6 +6,7 @@
   import Database from "@tabler/icons-svelte/icons/database";
 
   import { allSources } from "$lib/sources";
+  import { IconExternalLink } from "@tabler/icons-svelte";
 
   type Props = {
     document: DocumentResponse["hits"]["hits"][number];
@@ -13,6 +14,10 @@
   };
 
   let { document, datePriority = ["published", "processed"] }: Props = $props();
+
+  const documentUrl = $derived(
+    document._source.doc_url ?? document._source.url,
+  );
 
   const date = $derived.by(() => {
     const dates = datePriority.map((key) => new Date(document._source[key]));
@@ -25,12 +30,15 @@
   });
 </script>
 
-<a
-  target="_blank"
-  href={document._source.doc_url ?? document._source.url}
-  class="block rounded-lg border border-stone-300 bg-white p-4"
->
-  <h2 class="mb-2 font-semibold">{document._source.title}</h2>
+<div class="block rounded-lg border border-stone-300 bg-white p-4">
+  <div class="mb-2 flex items-center justify-between gap-1">
+    <a target="_blank" href={documentUrl} class="font-semibold hover:underline">
+      {document._source.title}
+    </a>
+    <a target="_blank" href={documentUrl}>
+      <IconExternalLink class="inline size-4 text-stone-600" />
+    </a>
+  </div>
   {#if document.highlight?.description && document.highlight.description.length > 0}
     <p class="my-2 line-clamp-5 text-stone-800 [word-break:break-word]">
       …{@html document.highlight.description
@@ -59,7 +67,7 @@
       {allSources.find((s) => s.value === document._source.source)?.label}
     </div>
   </div>
-</a>
+</div>
 
 <style>
   p :global(em) {
