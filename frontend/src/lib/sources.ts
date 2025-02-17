@@ -6,4 +6,4 @@ export const allSources = [
   { value: "cvdr", label: "Wet- en regelgeving" },
   { value: "oor", label: "Rapporten" },
   // { value: "openspending", label: "Begrotingen" },
-];
+] as const;

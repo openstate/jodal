@@ -1,4 +1,5 @@
 import type {
+  AggregationsResponse,
   DocumentResponse,
   FeedResponse,
   LocationResponse,
@@ -50,7 +51,7 @@ export async function fetchDocument(
   );
 }
 
-export async function fetchAggregations(
+export async function fetchSearchAggregations(
   event: Pick<LoadEvent, "fetch" | "url"> & {
     locations: LocationResponse;
   },
@@ -64,6 +65,22 @@ export async function fetchAggregations(
 
   return cacheFetch<DocumentResponse>(`aggregations:${query}:${filter}`, () =>
     event.fetch(API_URL + path),
+  );
+}
+
+export async function fetchAggregations(
+  event: Pick<LoadEvent, "fetch"> & { organisationId: string | null },
+) {
+  return cacheFetch<AggregationsResponse>(
+    `aggregations:${event.organisationId ?? ""}`,
+    () =>
+      event.fetch(
+        API_URL +
+          `/documents/aggregations` +
+          (event.organisationId
+            ? `?organisation_id=${event.organisationId}`
+            : ""),
+      ),
   );
 }
 

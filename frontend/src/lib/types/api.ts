@@ -1,3 +1,5 @@
+import type { allSources } from "$lib/sources";
+
 export type ElasticResponse<TSource, THighlight = {}> = {
   _shards: {
     failed: number;
@@ -82,4 +84,17 @@ export type FeedResponse = {
   binoas_feed_id: string;
   binoas_user_id: number;
   binoas_frequency: string | null;
+};
+
+export type AggregationsResponse = {
+  [T in (typeof allSources)[number]["value"]]?: {
+    total_documents: number;
+    first_date: string;
+    last_date: string;
+    monthly_documents: Array<{
+      doc_count: 10;
+      key: number;
+      key_as_string: string;
+    }>;
+  };
 };
