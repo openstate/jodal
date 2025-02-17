@@ -3,7 +3,7 @@ from urllib.parse import urljoin
 from flask import Blueprint, request, jsonify, make_response, current_app as app
 from feedgen.feed import FeedGenerator
 
-from app.search import perform_query
+from app.search import perform_query, perform_aggregation_query
 from app.downloads import prepare_download, perform_download
 
 search_bp = Blueprint('search', __name__)
@@ -87,6 +87,12 @@ def search_index(index_name):
     else:
         return jsonify(results)
 
+@search_bp.route('/documents/aggregations', methods=['GET'])
+def document_aggregations():
+    organisation_id = request.args.get('organisation_id')
+    results = perform_aggregation_query(organisation_id)
+    return jsonify(results)
+
 @search_bp.route('/documents/download/<source>/<external_item_id>')
 def download(source, external_item_id):
     file_format = request.args.get('format', 'json')
@@ -94,3 +100,4 @@ def download(source, external_item_id):
         source, external_item_id, file_format)
     return perform_download(
         items, source, external_item_id, file_format)
+

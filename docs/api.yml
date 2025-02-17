@@ -1313,6 +1313,45 @@ paths:
                   value: 52
               timed_out: false
               took: 106
+  /documents/aggregations:
+    get:
+      tags:
+        - Search
+      summary: "Get document statistics per source for a specific index"
+      description: "Returns the total number of documents, documents per month, and the first/last dates for each document type (source)."
+      parameters:
+        - name: organisation_id
+          in: query
+          description: The organisation (aka location) ID to filter the documents on
+          required: false
+          example: "GM0181"
+      responses:
+        200:
+          description: "A JSON object containing the statistics for each source."
+          examples:
+            application/json:
+              openbesluitvorming:
+                first_date: "2024-01-10"
+                last_date: "2025-01-08"
+                monthly_documents:
+                  - doc_count: 97
+                    key: 1704067200000
+                    key_as_string: "2024-01-01"
+                  - doc_count: 164
+                    key: 1706745600000
+                    key_as_string: "2024-02-01"
+                total_documents: 11955
+              poliflw:
+                first_date: "2020-03-24"
+                last_date: "2025-02-05"
+                monthly_documents:
+                  - doc_count: 2
+                    key: 1583020800000
+                    key_as_string: "2020-03-01"
+                  - doc_count: 1
+                    key: 1735689600000
+                    key_as_string: "2025-01-01"
+                total_documents: 961
   /subscriptions/delete:
     get:
       tags:

@@ -40,6 +40,64 @@ def perform_query(term, filter_string, page, page_size, sort, includes, excludes
 
     return clean_results(result)
 
+def perform_aggregation_query(organisation_id=None):
+    app_name = app.config["NAME_OF_APP"]
+    setup_es = load_object("%s.es.setup_elasticsearch" % (app_name,))
+    es = setup_es(app.config[app_name])
+
+    filters = {}
+    if organisation_id:
+        filters = {"location.raw": [organisation_id]}
+
+    aggregation_fields = {
+        "per_source": {
+            "terms": {"field": "source", "size": 10},
+            "aggs": {
+                "total_documents": {"value_count": {"field": "id"}},
+                "monthly_documents": {
+                    "date_histogram": {
+                        "field": "published",
+                        "calendar_interval": "month",
+                        "format": "yyyy-MM-dd",
+                    }
+                },
+                "first_date": {"min": {"field": "published", "format": "yyyy-MM-dd"}},
+                "last_date": {"max": {"field": "published", "format": "yyyy-MM-dd"}},
+            },
+        }
+    }
+
+    query = get_basic_query(
+        filters=filters,
+        term="*",
+        page=0,
+        page_size=1,
+        sort=None,
+        includes="",
+        excludes="",
+        default_operator="AND",
+        query_fields=["title"],
+        aggregation_fields=aggregation_fields,
+        highlight=None,
+    )
+
+    logging.info(query)
+
+    results = clean_results(es.search(index="jodal_documents", body=query))
+
+    stats = {}
+    for bucket in (
+        results.get("aggregations", {}).get("per_source", {}).get("buckets", [])
+    ):
+        source = bucket["key"]
+        stats[source] = {
+            "total_documents": bucket.get("total_documents", {}).get("value", 0),
+            "monthly_documents": bucket.get("monthly_documents", {}).get("buckets", []),
+            "first_date": bucket.get("first_date", {}).get("value_as_string", None),
+            "last_date": bucket.get("last_date", {}).get("value_as_string", None),
+        }
+
+    return stats
 
 def parse_filters(filters):
         filter_dict = {}
