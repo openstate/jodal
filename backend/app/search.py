@@ -54,11 +54,13 @@ def perform_aggregation_query(organisation_id=None):
             "terms": {"field": "source", "size": 10},
             "aggs": {
                 "total_documents": {"value_count": {"field": "id"}},
-                "monthly_documents": {
+                "quarterly_documents": {
                     "date_histogram": {
                         "field": "published",
-                        "calendar_interval": "month",
-                        "format": "yyyy-MM-dd",
+                        "calendar_interval": "1q",
+                        "format": "'Q'Q yyyy",
+                        "hard_bounds": {"min": "now-10y"},
+                        "extended_bounds": {"min": "now-10y"},
                     }
                 },
                 "first_date": {"min": {"field": "published", "format": "yyyy-MM-dd"}},
@@ -92,7 +94,7 @@ def perform_aggregation_query(organisation_id=None):
         source = bucket["key"]
         stats[source] = {
             "total_documents": bucket.get("total_documents", {}).get("value", 0),
-            "monthly_documents": bucket.get("monthly_documents", {}).get("buckets", []),
+            "quarterly_documents": bucket.get("quarterly_documents", {}).get("buckets", []),
             "first_date": bucket.get("first_date", {}).get("value_as_string", None),
             "last_date": bucket.get("last_date", {}).get("value_as_string", None),
         }
