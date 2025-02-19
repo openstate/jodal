@@ -40,14 +40,14 @@ def perform_query(term, filter_string, page, page_size, sort, includes, excludes
 
     return clean_results(result)
 
-def perform_aggregation_query(organisation_id=None):
+def perform_aggregation_query(organisation_ids=None):
     app_name = app.config["NAME_OF_APP"]
     setup_es = load_object("%s.es.setup_elasticsearch" % (app_name,))
     es = setup_es(app.config[app_name])
 
     filters = {}
-    if organisation_id:
-        filters = {"location.raw": [organisation_id]}
+    if organisation_ids:
+        filters = {"location.raw": organisation_ids.split(",")}
 
     aggregation_fields = {
         "per_source": {

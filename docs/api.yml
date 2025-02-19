@@ -1320,9 +1320,9 @@ paths:
       summary: "Get document statistics per source for a specific index"
       description: "Returns the total number of documents, documents per month, and the first/last dates for each document type (source)."
       parameters:
-        - name: organisation_id
+        - name: organisation_ids
           in: query
-          description: The organisation (aka location) ID to filter the documents on
+          description: The organisation (aka location) IDs to filter the documents on (comma separated string)
           required: false
           example: "GM0181"
       responses:
@@ -1333,24 +1333,24 @@ paths:
               openbesluitvorming:
                 first_date: "2024-01-10"
                 last_date: "2025-01-08"
-                monthly_documents:
+                quarterly_documents:
                   - doc_count: 97
                     key: 1704067200000
-                    key_as_string: "2024-01-01"
+                    key_as_string: "Q1 2024"
                   - doc_count: 164
                     key: 1706745600000
-                    key_as_string: "2024-02-01"
+                    key_as_string: "Q2 2024"
                 total_documents: 11955
               poliflw:
                 first_date: "2020-03-24"
                 last_date: "2025-02-05"
-                monthly_documents:
+                quarterly_documents:
                   - doc_count: 2
                     key: 1583020800000
-                    key_as_string: "2020-03-01"
+                    key_as_string: "Q1 2024"
                   - doc_count: 1
                     key: 1735689600000
-                    key_as_string: "2025-01-01"
+                    key_as_string: "Q2 2024"
                 total_documents: 961
   /subscriptions/delete:
     get:
