@@ -86,15 +86,17 @@ export type FeedResponse = {
   binoas_frequency: string | null;
 };
 
+export type AggregationsQuarterlyDocuments = Array<{
+  doc_count: 10;
+  key: number;
+  key_as_string: string;
+}>;
+
 export type AggregationsResponse = {
   [T in (typeof allSources)[number]["value"]]?: {
     total_documents: number;
     first_date: string;
     last_date: string;
-    monthly_documents: Array<{
-      doc_count: 10;
-      key: number;
-      key_as_string: string;
-    }>;
+    quarterly_documents: AggregationsQuarterlyDocuments;
   };
 };

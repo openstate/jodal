@@ -1,5 +1,6 @@
 <script lang="ts">
   import { allSources } from "$lib/sources";
+  import Sparkbar from "./sparkbar.svelte";
 
   const { format: formatNumber } = new Intl.NumberFormat("nl-NL");
   const { format: formatDate } = new Intl.DateTimeFormat("nl-NL", {
@@ -46,17 +47,11 @@
       <table class="w-full">
         <thead>
           <tr>
-            <th class="px-2 py-4 text-left font-semibold">Naam</th>
-            <th class="px-2 py-4 text-left font-semibold">
-              Aantal documenten
-            </th>
-            <th class="px-2 py-4 text-left font-semibold"> Eerste document </th>
-            <th class="px-2 py-4 text-left font-semibold">
-              Laatste document
-            </th>
-            <th class="px-2 py-4 text-left font-semibold">
-              Documenten per maand
-            </th>
+            {@render th("Naam")}
+            {@render th("Aantal documenten")}
+            {@render th("Eerste document")}
+            {@render th("Laatste document")}
+            {@render th("Documenten per kwartaal")}
           </tr>
         </thead>
         <tbody>
@@ -69,7 +64,11 @@
                 {@render td(formatNumber(source.total_documents))}
                 {@render td(formatDate(new Date(source.first_date)))}
                 {@render td(formatDate(new Date(source.last_date)))}
-                {@render td()}
+                <td
+                  class="h-4 border-y border-stone-300 px-2 py-4 group-last-of-type:border-b-0"
+                >
+                  <Sparkbar data={source.quarterly_documents} />
+                </td>
               {:else}
                 {@render td()}
                 {@render td()}
@@ -85,7 +84,7 @@
 </div>
 
 {#snippet th(content: string)}
-  <th class="border-y border-stone-300 px-2 py-4 group-last-of-type:border-b-0">
+  <th class="border-b border-stone-300 px-2 py-4 text-left">
     {content}
   </th>
 {/snippet}

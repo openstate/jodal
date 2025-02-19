@@ -48,6 +48,7 @@
     "@tailwindcss/vite": "^4.0.0",
     "front-matter": "^4.0.2",
     "fuse.js": "^7.0.0",
+    "layerchart": "^0.99.1",
     "lru-cache": "^11.0.2",
     "marked": "^15.0.6",
     "svelte-infinite-scroll": "^2.0.1",
