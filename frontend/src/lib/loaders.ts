@@ -5,7 +5,7 @@ import type {
   LocationResponse,
 } from "$lib/types/api";
 import { cacheFetch } from "$lib/fetch";
-import { parseFilters } from "./filters";
+import { parseFilters, parseOrganisationFilters } from "./filters";
 import type { LoadEvent } from "@sveltejs/kit";
 
 export const API_URL = "//api.bron.live" as const;
@@ -14,6 +14,24 @@ export function fetchLocations(event: Pick<LoadEvent, "fetch">) {
   return cacheFetch<LocationResponse>("locations", () =>
     event.fetch(API_URL + `/locations/search?limit=500&sort=name.raw:asc`),
   );
+}
+
+export function getLocationItems(
+  locations: Awaited<ReturnType<typeof fetchLocations>>,
+) {
+  return locations.hits.hits
+    .map((hit) => ({
+      value: hit._source.id,
+      label:
+        hit._source.kind === "municipality" &&
+        !hit._source.name.startsWith("Alle")
+          ? `Gemeente ${hit._source.name}`
+          : hit._source.name,
+    }))
+    .toSorted((a, b) => {
+      const [allA, allB] = [a, b].map((i) => i.label.startsWith("Alle"));
+      return Number(allB) - Number(allA);
+    });
 }
 
 export async function fetchDocuments(
@@ -69,16 +87,23 @@ export async function fetchSearchAggregations(
 }
 
 export async function fetchAggregations(
-  event: Pick<LoadEvent, "fetch"> & { organisationId: string | null },
+  event: Pick<LoadEvent, "fetch"> & {
+    organisationId: string | null;
+    locations: LocationResponse;
+  },
 ) {
+  const organisationId = parseOrganisationFilters(
+    event.organisationId,
+    event.locations,
+  );
   return cacheFetch<AggregationsResponse>(
     `aggregations:${event.organisationId ?? ""}`,
     () =>
       event.fetch(
         API_URL +
           `/documents/aggregations` +
-          (event.organisationId
-            ? `?organisation_id=${event.organisationId}`
+          (organisationId && organisationId !== "*"
+            ? `?organisation_id=${organisationId}`
             : ""),
       ),
   );

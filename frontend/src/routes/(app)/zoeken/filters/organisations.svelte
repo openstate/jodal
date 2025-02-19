@@ -2,35 +2,17 @@
   import { getQueryContext } from "../state.svelte";
   import type { PageData } from "../$types";
   import Fuse from "fuse.js";
-  import type { LocationResponse } from "$lib/types/api";
+  import { getLocationItems } from "$lib/loaders";
 
   let { data }: { data: PageData } = $props();
 
   const query = getQueryContext();
 
+  let showMore = $state(false);
   let search = $state("");
   let noSearch = $derived(search === "");
 
-  let showMore = $state(false);
-
-  function getOrganisationName(hit: LocationResponse["hits"]["hits"][number]) {
-    return hit._source.kind === "municipality" &&
-      !hit._source.name.startsWith("Alle")
-      ? `Gemeente ${hit._source.name}`
-      : hit._source.name;
-  }
-
-  const items = $derived(
-    data.locations.hits.hits
-      .map((hit) => ({
-        value: hit._source.id,
-        label: getOrganisationName(hit),
-      }))
-      .sort((a, b) => {
-        const [allA, allB] = [a, b].map((i) => i.label.startsWith("Alle"));
-        return Number(allB) - Number(allA);
-      }),
-  );
+  const items = $derived(getLocationItems(data.locations));
 
   const fuse = $derived(new Fuse(items, { keys: ["label"] }));
 
@@ -38,22 +20,20 @@
     search === "" ? items : fuse.search(search).map((r) => r.item),
   );
 
-  let slicedItems = $derived(
-    filteredItems.slice(0, showMore && !noSearch ? 14 : 4),
-  );
-
   let selectedItems = $derived(
     items.filter((i) => query.organisations.includes(i.value)),
   );
 
   let shownItems = $derived(
-    noSearch
-      ? slicedItems.concat(
-          selectedItems.filter(
-            (i) => i.value !== "*" && !i.value.startsWith("type:"),
-          ),
-        )
-      : slicedItems,
+    filteredItems
+      .slice(0, showMore && !noSearch ? 14 : 4)
+      .concat(
+        noSearch
+          ? selectedItems.filter(
+              (i) => i.value !== "*" && !i.value.startsWith("type:"),
+            )
+          : [],
+      ),
   );
 
   $effect(() => {

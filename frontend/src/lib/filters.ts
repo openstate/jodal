@@ -1,6 +1,25 @@
 import type { LocationResponse } from "$lib/types/api";
 import { allSources } from "./sources";
 
+export function parseOrganisationFilters(
+  organisations: string | null,
+  locations: LocationResponse,
+) {
+  if (organisations?.includes("type:"))
+    return organisations
+      .split(",")
+      .flatMap((org) => {
+        if (org.startsWith("type:"))
+          return locations.hits.hits.flatMap((loc) =>
+            loc._source.type.includes(org.slice(5)) ? [loc._source.id] : [],
+          );
+        else return [org];
+      })
+      .join(",");
+
+  return organisations;
+}
+
 export async function parseFilters(
   url: URL,
   locations: LocationResponse,
@@ -18,20 +37,10 @@ export async function parseFilters(
 
   // The API does not currently support looking up documents by location type.
   // Therefore, we manually include each location matching a certain location type.
-  let organisations = url.searchParams.get("organisaties");
-
-  if (organisations?.includes("type:")) {
-    organisations = organisations
-      .split(",")
-      .flatMap((org) => {
-        if (org.startsWith("type:"))
-          return locations.hits.hits.flatMap((loc) =>
-            loc._source.type.includes(org.slice(5)) ? [loc._source.id] : [],
-          );
-        else return [org];
-      })
-      .join(",");
-  }
+  let organisations = parseOrganisationFilters(
+    url.searchParams.get("organisaties"),
+    locations,
+  );
 
   if (
     organisations &&
