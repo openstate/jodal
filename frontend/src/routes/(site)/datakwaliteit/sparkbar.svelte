@@ -5,12 +5,33 @@
   const { format: formatNumber } = new Intl.NumberFormat("nl-NL");
 
   let { data }: { data: AggregationsQuarterlyDocuments } = $props();
+
+  const quarters = $derived.by(() => {
+    const now = new Date();
+    let year = now.getFullYear();
+    let quarter = Math.floor(now.getMonth() / 3) + 1;
+
+    return Array.from({ length: 41 }, () => {
+      const result = `Q${quarter} ${year}`;
+      quarter = quarter === 1 ? 4 : quarter - 1;
+      if (quarter === 4) year--;
+      return result;
+    }).toReversed();
+  });
+
+  const chart = $derived.by(() => {
+    return quarters.map((key) => {
+      const doc_count =
+        data.find((d) => d.key_as_string === key)?.doc_count ?? 0;
+      return { key, doc_count };
+    });
+  });
 </script>
 
 <div class="h-6 w-full">
   <BarChart
-    {data}
-    x="key_as_string"
+    data={chart}
+    x="key"
     y="doc_count"
     axis={false}
     grid={false}

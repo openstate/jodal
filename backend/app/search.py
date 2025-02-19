@@ -60,7 +60,6 @@ def perform_aggregation_query(organisation_ids=None):
                         "calendar_interval": "1q",
                         "format": "'Q'Q yyyy",
                         "hard_bounds": {"min": "now-10y"},
-                        "extended_bounds": {"min": "now-10y"},
                     }
                 },
                 "first_date": {"min": {"field": "published", "format": "yyyy-MM-dd"}},
