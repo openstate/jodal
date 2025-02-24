@@ -53,13 +53,13 @@
   class="max-w-300 mx-auto grid gap-10 px-6 py-12 lg:grid-cols-[1fr_20rem] lg:pt-16"
 >
   <div
-    class="col-span-2 overflow-x-auto rounded-lg border border-stone-300 bg-white px-6 py-5"
+    class="overflow-x-auto rounded-lg border border-stone-300 bg-white px-6 py-5 lg:col-span-2"
   >
     <div
-      class="mb-2 flex w-fit items-center gap-2 rounded-lg border border-zinc-300"
+      class="relative mb-2 flex w-fit max-w-full items-center gap-2 rounded-lg border border-zinc-300"
     >
       <select
-        class="appearance-none py-2 pl-3"
+        class="appearance-none truncate py-2 pl-3 pr-8"
         onchange={(e) => (organisationId = e.currentTarget.value)}
       >
         {#each locationItems as location}
@@ -71,7 +71,7 @@
           </option>
         {/each}
       </select>
-      <IconChevronDown class="mr-3 size-5" />
+      <IconChevronDown class="pointer-events-none absolute right-2 size-5" />
     </div>
 
     <table class="min-w-250 w-full">
