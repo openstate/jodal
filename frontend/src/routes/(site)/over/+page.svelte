@@ -36,22 +36,36 @@
     {@html data.markdown}
   </article>
 
-  <div
-    class="max-lg:hidden h-fit rounded border border-stone-300 bg-white p-6 text-stone-700"
-  >
-    <h2 class="mb-3 text-lg font-bold">Op deze pagina</h2>
-
-    <ul
-      class="grid list-inside list-disc gap-3"
+  <div class="grid gap-4 h-fit">
+    <div
+      class="rounded border border-stone-300 bg-white p-6 text-stone-700 max-lg:hidden"
     >
-      {#each data.headings as heading}
+      <h2 class="mb-3 text-lg font-bold">Op deze pagina</h2>
+
+      <ul class="grid list-inside list-disc gap-3">
+        {#each data.headings as heading}
+          <li>
+            <a href="#{heading.id}" class="text-stone-800 underline">
+              {heading.text}
+            </a>
+          </li>
+        {/each}
+      </ul>
+    </div>
+
+    <div
+      class="rounded border border-stone-300 bg-white p-6 text-stone-700 max-lg:hidden"
+    >
+      <h2 class="mb-3 text-lg font-bold">Bekijk ook</h2>
+
+      <ul class="grid list-inside list-disc gap-3">
         <li>
-          <a href="#{heading.id}" class="text-stone-800 underline">
-            {heading.text}
+          <a href="/data" class="text-stone-800 underline">
+            Datakwaliteit
           </a>
         </li>
-      {/each}
-    </ul>
+      </ul>
+    </div>
   </div>
 </div>
 

@@ -20,7 +20,7 @@
   let organisationId = $state(page.url.searchParams.get("organisatie") ?? "*");
 
   $effect(() => {
-    goto(`/datakwaliteit?organisatie=${organisationId}`);
+    goto(`/data?organisatie=${organisationId}`);
   });
 </script>
 

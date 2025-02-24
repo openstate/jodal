@@ -4,7 +4,7 @@
   let { data, children } = $props();
 </script>
 
-<main class="flex flex-col min-h-screen">
+<main class="flex min-h-screen flex-col">
   <div
     class="max-w-300 absolute left-1/2 top-0 z-10 mx-auto w-full -translate-x-1/2 p-4"
   >
@@ -57,8 +57,7 @@
         <div class="flex flex-col gap-2 font-semibold">
           <a href="/over">Over Bron</a>
           <a href="/over#heading-neem-contact-op">Contact</a>
-          <a href="https://github.com/openstate/jodal" target="_blank">GitHub</a
-          >
+          <a href="https://github.com/openstate/jodal" target="_blank">GitHub</a>
         </div>
       </div>
       <p class="text-stone-400">
