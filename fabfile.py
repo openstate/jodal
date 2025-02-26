@@ -18,9 +18,7 @@ NODE_CONTAINER = 'jodal_node_1'
 
 # App container
 APP_CONTAINER = 'jodal_backend_1'
-# makesite container
-MAKESITE_CONTAINER = 'jodal_makesite_1'
-MAKESITE2_CONTAINER = 'jodal_makesite-pdd_1'
+
 # API container
 API_CONTAINER = 'api-jodal'
 
@@ -46,9 +44,6 @@ def deploy(c):
     c.sudo("sh -c 'cd %s && docker-compose build'" % (os.path.join(DIR, 'docker'),))
     c.sudo("sh -c 'cd %s && docker-compose up -d'" % (os.path.join(DIR, 'docker'),))
 
-    # compile web landing page
-    #c.sudo("docker exec %s ./makesite.py" % (MAKESITE_CONTAINER,))
-    #c.sudo("docker exec %s ./makesite.py" % (MAKESITE2_CONTAINER,))
     # Compile assets
     output = c.sudo(
         'docker inspect --format="{{.State.Status}}" %s' % (NODE_CONTAINER)
