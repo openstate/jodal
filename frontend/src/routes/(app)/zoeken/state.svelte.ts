@@ -1,7 +1,6 @@
 import { goto } from "$app/navigation";
-import { page } from "$app/stores";
+import { page } from "$app/state";
 import { getContext, setContext } from "svelte";
-import { get } from "svelte/store";
 
 const GOTO_PROPS = {
   keepFocus: true,
@@ -24,17 +23,21 @@ export function createQueryState({ onChange }: { onChange?: () => void }) {
     key: string,
     value: string | string[] | undefined,
   ) => {
-    const url = get(page).url;
+    const oldURL = page.url;
+    const newURL = new URL(oldURL);
+
     const encodedValue = typeof value === "string" ? value : value?.join(",");
 
-    if (encodedValue === "" || !encodedValue) url.searchParams.delete(key);
-    else url.searchParams.set(key, encodedValue);
+    if (encodedValue === "" || !encodedValue) newURL.searchParams.delete(key);
+    else newURL.searchParams.set(key, encodedValue);
 
-    goto(url.search === "" ? "?" : url.search, GOTO_PROPS);
-    onChange?.();
+    if (oldURL.search !== newURL.search) {
+      goto(newURL.search === "" ? "?" : newURL.search, GOTO_PROPS);
+      onChange?.();
+    }
   };
 
-  let state = $state(parseStateFromParams(get(page).url));
+  let state = $state(parseStateFromParams(page.url));
 
   $effect(() => setParamsFromState("zoek", state.term));
   $effect(() => setParamsFromState("bronnen", state.sources));
