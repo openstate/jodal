@@ -20,9 +20,6 @@ services:
   heritrix:
     ports:
       - 8443:8443
-  node:
-    restart: "no"
-    command: bash -c "npm install && npm run dev"
   frontend:
     build:
       context: ../frontend
