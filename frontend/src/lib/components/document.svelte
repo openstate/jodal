@@ -31,7 +31,7 @@
 </script>
 
 <div class="block rounded-lg border border-stone-300 bg-white p-4">
-  <div class="mb-2 flex items-center justify-between gap-1">
+  <div class="mb-2 flex items-start justify-between gap-1">
     <a target="_blank" href={documentUrl} class="font-semibold hover:underline">
       {document._source.title}
     </a>
