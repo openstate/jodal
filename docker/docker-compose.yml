@@ -10,9 +10,6 @@ services:
     volumes:
       - ./nginx-start/:/opt/nginx/
       - ./nginx/:/etc/nginx/
-      - ../public/:/usr/share/nginx/html/
-      - ../www/:/usr/share/nginx/html-www/
-      - ../www-pdd/:/usr/share/nginx/html-www-pdd/
       - ../docs:/usr/share/nginx/html-docs/
     restart: always
     networks:
@@ -26,23 +23,12 @@ services:
       - elasticsearch
     volumes:
       - ../backend:/opt/jodal
-      - ../heritrix/jobs:/heritrix/jobs
     environment:
       OAUTHLIB_INSECURE_TRANSPORT: "1"
     networks:
       - jodal
     restart: always
     command: flask run --host=0.0.0.0
-  node:
-    image: node:12.9.1
-    working_dir: /opt/app/static
-    networks:
-      - jodal
-    volumes:
-      - ../:/opt/app
-    restart: always
-    # Use this to keep the container running
-    command: bash -c "npm install && npm run start"
   frontend:
     build:
       context: ../frontend
@@ -65,7 +51,6 @@ services:
         condition: service_healthy
     volumes:
       - ../backend:/opt/jodal
-      - ../heritrix:/opt/jodal/heritrix
     networks:
       - jodal
     restart: always
@@ -165,16 +150,6 @@ services:
     networks:
       - jodal
     restart: always
-  heritrix:
-    image : "iipc/heritrix"
-    environment:
-      - USERNAME=jodal
-      - PASSWORD=jodal
-      - "JAVA_OPTS=-Xms4g -Xmx4g -Dlog4j2.formatMsgNoLookups=true"
-    networks:
-      - jodal
-    volumes:
-      - ../heritrix/jobs:/opt/heritrix/jobs
   swagger:
     image: "swaggerapi/swagger-ui"
     environment:
@@ -193,8 +168,6 @@ volumes:
   fa_config:
     driver: local
   redisdata:
-    driver: local
-  heritrixjobs:
     driver: local
 networks:
   jodal:
