@@ -19,7 +19,7 @@ How to setup a local development environment:
 To access the local development environment, add the following in `/etc/hosts` on Linux or `/Windows/System32/drivers/etc/hosts` on Windows:
 
 ```
-127.0.0.1	api.bron.live app.bron.live heritrix.bron.live bron.live www.bron.live users.bron.live
+127.0.0.1	api.bron.live app.bron.live bron.live www.bron.live users.bron.live
 ```
 
 Then you can go to `http://app.bron.live` preferably in a private window, because of HSTS parameters on the live setup.

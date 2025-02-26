@@ -23,7 +23,6 @@ services:
       - elasticsearch
     volumes:
       - ../backend:/opt/jodal
-      - ../heritrix/jobs:/heritrix/jobs
     environment:
       OAUTHLIB_INSECURE_TRANSPORT: "1"
     networks:
@@ -52,7 +51,6 @@ services:
         condition: service_healthy
     volumes:
       - ../backend:/opt/jodal
-      - ../heritrix:/opt/jodal/heritrix
     networks:
       - jodal
     restart: always
@@ -152,16 +150,6 @@ services:
     networks:
       - jodal
     restart: always
-  heritrix:
-    image : "iipc/heritrix"
-    environment:
-      - USERNAME=jodal
-      - PASSWORD=jodal
-      - "JAVA_OPTS=-Xms4g -Xmx4g -Dlog4j2.formatMsgNoLookups=true"
-    networks:
-      - jodal
-    volumes:
-      - ../heritrix/jobs:/opt/heritrix/jobs
   swagger:
     image: "swaggerapi/swagger-ui"
     environment:
@@ -180,8 +168,6 @@ volumes:
   fa_config:
     driver: local
   redisdata:
-    driver: local
-  heritrixjobs:
     driver: local
 networks:
   jodal:
