@@ -1,9 +1,8 @@
 import json
-import tempfile
 import logging
 from io import BytesIO
 
-from flask import Flask, session, render_template, request, redirect, url_for, flash, Markup, jsonify, send_file
+from flask import Flask, request
 
 import requests
 import fitz
