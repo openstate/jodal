@@ -11,7 +11,7 @@ services:
       - ./nginx-start/:/opt/nginx/
       - ./nginx/:/etc/nginx/
       - ../docs:/usr/share/nginx/html-docs/
-    restart: always
+    restart: unless-stopped
     networks:
       - nginx-load-balancer
       - jodal
@@ -27,7 +27,7 @@ services:
       OAUTHLIB_INSECURE_TRANSPORT: "1"
     networks:
       - jodal
-    restart: always
+    restart: unless-stopped
     command: flask run --host=0.0.0.0
   frontend:
     build:
@@ -38,7 +38,7 @@ services:
       - jodal
     volumes:
       - ../frontend:/opt/app
-    restart: always
+    restart: unless-stopped
     # Use this to keep the container running
     # command: npm run start
     tty: true
@@ -53,7 +53,7 @@ services:
       - ../backend:/opt/jodal
     networks:
       - jodal
-    restart: always
+    restart: unless-stopped
   worker:
     build:
       context: ../backend
@@ -62,7 +62,7 @@ services:
       - ../backend:/opt/jodal
     networks:
       - jodal
-    restart: always
+    restart: unless-stopped
     command: ./manage.py worker run
   redis:
     image: "redis:${REDIS_VERSION}"
@@ -74,7 +74,7 @@ services:
      - net.core.somaxconn=65535
     command: ["redis-server", "--appendonly", "no", "--save", "\"\""]
     #mem_limit: 1g
-    restart: always
+    restart: unless-stopped
   mysql:
     image: mysql:8.0
     # This root password will be overwritten with the password used in
@@ -92,7 +92,7 @@ services:
     volumes:
       - jodal-mysql-volume:/var/lib/mysql
       - "./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d"
-    restart: always
+    restart: unless-stopped
     command: ['mysqld', '--character-set-server=utf8mb4', '--collation-server=utf8mb4_unicode_ci', '--default-authentication-plugin=mysql_native_password']
 
   fusionauth:
@@ -117,7 +117,7 @@ services:
      - jodal
     #ports:
     # - "9011:9011"
-    restart: always
+    restart: unless-stopped
     volumes:
       - fa_config:/usr/local/fusionauth/config
       - ./fa-kickstart/:/opt/kickstart
@@ -141,7 +141,7 @@ services:
     volumes:
       - esdata:/usr/share/elasticsearch/data
       - ../backups/elasticsearch:/opt/elasticsearch/backups
-    restart: always
+    restart: unless-stopped
     networks:
       - jodal
   texter:
@@ -149,7 +149,7 @@ services:
       context: ../texter
     networks:
       - jodal
-    restart: always
+    restart: unless-stopped
   swagger:
     image: "swaggerapi/swagger-ui"
     environment:
@@ -158,6 +158,7 @@ services:
       - jodal
     volumes:
       - ../docs:/mnt
+    restart: unless-stopped
 volumes:
   esbackups:
     driver: local
