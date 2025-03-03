@@ -12,7 +12,7 @@ How to setup a local development environment:
 3. Edit `config.py` and `config.yaml` accordingly to what you want, not strictly necessary`
 5. Edit `fa-kickstart/kickstart.json`, esp. the part where it creates an account
 9. `./bin/dev.sh`
-8. `./setup.sh`
+8. `./bin/setup.sh`
 10. `docker exec -it jodal_backend_1 ./manage.py scrapers locations`
 10. `docker exec -it jodal_backend_1 ./manage.py scrapers cvdr` and other scrapers
 
