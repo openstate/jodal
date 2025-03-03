@@ -13,7 +13,6 @@ from flask import Flask
 
 from app.routes.users import users_bp
 from app.routes.search import search_bp
-from app.routes.archive import archive_bp
 from app.routes.subscriptions import subscriptions_bp
 
 def create_app():
@@ -32,7 +31,6 @@ def create_app():
 
     app.register_blueprint(users_bp)
     app.register_blueprint(search_bp)
-    app.register_blueprint(archive_bp)
     app.register_blueprint(subscriptions_bp)
 
     return app
