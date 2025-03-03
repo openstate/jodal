@@ -17,12 +17,6 @@ services:
       - 9011:9011
     environment:
       FUSIONAUTH_APP_URL: http://users.bron.live
-  heritrix:
-    ports:
-      - 8443:8443
-  node:
-    restart: "no"
-    command: bash -c "npm install && npm run dev"
   frontend:
     build:
       context: ../frontend

@@ -40,7 +40,6 @@ from jodal.scrapers import ElasticSearchScraper, BinoasMixin
 from jodal.woo import run
 from jodal.obk import OBKScraperRunner
 from jodal.oor import OORScraperRunner
-from jodal.archive import heritrix_job_status, heritrix_job_teardown
 
 class BinoasUploader(BinoasMixin, ElasticSearchScraper):
     pass
@@ -96,10 +95,6 @@ def openspending():
 @cli.group()
 def worker():
     """Manage workers"""
-
-@cli.group()
-def heritrix():
-    """Manage heritrix"""
 
 @command('elasticsearch')
 def scrapers_elasticsearch():
@@ -476,17 +471,6 @@ def worker_run(host, port):
         q = Queue()
         Worker(q).work()
 
-@command('cleanup')
-def heritrix_cleanup():
-    config = load_config()
-    jobs = [os.path.basename(f) for f in glob.glob('./heritrix/jobs/*')]
-    for j in jobs:
-        results = heritrix_job_status(j)
-        if 'teardown' in results.get('job', {}).get('availableActions', {}).get('value', []):
-            heritrix_job_teardown(j)
-            print(j)
-
-
 # Register commands explicitly with groups, so we can easily use the docstring
 # wrapper
 elasticsearch.add_command(es_put_template)
@@ -510,8 +494,6 @@ scrapers.add_command(scrapers_obk)
 scrapers.add_command(scrapers_oor)
 
 worker.add_command(worker_run)
-
-heritrix.add_command(heritrix_cleanup)
 
 if __name__ == '__main__':
     cli()
