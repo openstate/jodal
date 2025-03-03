@@ -7,6 +7,7 @@ import type {
 import { cacheFetch } from "$lib/fetch";
 import { parseFilters, parseOrganisationFilters } from "./filters";
 import type { LoadEvent } from "@sveltejs/kit";
+import { createSearchQuery } from "./utils";
 
 export const API_URL = "//api.bron.live" as const;
 
@@ -48,13 +49,18 @@ export async function fetchDocuments(
     untilToday: query === "*",
   });
 
-  const path = `/documents/search?query=${query}&filter=${filter}&sort=published:desc,processed:desc&page=${event.pageNumber}&limit=20&default_operator=AND`;
-
-  console.log(API_URL + path);
+  const searchQuery = createSearchQuery({
+    query,
+    page: event.pageNumber ?? 0,
+    limit: 20,
+    filter,
+    sort: "published:desc,processed:desc",
+    default_operator: "AND",
+  });
 
   return cacheFetch<DocumentResponse>(
     `documents:${event.url.search}:${event.pageNumber}`,
-    () => event.fetch(API_URL + path),
+    () => event.fetch(API_URL + "/documents/search?" + searchQuery),
   );
 }
 
@@ -79,10 +85,16 @@ export async function fetchSearchAggregations(
   const filter = await parseFilters(event.url, event.locations, {
     sources: false,
   });
-  const path = `/documents/search?query=${query}&filter=${filter}&sort=processed:desc,published:desc&limit=0&default_operator=AND`;
+
+  const searchQuery = createSearchQuery({
+    query,
+    filter,
+    limit: 0,
+    default_operator: "AND",
+  });
 
   return cacheFetch<DocumentResponse>(`aggregations:${query}:${filter}`, () =>
-    event.fetch(API_URL + path),
+    event.fetch(API_URL + "/documents/search?" + searchQuery),
   );
 }
 
@@ -134,7 +146,7 @@ export async function fetchFeedDocuments(
 ) {
   event.limit ??= 50;
 
-  let filters = [];
+  let filters = ["published_from:now-1w", "published_to:now+1d"];
 
   if (event.feed.locations.length > 0) {
     filters.push(`location.raw:${event.feed.locations.join(",")}`);
@@ -144,13 +156,17 @@ export async function fetchFeedDocuments(
     filters.push(`source:${event.feed.sources.join(",")}`);
   }
 
+  const searchQuery = createSearchQuery({
+    query: event.feed.query,
+    limit: event.limit,
+    filter: filters.join("|"),
+    sort: "processed:desc,published:desc",
+    default_operator: "AND",
+  });
+
   const documents = cacheFetch<DocumentResponse>(
     `feed-documents:${event.feed.public_id}:${event.limit}`,
-    () =>
-      event.fetch(
-        API_URL +
-          `/documents/search?page=0&filter=${filters.join("|")}&published_to:now&sort=processed:desc,published:desc&limit=${event.limit}&query=${event.feed.query}`,
-      ),
+    () => event.fetch(API_URL + "/documents/search?" + searchQuery),
   );
 
   return documents;

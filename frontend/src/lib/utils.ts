@@ -5,3 +5,11 @@ export function debounce(fn: (value: string) => void, ms: number) {
     timeout = setTimeout(() => fn(value), ms);
   };
 }
+
+export function createSearchQuery<
+  const T extends Record<string, string | number | boolean>,
+>(options: T) {
+  return Object.entries(options)
+    .map(([key, value]) => key + "=" + encodeURIComponent(value))
+    .join("&");
+}
