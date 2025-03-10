@@ -19,7 +19,7 @@
   import DateFilter from "./filters/date.svelte";
 
   import { createQueryState } from "./state.svelte";
-  import { debounce } from "$lib/utils";
+  import { debounce } from "$lib/utils.svelte";
   import { browser } from "$app/environment";
   import { fetchDocuments } from "$lib/loaders";
   import { page } from "$app/state";
@@ -78,7 +78,7 @@
   });
 
   // Debounced function to set the query term on input bind.
-  const setQueryTerm = debounce((v) => {
+  const setQueryTerm = debounce((v: string) => {
     if (v !== query.term) query.term = v;
   }, 500);
 </script>

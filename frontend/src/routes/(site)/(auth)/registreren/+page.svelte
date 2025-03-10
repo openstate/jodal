@@ -1,7 +1,10 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
+  import { createFormState } from "$lib/utils.svelte";
 
   let { form } = $props();
+
+  let state = createFormState();
 </script>
 
 <svelte:head>
@@ -10,7 +13,7 @@
 
 <form
   method="POST"
-  use:enhance
+  use:enhance={state.submit}
   class="max-w-120 m-2 mx-auto mt-20 grid w-full gap-y-4 rounded-lg border border-stone-300 bg-white p-8"
 >
   <div class="mb-2">
@@ -47,9 +50,11 @@
   />
   <div class="flex justify-end">
     <button
-      class="pt-1.75 cursor-pointer rounded-lg bg-stone-900 px-4 pb-2 font-bold text-white transition hover:bg-stone-800"
+      class="pt-1.75 not-disabled:cursor-pointer not-disabled:hover:bg-stone-800 rounded-lg bg-stone-900 px-4 pb-2 font-bold text-white"
+      class:animate-pulse={state.loading}
+      disabled={state.loading}
     >
-      Registreer
+      Log in
     </button>
   </div>
 </form>

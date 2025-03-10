@@ -7,7 +7,7 @@ import type {
 import { cacheFetch } from "$lib/fetch";
 import { parseFilters, parseOrganisationFilters } from "./filters";
 import type { LoadEvent } from "@sveltejs/kit";
-import { createSearchQuery } from "./utils";
+import { createSearchQuery } from "./utils.svelte";
 
 export const API_URL = "//api.bron.live" as const;
 

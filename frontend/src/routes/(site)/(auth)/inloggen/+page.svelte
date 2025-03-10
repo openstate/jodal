@@ -1,7 +1,16 @@
 <script lang="ts">
   import { enhance } from "$app/forms";
+  import { navigating } from "$app/state";
+  import { createFormState } from "$lib/utils.svelte";
 
   let { form } = $props();
+
+  let state = createFormState();
+
+  // true if either the form is submitting or the search page is loading
+  let loading = $derived(
+    state.loading || navigating.to?.url.pathname == "/zoeken",
+  );
 </script>
 
 <svelte:head>
@@ -10,7 +19,7 @@
 
 <form
   method="POST"
-  use:enhance
+  use:enhance={state.submit}
   class="max-w-120 m-2 mx-auto mt-20 w-full space-y-4 rounded-lg border border-stone-300 bg-white p-8"
 >
   <h1 class="text-lg font-medium">Inloggen</h1>
@@ -43,7 +52,9 @@
       Wachtwoord vergeten?
     </a>
     <button
-      class="pt-1.75 cursor-pointer rounded-lg bg-stone-900 px-4 pb-2 font-bold text-white transition hover:bg-stone-800"
+      class="pt-1.75 not-disabled:cursor-pointer not-disabled:hover:bg-stone-800 rounded-lg bg-stone-900 px-4 pb-2 font-bold text-white"
+      class:animate-pulse={loading}
+      disabled={loading}
     >
       Log in
     </button>
