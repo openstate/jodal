@@ -1,14 +1,14 @@
-import { redirect, type Actions } from '@sveltejs/kit';
-import { dev } from '$app/environment';
+import { redirect, type Actions } from "@sveltejs/kit";
+import { dev } from "$app/environment";
 
 export const actions = {
   default: ({ cookies }) => {
-    cookies.delete('session', {
-      path: '/',
+    cookies.delete("session", {
+      path: "/",
       secure: !dev,
-      domain: 'bron.live',
+      domain: "bron.live",
     });
 
-    redirect(307, '/');
+    redirect(303, "/");
   },
 } satisfies Actions;

@@ -9,7 +9,7 @@ const getFormArray = (data: FormData, key: string) => {
 
 export const actions = {
   default: async ({ fetch, request, locals }) => {
-    if (!locals.identity) throw redirect(307, "/registreren");
+    if (!locals.identity) redirect(303, "/registreren");
 
     const data = await request.formData();
 
@@ -32,11 +32,11 @@ export const actions = {
     });
 
     if (response.status === 401) {
-      throw redirect(307, "/registreren");
+      redirect(303, "/registreren");
     }
 
     const feed = await response.json();
 
-    throw redirect(307, `/feeds/${feed.public_id}`);
+    redirect(303, `/feeds/${feed.public_id}`);
   },
 } satisfies Actions;

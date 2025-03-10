@@ -2,7 +2,7 @@ import { fail, redirect, type Actions } from "@sveltejs/kit";
 import { API_URL } from "$lib/loaders";
 
 export function load({ locals }) {
-  if (locals.identity) throw redirect(307, "/zoeken");
+  if (locals.identity) redirect(303, "/zoeken");
 }
 
 export const actions = {
