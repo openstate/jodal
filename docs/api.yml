@@ -1102,7 +1102,7 @@ paths:
                     key_as_string: "Q2 2024"
                 total_documents: 961
   /subscriptions/delete:
-    get:
+    post:
       tags:
         - Subscriptions
       summary: "Deletes an email subscription"
@@ -1125,48 +1125,44 @@ paths:
           examples:
             application/json:
               status: "ok"
-  /subscriptions/new:
-    get:
+  /subscriptions/unsubscribe:
+    post:
       tags:
         - Subscriptions
-      summary: "Creates a new email subscription"
-      description: "Creates a new email subscription. It uses the <a href=\"https://github.com/openstate/binoas/wiki/API\">binoas API</a> to do so. The payload is JSON data"
+      summary: "Unsubscribes a user from all email subscriptions"
+      description: "Unsubscribes a user from all email subscriptions by deleting all subscriptions associated with the user in Binoas."
       produces:
-           - "application/json"
+        - "application/json"
       parameters:
-      - name: application
-        description: The binoas application. Should be \"ood\"
-        in: form
-        required: true
-        example: ood
-      - name: email
-        description: The email address to send alerts to
-        in: form
-        required: true
-        example: breyten@openstate.eu
-      - name: frequency
-        description: The frequency of emails. If emtpy it is direct, otherwise binoas will gather relevant documents and group them to be sent out in the specified frequency.
-        in: form
-        required: false
-        example: 1d
-      - name: description
-        description: Human readable description of the query. Can be used in the end user UI.
-        in: form
-        required: false
-        example: winmolens daily summary
-      - name: query
-        description: Elasticsearch query to select relevant documents
-        in: form
-        required: false
-        example:
-          match:
-            title: Test
+        - name: "user_id"
+          in: "query"
+          required: true
+          description: "The id of the user to unsubscribe."
       responses:
         200:
+          description: "The user was unsubscribed successfully."
+          schema:
+            type: "object"
+            success:
+              type: "string"
           examples:
-            application/json:
-              user_id: 1755
-              query_id: "12345678ABCDEFGH12345678abcdefgh"
+            application/json: {"success": "true"}
+        400:
+          description: "No user_id was provided."
+          schema:
+            type: "object"
+            error:
+              type: "string"
+          examples:
+            application/json: {"error": "No user_id provided"}
+        500:
+          description: "Something went wrong unsubscribing the user."
+          schema:
+            type: "object"
+            error:
+              type: "string"
+          examples:
+            application/json: {"error": "Error deleting subscriptions"}
 definitions:
   Asset:
     type: object
