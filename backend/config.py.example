@@ -1,35 +1,25 @@
 import os
 
-# On a new deployment (whether production or development) make
-# a copy of this file called 'config.py' and change 'False' for
-# SECRET_KEY to a newly generated string using these python commands:
-# $ import os
-# $ os.urandom(24)
+# On a new deployment (whether production or development)
+# make a copy of this file called 'config.py' and change all
+# instances of '<<REPLACE>>' with the service-provided values.
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config(object):
-    SECRET_KEY = 'DitIsJodal'
     NAME_OF_APP = 'jodal'
-    # where the jodal instance lives
-    JODAL_URL = 'http://app.bron.live/archief'
-#    SERVER_NAME = 'waarismijnstemlokaal.nl'
-#    PREFERRED_URL_SCHEME = 'https'
-#    FORCE_HOST_FOR_REDIRECTS = 'waarismijnstemlokaal.nl'
-#    USE_SESSION_FOR_NEXT = True
+    JODAL_URL = 'http://bron.live/'
     # database
     SQLALCHEMY_DATABASE_URI = 'mysql://root:jodal@mysql/jodal'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    # authfusion config stuff
-    CLIENT_ID="6e11ceb9-2b26-4c40-b399-182d4f9b97b6"
-    CLIENT_SECRET="Ev8ymaIwzwBRLZTv4G5OIX3djqwcunDK45PEG3Tj3oU"
+    # authfusion
+    API_KEY='<<REPLACE>>'
+    CLIENT_ID="<<REPLACE>>"
+    CLIENT_SECRET="<<REPLACE>>"
     FA_URL='https://users.bron.live'
     FA_INTERNAL_URL='http://fusionauth:9011'
     AUTHORIZATION_BASE_URL='http://users.bron.live/oauth2/authorize'
     TOKEN_URL='http://fusionauth:9011/oauth2/token'
     USERINFO_URL='http://fusionauth:9011/oauth2/userinfo'
     REDIRECT_URI='http://api.bron.live/users/simple/callback'
-    #API_KEY='SGZ0-HGNrGqR-kzPUJ7o_cORU2LwTK4zbym3lpGyzjkIcpGJbRswg_is'
-    API_KEY='4737ea8520bd454caabb7cb3d36e14bc1832c0d3f70a4189b82598670f11b1bd'
-    FORM_ID='c53c5260-6580-4ab3-80d8-b6d4c4042570'
