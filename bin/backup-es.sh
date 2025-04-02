@@ -1,6 +1,6 @@
 #!/bin/bash
 
-CONTAINER="jodal-backend-1"
+CONTAINER="jodal_backend_1"
 
 # Get the name of the latest backup
 LAST_SNAPSHOT=`sudo docker exec $CONTAINER curl -s 'http://elasticsearch:9200/_snapshot/ood_backups/_all?pretty' |jq -r '.snapshots[-1] |.snapshot |@text'`
