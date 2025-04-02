@@ -128,9 +128,9 @@ services:
       - transport.host=127.0.0.1
       - cluster.name=ras-cluster
       - xpack.security.enabled=false
+      - xpack.monitoring.collection.enabled=false
       - bootstrap.memory_lock=true
       - "ES_JAVA_OPTS=-Xms16g -Xmx16g -Dlog4j2.formatMsgNoLookups=true"
-      - xpack.monitoring.enabled=false
       - 'path.repo=/opt/elasticsearch/backups'
     ulimits:
       memlock:
@@ -142,6 +142,11 @@ services:
       - esdata:/usr/share/elasticsearch/data
       - ../backups/elasticsearch:/opt/elasticsearch/backups
     restart: unless-stopped
+    healthcheck:
+      test: curl -s http://127.0.0.1:9200/_cat/health
+      interval: 15s
+      timeout: 10s
+      retries: 5
     networks:
       - jodal
   texter:
