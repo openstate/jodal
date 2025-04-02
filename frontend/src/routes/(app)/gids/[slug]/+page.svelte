@@ -1,6 +1,7 @@
 <script lang="ts">
   import { page } from "$app/state";
   import ArrowRight from "@tabler/icons-svelte/icons/arrow-right";
+  import LandingCTA from "$lib/components/landing/cta.svelte";
 
   let { data } = $props();
 </script>
@@ -19,7 +20,9 @@
   <div
     class="backdrop-blur-xs absolute inset-0 bg-gradient-to-t from-black/70 from-20% to-black/10"
   ></div>
-  <div class="absolute bottom-12 left-1/2 -translate-x-1/2 xl:[translate:calc(-12.25rem_-_50%)_0] sm:bottom-16">
+  <div
+    class="absolute bottom-12 left-1/2 -translate-x-1/2 sm:bottom-16 xl:[translate:calc(-12.25rem_-_50%)_0]"
+  >
     <h1 class="font-display mb-4 text-center text-4xl text-white">
       {data.attributes.title}
     </h1>
@@ -47,26 +50,8 @@
     </article>
 
     {#if !page.data.identity}
-      <div class="my-20 px-6 text-stone-800">
-        <h2 class="font-display mb-4 text-balance text-center text-3xl">
-          Verder lezen? Maak een gratis account aan.
-        </h2>
-
-        <h3
-          class="max-w-150 mx-auto mb-12 text-balance text-center text-xl text-stone-500"
-        >
-          Onbeperkt toegang tot artikelen, miljoenen documenten en krachtige
-          zoektools.
-        </h3>
-
-        <a
-          href="/registreren"
-          class="mx-auto mb-4 flex w-fit items-center rounded-full bg-stone-900 px-5 py-2 text-lg font-semibold text-white transition hover:bg-stone-800"
-        >
-          Maak een gratis account aan
-        </a>
-
-        <p class="text-center text-stone-500">Exclusief voor journalisten</p>
+      <div class="-my-20">
+        <LandingCTA title="Verder lezen? Sluit je aan bij Bron" />
       </div>
     {/if}
   </div>

@@ -1,17 +1,19 @@
 <script lang="ts">
   import { page } from "$app/state";
+
+  let { title }: { title?: string } = $props();
 </script>
 
-<article class="my-30 px-6 text-stone-800">
+<article class="my-30 px-6 py-10 text-stone-800">
   <h2 class="font-display mb-4 text-balance text-center text-4xl">
-    Sluit je aan bij Bron
+    {title ?? "Sluit je aan bij Bron"}
   </h2>
 
   <h3
     class="max-w-150 mx-auto mb-12 text-balance text-center text-xl text-stone-500"
   >
     Stel geavanceerde zoekopdrachten in en ontvang nieuwe zoekresultaten in je
-    e-mail. {#if !page.data.identity}Maak een account aan.{/if}
+    e-mail.
   </h3>
 
   <a
@@ -21,5 +23,10 @@
     {#if page.data.identity}Begin met zoeken{:else}Maak een gratis account aan{/if}
   </a>
 
-  <p class="text-center text-stone-500">Exclusief voor journalisten</p>
+  {#if !page.data.identity}
+    <p class="text-center text-lg text-stone-500">
+      Heb je al een account?
+      <a href="/inloggen" class="text-stone-600 underline">Log in</a>.
+    </p>
+  {/if}
 </article>
