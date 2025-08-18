@@ -66,7 +66,7 @@ Met deze combinatie van expertise en toewijding bouwen we samen aan een revoluti
 
 ## Neem contact op
 
-We staan altijd open voor ideeën en feedback om Bron te verbeteren. Heb je suggesties, vragen of wil je samenwerken? Ons team hoort graag van je! Neem contact op onze projectleider Jan via jan@openstate.eu.
+We staan altijd open voor ideeën en feedback om Bron te verbeteren. Heb je suggesties, vragen of wil je samenwerken? Ons team hoort graag van je! Neem contact op via contact@openstate.eu.
 Sluit je aan en maak het verschil. Samen maken we Bron sterker.
 
 

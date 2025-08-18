@@ -48,8 +48,8 @@
         <p>
           Bron is altijd in beweging. Kom je ergens niet uit, of heb je
           suggesties? Stuur een mailtje naar
-          <a href="mailto:jan@openstate.eu" target="_blank" class="underline">
-            jan@openstate.eu
+          <a href="mailto:contact@openstate.eu" target="_blank" class="underline">
+            contact@openstate.eu
           </a>.
         </p>
       </div>
