@@ -231,7 +231,9 @@ def scrapers_poliflw(date_from, date_to, scroll):
 @click.option('-t', '--date-to', default=datetime.now() + timedelta(days=7))
 @click.option('-s', '--scroll', default=None)
 @click.option('-o', '--organizations', default=None)
-def scrapers_obv(date_from, date_to, scroll, organizations):
+@click.option('-i', '--target-index', default='jodal_documents', help='Target ES index')
+@click.option('--page-sleep', default=1, type=float, help='Seconds to sleep between pages (increase for bulk historical runs)')
+def scrapers_obv(date_from, date_to, scroll, organizations, target_index, page_sleep):
     config = load_config()
     es = setup_elasticsearch(config)
     try:
@@ -247,7 +249,9 @@ def scrapers_obv(date_from, date_to, scroll, organizations):
         'date_from': df,
         'date_to': dt,
         'scroll': scroll,
-        'organizations': organizations
+        'organizations': organizations,
+        'target_index': target_index,
+        'page_sleep': page_sleep,
     }
     OpenbesluitvormingScraperRunner().run(**kwargs)
 

@@ -227,6 +227,7 @@ class MeetingsAndAgendaScraper(ElasticSearchBulkLocationMixin, BaseWebScraper):
 
     def __init__(self, *args, **kwargs):
         super(MeetingsAndAgendaScraper, self).__init__(*args, **kwargs)
+        self.payload = deepcopy(self.__class__.payload)
         self.config = kwargs['config']
         self.date_from = kwargs['date_from']
         self.date_to = kwargs['date_to']
@@ -238,11 +239,14 @@ class MeetingsAndAgendaScraper(ElasticSearchBulkLocationMixin, BaseWebScraper):
             self.payload['query']['bool']['filter'].append(
                 {"terms": {"has_organization_name": ids_only}})
 
+        self.target_index = kwargs.get('target_index', 'jodal_documents')
+        self.page_sleep = kwargs.get('page_sleep', 1)
+
         self.scroll = kwargs.get('scroll', None)
         if self.scroll is not None:
             self.payload['scroll'] = self.scroll
 
-        self.payload['from'] = 0
+        self.payload.pop('from', None)
 
         self.payload['query']['bool']['filter'].append(
               {"terms": {"@type": self.types}})
@@ -255,8 +259,10 @@ class MeetingsAndAgendaScraper(ElasticSearchBulkLocationMixin, BaseWebScraper):
                     }
                 }
             })
-        self.payload['sort'] = {
-            self.date_field: {"order": "desc"}}
+        self.payload['sort'] = [
+            {self.date_field: {"order": "desc"}},
+            {"_id": {"order": "asc"}}
+        ]
         self.locations = None
         logging.info('Scraper: fetch from %s dates %s to %s, scroll time %s' % (
             self.organizations, self.date_from, self.date_to, self.scroll,))
@@ -273,17 +279,17 @@ class MeetingsAndAgendaScraper(ElasticSearchBulkLocationMixin, BaseWebScraper):
         return result
 
     def next(self):
-        if len(self.result_json.get('hits', {}).get('hits', [])) > 0:
-            scroll_id = self.result_json.get('meta', {}).get('scroll', None)
-            if scroll_id is not None:
-                self.payload['scroll_id'] = scroll_id
-            self.payload['from'] += self.page_size
+        hits = self.result_json.get('hits', {}).get('hits', [])
+        if hits:
+            self.payload['search_after'] = hits[-1]['sort']
             return True
+        self.payload.pop('search_after', None)
+        return None
 
     def fetch(self):
         if self.locations is None:
             self.locations = self._get_locations()
-        sleep(1)
+        sleep(self.page_sleep)
         result = super(MeetingsAndAgendaScraper, self).fetch()
         if result is not None:
             n_hits = len(result.get('hits', {}).get('hits', []))
@@ -295,13 +301,23 @@ class MeetingsAndAgendaScraper(ElasticSearchBulkLocationMixin, BaseWebScraper):
             return []
 
     def _get_description(self, sitem):
-        full_text = ''
         if sitem.get('text_pages') is not None:
-            full_text = '<p>' + "</p><p>".join(
-                [p['text'] for p in sitem['text_pages']]) + '</p>';
-        else:
-            full_text = sitem.get('text', '')
-        return full_text
+            return '<p>' + '</p><p>'.join(
+                [p['text'] for p in sitem['text_pages']]) + '</p>'
+        t = sitem.get('text')
+        if t is None:
+            return ''
+        if isinstance(t, list):
+            return '\n\n'.join(t)
+        return t or ''
+
+    def _get_md_text(self, sitem):
+        md = sitem.get('md_text')
+        if md is None:
+            return ''
+        if isinstance(md, list):
+            return '\n\n'.join(md)
+        return md or ''
 
     def transform(self, item):
         sitem = item['_source']
@@ -339,7 +355,7 @@ class MeetingsAndAgendaScraper(ElasticSearchBulkLocationMixin, BaseWebScraper):
 
                     r = {
                         '_id': h_id.hexdigest(),
-                        '_index': 'jodal_documents',
+                        '_index': self.target_index,
                         'id': h_id.hexdigest(),
                         'identifier': r_uri,
                         'url': obv_url,
@@ -347,6 +363,7 @@ class MeetingsAndAgendaScraper(ElasticSearchBulkLocationMixin, BaseWebScraper):
                         'location': location_id,
                         'title': sitem.get('name', ''),
                         'description': self._get_description(sitem),
+                        'md_text': self._get_md_text(sitem),
                         'created': sitem[self.date_field],
                         'modified': sitem[self.date_field],
                         'published': sitem[self.date_field],
