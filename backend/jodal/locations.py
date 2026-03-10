@@ -307,17 +307,18 @@ class LocationsScraperRunner(object):
         locations += self.extract_oo(items)
 
         location_names = [l['name'] for l in locations]
-        # logging.info(locations)
+        logging.info(location_names)
         total_counts = {}
         matched_counts = {}
         unmatched = {}
         for i in items:
             name = i['name']  # .replace('Gemeente ', '')
             if name in renames.get(i['source'], {}):
-                logging.info('Renamig %s => %s for %s' % (name, renames[i['source']][name]['Uniform'],i['source'],))
+                logging.info('Renaming %s => %s for %s' % (name, renames[i['source']][name]['Uniform'],i['source'],))
                 name = renames[i['source']][name]['Uniform']
 
             if name not in location_names:
+                logging.warning('Location %s from source %s not found in municipalities/provinces list' % (name, i['source'],))
                 continue
 
             if name not in result:
