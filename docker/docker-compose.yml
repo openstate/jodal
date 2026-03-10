@@ -1,4 +1,3 @@
-version: "2.1"
 services:
   nginx:
     build:
@@ -178,5 +177,5 @@ volumes:
 networks:
   jodal:
   nginx-load-balancer:
-    external:
-      name: docker_nginx-load-balancer
+    external: true
+    name: docker_nginx-load-balancer
