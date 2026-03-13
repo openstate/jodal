@@ -1,0 +1,59 @@
+log:
+  level: INFO
+
+entryPoints:
+  web:
+    # http
+    address: ':80'
+    http:
+      # https://docs.traefik.io/routing/entrypoints/#entrypoint
+      redirections:
+        entryPoint:
+          to: web-secure
+
+  web-secure:
+    # https
+    address: ':443'
+
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      email: 'info@linksmith.nl'
+      storage: /etc/traefik/acme/acme.json
+      httpChallenge:
+        entryPoint: web
+
+http:
+  routers:
+    frontend-router:
+      rule: 'Host(`chat.bron.live`)'
+      entryPoints:
+        - web-secure
+      service: frontend
+      tls:
+        certResolver: letsencrypt
+
+    backend-router:
+      rule: 'Host(`api.chat.bron.live`)'
+      entryPoints:
+        - web-secure
+      service: backend
+      tls:
+        certResolver: letsencrypt
+
+  services:
+    frontend:
+      loadBalancer:
+        servers:
+          - url: http://frontend:3000
+
+    backend:
+      loadBalancer:
+        servers:
+          - url: http://backend:8000
+
+providers:
+  # https://docs.traefik.io/master/providers/file/
+  file:
+    filename: /etc/traefik/traefik.yml
+    watch: true

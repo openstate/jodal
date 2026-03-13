@@ -1,0 +1,111 @@
+# Staging environment configuration for Bron Chat
+# This file extends the base docker-compose.yml with staging-specific settings
+# It mimics the production environment but with staging-specific configurations
+
+services:
+  traefik:
+    build:
+      context: .
+      dockerfile: ./traefik/Dockerfile.prod
+    image: traefik
+    depends_on:
+      - backend
+      - frontend
+    volumes:
+      - traefik:/etc/traefik/acme
+    ports:
+      - '0.0.0.0:80:80'
+      - '0.0.0.0:443:443'
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.prod
+    expose:
+      - "8000"
+    environment:
+      - PYTHONPATH=/app/backend
+      - QDRANT_HOST=${QDRANT_HOST}
+      - QDRANT_PORT=${QDRANT_PORT}
+      - COHERE_API_KEY=${COHERE_API_KEY}
+      - ENVIRONMENT=${ENVIRONMENT}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    volumes:
+      - ./backend:/app/backend
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      mysql:
+        condition: service_healthy
+      qdrant:
+        condition: service_started
+    env_file:
+      - .env
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    command: /entrypoint.sh
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.prod
+      args:
+        - PUBLIC_API_URL=${PUBLIC_API_URL}
+    expose:
+      - "3000"
+    environment:
+      - PUBLIC_API_URL=${PUBLIC_API_URL}
+    depends_on:
+      - backend
+    restart: unless-stopped
+  
+  qdrant:
+    image: qdrant/qdrant:v1.12.6
+    restart: unless-stopped
+    container_name: qdrant
+    ports:
+      - 6333:6333
+      - 6334:6334
+    # expose:
+    #   - 6333
+    #   - 6334
+    #   - 6335
+    configs:
+      - source: qdrant_config
+        target: /qdrant/config/production.yaml
+    volumes:
+      - /var/lib/qdrant_data/storage:/qdrant/storage
+
+  mysql:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    volumes:
+      - /var/lib/mysql:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 20s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  letsencrypt:
+  traefik: {}
+
+configs:
+  qdrant_config:
+    content: |
+      log_level: INFO 
