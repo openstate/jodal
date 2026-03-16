@@ -57,13 +57,16 @@ class ElasticSearchBulkMixin(MemoryMixin, ElasticsearchMixin):
         self.items = []
 
 class ElasticSearchBulkLocationMixin(ElasticSearchBulkMixin):
+    _location_names_cache = None
+
     def _get_location_names(self):
-        result = {}
+        if self._location_names_cache is not None:
+            return self._location_names_cache
         self._init_es()
-        logging.info('Fetching really locations')
+        logging.info('Fetching locations')
         locations = self.es.search(index='jodal_locations', body={"size": 500})
-        result = {l['_id'].lower(): l['_source']['name'] for l in locations['hits']['hits']}
-        return result
+        self._location_names_cache = {l['_id'].lower(): l['_source']['name'] for l in locations['hits']['hits']}
+        return self._location_names_cache
 
     def teardown(self):
         # get the location name for the location code specified
