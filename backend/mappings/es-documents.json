@@ -92,8 +92,7 @@
             },
             "md_text": {
               "type": "text",
-              "term_vector": "with_positions_offsets_payloads",
-              "analyzer": "fttext_nl"
+              "index": false
             },
             "created": {
               "type": "date"
