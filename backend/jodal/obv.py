@@ -264,6 +264,13 @@ class MeetingsAndAgendaScraper(ElasticSearchBulkLocationMixin, BaseWebScraper):
             {"_id": {"order": "asc"}}
         ]
         self.locations = None
+
+        # Resume support: inject a search_after cursor to skip ahead
+        resume_from = kwargs.get('resume_from', None)
+        if resume_from:
+            self.payload['search_after'] = json.loads(resume_from)
+            logging.info('Resuming from cursor: %s' % resume_from)
+
         logging.info('Scraper: fetch from %s dates %s to %s, scroll time %s' % (
             self.organizations, self.date_from, self.date_to, self.scroll,))
 
@@ -282,6 +289,7 @@ class MeetingsAndAgendaScraper(ElasticSearchBulkLocationMixin, BaseWebScraper):
         hits = self.result_json.get('hits', {}).get('hits', [])
         if hits:
             self.payload['search_after'] = hits[-1]['sort']
+            logging.info('CURSOR:%s' % json.dumps(hits[-1]['sort']))
             return True
         self.payload.pop('search_after', None)
         return None
@@ -395,11 +403,20 @@ class OpenbesluitvormingScraperRunner(object):
         MeetingsAndAgendaScraper,
         MediaObjectsScraper
     ]
+    scraper_names = {
+        'meetings': MeetingsAndAgendaScraper,
+        'media': MediaObjectsScraper,
+    }
 
 
     def run(self, *args, **kwargs):
+        only = kwargs.pop('only_scrapers', None)
+        if only:
+            scrapers = [self.scraper_names[n] for n in only.split(',')]
+        else:
+            scrapers = self.scrapers
         items = []
-        for scraper in self.scrapers:
+        for scraper in scrapers:
             k = scraper(**kwargs)
             try:
                 k.items = []

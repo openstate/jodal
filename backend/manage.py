@@ -233,7 +233,9 @@ def scrapers_poliflw(date_from, date_to, scroll):
 @click.option('-o', '--organizations', default=None)
 @click.option('-i', '--target-index', default='jodal_documents', help='Target ES index')
 @click.option('--page-sleep', default=1, type=float, help='Seconds to sleep between pages (increase for bulk historical runs)')
-def scrapers_obv(date_from, date_to, scroll, organizations, target_index, page_sleep):
+@click.option('--resume-from', default=None, help='JSON search_after cursor to resume from (e.g. \'[1234567890000, "abc"]\')')
+@click.option('--only-scrapers', default=None, help='Comma-separated scraper names to run: meetings,media')
+def scrapers_obv(date_from, date_to, scroll, organizations, target_index, page_sleep, resume_from, only_scrapers):
     config = load_config()
     es = setup_elasticsearch(config)
     try:
@@ -252,6 +254,8 @@ def scrapers_obv(date_from, date_to, scroll, organizations, target_index, page_s
         'organizations': organizations,
         'target_index': target_index,
         'page_sleep': page_sleep,
+        'resume_from': resume_from,
+        'only_scrapers': only_scrapers,
     }
     OpenbesluitvormingScraperRunner().run(**kwargs)
 
