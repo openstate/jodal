@@ -51,7 +51,6 @@
     "layerchart": "^0.99.1",
     "lru-cache": "^11.0.2",
     "marked": "^15.0.6",
-    "svelte-infinite-scroll": "^2.0.1",
     "svelte-preprocess": "^6.0.0"
   }
 }

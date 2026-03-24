@@ -2,12 +2,9 @@
   import {
     IconBookmarkFilled,
     IconFilter,
-    IconQuestionMark,
     IconSearch,
     IconX,
   } from "@tabler/icons-svelte";
-
-  import InfiniteScroll from "svelte-infinite-scroll";
 
   import { type DocumentResponse } from "$lib/types/api";
   import Document from "$lib/components/document.svelte";
@@ -20,18 +17,35 @@
 
   import { createQueryState } from "./state.svelte";
   import { debounce } from "$lib/utils.svelte";
-  import { browser } from "$app/environment";
   import { fetchDocuments } from "$lib/loaders";
   import { page } from "$app/state";
+  import { onMount } from "svelte";
 
   const { format: formatNumber } = new Intl.NumberFormat("nl-NL");
 
   // Reference to the DOM element that scrolls, which differs from body.
-  const element = (browser && document?.getElementById("scroll")) || undefined;
+  let element = $state<HTMLElement | undefined>();
+  let loadMoreButton = $state<HTMLButtonElement | undefined>();
+
+  onMount(() => {
+    element = document.getElementById("scroll") ?? undefined;
+    if (!loadMoreButton || !element) return;
+
+    const observer = new IntersectionObserver(
+      (entries) =>
+        entries.some((entry) => entry.isIntersecting) && onLoadMore(),
+      { root: element, rootMargin: "500px 0px", threshold: 0 },
+    );
+
+    observer.observe(loadMoreButton);
+
+    return () => observer?.disconnect();
+  });
 
   let { data } = $props();
 
   let documents = $state<DocumentResponse["hits"]["hits"]>([]);
+  let totalResults = $state(0);
   let pageNumber = $state(0);
   let isLoading = $state(true);
 
@@ -40,6 +54,7 @@
     onChange: () => {
       isLoading = true;
       documents = [];
+      pageNumber = 0;
       element?.scrollTo(0, 0);
     },
   });
@@ -48,34 +63,46 @@
   let filtersOpen = $state(false);
   let newFeedsOpen = $state(false);
 
-  // Wraps an async function to set `isLoading` before and after execution.
-  const wrapLoading =
-    <T,>(fn: () => Promise<T>) =>
-    () => {
-      isLoading = true;
-      fn().finally(() => (isLoading = false));
-    };
-
   // Effect to update `documents` with awaited `data.documents`, on load and when URL changes.
   $effect(() => {
-    let documentPromise = data.documents.then((d) => d.hits.hits);
-    const loadDocuments = wrapLoading(async () => {
-      documents = await documentPromise;
-    });
+    const loadDocuments = async () => {
+      isLoading = true;
+      try {
+        const response = await data.documents;
+        pageNumber = 0;
+        totalResults = response.hits.total.value;
+        documents = response.hits.hits;
+      } finally {
+        isLoading = false;
+      }
+    };
+
     loadDocuments();
   });
 
-  // Function to load more documents when the user scrolls to the bottom.
-  const onLoadMore = wrapLoading(async () => {
-    const newDocuments = await fetchDocuments({
-      url: page.url,
-      locations: data.locations,
-      pageNumber: ++pageNumber,
-      fetch,
-    });
+  const hasMoreResults = $derived(documents.length < totalResults);
 
-    documents = documents.concat(newDocuments.hits.hits);
-  });
+  // Function to load more documents when the user scrolls to the bottom.
+  const onLoadMore = async () => {
+    if (isLoading) return;
+    if (!hasMoreResults) return;
+
+    isLoading = true;
+    try {
+      const nextPage = pageNumber + 1;
+      const newDocuments = await fetchDocuments({
+        url: page.url,
+        locations: data.locations,
+        pageNumber: nextPage,
+        fetch,
+      });
+
+      pageNumber = nextPage;
+      documents = documents.concat(newDocuments.hits.hits);
+    } finally {
+      isLoading = false;
+    }
+  };
 
   // Debounced function to set the query term on input bind.
   const setQueryTerm = debounce((v: string) => {
@@ -89,14 +116,14 @@
 
 <MakeFeed bind:open={newFeedsOpen} />
 
-<div class="max-w-300 mx-auto grid gap-10 px-6 md:grid-cols-[1fr_20rem]">
+<div class="mx-auto grid max-w-300 gap-10 px-6 md:grid-cols-[1fr_20rem]">
   <div>
     <form
       onsubmit={(e) => {
         e.preventDefault();
         query.term = new FormData(e.currentTarget).get("zoek") as string;
       }}
-      class="sticky -top-4 z-10 border-b border-stone-300 bg-stone-50 pb-4 pt-8 max-md:-m-6 max-md:-mb-2 max-md:w-screen max-md:px-6 md:top-0"
+      class="sticky -top-4 z-10 border-b border-stone-300 bg-stone-50 pt-8 pb-4 max-md:-m-6 max-md:-mb-2 max-md:w-screen max-md:px-6 md:top-0"
     >
       <div
         class="flex w-full items-center rounded-lg border border-stone-300 bg-white outline-0 transition focus-within:border-stone-300"
@@ -104,7 +131,7 @@
         <!-- svelte-ignore a11y_autofocus -- search is legitimate use of autofocus -->
         <input
           autofocus={true}
-          class="grow rounded-lg border-0 px-4 py-3 outline-0 ring-0"
+          class="grow rounded-lg border-0 px-4 py-3 ring-0 outline-0"
           type="search"
           name="zoek"
           placeholder="Zoek documenten..."
@@ -162,7 +189,7 @@
         </a>
       </div>
 
-      {#each documents as document}
+      {#each documents as document (document._id)}
         <Document {document} />
       {/each}
 
@@ -172,11 +199,17 @@
         {/each}
       {/if}
 
-      <InfiniteScroll
-        threshold={500}
-        on:loadMore={onLoadMore}
-        elementScroll={element}
-      />
+      <div class={["mb-10", !hasMoreResults && "hidden"]}>
+        <button
+          bind:this={loadMoreButton}
+          class="cursor-pointer rounded-lg border border-stone-300 bg-white px-4 py-2 font-medium text-stone-800 transition hover:bg-stone-100 disabled:cursor-auto disabled:opacity-50"
+          onclick={onLoadMore}
+          disabled={isLoading || !hasMoreResults}
+          type="button"
+        >
+          Meer resultaten tonen
+        </button>
+      </div>
     </div>
   </div>
   <aside
@@ -192,7 +225,7 @@
       ]}
     >
       <button
-        class="absolute right-8 top-8 md:hidden"
+        class="absolute top-8 right-8 md:hidden"
         onclick={() => (filtersOpen = false)}
       >
         <IconX class="text-stone-800" />
