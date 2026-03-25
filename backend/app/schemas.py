@@ -47,6 +47,7 @@ class FeedSchema(ma.Schema):
         fields = ("id", "public_id", "user_id", "name", "query", "locations", "sources", "binoas_feed_id", "binoas_user_id", "binoas_frequency")
         model = Feed
 
+    user_id = fields.String()
     locations = ListField()
     sources = ListField()
 
@@ -64,6 +65,7 @@ class ColumnSchema(ma.Schema):
             "src_cvdr", "sort", "sort_order", "date_start",  "date_end",
             "read_counts")
         model = Column
+    user_id = fields.String()
     read_counts = ObjectField()
     locations = ListField()  # fields.Str()
     date_start = fields.DateTime(allow_none=True, default=None)
