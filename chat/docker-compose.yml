@@ -1,0 +1,20 @@
+# Base Docker Compose configuration for Bron Chat
+# This file contains the common configuration shared across all environments
+# It is extended by environment-specific files (dev, prod, staging)
+
+services:
+  backend:
+    # ... existing backend configuration ...
+    # Add these lines:
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000  # Keep your default command
+    # Add aliases for common operations
+    profiles:
+      - app
+    
+  # Add a new service for CLI operations
+  backend-cli:
+    extends: backend
+    profiles:
+      - cli
+    command: python -m app.config_cli  # CLI entry point for administrative tasks
+    entrypoint: [] 
