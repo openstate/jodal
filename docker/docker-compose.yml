@@ -139,7 +139,7 @@ services:
       - IPC_LOCK
     volumes:
       - esdata:/usr/share/elasticsearch/data
-      - ../backups/elasticsearch:/opt/elasticsearch/backups
+      - /mnt/es-snapshots-storagebox:/opt/elasticsearch/backups
     restart: unless-stopped
     healthcheck:
       test: curl -s http://127.0.0.1:9200/_cat/health
