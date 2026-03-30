@@ -344,7 +344,7 @@ class MeetingsAndAgendaScraper(ElasticSearchBulkLocationMixin, BaseWebScraper):
                     location_id = self.locations[location_uri]
                 except KeyError as e:
                     logging.error("Could not match %s against local locations" % (location_uri,))
-                    logging.error(sitem['name'])
+                    logging.error(sitem.get('name', '<no name>'))
                     #logging.error(pformat(sitem))
                     location_id = None
                 if location_id is not None:
