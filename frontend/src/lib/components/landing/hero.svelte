@@ -24,7 +24,7 @@
       Superkrachten voor journalisten
     </h1>
     <h2 class="text-balance text-xl text-stone-100/80 sm:text-2xl">
-      Doorzoek meer dan 2 miljoen overheidsdocumenten op één plek.
+      Doorzoek meer dan 6 miljoen overheidsdocumenten op één plek.
     </h2>
     <form
       action="/zoeken"
