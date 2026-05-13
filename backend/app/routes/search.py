@@ -61,8 +61,7 @@ def perform_search(index_name=None, format='json'):
 
 @search_bp.route("/")
 def index():
-    term = "*"
-    results = perform_query(term, "", 0)
+    results = perform_search()
     return jsonify(results)
 
 @search_bp.route('/search')
