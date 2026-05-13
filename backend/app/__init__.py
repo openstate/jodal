@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 import logging
 import json
+import sentry_sdk
+from sentry_sdk.integrations.flask import FlaskIntegration
 
 from flask_restful import Api
 from app.extensions import db, ma
@@ -14,6 +16,12 @@ from flask import Flask
 from app.routes.users import users_bp
 from app.routes.search import search_bp
 from app.routes.subscriptions import subscriptions_bp
+
+sentry_sdk.init(
+    dsn=getattr(Config, 'SENTRY_DSN', None),
+    integrations=[FlaskIntegration()],
+    send_default_pii=True,
+)
 
 def create_app():
     app = Flask(__name__)

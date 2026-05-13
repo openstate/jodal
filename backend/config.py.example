@@ -23,3 +23,4 @@ class Config(object):
     TOKEN_URL='http://fusionauth:9011/oauth2/token'
     USERINFO_URL='http://fusionauth:9011/oauth2/userinfo'
     REDIRECT_URI='http://api.bron.live/users/simple/callback'
+    SENTRY_DSN=None  # set to Sentry DSN to enable error monitoring

@@ -49,6 +49,10 @@ Bron uses [Alembic](https://alembic.sqlalchemy.org/en/latest/index.html) for dat
 - Migrate: `docker exec jodal_backend_1 alembic upgrade head`
 - Rollback: `docker exec jodal_backend_1 alembic downgrade -1`
 
+### Error monitoring
+
+Bron uses [Sentry](https://sentry.io) for error monitoring in both the API (`/backend/app`) and the scrapers (`/backend/manage.py`). Set `SENTRY_DSN` in `backend/config.py` to enable it. Setting it to `None` or omitting it disables Sentry entirely.
+
 ## Contact
 
 Send an email to developers@openstate.eu.

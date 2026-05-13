@@ -13,6 +13,10 @@ from time import sleep
 import glob
 from pprint import pprint
 
+import sentry_sdk
+from config import Config
+sentry_sdk.init(dsn=getattr(Config, 'SENTRY_DSN', None))
+
 import requests
 from redis import Redis
 from rq import Connection, Queue, Worker
