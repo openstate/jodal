@@ -70,6 +70,9 @@ class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseWebScraper):
         if self.locations is None:
             self.locations = self._get_locations()
         self.html = etree.HTML(requests.get(self.url).content)
+        if self.html is None:
+            logging.warning('Scraper: could not parse HTML from %s' % self.url)
+            return []
         entries = self.html.xpath('//div[@id="content"]/div[contains(@class,"result--list--wide")]/ul/li')
         if entries is not None:
             logging.info(
