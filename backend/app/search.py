@@ -157,6 +157,9 @@ def get_basic_query(filters, term, page, page_size, sort, includes, excludes, de
                 else:
                     sort_clause.append(fld)
 
+        if term.count('"') % 2 != 0:
+            term = term.replace('"', '')
+
         sqs = {
                 "query_string" : {
                     "query" : term,
