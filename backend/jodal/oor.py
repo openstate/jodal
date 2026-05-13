@@ -57,6 +57,8 @@ class DocumentsScraper(ElasticSearchBulkLocationMixin, BaseWebScraper):
         return result
 
     def next(self):
+        if self.html is None:
+            return None
         next_url = urljoin(OOR_URL, u''.join(self.html.xpath('//li[@class="next"]/a/@href')))
         #next_link = u''.join(self.html.xpath('//li[@class="next"]/a/@href'))
         logging.info(f'Should get next page: {next_url}')
