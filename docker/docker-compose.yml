@@ -122,6 +122,8 @@ services:
       - ./fa-kickstart/:/opt/kickstart
   elasticsearch:
     image: "docker.elastic.co/elasticsearch/elasticsearch:${ES_VERSION}"
+    group_add:
+      - "1036"
     environment:
       - http.host=0.0.0.0
       - transport.host=127.0.0.1
@@ -140,7 +142,7 @@ services:
     volumes:
       - esdata:/usr/share/elasticsearch/data
       - type: bind
-        source: /mnt/es-snapshots-storagebox
+        source: /mnt/es-snapshots-storagebox/es-snapshots
         target: /opt/elasticsearch/backups
         bind:
           propagation: shared
