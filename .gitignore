@@ -9,3 +9,4 @@ __pycache__
 heritrix/jobs/*
 .vscode
 backups/**
+docker/fa_config/**

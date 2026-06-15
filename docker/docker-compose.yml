@@ -118,7 +118,7 @@ services:
     # - "9011:9011"
     restart: unless-stopped
     volumes:
-      - fa_config:/usr/local/fusionauth/config
+      - ./fa_config:/usr/local/fusionauth/config
       - ./fa-kickstart/:/opt/kickstart
   elasticsearch:
     image: "docker.elastic.co/elasticsearch/elasticsearch:${ES_VERSION}"
@@ -139,7 +139,11 @@ services:
       - IPC_LOCK
     volumes:
       - esdata:/usr/share/elasticsearch/data
-      - /mnt/es-snapshots-storagebox:/opt/elasticsearch/backups
+      - type: bind
+        source: /mnt/es-snapshots-storagebox
+        target: /opt/elasticsearch/backups
+        bind:
+          propagation: shared
     restart: unless-stopped
     healthcheck:
       test: curl -s http://127.0.0.1:9200/_cat/health
@@ -169,8 +173,6 @@ volumes:
   esdata:
     driver: local
   jodal-mysql-volume:
-    driver: local
-  fa_config:
     driver: local
   redisdata:
     driver: local
